@@ -8,15 +8,14 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath.base}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/ng-elemental",
+        "outputPath": {
+          "base": "dist/ng-elemental"
+        },
         "index": "./src/index.html",
-        "main": "./src/main.ts",
         "tsConfig": "tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -25,9 +24,8 @@
             "input": "public"
           }
         ],
-        "styles": [
-          "./src/styles.scss"
-        ]
+        "styles": ["./src/styles.scss"],
+        "browser": "./src/main.ts"
       },
       "configurations": {
         "production": {
@@ -46,18 +44,15 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
+          "sourceMap": true
         }
       }
     },
     "serve": {
       "continuous": true,
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
       "configurations": {
         "production": {
@@ -69,7 +64,7 @@
       }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "ng-elemental:build"
       }
@@ -77,9 +72,7 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "./src"
-        ]
+        "lintFilePatterns": ["./src"]
       }
     },
     "serve-static": {
@@ -87,7 +80,51 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "ng-elemental:build",
+        "staticFilePath": "dist/ng-elemental/browser",
         "spa": true
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular-vite:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "./.storybook",
+        "compodoc": false,
+        "styles": ["./src/styles.scss"]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular-vite:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/ng-elemental",
+        "configDir": "./.storybook",
+        "compodoc": false,
+        "styles": ["./src/styles.scss"]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "dependsOn": ["build-storybook"],
+      "options": {
+        "buildTarget": "ng-elemental:build-storybook",
+        "staticFilePath": "dist/storybook/ng-elemental",
+        "spa": true
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "ng-elemental:build-storybook:ci"
+        }
       }
     }
   }

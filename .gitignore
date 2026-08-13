@@ -45,3 +45,6 @@ Thumbs.db
 .claude/settings.local.json
 
 .angular
+
+
+storybook-static
