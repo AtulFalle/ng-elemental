@@ -9,7 +9,9 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath.base}"],
+      "outputs": [
+        "{options.outputPath.base}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": {
@@ -24,7 +26,11 @@
             "input": "public"
           }
         ],
-        "styles": ["./src/styles.scss"],
+        "styles": [
+          "node_modules/@fontsource-variable/geist/index.css",
+          "node_modules/@fontsource-variable/geist-mono/index.css",
+          "./src/styles.scss"
+        ],
         "browser": "./src/main.ts"
       },
       "configurations": {
@@ -72,7 +78,9 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["./src"]
+        "lintFilePatterns": [
+          "./src"
+        ]
       }
     },
     "serve-static": {
@@ -90,7 +98,9 @@
         "port": 4400,
         "configDir": "./.storybook",
         "compodoc": false,
-        "styles": ["./src/styles.scss"]
+        "styles": [
+          "./src/styles.scss"
+        ]
       },
       "configurations": {
         "ci": {
@@ -100,12 +110,16 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular-vite:build-storybook",
-      "outputs": ["{options.outputDir}"],
+      "outputs": [
+        "{options.outputDir}"
+      ],
       "options": {
         "outputDir": "dist/storybook/ng-elemental",
         "configDir": "./.storybook",
         "compodoc": false,
-        "styles": ["./src/styles.scss"]
+        "styles": [
+          "./src/styles.scss"
+        ]
       },
       "configurations": {
         "ci": {
@@ -115,7 +129,9 @@
     },
     "static-storybook": {
       "executor": "@nx/web:file-server",
-      "dependsOn": ["build-storybook"],
+      "dependsOn": [
+        "build-storybook"
+      ],
       "options": {
         "buildTarget": "ng-elemental:build-storybook",
         "staticFilePath": "dist/storybook/ng-elemental",
@@ -125,6 +141,14 @@
         "ci": {
           "buildTarget": "ng-elemental:build-storybook:ci"
         }
+      }
+    },
+    "local-registry": {
+      "executor": "@nx/js:verdaccio",
+      "options": {
+        "port": 4873,
+        "config": ".verdaccio/config.yml",
+        "storage": "tmp/local-registry/storage"
       }
     }
   }

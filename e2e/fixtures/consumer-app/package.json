@@ -1,0 +1,7 @@
+{
+  "name": "consumer-app",
+  "private": true,
+  "dependencies": {
+    "@angular/core": "~22.0.4"
+  }
+}

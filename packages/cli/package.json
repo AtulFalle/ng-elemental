@@ -1,0 +1,29 @@
+{
+  "name": "@ng-elemental/cli",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "CLI to copy NgElemental Angular components into your project",
+  "type": "commonjs",
+  "main": "./index.cjs",
+  "types": "./index.d.ts",
+  "bin": {
+    "ng-elemental": "./index.cjs"
+  },
+  "files": [
+    "index.cjs",
+    "registry"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtulFalle/ng-elemental.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/AtulFalle/ng-elemental#readme",
+  "bugs": {
+    "url": "https://github.com/AtulFalle/ng-elemental/issues"
+  },
+  "dependencies": {}
+}

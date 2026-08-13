@@ -1,0 +1,63 @@
+.el-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  font-family: var(--el-font-sans, 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif);
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--sm {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+  }
+
+  &--md {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  &--lg {
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+  }
+
+  &--primary {
+    background-color: #1d4ed8;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background-color: #1e40af;
+    }
+  }
+
+  &--secondary {
+    background-color: #e5e7eb;
+    color: #111827;
+
+    &:hover:not(:disabled) {
+      background-color: #d1d5db;
+    }
+  }
+
+  &--ghost {
+    background-color: transparent;
+    color: #1d4ed8;
+
+    &:hover:not(:disabled) {
+      background-color: #eff6ff;
+    }
+  }
+}

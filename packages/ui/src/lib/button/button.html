@@ -1,0 +1,13 @@
+<button
+  class="el-button"
+  [class.el-button--primary]="variant() === 'primary'"
+  [class.el-button--secondary]="variant() === 'secondary'"
+  [class.el-button--ghost]="variant() === 'ghost'"
+  [class.el-button--sm]="size() === 'sm'"
+  [class.el-button--md]="size() === 'md'"
+  [class.el-button--lg]="size() === 'lg'"
+  [disabled]="disabled()"
+  [type]="type()"
+>
+  <ng-content />
+</button>

@@ -1,7 +1,10 @@
 import type { StorybookConfig } from '@storybook/angular-vite';
 
 const config: StorybookConfig = {
-  stories: ['../src/app/**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
+  stories: [
+    '../src/app/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
+    '../packages/ui/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
+  ],
   addons: [],
   framework: {
     name: '@storybook/angular-vite',
@@ -9,6 +12,7 @@ const config: StorybookConfig = {
       jit: true,
       compodoc: false,
       inlineStylesExtension: 'scss',
+      tsconfig: './.storybook/tsconfig.json',
     },
   },
 };

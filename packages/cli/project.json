@@ -1,0 +1,57 @@
+{
+  "name": "cli",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/cli/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "manifestRootsToUpdate": ["dist/{projectRoot}"],
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk"
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["ui"],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/cli",
+        "main": "packages/cli/src/index.ts",
+        "outputFileName": "index.cjs",
+        "tsConfig": "packages/cli/tsconfig.lib.json",
+        "platform": "node",
+        "format": ["cjs"],
+        "assets": [
+          {
+            "glob": "package.json",
+            "input": "packages/cli",
+            "output": "."
+          },
+          {
+            "glob": "button.{ts,html,scss}",
+            "input": "packages/ui/src/lib/button",
+            "output": "registry/button"
+          }
+        ],
+        "esbuildOptions": {
+          "banner": {
+            "js": "#!/usr/bin/env node"
+          }
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "dependsOn": ["build"]
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}

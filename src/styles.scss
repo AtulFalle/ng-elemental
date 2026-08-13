@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
+  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+}
+
+html,
+body {
+  font-family: var(--el-font-sans);
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--el-font-mono);
+}

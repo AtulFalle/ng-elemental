@@ -1,101 +1,135 @@
 # NgElemental
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Copy-paste Angular components for your app — a shadcn-style workflow, not an npm UI kit.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+You run a CLI, the component source (HTML, TypeScript, SCSS) lands in your project, and you own it.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Prerequisites
 
-## Run tasks
+An Angular application (v22+ recommended). No Tailwind. Components use encapsulated SCSS / BEM.
 
-To run the dev server for your app, use:
+Default type: **Geist** (UI) and **Geist Mono** (code). This repo loads them with `@fontsource-variable/geist` and `@fontsource-variable/geist-mono`. In your app, install those packages, add their CSS to `styles` in `angular.json` / `project.json`, and set:
 
-```sh
-npx nx serve ng-elemental
+```scss
+:root {
+  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
+  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+}
 ```
 
-To create a production bundle:
+## Install and add Button
+
+From your Angular app:
 
 ```sh
-npx nx build ng-elemental
+npx @ng-elemental/cli init
+npx @ng-elemental/cli add button
 ```
 
-To see all available targets to run for a project, run:
+`init` creates `elemental.json` and the components directory (`src/app/ui` by default).
+
+`add button` copies:
+
+```
+src/app/ui/button/
+  button.ts
+  button.html
+  button.scss
+```
+
+## Usage
+
+Import `ElButton` into a standalone component and use it in the template:
+
+```ts
+import { Component } from '@angular/core';
+import { ElButton } from './ui/button/button';
+
+@Component({
+  selector: 'app-root',
+  imports: [ElButton],
+  template: `<el-button variant="primary" size="md">Save</el-button>`,
+})
+export class App {}
+```
+
+```html
+<el-button variant="primary">Save</el-button>
+<el-button variant="secondary" size="sm">Cancel</el-button>
+<el-button variant="ghost" disabled>Disabled</el-button>
+```
+
+Inputs: `variant` (`primary` | `secondary` | `ghost`), `size` (`sm` | `md` | `lg`), `disabled`, `type` (`button` | `submit` | `reset`).
+
+If the target folder already exists, pass `--force` to overwrite:
 
 ```sh
-npx nx show project ng-elemental
+npx @ng-elemental/cli add button --force
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
+## Local development (this repo)
 
 ```sh
-npx nx g @nx/angular:app demo
+# Storybook — Button catalog
+npx nx storybook ng-elemental
+
+# Build the CLI (bin + registry)
+npx nx build cli
+
+# E2E: publish CLI to local Verdaccio, npm install, init + add button
+npx nx test cli
 ```
 
-To generate a new library, use:
+`nx test cli` starts Verdaccio (`nx local-registry`), publishes `@ng-elemental/cli@0.0.0-e2e`, then installs that package into a temp consumer app and runs `init` / `add button`. Needs network once so Verdaccio can proxy `@angular/core`.
+
+After `nx build cli`, the CLI is at `dist/packages/cli/index.cjs` with registry files at `dist/packages/cli/registry/button/`.
+
+You can run it against a local Angular app:
 
 ```sh
-npx nx g @nx/angular:lib mylib
+node dist/packages/cli/index.cjs init --yes
+node dist/packages/cli/index.cjs add button
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## Publish checklist
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Only `@ng-elemental/cli` is published. `@ng-elemental/ui` stays internal (source of truth for Storybook and the CLI registry).
 
-## Set up CI!
+Versioning is **fixed**. Git tags look like `v1.2.3`. Pushing a matching tag publishes via GitHub Actions.
 
-### Step 1
+### One-time setup
 
-To connect to Nx Cloud, run the following command:
+1. Create the `@ng-elemental` org on [npmjs.com](https://www.npmjs.com/) (or get publish access).
+2. Create a granular npm token with read/write on `@ng-elemental/cli` and the org.
+3. Add GitHub repo secret `NPM_ACCESS_TOKEN` with that token.
+4. Confirm `master` CI is green.
 
-```sh
-npx nx connect
-```
+### Every release
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+1. On a clean `master`:
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+   ```sh
+   # First public release only:
+   npx nx release --first-release --skip-publish
 
-### Step 2
+   # Later releases:
+   npx nx release --skip-publish
+   ```
 
-Use the following command to configure a CI workflow for your workspace:
+   This bumps the version, writes `CHANGELOG.md`, commits, and creates tag `vX.Y.Z`. Do **not** publish from your machine.
 
-```sh
-npx nx g ci-workflow
-```
+2. Push the commit and tag:
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+   ```sh
+   git push && git push --tags
+   ```
 
-## Install Nx Console
+3. Confirm the **Publish** workflow is green.
+4. Confirm the package:
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+   ```sh
+   npm view @ng-elemental/cli
+   npx @ng-elemental/cli@latest add button
+   ```
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Do not run `npx nx release` (without `--skip-publish`) unless you intend to publish from your laptop.
