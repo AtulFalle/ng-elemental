@@ -3,8 +3,22 @@ import { join } from 'node:path';
 import { readConfig } from './config';
 import { getComponentRegistryDir } from './registry';
 
-export const AVAILABLE_COMPONENTS = ['button'] as const;
+export const AVAILABLE_COMPONENTS = ['button', 'label'] as const;
 export type AvailableComponent = (typeof AVAILABLE_COMPONENTS)[number];
+
+const COMPONENT_EXAMPLES: Record<
+  AvailableComponent,
+  { className: string; usage: string }
+> = {
+  button: {
+    className: 'ElButton',
+    usage: '<el-button variant="primary">Save</el-button>',
+  },
+  label: {
+    className: 'ElLabel',
+    usage: '<el-label htmlFor="email" variant="default">Email</el-label>',
+  },
+};
 
 export interface AddOptions {
   cwd: string;
@@ -38,15 +52,16 @@ export function addCommand(options: AddOptions): void {
   copyComponentFiles(srcDir, destDir);
 
   const importPath = toAppImportPath(config.componentsDir, name);
+  const example = COMPONENT_EXAMPLES[name as AvailableComponent];
   console.log(`Added ${name} to ${config.componentsDir}/${name}`);
   console.log('');
   console.log('Import it in your component:');
   console.log('');
-  console.log(`  import { ElButton } from '${importPath}';`);
+  console.log(`  import { ${example.className} } from '${importPath}';`);
   console.log('');
   console.log('Then use:');
   console.log('');
-  console.log('  <el-button variant="primary">Save</el-button>');
+  console.log(`  ${example.usage}`);
 }
 
 function copyComponentFiles(srcDir: string, destDir: string): void {

@@ -1,0 +1,13 @@
+<label
+  class="el-label"
+  [class.el-label--default]="variant() === 'default'"
+  [class.el-label--muted]="variant() === 'muted'"
+  [class.el-label--error]="variant() === 'error'"
+  [class.el-label--disabled]="disabled()"
+  [attr.for]="htmlFor() || null"
+>
+  <ng-content />
+  @if (required()) {
+    <span class="el-label__required" aria-hidden="true">*</span>
+  }
+</label>

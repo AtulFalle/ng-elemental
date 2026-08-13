@@ -110,3 +110,48 @@ describe('add button e2e', () => {
     }
   });
 });
+
+describe('add label e2e', () => {
+  it('installs @ng-elemental/cli from npm and adds ElLabel', async () => {
+    const registry = localRegistryUrl();
+    const tmp = await mkdtemp(join(tmpdir(), 'ng-elemental-e2e-'));
+
+    try {
+      await cp(fixtureDir, tmp, { recursive: true });
+
+      npmInstall(
+        ['install', '@ng-elemental/cli@e2e', '--registry', registry, '--no-fund', '--no-audit'],
+        tmp,
+      );
+
+      const installedRoot = join(tmp, 'node_modules/@ng-elemental/cli');
+      const cliBin = join(installedRoot, 'index.cjs');
+      expect(existsSync(cliBin), `Installed CLI missing at ${cliBin}`).toBe(true);
+      expect(existsSync(join(installedRoot, 'registry/label/label.ts'))).toBe(true);
+      expect(existsSync(join(installedRoot, 'registry/label/label.html'))).toBe(true);
+      expect(existsSync(join(installedRoot, 'registry/label/label.scss'))).toBe(true);
+      expect(existsSync(join(installedRoot, 'registry/label/label.stories.ts'))).toBe(false);
+
+      run(process.execPath, [cliBin, 'init', '--yes'], tmp);
+      run(process.execPath, [cliBin, 'add', 'label'], tmp);
+
+      const labelTs = await readFile(join(tmp, 'src/app/ui/label/label.ts'), 'utf8');
+      expect(labelTs).toContain("selector: 'el-label'");
+      expect(labelTs).toContain('export class ElLabel');
+      expect(labelTs).toContain("ElLabelVariant = 'default' | 'muted' | 'error'");
+
+      const labelHtml = await readFile(join(tmp, 'src/app/ui/label/label.html'), 'utf8');
+      expect(labelHtml).toContain('el-label');
+      expect(labelHtml).toContain('<ng-content');
+      expect(labelHtml).toContain('[attr.for]');
+
+      const labelScss = await readFile(join(tmp, 'src/app/ui/label/label.scss'), 'utf8');
+      expect(labelScss).toContain('.el-label');
+      expect(labelScss).toContain('--el-font-sans');
+
+      expect(existsSync(join(tmp, 'src/app/ui/label/label.stories.ts'))).toBe(false);
+    } finally {
+      await rm(tmp, { recursive: true, force: true });
+    }
+  });
+});

@@ -1,0 +1,30 @@
+.el-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--el-font-sans, 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--default {
+    color: #111827;
+  }
+
+  &--muted {
+    color: #6b7280;
+  }
+
+  &--error {
+    color: #dc2626;
+  }
+
+  &__required {
+    color: #dc2626;
+  }
+}

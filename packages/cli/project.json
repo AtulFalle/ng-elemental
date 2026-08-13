@@ -33,6 +33,11 @@
             "glob": "button.{ts,html,scss}",
             "input": "packages/ui/src/lib/button",
             "output": "registry/button"
+          },
+          {
+            "glob": "label.{ts,html,scss}",
+            "input": "packages/ui/src/lib/label",
+            "output": "registry/label"
           }
         ],
         "esbuildOptions": {

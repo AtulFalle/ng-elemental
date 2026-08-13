@@ -46,5 +46,6 @@ Usage:
 Commands:
   init          Create elemental.json and the components directory
   add button    Copy the Button component into your project
+  add label     Copy the Label component into your project
 `);
 }
