@@ -8,7 +8,7 @@ on:
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 permissions:
   contents: read
@@ -41,3 +41,58 @@ jobs:
 
       - name: Test and e2e
         run: npx nx run-many -t test
+
+  publish-cli:
+    name: Publish @ng-elemental/cli
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build CLI only
+        run: npx nx build cli
+
+      - name: Verify publish target is @ng-elemental/cli
+        run: |
+          node <<'EOF'
+          const fs = require('node:fs');
+          const path = 'dist/packages/cli/package.json';
+          if (!fs.existsSync(path)) {
+            console.error('Missing', path);
+            process.exit(1);
+          }
+          const pkg = JSON.parse(fs.readFileSync(path, 'utf8'));
+          if (pkg.name !== '@ng-elemental/cli') {
+            console.error('Refusing to publish unexpected package:', pkg.name);
+            process.exit(1);
+          }
+          if (pkg.private === true) {
+            console.error('Refusing to publish a private package');
+            process.exit(1);
+          }
+          console.log('OK to publish', `${pkg.name}@${pkg.version}`, 'from', path);
+          EOF
+
+      - name: Publish @ng-elemental/cli only
+        working-directory: dist/packages/cli
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}

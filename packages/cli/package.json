@@ -1,6 +1,6 @@
 {
   "name": "@ng-elemental/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "CLI to copy NgElemental Angular components into your project",
   "type": "commonjs",

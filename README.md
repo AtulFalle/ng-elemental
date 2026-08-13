@@ -115,28 +115,25 @@ node dist/packages/cli/index.cjs add label
 
 ## Release checklist
 
-`@ng-elemental/ui` stays internal (source of truth for Storybook and the CLI registry). Versioning is **fixed**. Git tags look like `v1.2.3`.
+Only **`@ng-elemental/cli`** is published to npm. The workspace root (`@ng-elemental/source`) is private. `@ng-elemental/ui` stays internal.
 
-CI on pull requests and `master` runs lint, build, unit/e2e tests. Pushing a `v*.*.*` tag creates a **GitHub Release** from `CHANGELOG.md`. npm publish is not part of CI.
+CI on pull requests and `master` runs lint, build, and e2e. After those pass on a **`master` push**, GitHub Actions publishes `dist/packages/cli` only (`npm publish` from that folder — never the repo root).
+
+Optional: pushing tag `vX.Y.Z` creates a GitHub Release from `CHANGELOG.md`.
 
 ### Every release
 
-1. Confirm `master` CI is green, then on a clean `master`:
+1. Bump `packages/cli/package.json` `version` and update `CHANGELOG.md`.
+2. Commit on `master` (do not publish from your machine).
+3. Push **only** the git remote yourself:
 
    ```sh
-   # First release only:
-   npx nx release --first-release --skip-publish
-
-   # Later releases:
-   npx nx release --skip-publish
+   git push origin master
    ```
 
-   This bumps the version, writes `CHANGELOG.md`, commits, and creates tag `vX.Y.Z`.
-
-2. Push the commit and tag:
+4. Confirm **CI** is green, then **Publish @ng-elemental/cli**.
+5. Confirm:
 
    ```sh
-   git push && git push --tags
+   npm view @ng-elemental/cli version
    ```
-
-3. Confirm CI is green and the **Release** workflow created the GitHub Release for that tag.
