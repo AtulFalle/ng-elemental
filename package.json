@@ -2,12 +2,17 @@
   "name": "@ng-elemental/source",
   "version": "0.0.0",
   "license": "MIT",
+  "private": true,
+  "packageManager": "npm@11.17.0",
+  "engines": {
+    "node": ">=24.18.0",
+    "npm": ">=11.17.0"
+  },
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~22.0.4",
     "@angular/common": "~22.0.4",
