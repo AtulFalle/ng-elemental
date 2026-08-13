@@ -1,6 +1,9 @@
 {
-  "name": "consumer-app",
+  "name": "e2e-consumer-app-fixture",
   "private": true,
+  "nx": {
+    "includedScripts": []
+  },
   "dependencies": {
     "@angular/core": "~22.0.4"
   }
