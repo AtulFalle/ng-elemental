@@ -99,39 +99,39 @@ Contributors merge work through PRs. CI runs lint, build, and test on every pull
 
 Only **`@ng-elemental/cli`** is published to npm.
 
-This follows the usual open-source library flow:
-
 | Event | What runs |
 | --- | --- |
 | Pull request | CI — lint, build, test |
 | Push to `master` | CI — lint, build, test |
-| Push tag `vX.Y.Z` | Build CLI, publish to npm, create GitHub Release |
+| Push tag `vX.Y.Z` | Opens a release PR (version bump + changelog) |
+| Merge release PR | Publishes to npm, updates tag, creates GitHub Release |
 
-Merging PRs never publishes. The maintainer decides when to release by pushing a version tag.
+Feature PRs do not publish. Contributors only update `[Unreleased]` in `CHANGELOG.md`.
 
 ### How to release
 
-1. On `master`, bump `version` in `packages/cli/package.json`.
-2. Move `[Unreleased]` entries in `CHANGELOG.md` into `[X.Y.Z]`.
-3. Commit and push to `master`.
-4. Tag and push:
+1. Ensure `[Unreleased]` in `CHANGELOG.md` has the changes you are shipping.
+2. Tag the current `master` commit:
 
    ```sh
    git tag vX.Y.Z
    git push origin vX.Y.Z
    ```
 
-5. Confirm:
+3. Review and merge the release PR that opens automatically.
+4. Confirm:
 
    ```sh
    npm view @ng-elemental/cli version
    ```
 
-The tag must match the version in `packages/cli/package.json` (for example tag `v0.0.3` with version `0.0.3`).
+### Manual retry
 
-Only tag when shipping CLI or component changes. Documentation, CI, and other repository-only commits do not need a release — merge to `master` and skip tagging.
+If automation fails after merge, re-run **Publish Release** from the Actions tab with the release version.
 
-Set `NPM_ACCESS_TOKEN` as a repository secret for the release workflow.
+If a tag was pushed but no PR opened, re-run **Prepare Release** with the same version.
+
+Set `NPM_ACCESS_TOKEN` as a repository secret for the publish workflow.
 
 ## Code of conduct
 

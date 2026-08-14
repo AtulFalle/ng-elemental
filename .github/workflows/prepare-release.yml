@@ -1,0 +1,108 @@
+name: Prepare Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version without v prefix (example: 0.0.3)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prepare:
+    name: Open release PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org/
+
+      - name: Pin npm
+        run: npm install -g npm@11.17.0
+
+      - name: Resolve version
+        id: meta
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="${GITHUB_REF_NAME#v}"
+          fi
+
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid semver: $VERSION"
+            exit 1
+          fi
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+          echo "branch=release/v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Validate release
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: |
+          set -euo pipefail
+          PUBLISHED="$(npm view @ng-elemental/cli version 2>/dev/null || echo "0.0.0")"
+          HIGHEST="$(printf '%s\n%s\n' "$PUBLISHED" "$VERSION" | sort -V | tail -1)"
+
+          if [ "$HIGHEST" != "$VERSION" ] || [ "$PUBLISHED" = "$VERSION" ]; then
+            echo "Version $VERSION must be greater than npm version $PUBLISHED"
+            exit 1
+          fi
+
+          UNRELEASED="$(awk '
+            /^## \[Unreleased\]/ { capture = 1; next }
+            /^## \[/ && capture { exit }
+            capture { print }
+          ' CHANGELOG.md | sed '/^[[:space:]]*$/d')"
+
+          if [ -z "$UNRELEASED" ]; then
+            echo "[Unreleased] is empty in CHANGELOG.md"
+            exit 1
+          fi
+
+          if gh pr list --state open --head "release/v$VERSION" --json number --jq '.[0].number' | grep -q .; then
+            echo "Release PR for v$VERSION already exists"
+            exit 1
+          fi
+
+      - name: Apply release changes
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: bash .github/scripts/prepare-release.sh "$VERSION"
+
+      - name: Create release PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.meta.outputs.branch }}
+          base: master
+          title: 'chore(release): ${{ steps.meta.outputs.version }}'
+          body: |
+            Automated release PR for `${{ steps.meta.outputs.tag }}`.
+
+            - Bumps `@ng-elemental/cli` to `${{ steps.meta.outputs.version }}`
+            - Finalizes `CHANGELOG.md`
+
+            Merge this PR to publish to npm.
+          labels: area:release
+          commit-message: 'chore(release): ${{ steps.meta.outputs.version }}'
+          delete-branch: true
