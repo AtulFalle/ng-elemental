@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.5] - 2026-08-14
+
 ### Added
 
 - `ElAttachment` file/image attachment cards with upload states (`ng-elemental add attachment`; requires `icon`, `button`)
@@ -53,7 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `ElLabel` form-oriented label component (`ng-elemental add label`)
 
-[Unreleased]: https://github.com/AtulFalle/ng-elemental/compare/v0.0.4...HEAD
+[Unreleased]: https://github.com/AtulFalle/ng-elemental/compare/v0.0.5...HEAD
+[0.0.5]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.5
 [0.0.4]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.4
 [0.0.3]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.3
 [0.0.2]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.2
