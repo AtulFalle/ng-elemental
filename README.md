@@ -179,6 +179,8 @@ Use `--force` to overwrite an existing component folder.
 | `labelPosition` | `left` \| `right` | `right` | Label text placement |
 | `inputId` | `string` | `''` | Native input id |
 
+Requires the `icon` component (Font Awesome check mark).
+
 ### Radio (`el-radio-group`, `el-radio`)
 
 ```html
@@ -210,6 +212,45 @@ Use `--force` to overwrite an existing component folder.
 | `labelPosition` | `left` \| `right` | `right` | Label text placement |
 | `disabled` | `boolean` | `false` | Non-interactive state |
 | `inputId` | `string` | `''` | Native input id |
+
+### Select (`el-select`, `el-select-item`)
+
+Combobox with an open panel slot. Item bodies and the closed trigger are templates.
+
+```html
+<el-select [(value)]="city" placeholder="Choose a city" ariaLabel="City">
+  <el-select-item value="pune" label="Pune">Pune</el-select-item>
+  <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+</el-select>
+
+<el-select multiple [(value)]="cities" placeholder="Choose cities" ariaLabel="Cities">
+  <el-select-item value="pune" label="Pune">Pune</el-select-item>
+  <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+</el-select>
+```
+
+**`el-select`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` \| `string[]` | `''` | Selected value (two-way bindable) |
+| `multiple` | `boolean` | `false` | Checkboxes plus Select all / Unselect all |
+| `size` | `sm` \| `md` \| `lg` | `md` | Trigger size |
+| `placeholder` | `string` | `Select` | Trigger text when empty |
+| `disabled` | `boolean` | `false` | Disables the control |
+| `ariaLabel` | `string` | — | Accessible combobox name |
+
+**`el-select-item`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | required | Value when selected |
+| `label` | `string` | `''` | Trigger text (falls back to `value`) |
+| `disabled` | `boolean` | `false` | Non-interactive option |
+
+Optional `ng-template elSelectValue` replaces the trigger string. `el-select-group` labels sections and is not selectable.
+
+Requires the `icon` component for the trigger chevron and selected check marks.
 
 ### Chip (`el-chip`)
 

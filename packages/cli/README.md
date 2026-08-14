@@ -62,6 +62,7 @@ export class MyComponent {}
 | `label` | `el-label` | `ElLabel` |
 | `checkbox` | `el-checkbox` | `ElCheckbox` |
 | `radio` | `el-radio-group`, `el-radio` | `ElRadioGroup`, `ElRadio` |
+| `select` | `el-select`, `el-select-item`, `el-select-group` | `ElSelect`, `ElSelectItem`, `ElSelectGroup` |
 | `chip` | `el-chip` | `ElChip` |
 | `icon` | `el-icon` | `ElIcon` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |

@@ -12,13 +12,16 @@ describe('add checkbox e2e', () => {
       expect(checkboxTs).toContain('export class ElCheckbox');
       expect(checkboxTs).toContain("ElCheckboxLabelPosition = 'left' | 'right'");
 
+      expect(checkboxTs).toContain('ElIcon');
+
       const checkboxHtml = await readFile(
         componentUiPath(tmp, 'checkbox', 'checkbox.html'),
         'utf8',
       );
       expect(checkboxHtml).toContain('el-checkbox');
       expect(checkboxHtml).toContain('<ng-content');
-      expect(checkboxHtml).toContain('labelPosition');
+      expect(checkboxHtml).toContain('el-icon');
+      expect(checkboxHtml).toContain('name="check"');
 
       const checkboxScss = await readFile(
         componentUiPath(tmp, 'checkbox', 'checkbox.scss'),

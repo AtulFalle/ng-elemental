@@ -47,6 +47,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/radio-doc').then((m) => m.RadioDocPage),
       },
       {
+        path: 'components/select',
+        loadComponent: () =>
+          import('./docs/pages/select-doc').then((m) => m.SelectDocPage),
+      },
+      {
         path: 'components/chip',
         loadComponent: () =>
           import('./docs/pages/chip-doc').then((m) => m.ChipDocPage),

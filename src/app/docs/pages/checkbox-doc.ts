@@ -22,7 +22,9 @@ export class CheckboxDocPage {
   protected readonly notifications = signal(true);
   protected readonly marketing = signal(false);
 
-  protected readonly addCode = `npx @ng-elemental/cli add checkbox`;
+  protected readonly addCode = `npx @ng-elemental/cli add theme
+npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add checkbox`;
 
   protected readonly importCode = `import { ElCheckbox } from './ui/checkbox/checkbox';
 

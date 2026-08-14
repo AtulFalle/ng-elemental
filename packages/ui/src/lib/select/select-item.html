@@ -1,0 +1,15 @@
+@if (multiple()) {
+  <span
+    class="el-select-item__check"
+    [class.el-select-item__check--checked]="selected()"
+    aria-hidden="true"
+  >
+    @if (selected()) {
+      <el-icon class="el-select-item__check-icon" name="check" size="sm" />
+    }
+  </span>
+}
+
+<span class="el-select-item__content">
+  <ng-content />
+</span>

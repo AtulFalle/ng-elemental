@@ -8,11 +8,13 @@ import {
   model,
   viewChild,
 } from '@angular/core';
+import { ElIcon } from '../icon/icon';
 
 export type ElCheckboxLabelPosition = 'left' | 'right';
 
 @Component({
   selector: 'el-checkbox',
+  imports: [ElIcon],
   templateUrl: './checkbox.html',
   styleUrl: './checkbox.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

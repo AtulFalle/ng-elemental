@@ -1,0 +1,87 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--el-select-item-gap);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--el-select-item-min-height);
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  background: transparent;
+  font-family: var(--el-font-sans);
+  font-size: var(--el-select-item-font-size);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--el-select-item-fg);
+  text-align: start;
+  cursor: pointer;
+}
+
+:host(.el-select-item--selected:not(.el-select-item--multiple)) {
+  background: var(--el-select-item-selected-bg);
+}
+
+:host(.el-select-item--active),
+:host(:hover:not(.el-select-item--disabled)) {
+  background: var(--el-select-item-hover-bg);
+}
+
+:host(.el-select-item--active.el-select-item--selected:not(.el-select-item--multiple)),
+:host(.el-select-item--selected:not(.el-select-item--multiple):hover) {
+  background: var(--el-select-item-selected-bg);
+}
+
+:host(.el-select-item--disabled) {
+  color: var(--el-select-item-fg-disabled);
+  cursor: not-allowed;
+}
+
+:host(:focus-visible) {
+  outline: 2px solid var(--el-select-focus-ring);
+  outline-offset: -2px;
+}
+
+.el-select-item {
+  &__check {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--el-checkbox-size);
+    height: var(--el-checkbox-size);
+    border: var(--el-checkbox-border-width) solid var(--el-checkbox-border);
+    border-radius: var(--el-checkbox-radius);
+    background: var(--el-checkbox-bg);
+  }
+
+  &__check--checked {
+    border-color: var(--el-checkbox-selected-bg);
+    background: var(--el-checkbox-selected-bg);
+    color: var(--el-checkbox-mark);
+  }
+
+  &__check-icon {
+    pointer-events: none;
+  }
+
+  &__content {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+}
+
+:host(.el-select-item--disabled) .el-select-item__check {
+  border-color: var(--el-checkbox-border-disabled);
+  background: var(--el-checkbox-bg-disabled);
+}
+
+:host(.el-select-item--disabled) .el-select-item__check--checked {
+  border-color: transparent;
+  background: var(--el-checkbox-selected-bg-disabled);
+}

@@ -21,7 +21,9 @@
   />
 
   <span class="el-checkbox__box" aria-hidden="true">
-    <span class="el-checkbox__mark el-checkbox__mark--check"></span>
+    @if (checked() && !indeterminate()) {
+      <el-icon class="el-checkbox__check-icon" name="check" size="sm" />
+    }
     <span class="el-checkbox__mark el-checkbox__mark--indeterminate"></span>
   </span>
 

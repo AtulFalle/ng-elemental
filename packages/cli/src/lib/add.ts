@@ -39,6 +39,13 @@ const COMPONENT_EXAMPLES: Record<
   <el-radio value="phone" inputId="contact-phone">Phone</el-radio>
 </el-radio-group>`,
   },
+  select: {
+    className: 'ElSelect, ElSelectItem',
+    usage: `<el-select [(value)]="city" placeholder="Choose a city" ariaLabel="City">
+  <el-select-item value="pune" label="Pune">Pune</el-select-item>
+  <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+</el-select>`,
+  },
   chip: {
     className: 'ElChip',
     usage: `<el-chip type="filter" [(selected)]="active">Filter</el-chip>`,

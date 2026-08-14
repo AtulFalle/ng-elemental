@@ -246,6 +246,45 @@ export const SEGMENTED_BUTTON_TOKENS: TokenDefinition[] = [
   },
 ];
 
+export const SELECT_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-select-trigger-bg',
+    description: 'Closed select trigger background.',
+  },
+  {
+    name: '--el-select-trigger-border',
+    description: 'Trigger border color.',
+  },
+  {
+    name: '--el-select-placeholder-fg',
+    description: 'Placeholder text color when nothing is selected.',
+  },
+  {
+    name: '--el-select-panel-bg',
+    description: 'Dropdown panel background.',
+  },
+  {
+    name: '--el-select-panel-shadow',
+    description: 'Dropdown panel shadow.',
+  },
+  {
+    name: '--el-select-item-hover-bg',
+    description: 'Hovered or keyboard-active option background.',
+  },
+  {
+    name: '--el-select-item-selected-bg',
+    description: 'Selected option background in single-select mode.',
+  },
+  {
+    name: '--el-select-toolbar-fg',
+    description: 'Select all / Unselect all action color.',
+  },
+  {
+    name: '--el-select-focus-ring',
+    description: 'Focus ring color for the trigger and options.',
+  },
+];
+
 export const CHIP_TOKENS: TokenDefinition[] = [
   {
     name: '--el-chip-height',

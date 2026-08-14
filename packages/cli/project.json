@@ -75,6 +75,31 @@
             "output": "registry/radio"
           },
           {
+            "glob": "select.{ts,html,scss}",
+            "input": "packages/ui/src/lib/select",
+            "output": "registry/select"
+          },
+          {
+            "glob": "select-item.{ts,html,scss}",
+            "input": "packages/ui/src/lib/select",
+            "output": "registry/select"
+          },
+          {
+            "glob": "select-group.{ts,html,scss}",
+            "input": "packages/ui/src/lib/select",
+            "output": "registry/select"
+          },
+          {
+            "glob": "select-value.ts",
+            "input": "packages/ui/src/lib/select",
+            "output": "registry/select"
+          },
+          {
+            "glob": "select.token.ts",
+            "input": "packages/ui/src/lib/select",
+            "output": "registry/select"
+          },
+          {
             "glob": "chip.{ts,html,scss}",
             "input": "packages/ui/src/lib/chip",
             "output": "registry/chip"

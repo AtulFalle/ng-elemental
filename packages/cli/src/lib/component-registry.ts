@@ -56,6 +56,23 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['radio', 'radio-group', 'radio.token'],
   },
   {
+    name: 'select',
+    assetGlobs: [
+      'select.{ts,html,scss}',
+      'select-item.{ts,html,scss}',
+      'select-group.{ts,html,scss}',
+      'select-value.ts',
+      'select.token.ts',
+    ],
+    requiredBasenames: [
+      'select',
+      'select-item',
+      'select-group',
+      'select-value',
+      'select.token',
+    ],
+  },
+  {
     name: 'chip',
     assetGlobs: ['chip.{ts,html,scss}'],
     requiredBasenames: ['chip'],

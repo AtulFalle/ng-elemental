@@ -1,0 +1,257 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Select</h1>
+    <p class="docs-lead">
+      Combobox with an open panel slot. Use <code>el-select-item</code> for
+      selectable rows (custom content allowed), and optionally
+      <code>ng-template elSelectValue</code> for the closed trigger.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
+    <code>npx @ng-elemental/cli add icon</code>, then
+    <code>npx @ng-elemental/cli add select</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-select-demo">
+        <el-select
+          [(value)]="city"
+          placeholder="Choose a city"
+          ariaLabel="City"
+        >
+          <el-select-item value="pune" label="Pune">Pune</el-select-item>
+          <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+          <el-select-item value="delhi" label="Delhi">Delhi</el-select-item>
+        </el-select>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Project <code>el-select-item</code> children into <code>el-select</code>.
+      The panel accepts any markup — groups, nested lists, or custom rows. A
+      future tree can use the same selection token.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Simple list</h3>
+    <app-preview>
+      <div class="docs-select-demo">
+        <el-select
+          [(value)]="city"
+          placeholder="Choose a city"
+          ariaLabel="City"
+        >
+          <el-select-item value="pune" label="Pune">Pune</el-select-item>
+          <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+          <el-select-item value="delhi" label="Delhi">Delhi</el-select-item>
+        </el-select>
+      </div>
+    </app-preview>
+
+    <h3>Sizes</h3>
+    <app-preview>
+      <div class="docs-stack docs-select-demo">
+        <el-select [(value)]="smCity" size="sm" placeholder="Small" ariaLabel="Small">
+          <el-select-item value="pune" label="Pune">Pune</el-select-item>
+          <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+        </el-select>
+        <el-select [(value)]="mdCity" size="md" placeholder="Medium" ariaLabel="Medium">
+          <el-select-item value="pune" label="Pune">Pune</el-select-item>
+          <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+        </el-select>
+        <el-select [(value)]="lgCity" size="lg" placeholder="Large" ariaLabel="Large">
+          <el-select-item value="delhi" label="Delhi">Delhi</el-select-item>
+          <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+        </el-select>
+      </div>
+    </app-preview>
+
+    <h3>Multiple with checkboxes</h3>
+    <p>
+      <code>multiple</code> shows a checkbox on every item and Select all /
+      Unselect all at the top of the panel. The default trigger lists labels as
+      a string.
+    </p>
+    <app-preview>
+      <div class="docs-select-demo">
+        <el-select
+          multiple
+          [(value)]="cities"
+          placeholder="Choose cities"
+          ariaLabel="Cities"
+        >
+          <el-select-item value="pune" label="Pune">Pune</el-select-item>
+          <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+          <el-select-item value="delhi" label="Delhi">Delhi</el-select-item>
+          <el-select-item value="chennai" label="Chennai" [disabled]="true">
+            Chennai (unavailable)
+          </el-select-item>
+        </el-select>
+      </div>
+    </app-preview>
+
+    <h3>Trigger value template (chips)</h3>
+    <p>
+      Pass <code>ng-template elSelectValue</code> to control the closed select.
+      The template receives an array of selected value and label pairs.
+    </p>
+    <app-preview>
+      <div class="docs-select-demo">
+        <el-select
+          #tagSelect
+          multiple
+          [(value)]="tags"
+          placeholder="Select tags"
+          ariaLabel="Tags"
+        >
+          <ng-template elSelectValue let-selected>
+            @if (selected.length === 0) {
+              <span>Select tags</span>
+            } @else {
+              @for (item of selected; track item.value) {
+                <el-chip
+                  type="suggestion"
+                  appearance="filled"
+                  [removable]="true"
+                  (click)="$event.stopPropagation()"
+                  (removed)="tagSelect.toggle(item.value)"
+                >
+                  {{ item.label }}
+                </el-chip>
+              }
+            }
+          </ng-template>
+          <el-select-item value="angular" label="Angular">Angular</el-select-item>
+          <el-select-item value="signals" label="Signals">Signals</el-select-item>
+          <el-select-item value="a11y" label="Accessibility">Accessibility</el-select-item>
+          <el-select-item value="theming" label="Theming">Theming</el-select-item>
+        </el-select>
+      </div>
+    </app-preview>
+    <app-code-block [code]="valueTemplateCode" language="html" />
+
+    <h3>Grouped list</h3>
+    <app-preview>
+      <div class="docs-select-demo">
+        <el-select
+          [(value)]="produce"
+          placeholder="Choose produce"
+          ariaLabel="Produce"
+        >
+          <el-select-group label="Fruits">
+            <el-select-item value="apple" label="Apple">Apple</el-select-item>
+            <el-select-item value="banana" label="Banana">Banana</el-select-item>
+          </el-select-group>
+          <el-select-group label="Vegetables">
+            <el-select-item value="carrot" label="Carrot">Carrot</el-select-item>
+            <el-select-item value="spinach" label="Spinach">Spinach</el-select-item>
+          </el-select-group>
+        </el-select>
+      </div>
+    </app-preview>
+
+    <h3>Nested list</h3>
+    <app-preview>
+      <div class="docs-select-demo">
+        <el-select
+          [(value)]="nestedCity"
+          placeholder="Choose a city"
+          ariaLabel="City"
+        >
+          <el-select-group label="Asia">
+            <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+            <el-select-group label="Japan">
+              <el-select-item value="tokyo" label="Tokyo">Tokyo</el-select-item>
+              <el-select-item value="osaka" label="Osaka">Osaka</el-select-item>
+            </el-select-group>
+          </el-select-group>
+          <el-select-group label="Europe">
+            <el-select-item value="paris" label="Paris">Paris</el-select-item>
+            <el-select-item value="berlin" label="Berlin">Berlin</el-select-item>
+          </el-select-group>
+        </el-select>
+      </div>
+    </app-preview>
+
+    <h3>Custom item (user list)</h3>
+    <p>
+      Item content is unrestricted. Interactive children should call
+      <code>stopPropagation</code> so they do not select the row.
+    </p>
+    <app-preview>
+      <div class="docs-select-demo">
+        <el-select
+          [(value)]="user"
+          placeholder="Choose a user"
+          ariaLabel="User"
+        >
+          <el-select-item value="ada" label="Ada Lovelace">
+            <el-icon name="user" size="sm" />
+            <span>Ada Lovelace</span>
+            <el-button variant="ghost" size="sm" (click)="onUserAction($event)">
+              View
+            </el-button>
+          </el-select-item>
+          <el-select-item value="grace" label="Grace Hopper">
+            <el-icon name="user" size="sm" />
+            <span>Grace Hopper</span>
+            <el-button variant="ghost" size="sm" (click)="onUserAction($event)">
+              View
+            </el-button>
+          </el-select-item>
+          <el-select-item value="alan" label="Alan Turing">
+            <el-icon name="user" size="sm" />
+            <span>Alan Turing</span>
+            <el-button variant="ghost" size="sm" (click)="onUserAction($event)">
+              View
+            </el-button>
+          </el-select-item>
+        </el-select>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Select uses dedicated CSS variables. See
+      <a routerLink="/theming">Theming</a> for setup. Panels are positioned
+      inside the component — ancestors with <code>overflow: hidden</code> can
+      clip the menu.
+    </p>
+    <app-tokens-table [tokens]="selectTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-select</h3>
+    <app-props-table [props]="selectProps" />
+    <h3>el-select-item</h3>
+    <app-props-table [props]="itemProps" />
+    <h3>el-select-group</h3>
+    <app-props-table [props]="groupProps" />
+    <p>
+      <code>ng-template elSelectValue</code> receives
+      <code>let-selected</code> as an array of value/label pairs.
+    </p>
+  </section>
+</article>

@@ -138,6 +138,33 @@
   --el-radio-group-gap-vertical: 0.75rem;
   --el-radio-group-gap-horizontal: 1.5rem;
 
+  // ── Select ───────────────────────────────────────────────────────────────
+  --el-select-trigger-bg: var(--el-color-surface);
+  --el-select-trigger-fg: var(--el-color-fg);
+  --el-select-trigger-border: var(--el-color-border);
+  --el-select-trigger-border-hover: var(--el-color-border-muted);
+  --el-select-trigger-radius: 0.375rem;
+  --el-select-trigger-min-height: 2.5rem;
+  --el-select-trigger-padding: 0.5rem 0.75rem;
+  --el-select-trigger-font-size: 0.875rem;
+  --el-select-placeholder-fg: var(--el-color-fg-muted);
+  --el-select-panel-bg: var(--el-color-surface);
+  --el-select-panel-border: var(--el-color-border);
+  --el-select-panel-max-height: 16rem;
+  --el-select-panel-shadow:
+    0 4px 6px rgb(0 0 0 / 0.08),
+    0 8px 24px rgb(0 0 0 / 0.08);
+  --el-select-item-fg: var(--el-color-fg);
+  --el-select-item-fg-disabled: var(--el-color-fg-disabled);
+  --el-select-item-hover-bg: var(--el-color-overlay-hover-muted);
+  --el-select-item-selected-bg: var(--el-color-accent-subtle);
+  --el-select-item-gap: 0.5rem;
+  --el-select-item-min-height: 2.25rem;
+  --el-select-item-font-size: 0.875rem;
+  --el-select-group-fg: var(--el-color-fg-muted);
+  --el-select-toolbar-fg: var(--el-color-accent);
+  --el-select-focus-ring: var(--el-segmented-md3-focus);
+
   // ── Canvas / surfaces (Storybook, docs) ──────────────────────────────────
   --el-surface-canvas: #fffbfe;
   --el-surface-canvas-muted: #f3edf7;
@@ -177,6 +204,10 @@
   --el-radio-bg-disabled: rgb(230 225 229 / 0.04);
   --el-radio-selected-border-disabled: rgb(230 225 229 / 0.38);
   --el-radio-dot-disabled: rgb(230 225 229 / 0.38);
+
+  --el-select-panel-shadow:
+    0 4px 6px rgb(0 0 0 / 0.28),
+    0 8px 24px rgb(0 0 0 / 0.32);
 
   --el-surface-canvas: #1c1b1f;
   --el-surface-canvas-muted: #141218;

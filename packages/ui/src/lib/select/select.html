@@ -1,0 +1,70 @@
+<button
+  type="button"
+  class="el-select__trigger"
+  role="combobox"
+  [attr.aria-expanded]="open()"
+  aria-haspopup="listbox"
+  [attr.aria-controls]="listboxId"
+  [attr.aria-label]="ariaLabel() || null"
+  [attr.aria-disabled]="disabled() || null"
+  [disabled]="disabled()"
+  (click)="toggleOpen($event)"
+  (keydown)="onTriggerKeydown($event)"
+>
+  <span
+    class="el-select__value"
+    [class.el-select__value--placeholder]="isPlaceholder() && !valueTemplateRef()"
+  >
+    @if (valueTemplateRef(); as template) {
+      <ng-container
+        [ngTemplateOutlet]="template"
+        [ngTemplateOutletContext]="{ $implicit: selectedOptions() }"
+      />
+    } @else {
+      {{ triggerLabel() }}
+    }
+  </span>
+  <el-icon
+    class="el-select__chevron"
+    name="chevron-down"
+    [size]="iconSize()"
+  />
+</button>
+
+<div
+  class="el-select__panel"
+  [class.el-select__panel--open]="open()"
+  [attr.inert]="open() ? null : ''"
+>
+  @if (multiple()) {
+    <div class="el-select__toolbar">
+      <button
+        type="button"
+        class="el-select__toolbar-action"
+        [disabled]="disabled()"
+        (click)="selectAll()"
+      >
+        Select all
+      </button>
+      <button
+        type="button"
+        class="el-select__toolbar-action"
+        [disabled]="disabled()"
+        (click)="unselectAll()"
+      >
+        Unselect all
+      </button>
+    </div>
+  }
+
+  <div
+    class="el-select__list"
+    role="listbox"
+    [id]="listboxId"
+    [attr.aria-label]="ariaLabel() || null"
+    [attr.aria-multiselectable]="multiple() || null"
+    [attr.aria-activedescendant]="activeDescendant()"
+  >
+    <ng-content />
+  </div>
+</div>

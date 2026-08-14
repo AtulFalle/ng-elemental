@@ -15,7 +15,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     .docs-preview {
       border: 1px solid var(--docs-border);
       border-radius: 0.5rem;
-      overflow: hidden;
+      overflow: visible;
       margin-block: 1rem;
     }
 

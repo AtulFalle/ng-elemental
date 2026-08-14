@@ -26,6 +26,16 @@ export {
   type ElChipType,
 } from './lib/chip/chip';
 export {
+  ElSelect,
+  ElSelectGroup,
+  ElSelectItem,
+  ElSelectValue,
+  type ElSelectSize,
+  type ElSelectValueModel,
+  type ElSelectOptionView,
+  type ElSelectValueContext,
+} from './lib/select/select';
+export {
   ElSegmentedButton,
   ElSegmentedButtonItem,
   type ElSegmentedButtonSize,
