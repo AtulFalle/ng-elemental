@@ -1,25 +1,23 @@
 # NgElemental
 
-Copy-paste Angular components for your app — a shadcn-style workflow, not an npm UI kit.
+[![npm version](https://img.shields.io/npm/v/@ng-elemental/cli.svg)](https://www.npmjs.com/package/@ng-elemental/cli)
+[![CI](https://github.com/AtulFalle/ng-elemental/actions/workflows/ci.yml/badge.svg)](https://github.com/AtulFalle/ng-elemental/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-You run a CLI, the component source (HTML, TypeScript, SCSS) lands in your project, and you own it.
+Copy-paste Angular UI components for your application. Run the CLI, and component source files land in your project — you own and customize the code.
 
-## Prerequisites
+NgElemental is **not** a traditional npm UI library. Components are added as source (TypeScript, HTML, SCSS) so you can adapt styling, behavior, and structure without fighting a black-box dependency.
 
-An Angular application (v22+ recommended). No Tailwind. Components use encapsulated SCSS / BEM.
+## Requirements
 
-Default type: **Geist** (UI) and **Geist Mono** (code). This repo loads them with `@fontsource-variable/geist` and `@fontsource-variable/geist-mono`. In your app, install those packages, add their CSS to `styles` in `angular.json` / `project.json`, and set:
+- **Angular** 22 or later
+- **Node.js** 24 or later (for the CLI)
 
-```scss
-:root {
-  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
-  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
-}
-```
+Components use encapsulated SCSS with BEM-style class names. Tailwind is not required.
 
-## Install and add components
+## Quick start
 
-From your Angular app:
+From your Angular project:
 
 ```sh
 npx @ng-elemental/cli init
@@ -27,9 +25,9 @@ npx @ng-elemental/cli add button
 npx @ng-elemental/cli add label
 ```
 
-`init` creates `elemental.json` and the components directory (`src/app/ui` by default).
+`init` creates `elemental.json` and a components directory (default: `src/app/ui`).
 
-`add button` / `add label` copy:
+`add` copies the selected component into that directory:
 
 ```
 src/app/ui/button/
@@ -43,9 +41,7 @@ src/app/ui/label/
   label.scss
 ```
 
-## Usage
-
-Import `ElButton` into a standalone component and use it in the template:
+Import the component in a standalone Angular component:
 
 ```ts
 import { Component } from '@angular/core';
@@ -59,19 +55,64 @@ import { ElButton } from './ui/button/button';
 export class App {}
 ```
 
+## Typography
+
+Components expect **Geist** (UI) and **Geist Mono** (code). Install the font packages in your app:
+
+```sh
+npm install @fontsource-variable/geist @fontsource-variable/geist-mono
+```
+
+Add their CSS to `styles` in `angular.json` or `project.json`, then define:
+
+```scss
+:root {
+  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
+  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+}
+```
+
+## Configuration
+
+`elemental.json` controls where components are copied:
+
+```json
+{
+  "componentsDir": "src/app/ui"
+}
+```
+
+Change `componentsDir` before running `add` if you prefer a different location.
+
+## CLI reference
+
+| Command | Description |
+| --- | --- |
+| `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
+| `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
+
+Available components: `button`, `label`.
+
+Use `--force` to overwrite an existing component folder.
+
+## Components
+
+### Button (`el-button`)
+
 ```html
 <el-button variant="primary">Save</el-button>
 <el-button variant="secondary" size="sm">Cancel</el-button>
 <el-button variant="ghost" disabled>Disabled</el-button>
 ```
 
-Inputs: `variant` (`primary` | `secondary` | `ghost`), `size` (`sm` | `md` | `lg`), `disabled`, `type` (`button` | `submit` | `reset`).
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `primary` \| `secondary` \| `ghost` | `primary` | Visual style |
+| `size` | `sm` \| `md` \| `lg` | `md` | Button size |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `type` | `button` \| `submit` \| `reset` | `button` | Native button type |
 
-### Label
-
-```ts
-import { ElLabel } from './ui/label/label';
-```
+### Label (`el-label`)
 
 ```html
 <el-label htmlFor="email" variant="default">Email</el-label>
@@ -79,61 +120,32 @@ import { ElLabel } from './ui/label/label';
 <el-label htmlFor="email" variant="error" [required]="true">Email</el-label>
 ```
 
-Inputs: `variant` (`default` | `muted` | `error`), `htmlFor`, `required`, `disabled`.
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `default` \| `muted` \| `error` | `default` | Visual style |
+| `htmlFor` | `string` | `''` | Associated control id |
+| `required` | `boolean` | `false` | Shows required indicator |
+| `disabled` | `boolean` | `false` | Muted, non-interactive label |
 
-If the target folder already exists, pass `--force` to overwrite:
+## Packages
 
-```sh
-npx @ng-elemental/cli add button --force
-npx @ng-elemental/cli add label --force
-```
+| Package | Published | Purpose |
+| --- | --- | --- |
+| [`@ng-elemental/cli`](https://www.npmjs.com/package/@ng-elemental/cli) | Yes | CLI that copies components into your app |
+| `@ng-elemental/ui` | No | Internal component source in this repository |
 
-## Local development (this repo)
+Install and use **`@ng-elemental/cli`** in your Angular project. See [packages/cli/README.md](packages/cli/README.md) for npm-focused documentation.
 
-```sh
-# Storybook — Button catalog
-npx nx storybook ng-elemental
+## Contributing
 
-# Build the CLI (bin + registry)
-npx nx build cli
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
 
-# E2E: publish CLI to local Verdaccio, npm install, init + add button/label
-npx nx test cli
-```
+Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
 
-`nx test cli` starts Verdaccio (`nx local-registry`), publishes `@ng-elemental/cli@0.0.0-e2e`, then installs that package into a temp consumer app and runs `init` / `add button` / `add label`. Needs network once so Verdaccio can proxy `@angular/core`.
+## Security
 
-After `nx build cli`, the CLI is at `dist/packages/cli/index.cjs` with registry files at `dist/packages/cli/registry/button/` and `dist/packages/cli/registry/label/`.
+To report a vulnerability, see [SECURITY.md](SECURITY.md).
 
-You can run it against a local Angular app:
+## License
 
-```sh
-node dist/packages/cli/index.cjs init --yes
-node dist/packages/cli/index.cjs add button
-node dist/packages/cli/index.cjs add label
-```
-
-## Release checklist
-
-Only **`@ng-elemental/cli`** is published to npm. The workspace root (`@ng-elemental/source`) is private. `@ng-elemental/ui` stays internal.
-
-CI on pull requests and `master` runs lint, build, and e2e. After those pass on a **`master` push**, GitHub Actions publishes `dist/packages/cli` only (`npm publish` from that folder — never the repo root).
-
-Optional: pushing tag `vX.Y.Z` creates a GitHub Release from `CHANGELOG.md`.
-
-### Every release
-
-1. Bump `packages/cli/package.json` `version` and update `CHANGELOG.md`.
-2. Commit on `master` (do not publish from your machine).
-3. Push **only** the git remote yourself:
-
-   ```sh
-   git push origin master
-   ```
-
-4. Confirm **CI** is green, then **Publish @ng-elemental/cli**.
-5. Confirm:
-
-   ```sh
-   npm view @ng-elemental/cli version
-   ```
+[MIT](LICENSE) © NgElemental contributors

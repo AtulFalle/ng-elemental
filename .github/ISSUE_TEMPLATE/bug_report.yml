@@ -1,0 +1,54 @@
+name: Bug report
+description: Report something that is not working as expected
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please include enough detail to reproduce the issue.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Commands, code, or actions that trigger the issue.
+      placeholder: |
+        1. Run `npx @ng-elemental/cli init`
+        2. Run `npx @ng-elemental/cli add button`
+        3. ...
+    validations:
+      required: true
+
+  - type: input
+    id: cli-version
+    attributes:
+      label: CLI version
+      description: Output of `npm view @ng-elemental/cli version` or the version you used
+    validations:
+      required: false
+
+  - type: input
+    id: angular-version
+    attributes:
+      label: Angular version
+      placeholder: e.g. 22.0.4
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node.js version, package manager, etc.
+    validations:
+      required: false

@@ -2,7 +2,15 @@
   "name": "@ng-elemental/cli",
   "version": "0.0.2",
   "license": "MIT",
-  "description": "CLI to copy NgElemental Angular components into your project",
+  "description": "Copy Angular UI component source into your project with the NgElemental CLI",
+  "keywords": [
+    "angular",
+    "ui",
+    "components",
+    "cli",
+    "copy-paste",
+    "scss"
+  ],
   "type": "commonjs",
   "main": "./index.cjs",
   "types": "./index.d.ts",
@@ -11,6 +19,7 @@
   },
   "files": [
     "index.cjs",
+    "README.md",
     "registry"
   ],
   "publishConfig": {

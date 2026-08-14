@@ -49,3 +49,6 @@ Thumbs.db
 
 storybook-static
 vitest.config.*.timestamp*
+
+# Local development plans and specs (not for the public repo)
+docs/superpowers/
