@@ -24,6 +24,8 @@ Compose existing `El*` components. Build a new primitive only when none of them 
 | Checkbox | `ElCheckbox` |
 | Radio group | `ElRadioGroup` + `ElRadio` |
 | Chips / tags | `ElChip` |
+| Avatar | `ElAvatar` |
+| Card layout | `ElCard` + `[elCard*]` slots |
 | Form label | `ElLabel` |
 | Form error message | `ElFormError` |
 | Dropdown / combobox | `ElSelect` + `ElSelectItem` |

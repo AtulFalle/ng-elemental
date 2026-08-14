@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ElAvatar` circular image / initials / icon mark (`ng-elemental add avatar`; requires `icon`)
+- `ElCard` presentational slot-based card with media/header/content/footer (`ng-elemental add card`)
 - `ElProgress` and `ElProgressCircle` line and circle progress indicators with determinate/indeterminate modes (`ng-elemental add progress`)
 - `ElFormError` presentational validation message (`ng-elemental add form-error`)
 - `ElInput` text field with types, prefix/suffix slots, error/disabled states, and optional pattern mask (`ng-elemental add input`)

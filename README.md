@@ -101,7 +101,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `avatar`, `card`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -424,6 +424,52 @@ Line and circle progress indicators. Determinate (`value` / `max`) or indetermin
 | `indeterminate` | `boolean` | `false` | Animated unknown progress |
 | `showValue` | `boolean` | `false` | Show rounded percent when determinate |
 | `size` | `sm` \| `md` \| `lg` | `md` | Track thickness or circle diameter |
+
+### Avatar (`el-avatar`)
+
+Circular image / initials / icon mark. Content priority: `src` → `initials` → `icon` (default `user`). Image errors fall through to the next option.
+
+```html
+<el-avatar src="/me.jpg" alt="Jane Doe" />
+<el-avatar initials="JD" alt="Jane Doe" />
+<el-avatar icon="user" alt="Account" size="sm" />
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `src` | `string` | `''` | Image URL |
+| `alt` | `string` | `''` | Accessible name |
+| `initials` | `string` | `''` | Fallback text when no usable image |
+| `icon` | `string` | `''` | FA name when no image/initials; defaults to `user` |
+| `size` | `sm` \| `md` \| `lg` | `md` | Diameter |
+
+Requires the `icon` component for the icon fallback (`npx @ng-elemental/cli add icon`).
+
+### Card (`el-card`)
+
+Presentational container with named slots. Not interactive — wire clicks on content inside the slots.
+
+```html
+<el-card appearance="outlined">
+  <img elCardMedia src="/cover.jpg" alt="" style="width: 100%; display: block" />
+  <div elCardHeader>Title</div>
+  <div elCardContent>Body</div>
+  <div elCardFooter>Actions</div>
+</el-card>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `appearance` | `outlined` \| `elevated` | `outlined` | Border or shadow surface |
+
+| Slot attribute | Description |
+| --- | --- |
+| `elCardMedia` | Top media (flush to edges) |
+| `elCardHeader` | Header region |
+| `elCardContent` | Body |
+| `elCardFooter` | Footer |
+
+Compose with `el-avatar` in the header when needed (separate `add avatar`).
 
 ### Segmented Button (`el-segmented-button`)
 

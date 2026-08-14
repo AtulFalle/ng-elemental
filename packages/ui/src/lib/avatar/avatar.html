@@ -1,0 +1,19 @@
+<span
+  [class]="rootClass()"
+  [attr.role]="showImage() ? null : 'img'"
+  [attr.aria-label]="!showImage() && hasAccessibleName() ? alt() : null"
+  [attr.aria-hidden]="!showImage() && !hasAccessibleName() ? 'true' : null"
+>
+  @if (showImage()) {
+    <img
+      class="el-avatar__image"
+      [src]="trimmedSrc()"
+      [alt]="alt()"
+      (error)="onImageError()"
+    />
+  } @else if (showInitials()) {
+    <span class="el-avatar__initials">{{ initials() }}</span>
+  } @else if (iconName(); as name) {
+    <el-icon class="el-avatar__icon" [name]="name" [size]="iconSize()" />
+  }
+</span>

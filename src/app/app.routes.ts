@@ -89,6 +89,16 @@ export const appRoutes: Route[] = [
           import('./docs/pages/progress-doc').then((m) => m.ProgressDocPage),
       },
       {
+        path: 'components/avatar',
+        loadComponent: () =>
+          import('./docs/pages/avatar-doc').then((m) => m.AvatarDocPage),
+      },
+      {
+        path: 'components/card',
+        loadComponent: () =>
+          import('./docs/pages/card-doc').then((m) => m.CardDocPage),
+      },
+      {
         path: 'components/segmented-button',
         loadComponent: () =>
           import('./docs/pages/segmented-button-doc').then(

@@ -134,6 +134,16 @@
             "input": "packages/ui/src/lib/progress",
             "output": "registry/progress"
           },
+          {
+            "glob": "avatar.{ts,html,scss}",
+            "input": "packages/ui/src/lib/avatar",
+            "output": "registry/avatar"
+          },
+          {
+            "glob": "card.{ts,html,scss}",
+            "input": "packages/ui/src/lib/card",
+            "output": "registry/card"
+          },
 
           {
             "glob": "segmented-button.{ts,html,scss}",

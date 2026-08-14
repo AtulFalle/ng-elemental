@@ -1,0 +1,113 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ElAvatar, ElButton, ElCard } from '@ng-elemental/ui';
+import { CARD_TOKENS } from '../theme-tokens';
+import type { PropDefinition } from '../nav';
+import { CodeBlock } from '../ui/code-block';
+import { Preview } from '../ui/preview';
+import { PropsTable } from '../ui/props-table';
+import { TokensTable } from '../ui/tokens-table';
+
+@Component({
+  selector: 'app-card-doc-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    RouterLink,
+    ElAvatar,
+    ElButton,
+    ElCard,
+    CodeBlock,
+    Preview,
+    PropsTable,
+    TokensTable,
+  ],
+  templateUrl: './card-doc.html',
+  styleUrl: './page.scss',
+})
+export class CardDocPage {
+  protected readonly cardTokens = CARD_TOKENS;
+
+  protected readonly addCode = `npx @ng-elemental/cli add theme
+npx @ng-elemental/cli add card
+# optional — for people-card examples:
+npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add avatar
+npx @ng-elemental/cli add button`;
+
+  protected readonly importCode = `import { ElCard } from './ui/card/card';
+
+@Component({
+  imports: [ElCard],
+  template: \`
+    <el-card>
+      <div elCardHeader>Title</div>
+      <div elCardContent>Body</div>
+      <div elCardFooter>Actions</div>
+    </el-card>
+  \`,
+})
+export class MyComponent {}`;
+
+  protected readonly usageCode = `<el-card appearance="outlined">
+  <img elCardMedia src="/cover.jpg" alt="" style="width: 100%; display: block" />
+  <div elCardHeader>Trail overlook</div>
+  <div elCardContent>Media sits flush at the top of the card.</div>
+  <div elCardFooter>…</div>
+</el-card>`;
+
+  protected readonly avatarComposeCode = `<el-card appearance="elevated">
+  <div elCardHeader style="display: flex; align-items: center; gap: 0.75rem">
+    <el-avatar initials="AL" alt="Ada Lovelace" />
+    <div>
+      <div>Ada Lovelace</div>
+      <div>Mathematician</div>
+    </div>
+  </div>
+  <div elCardContent>Compose avatar in the header slot.</div>
+  <div elCardFooter>
+    <el-button size="sm" variant="secondary">Follow</el-button>
+  </div>
+</el-card>`;
+
+  protected readonly globalTokensCode = `:root {
+  --el-card-radius: 1rem;
+  --el-card-padding: 1.25rem;
+  --el-card-border: #d1d5db;
+}`;
+
+  protected readonly props: PropDefinition[] = [
+    {
+      name: 'appearance',
+      type: "'outlined' | 'elevated'",
+      default: "'outlined'",
+      description: 'Outlined border or elevated shadow surface.',
+    },
+  ];
+
+  protected readonly slots: PropDefinition[] = [
+    {
+      name: 'elCardMedia',
+      type: 'attribute',
+      default: '—',
+      description: 'Top media region (flush to card edges).',
+    },
+    {
+      name: 'elCardHeader',
+      type: 'attribute',
+      default: '—',
+      description: 'Header region (title, avatar, actions).',
+    },
+    {
+      name: 'elCardContent',
+      type: 'attribute',
+      default: '—',
+      description: 'Body content.',
+    },
+    {
+      name: 'elCardFooter',
+      type: 'attribute',
+      default: '—',
+      description: 'Footer actions or meta.',
+    },
+  ];
+}

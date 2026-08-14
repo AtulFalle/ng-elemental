@@ -70,6 +70,8 @@ export {
 } from './lib/segmented-button/segmented-button';
 export { ElProgress, type ElProgressSize } from './lib/progress/progress';
 export { ElProgressCircle } from './lib/progress/progress-circle';
+export { ElAvatar, type ElAvatarSize } from './lib/avatar/avatar';
+export { ElCard, type ElCardAppearance } from './lib/card/card';
 export {
   ElThemeService,
   provideElTheme,

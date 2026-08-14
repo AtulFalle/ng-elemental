@@ -56,5 +56,7 @@ Commands:
   add segmented-button  Copy the Segmented Button component into your project
   add datepicker        Copy the Date Picker and Date Range Picker into your project
   add progress          Copy the Progress (line + circle) components into your project
+  add avatar            Copy the Avatar component into your project
+  add card              Copy the Card component into your project
 `);
 }

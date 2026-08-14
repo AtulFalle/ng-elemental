@@ -1,0 +1,131 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Card</h1>
+    <p class="docs-lead">
+      Presentational container with named slots for media, header, content, and
+      footer. Put whatever you need in each slot — including
+      <a routerLink="/components/avatar">Avatar</a> and buttons.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add card</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div style="display: grid; gap: 1.5rem; max-width: 22rem">
+        <el-card>
+          <div elCardHeader>
+            <strong>Outlined card</strong>
+          </div>
+          <div elCardContent>
+            Slot-based body. Empty slots collapse automatically.
+          </div>
+          <div elCardFooter>
+            <span style="font-size: 0.875rem; color: var(--el-color-fg-muted)"
+              >Footer meta</span
+            >
+          </div>
+        </el-card>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Mark projected nodes with <code>elCardMedia</code>,
+      <code>elCardHeader</code>, <code>elCardContent</code>, or
+      <code>elCardFooter</code>. The card itself is not interactive.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Elevated</h3>
+    <app-preview>
+      <el-card appearance="elevated" style="max-width: 22rem">
+        <div elCardHeader>
+          <strong>Elevated card</strong>
+        </div>
+        <div elCardContent>
+          Uses a soft shadow instead of a visible border.
+        </div>
+      </el-card>
+    </app-preview>
+
+    <h3>With media</h3>
+    <app-preview>
+      <el-card style="max-width: 22rem">
+        <img
+          elCardMedia
+          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=640&q=80"
+          alt=""
+          style="width: 100%; display: block"
+        />
+        <div elCardHeader>
+          <strong>Trail overlook</strong>
+        </div>
+        <div elCardContent>
+          Media sits flush at the top. Style the media element yourself (e.g.
+          <code>width: 100%</code>).
+        </div>
+      </el-card>
+    </app-preview>
+
+    <h3>With avatar</h3>
+    <app-preview>
+      <el-card appearance="elevated" style="max-width: 22rem">
+        <div
+          elCardHeader
+          style="display: flex; align-items: center; gap: 0.75rem"
+        >
+          <el-avatar initials="AL" alt="Ada Lovelace" />
+          <div>
+            <div style="font-weight: 600">Ada Lovelace</div>
+            <div style="font-size: 0.875rem; color: var(--el-color-fg-muted)">
+              Mathematician
+            </div>
+          </div>
+        </div>
+        <div elCardContent>
+          Compose <code>el-avatar</code> in the header when you need a people
+          card. Add avatar separately via the CLI.
+        </div>
+        <div elCardFooter>
+          <el-button size="sm" variant="secondary">Follow</el-button>
+        </div>
+      </el-card>
+    </app-preview>
+    <app-code-block [code]="avatarComposeCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      See <a routerLink="/theming">Theming</a> for setup, then override these
+      tokens globally or on a wrapper.
+    </p>
+    <app-tokens-table [tokens]="cardTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>Inputs</h3>
+    <app-props-table [props]="props" />
+    <h3>Slots</h3>
+    <app-props-table [props]="slots" />
+  </section>
+</article>

@@ -101,6 +101,16 @@ export const COMPONENT_REGISTRY = [
     ],
     requiredBasenames: ['progress', 'progress-circle', 'progress-utils'],
   },
+  {
+    name: 'avatar',
+    assetGlobs: ['avatar.{ts,html,scss}'],
+    requiredBasenames: ['avatar'],
+  },
+  {
+    name: 'card',
+    assetGlobs: ['card.{ts,html,scss}'],
+    requiredBasenames: ['card'],
+  },
 
   {
     name: 'segmented-button',

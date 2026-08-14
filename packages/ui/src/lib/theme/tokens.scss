@@ -216,6 +216,32 @@
   --el-progress-circle-stroke-md: 0.25rem;
   --el-progress-circle-stroke-lg: 0.3125rem;
 
+  // ── Avatar ───────────────────────────────────────────────────────────────
+  --el-avatar-bg: var(--el-color-accent-subtle);
+  --el-avatar-fg: var(--el-color-accent);
+  --el-avatar-border: var(--el-color-border-muted);
+  --el-avatar-border-width: 1px;
+  --el-avatar-font-weight: 600;
+  --el-avatar-size-sm: 2rem;
+  --el-avatar-size-md: 2.5rem;
+  --el-avatar-size-lg: 3rem;
+  --el-avatar-font-size-sm: 0.6875rem;
+  --el-avatar-font-size-md: 0.8125rem;
+  --el-avatar-font-size-lg: 0.9375rem;
+
+  // ── Card ─────────────────────────────────────────────────────────────────
+  --el-card-bg: var(--el-color-surface);
+  --el-card-fg: var(--el-color-fg);
+  --el-card-fg-muted: var(--el-color-fg-muted);
+  --el-card-border: var(--el-color-border);
+  --el-card-radius: 0.75rem;
+  --el-card-padding: 1rem;
+  --el-card-gap: 0.75rem;
+  --el-card-content-font-size: 0.875rem;
+  --el-card-elevated-shadow:
+    0 1px 2px rgb(0 0 0 / 0.06),
+    0 4px 12px rgb(0 0 0 / 0.08);
+
   // ── Input ────────────────────────────────────────────────────────────────
   --el-input-bg: var(--el-color-surface);
   --el-input-fg: var(--el-color-fg);
@@ -315,6 +341,10 @@
   --el-datepicker-panel-shadow:
     0 4px 6px rgb(0 0 0 / 0.28),
     0 8px 24px rgb(0 0 0 / 0.32);
+
+  --el-card-elevated-shadow:
+    0 1px 2px rgb(0 0 0 / 0.28),
+    0 6px 16px rgb(0 0 0 / 0.32);
 
   --el-surface-canvas: #1c1b1f;
   --el-surface-canvas-muted: #141218;

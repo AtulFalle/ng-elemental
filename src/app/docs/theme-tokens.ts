@@ -490,3 +490,73 @@ export const PROGRESS_TOKENS: TokenDefinition[] = [
     description: 'Circle stroke width at size md (also sm/lg variants).',
   },
 ];
+
+export const AVATAR_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-avatar-bg',
+    description: 'Background for initials and icon fallbacks.',
+  },
+  {
+    name: '--el-avatar-fg',
+    description: 'Text and icon color for non-image content.',
+  },
+  {
+    name: '--el-avatar-border',
+    description: 'Outline color for initials and icon fallbacks.',
+  },
+  {
+    name: '--el-avatar-border-width',
+    description: 'Outline thickness for initials and icon fallbacks.',
+  },
+  {
+    name: '--el-avatar-size-sm',
+    description: 'Diameter at size sm.',
+  },
+  {
+    name: '--el-avatar-size-md',
+    description: 'Diameter at size md.',
+  },
+  {
+    name: '--el-avatar-size-lg',
+    description: 'Diameter at size lg.',
+  },
+  {
+    name: '--el-avatar-font-size-md',
+    description: 'Initials font size at size md (also sm/lg variants).',
+  },
+];
+
+export const CARD_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-card-bg',
+    description: 'Card surface background.',
+  },
+  {
+    name: '--el-card-fg',
+    description: 'Primary text color on the card.',
+  },
+  {
+    name: '--el-card-fg-muted',
+    description: 'Muted body text color.',
+  },
+  {
+    name: '--el-card-border',
+    description: 'Border color for outlined appearance.',
+  },
+  {
+    name: '--el-card-radius',
+    description: 'Corner radius of the card shell.',
+  },
+  {
+    name: '--el-card-padding',
+    description: 'Padding for header, content, and footer regions.',
+  },
+  {
+    name: '--el-card-gap',
+    description: 'Gap inside header and footer flex layouts.',
+  },
+  {
+    name: '--el-card-elevated-shadow',
+    description: 'Box shadow for elevated appearance.',
+  },
+];

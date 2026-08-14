@@ -74,6 +74,20 @@ const COMPONENT_EXAMPLES: Record<
     usage: `<el-progress [value]="42" showValue />
 <el-progress-circle [value]="72" showValue />`,
   },
+  avatar: {
+    className: 'ElAvatar',
+    usage: `<el-avatar src="/avatar.jpg" alt="Jane Doe" />
+<el-avatar initials="JD" alt="Jane Doe" />
+<el-avatar icon="user" alt="Account" />`,
+  },
+  card: {
+    className: 'ElCard',
+    usage: `<el-card appearance="outlined">
+  <div elCardHeader>Title</div>
+  <div elCardContent>Body</div>
+  <div elCardFooter>Actions</div>
+</el-card>`,
+  },
 
   'segmented-button': {
     className: 'ElSegmentedButton, ElSegmentedButtonItem',

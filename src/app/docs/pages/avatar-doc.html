@@ -1,0 +1,78 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Avatar</h1>
+    <p class="docs-lead">
+      Circular user or entity mark. Content priority:
+      <code>src</code> → <code>initials</code> → <code>icon</code> (default
+      <code>user</code>). Image load errors fall through to the next option.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add avatar</code>
+    (requires <code>icon</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div style="display: flex; align-items: center; gap: 1rem">
+        <el-avatar
+          src="https://i.pravatar.cc/150?u=ng-elemental-docs"
+          alt="Example user"
+        />
+        <el-avatar initials="JD" alt="Jane Doe" />
+        <el-avatar alt="Account" />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Pass a truncated <code>initials</code> string yourself. Requires
+      <code>npx @ng-elemental/cli add icon</code> for the icon fallback.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Sizes</h3>
+    <app-preview>
+      <div style="display: flex; align-items: center; gap: 1rem">
+        <el-avatar size="sm" initials="SM" alt="Small" />
+        <el-avatar size="md" initials="MD" alt="Medium" />
+        <el-avatar size="lg" initials="LG" alt="Large" />
+      </div>
+    </app-preview>
+
+    <h3>Custom icon</h3>
+    <app-preview>
+      <el-avatar icon="star" alt="Starred" />
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      See <a routerLink="/theming">Theming</a> for setup, then override these
+      tokens globally or on a wrapper.
+    </p>
+    <app-tokens-table [tokens]="avatarTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>
