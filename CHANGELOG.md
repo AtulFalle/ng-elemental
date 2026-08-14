@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ElAttachment` file/image attachment cards with upload states (`ng-elemental add attachment`; requires `icon`, `button`)
+- `ElFileUpload` Dropbox-style dropzone with auto-rendered attachments (`ng-elemental add file-upload`; requires `attachment`, `button`, `icon`, `form-error`)
 - `ElAvatar` circular image / initials / icon mark (`ng-elemental add avatar`; requires `icon`)
 - `ElCard` presentational slot-based card with media/header/content/footer and compact horizontal size (`ng-elemental add card`)
 - `ElProgress` and `ElProgressCircle` line and circle progress indicators with determinate/indeterminate modes (`ng-elemental add progress`)

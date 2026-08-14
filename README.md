@@ -481,6 +481,54 @@ Presentational container with named slots. Not interactive — wire clicks on co
 
 Compose with `el-avatar` / `el-icon` / `el-button` in slots when needed (separate `add` packages).
 
+### Attachment (`el-attachment`)
+
+Presentational file/image card with upload display states. Requires `icon` and `button`.
+
+```html
+<el-attachment state="uploading">
+  <el-attachment-media>
+    <el-icon name="file-lines" />
+  </el-attachment-media>
+  <el-attachment-content>
+    <el-attachment-title>design-system.zip</el-attachment-title>
+    <el-attachment-description>Uploading · 64%</el-attachment-description>
+  </el-attachment-content>
+  <el-attachment-actions>
+    <el-attachment-action ariaLabel="Cancel upload" />
+  </el-attachment-actions>
+</el-attachment>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `state` | `idle` \| `uploading` \| `processing` \| `error` \| `done` | `done` | Lifecycle styling + title shimmer |
+| `size` | `sm` \| `md` \| `lg` | `md` | Density |
+| `orientation` | `horizontal` \| `vertical` | `horizontal` | Media beside or above content |
+
+Also: `el-attachment-media` (`variant`: `icon` \| `image`), `el-attachment-group` for a horizontal scroller.
+
+### File Upload (`el-file-upload`)
+
+Dropbox-style dropzone + browse control. Owns `files` via `model` and auto-renders `ElAttachment` rows. Selection UI only — your app owns HTTP upload. Requires `attachment`, `button`, `icon`, and `form-error`.
+
+```html
+<el-file-upload [(files)]="files" multiple accept="image/*,.pdf" [maxSize]="5242880">
+  PNG, JPG, or PDF up to 5 MB
+</el-file-upload>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `files` | `File[]` | `[]` | Selected files (two-way) |
+| `multiple` | `boolean` | `false` | Allow more than one file |
+| `accept` | `string` | `''` | Native `accept` filter |
+| `maxFiles` | `number \| null` | `null` | Cap when `multiple` |
+| `maxSize` | `number \| null` | `null` | Max bytes per file |
+| `disabled` | `boolean` | `false` | Block selection |
+| `size` | `sm` \| `md` \| `lg` | `md` | Dropzone density |
+| `browseLabel` | `string` | `'Browse files'` | Browse button label |
+
 ### Segmented Button (`el-segmented-button`)
 
 ```html

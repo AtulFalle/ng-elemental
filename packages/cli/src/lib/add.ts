@@ -94,6 +94,28 @@ const COMPONENT_EXAMPLES: Record<
   <div elCardFooter>…</div>
 </el-card>`,
   },
+  attachment: {
+    className:
+      'ElAttachment, ElAttachmentMedia, ElAttachmentContent, ElAttachmentTitle, ElAttachmentDescription, ElAttachmentActions, ElAttachmentAction, ElAttachmentGroup',
+    usage: `<el-attachment state="done">
+  <el-attachment-media>
+    <el-icon name="file-lines" />
+  </el-attachment-media>
+  <el-attachment-content>
+    <el-attachment-title>sales-dashboard.pdf</el-attachment-title>
+    <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+  </el-attachment-content>
+  <el-attachment-actions>
+    <el-attachment-action ariaLabel="Remove sales-dashboard.pdf" />
+  </el-attachment-actions>
+</el-attachment>`,
+  },
+  'file-upload': {
+    className: 'ElFileUpload',
+    usage: `<el-file-upload [(files)]="files" multiple accept="image/*,.pdf">
+  PNG, JPG, or PDF up to 5 MB
+</el-file-upload>`,
+  },
 
   'segmented-button': {
     className: 'ElSegmentedButton, ElSegmentedButtonItem',

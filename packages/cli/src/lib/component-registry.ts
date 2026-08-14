@@ -111,6 +111,39 @@ export const COMPONENT_REGISTRY = [
     assetGlobs: ['card.{ts,html,scss}'],
     requiredBasenames: ['card'],
   },
+  {
+    name: 'attachment',
+    assetGlobs: [
+      'attachment.{ts,html,scss}',
+      'attachment-media.{ts,html,scss}',
+      'attachment-content.{ts,html,scss}',
+      'attachment-title.{ts,html,scss}',
+      'attachment-description.{ts,html,scss}',
+      'attachment-actions.{ts,html,scss}',
+      'attachment-action.{ts,html,scss}',
+      'attachment-group.{ts,html,scss}',
+      'attachment.token.ts',
+    ],
+    requiredBasenames: [
+      'attachment',
+      'attachment-media',
+      'attachment-content',
+      'attachment-title',
+      'attachment-description',
+      'attachment-actions',
+      'attachment-action',
+      'attachment-group',
+      'attachment.token',
+    ],
+  },
+  {
+    name: 'file-upload',
+    assetGlobs: [
+      'file-upload.{ts,html,scss}',
+      'file-upload-utils.ts',
+    ],
+    requiredBasenames: ['file-upload', 'file-upload-utils'],
+  },
 
   {
     name: 'segmented-button',

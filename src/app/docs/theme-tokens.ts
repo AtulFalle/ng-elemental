@@ -572,3 +572,77 @@ export const CARD_TOKENS: TokenDefinition[] = [
     description: 'Leading media slot size in compact cards.',
   },
 ];
+
+export const ATTACHMENT_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-attachment-bg',
+    description: 'Attachment surface background.',
+  },
+  {
+    name: '--el-attachment-fg',
+    description: 'Primary text color.',
+  },
+  {
+    name: '--el-attachment-fg-muted',
+    description: 'Description text color.',
+  },
+  {
+    name: '--el-attachment-border',
+    description: 'Default border color.',
+  },
+  {
+    name: '--el-attachment-radius',
+    description: 'Corner radius of the attachment card.',
+  },
+  {
+    name: '--el-attachment-media-size-md',
+    description: 'Media box size at md (also sm/lg variants).',
+  },
+  {
+    name: '--el-attachment-error-bg',
+    description: 'Surface background in error state.',
+  },
+  {
+    name: '--el-attachment-shimmer',
+    description: 'Highlight color for uploading/processing title shimmer.',
+  },
+  {
+    name: '--el-attachment-group-gap',
+    description: 'Gap between attachments in a group scroller.',
+  },
+];
+
+export const FILE_UPLOAD_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-file-upload-bg',
+    description: 'Dropzone surface background.',
+  },
+  {
+    name: '--el-file-upload-border',
+    description: 'Default dashed border color.',
+  },
+  {
+    name: '--el-file-upload-border-active',
+    description: 'Border while dragging accepted files.',
+  },
+  {
+    name: '--el-file-upload-border-reject',
+    description: 'Border while dragging rejected files.',
+  },
+  {
+    name: '--el-file-upload-bg-active',
+    description: 'Background while dragging accepted files.',
+  },
+  {
+    name: '--el-file-upload-radius',
+    description: 'Dropzone corner radius.',
+  },
+  {
+    name: '--el-file-upload-padding-md',
+    description: 'Dropzone padding at md (also sm/lg variants).',
+  },
+  {
+    name: '--el-file-upload-list-gap',
+    description: 'Gap between auto-rendered attachment rows.',
+  },
+];

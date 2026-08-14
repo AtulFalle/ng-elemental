@@ -1,0 +1,18 @@
+:host(.el-attachment-description-host) {
+  display: block;
+  min-width: 0;
+}
+
+.el-attachment-description {
+  display: block;
+  overflow: hidden;
+  font-size: var(--el-attachment-desc-size, 0.75rem);
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--el-attachment-fg-muted);
+}
+
+:host-context(.el-attachment--error) .el-attachment-description {
+  color: var(--el-attachment-error-fg);
+}

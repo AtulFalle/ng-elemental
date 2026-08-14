@@ -99,6 +99,20 @@ export const appRoutes: Route[] = [
           import('./docs/pages/card-doc').then((m) => m.CardDocPage),
       },
       {
+        path: 'components/attachment',
+        loadComponent: () =>
+          import('./docs/pages/attachment-doc').then(
+            (m) => m.AttachmentDocPage,
+          ),
+      },
+      {
+        path: 'components/file-upload',
+        loadComponent: () =>
+          import('./docs/pages/file-upload-doc').then(
+            (m) => m.FileUploadDocPage,
+          ),
+      },
+      {
         path: 'components/segmented-button',
         loadComponent: () =>
           import('./docs/pages/segmented-button-doc').then(

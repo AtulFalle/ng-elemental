@@ -144,6 +144,61 @@
             "input": "packages/ui/src/lib/card",
             "output": "registry/card"
           },
+          {
+            "glob": "attachment.{ts,html,scss}",
+            "input": "packages/ui/src/lib/attachment",
+            "output": "registry/attachment"
+          },
+          {
+            "glob": "attachment-media.{ts,html,scss}",
+            "input": "packages/ui/src/lib/attachment",
+            "output": "registry/attachment"
+          },
+          {
+            "glob": "attachment-content.{ts,html,scss}",
+            "input": "packages/ui/src/lib/attachment",
+            "output": "registry/attachment"
+          },
+          {
+            "glob": "attachment-title.{ts,html,scss}",
+            "input": "packages/ui/src/lib/attachment",
+            "output": "registry/attachment"
+          },
+          {
+            "glob": "attachment-description.{ts,html,scss}",
+            "input": "packages/ui/src/lib/attachment",
+            "output": "registry/attachment"
+          },
+          {
+            "glob": "attachment-actions.{ts,html,scss}",
+            "input": "packages/ui/src/lib/attachment",
+            "output": "registry/attachment"
+          },
+          {
+            "glob": "attachment-action.{ts,html,scss}",
+            "input": "packages/ui/src/lib/attachment",
+            "output": "registry/attachment"
+          },
+          {
+            "glob": "attachment-group.{ts,html,scss}",
+            "input": "packages/ui/src/lib/attachment",
+            "output": "registry/attachment"
+          },
+          {
+            "glob": "attachment.token.ts",
+            "input": "packages/ui/src/lib/attachment",
+            "output": "registry/attachment"
+          },
+          {
+            "glob": "file-upload.{ts,html,scss}",
+            "input": "packages/ui/src/lib/file-upload",
+            "output": "registry/file-upload"
+          },
+          {
+            "glob": "file-upload-utils.ts",
+            "input": "packages/ui/src/lib/file-upload",
+            "output": "registry/file-upload"
+          },
 
           {
             "glob": "segmented-button.{ts,html,scss}",

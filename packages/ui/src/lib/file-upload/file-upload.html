@@ -1,0 +1,84 @@
+<div [class]="rootClass()">
+  <div
+    [class]="dropzoneClass()"
+    role="button"
+    tabindex="0"
+    [attr.aria-disabled]="disabled() ? 'true' : null"
+    (click)="openFilePicker()"
+    (keydown.enter)="onDropzoneKeydown($event)"
+    (keydown.space)="onDropzoneKeydown($event)"
+    (dragenter)="onDragEnter($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    <el-icon
+      class="el-file-upload__icon"
+      name="cloud-arrow-up"
+      [size]="iconSize()"
+    />
+    <div class="el-file-upload__copy">
+      <p class="el-file-upload__title">{{ dropTitle() }}</p>
+      <p class="el-file-upload__hint">
+        <ng-content />
+      </p>
+    </div>
+    <el-button
+      class="el-file-upload__browse"
+      variant="secondary"
+      [size]="size()"
+      [disabled]="disabled()"
+      (click)="openFilePicker($event)"
+    >
+      {{ browseLabel() }}
+    </el-button>
+    <input
+      #fileInput
+      class="el-file-upload__input"
+      type="file"
+      [attr.accept]="accept() || null"
+      [attr.multiple]="multiple() ? '' : null"
+      [disabled]="disabled()"
+      (change)="onFileInputChange($event)"
+    />
+  </div>
+
+  @if (validationError()) {
+    <el-form-error class="el-file-upload__error">
+      {{ validationError() }}
+    </el-form-error>
+  }
+
+  @if (items().length) {
+    <ul class="el-file-upload__list" aria-label="Selected files">
+      @for (item of items(); track item.key) {
+        <li class="el-file-upload__item">
+          <el-attachment state="idle" [size]="size()">
+            @if (item.previewUrl) {
+              <el-attachment-media variant="image">
+                <img [src]="item.previewUrl" alt="" />
+              </el-attachment-media>
+            } @else {
+              <el-attachment-media>
+                <el-icon [name]="item.iconName" />
+              </el-attachment-media>
+            }
+            <el-attachment-content>
+              <el-attachment-title>{{ item.file.name }}</el-attachment-title>
+              <el-attachment-description>{{
+                item.description
+              }}</el-attachment-description>
+            </el-attachment-content>
+            <el-attachment-actions>
+              <el-attachment-action
+                [ariaLabel]="'Remove ' + item.file.name"
+                [disabled]="disabled()"
+                (clicked)="removeFile(item.file)"
+              />
+            </el-attachment-actions>
+          </el-attachment>
+        </li>
+      }
+    </ul>
+  }
+</div>

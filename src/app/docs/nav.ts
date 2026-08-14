@@ -38,6 +38,8 @@ export const DOC_NAV: DocNavSection[] = [
       { label: 'Progress', path: '/components/progress' },
       { label: 'Avatar', path: '/components/avatar' },
       { label: 'Card', path: '/components/card' },
+      { label: 'Attachment', path: '/components/attachment' },
+      { label: 'File Upload', path: '/components/file-upload' },
       { label: 'Segmented Button', path: '/components/segmented-button' },
     ],
   },

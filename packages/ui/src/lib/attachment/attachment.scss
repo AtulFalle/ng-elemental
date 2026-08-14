@@ -1,0 +1,57 @@
+:host(.el-attachment-host) {
+  display: block;
+}
+
+.el-attachment {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  gap: var(--el-attachment-gap);
+  padding: var(--el-attachment-padding);
+  border: 1px solid var(--el-attachment-border);
+  border-radius: var(--el-attachment-radius);
+  background: var(--el-attachment-bg);
+  color: var(--el-attachment-fg);
+  font-family: var(--el-font-sans);
+
+  &--vertical {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  &--sm {
+    --el-attachment-padding: var(--el-attachment-padding-sm);
+    --el-attachment-gap: var(--el-attachment-gap-sm);
+    --el-attachment-media-size: var(--el-attachment-media-size-sm);
+    --el-attachment-title-size: var(--el-attachment-title-size-sm);
+    --el-attachment-desc-size: var(--el-attachment-desc-size-sm);
+  }
+
+  &--md {
+    --el-attachment-padding: var(--el-attachment-padding-md);
+    --el-attachment-gap: var(--el-attachment-gap-md);
+    --el-attachment-media-size: var(--el-attachment-media-size-md);
+    --el-attachment-title-size: var(--el-attachment-title-size-md);
+    --el-attachment-desc-size: var(--el-attachment-desc-size-md);
+  }
+
+  &--lg {
+    --el-attachment-padding: var(--el-attachment-padding-lg);
+    --el-attachment-gap: var(--el-attachment-gap-lg);
+    --el-attachment-media-size: var(--el-attachment-media-size-lg);
+    --el-attachment-title-size: var(--el-attachment-title-size-lg);
+    --el-attachment-desc-size: var(--el-attachment-desc-size-lg);
+  }
+
+  &--error {
+    border-color: var(--el-attachment-error-border);
+    background: var(--el-attachment-error-bg);
+    color: var(--el-attachment-error-fg);
+  }
+
+  &--uploading,
+  &--processing {
+    border-color: var(--el-attachment-border);
+  }
+}

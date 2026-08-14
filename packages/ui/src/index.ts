@@ -73,6 +73,26 @@ export { ElProgressCircle } from './lib/progress/progress-circle';
 export { ElAvatar, type ElAvatarSize } from './lib/avatar/avatar';
 export { ElCard, type ElCardAppearance, type ElCardSize } from './lib/card/card';
 export {
+  ElAttachment,
+  type ElAttachmentOrientation,
+  type ElAttachmentSize,
+  type ElAttachmentState,
+} from './lib/attachment/attachment';
+export {
+  ElAttachmentMedia,
+  type ElAttachmentMediaVariant,
+} from './lib/attachment/attachment-media';
+export { ElAttachmentContent } from './lib/attachment/attachment-content';
+export { ElAttachmentTitle } from './lib/attachment/attachment-title';
+export { ElAttachmentDescription } from './lib/attachment/attachment-description';
+export { ElAttachmentActions } from './lib/attachment/attachment-actions';
+export { ElAttachmentAction } from './lib/attachment/attachment-action';
+export { ElAttachmentGroup } from './lib/attachment/attachment-group';
+export {
+  ElFileUpload,
+  type ElFileUploadSize,
+} from './lib/file-upload/file-upload';
+export {
   ElThemeService,
   provideElTheme,
   EL_THEME_OPTIONS,

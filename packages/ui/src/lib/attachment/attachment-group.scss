@@ -1,0 +1,53 @@
+:host(.el-attachment-group-host) {
+  display: block;
+  min-width: 0;
+}
+
+.el-attachment-group {
+  position: relative;
+  min-width: 0;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    width: var(--el-attachment-group-fade-width);
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(
+      to right,
+      var(--el-attachment-group-fade-bg),
+      transparent
+    );
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(
+      to left,
+      var(--el-attachment-group-fade-bg),
+      transparent
+    );
+  }
+}
+
+.el-attachment-group__scroller {
+  display: flex;
+  gap: var(--el-attachment-group-gap);
+  overflow-x: auto;
+  padding-block: 0.125rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+
+  > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-width: var(--el-attachment-group-item-min-width);
+  }
+}

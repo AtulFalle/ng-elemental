@@ -71,6 +71,8 @@ export class MyComponent {}
 | `progress` | `el-progress`, `el-progress-circle` | `ElProgress`, `ElProgressCircle` |
 | `avatar` | `el-avatar` | `ElAvatar` |
 | `card` | `el-card` | `ElCard` |
+| `attachment` | `el-attachment` (+ parts) | `ElAttachment`, … |
+| `file-upload` | `el-file-upload` | `ElFileUpload` |
 | `icon` | `el-icon` | `ElIcon` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |
 

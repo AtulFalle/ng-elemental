@@ -1,0 +1,83 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>File Upload</h1>
+    <p class="docs-lead">
+      Dropbox-style dropzone with browse control, validation messages, and an
+      auto-rendered
+      <a routerLink="/components/attachment">Attachment</a>
+      list. Selection UI only — your app owns HTTP upload and progress.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project:
+    <code>npx @ng-elemental/cli add file-upload</code>
+    (requires
+    <code>attachment</code>,
+    <code>button</code>,
+    <code>icon</code>,
+    <code>form-error</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-file-upload
+        style="max-width: 28rem; width: 100%"
+        [(files)]="singleFiles"
+      >
+        Drag and drop, or browse to select a file
+      </el-file-upload>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Bind
+      <code>files</code>
+      with
+      <code>[(files)]</code>
+      . Project hint text as content. Invalid files surface through
+      <code>el-form-error</code>
+      .
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Multiple with constraints</h3>
+    <app-preview>
+      <el-file-upload
+        style="max-width: 28rem; width: 100%"
+        [(files)]="multiFiles"
+        multiple
+        accept="image/*,.pdf"
+        [maxFiles]="5"
+        [maxSize]="5242880"
+        dropTitle="Drop images or PDFs"
+      >
+        PNG, JPG, or PDF — up to 5 files, 5 MB each
+      </el-file-upload>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Tokens</h2>
+    <app-tokens-table [tokens]="fileUploadTokens" />
+    <app-code-block [code]="globalTokensCode" language="css" />
+  </section>
+
+  <section>
+    <h2>API</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

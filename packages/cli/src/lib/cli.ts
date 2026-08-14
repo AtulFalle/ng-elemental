@@ -58,5 +58,7 @@ Commands:
   add progress          Copy the Progress (line + circle) components into your project
   add avatar            Copy the Avatar component into your project
   add card              Copy the Card component into your project
+  add attachment        Copy the Attachment component into your project
+  add file-upload       Copy the File Upload component into your project
 `);
 }

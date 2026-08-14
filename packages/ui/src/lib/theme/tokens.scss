@@ -248,6 +248,66 @@
   --el-card-compact-media-size: 2rem;
   --el-card-compact-content-font-size: 0.8125rem;
 
+  // ── Attachment ───────────────────────────────────────────────────────────
+  --el-attachment-bg: var(--el-color-surface);
+  --el-attachment-fg: var(--el-color-fg);
+  --el-attachment-fg-muted: var(--el-color-fg-muted);
+  --el-attachment-border: var(--el-color-border);
+  --el-attachment-radius: 0.75rem;
+  --el-attachment-content-gap: 0.125rem;
+  --el-attachment-actions-gap: 0.25rem;
+  --el-attachment-media-bg: var(--el-color-surface-muted);
+  --el-attachment-media-fg: var(--el-color-fg-muted);
+  --el-attachment-media-radius: 0.5rem;
+  --el-attachment-shimmer: var(--el-color-fg-muted);
+  --el-attachment-error-bg: color-mix(in srgb, var(--el-color-error) 8%, var(--el-color-surface));
+  --el-attachment-error-fg: var(--el-color-error);
+  --el-attachment-error-border: color-mix(in srgb, var(--el-color-error) 40%, var(--el-color-border));
+  --el-attachment-padding-sm: 0.375rem 0.5rem;
+  --el-attachment-padding-md: 0.5rem 0.75rem;
+  --el-attachment-padding-lg: 0.75rem 1rem;
+  --el-attachment-gap-sm: 0.5rem;
+  --el-attachment-gap-md: 0.75rem;
+  --el-attachment-gap-lg: 1rem;
+  --el-attachment-media-size-sm: 1.75rem;
+  --el-attachment-media-size-md: 2.5rem;
+  --el-attachment-media-size-lg: 3rem;
+  --el-attachment-title-size-sm: 0.8125rem;
+  --el-attachment-title-size-md: 0.875rem;
+  --el-attachment-title-size-lg: 1rem;
+  --el-attachment-desc-size-sm: 0.6875rem;
+  --el-attachment-desc-size-md: 0.75rem;
+  --el-attachment-desc-size-lg: 0.8125rem;
+  --el-attachment-group-gap: 0.75rem;
+  --el-attachment-group-item-min-width: 12rem;
+  --el-attachment-group-fade-width: 1.5rem;
+  --el-attachment-group-fade-bg: var(--el-surface-canvas);
+
+  // ── File upload ──────────────────────────────────────────────────────────
+  --el-file-upload-bg: var(--el-color-surface);
+  --el-file-upload-fg: var(--el-color-fg);
+  --el-file-upload-fg-muted: var(--el-color-fg-muted);
+  --el-file-upload-border: var(--el-color-border);
+  --el-file-upload-border-active: var(--el-color-accent);
+  --el-file-upload-border-reject: var(--el-color-error);
+  --el-file-upload-bg-active: var(--el-color-accent-subtle);
+  --el-file-upload-bg-reject: color-mix(in srgb, var(--el-color-error) 8%, var(--el-color-surface));
+  --el-file-upload-radius: 0.75rem;
+  --el-file-upload-padding-sm: 1rem;
+  --el-file-upload-padding-md: 1.5rem;
+  --el-file-upload-padding-lg: 2rem;
+  --el-file-upload-gap: 0.75rem;
+  --el-file-upload-list-gap: 0.5rem;
+  --el-file-upload-title-size-sm: 0.875rem;
+  --el-file-upload-title-size-md: 1rem;
+  --el-file-upload-title-size-lg: 1.125rem;
+  --el-file-upload-hint-size-sm: 0.75rem;
+  --el-file-upload-hint-size-md: 0.875rem;
+  --el-file-upload-hint-size-lg: 0.9375rem;
+  --el-file-upload-icon-size-sm: 1.5rem;
+  --el-file-upload-icon-size-md: 2rem;
+  --el-file-upload-icon-size-lg: 2.5rem;
+
   // ── Input ────────────────────────────────────────────────────────────────
   --el-input-bg: var(--el-color-surface);
   --el-input-fg: var(--el-color-fg);
