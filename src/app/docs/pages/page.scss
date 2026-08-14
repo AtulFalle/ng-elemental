@@ -1,0 +1,91 @@
+.docs-page {
+  max-width: 42rem;
+}
+
+.docs-page__header {
+  margin-bottom: 2rem;
+}
+
+.docs-page h1 {
+  margin: 0 0 0.75rem;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.docs-lead {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--docs-muted);
+}
+
+.docs-page section {
+  margin-top: 2.5rem;
+}
+
+.docs-page h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.docs-page h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.docs-page p,
+.docs-page li {
+  line-height: 1.7;
+  color: var(--docs-fg);
+}
+
+.docs-page p + p {
+  margin-top: 0.75rem;
+}
+
+.docs-page ul {
+  padding-left: 1.25rem;
+}
+
+.docs-page code:not(pre code) {
+  font-family: var(--el-font-mono);
+  font-size: 0.875em;
+  background: var(--docs-code-inline-bg);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+}
+
+.docs-page a {
+  color: var(--docs-accent);
+  text-decoration: none;
+}
+
+.docs-page a:hover {
+  text-decoration: underline;
+}
+
+.docs-link-list {
+  list-style: none;
+  padding: 0;
+}
+
+.docs-link-list li + li {
+  margin-top: 0.5rem;
+}
+
+.docs-cli-hint {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--docs-border);
+  border-radius: 0.5rem;
+  background: var(--docs-surface-muted);
+  font-size: 0.875rem;
+}
+
+.docs-cli-hint code {
+  font-weight: 600;
+}

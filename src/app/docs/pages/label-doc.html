@@ -1,0 +1,58 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Label</h1>
+    <p class="docs-lead">
+      An accessible form label with variant styles and optional required
+      indicator.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add label</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-label htmlFor="email-preview" variant="default">Email</el-label>
+      <el-label htmlFor="hint-preview" variant="muted">Optional hint</el-label>
+      <el-label htmlFor="error-preview" variant="error" [required]="true">
+        Email
+      </el-label>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>Import the copied component and associate it with a form control:</p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Variants</h3>
+    <app-preview>
+      <el-label variant="default">Default</el-label>
+      <el-label variant="muted">Muted</el-label>
+      <el-label variant="error">Error</el-label>
+    </app-preview>
+
+    <h3>Required &amp; disabled</h3>
+    <app-preview>
+      <el-label [required]="true">Required field</el-label>
+      <el-label [disabled]="true">Disabled label</el-label>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>
