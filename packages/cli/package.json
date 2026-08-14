@@ -1,6 +1,6 @@
 {
   "name": "@ng-elemental/cli",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "Copy Angular UI component source into your project with the NgElemental CLI",
   "keywords": [
