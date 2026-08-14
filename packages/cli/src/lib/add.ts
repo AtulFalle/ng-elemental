@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { readConfig } from './config';
 import { getComponentRegistryDir } from './registry';
 
-export const AVAILABLE_COMPONENTS = ['button', 'label'] as const;
+export const AVAILABLE_COMPONENTS = ['button', 'label', 'segmented-button'] as const;
 export type AvailableComponent = (typeof AVAILABLE_COMPONENTS)[number];
 
 const COMPONENT_EXAMPLES: Record<
@@ -17,6 +17,13 @@ const COMPONENT_EXAMPLES: Record<
   label: {
     className: 'ElLabel',
     usage: '<el-label htmlFor="email" variant="default">Email</el-label>',
+  },
+  'segmented-button': {
+    className: 'ElSegmentedButton, ElSegmentedButtonItem',
+    usage: `<el-segmented-button [(value)]="view" ariaLabel="View mode">
+  <el-segmented-button-item value="list">List</el-segmented-button-item>
+  <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+</el-segmented-button>`,
   },
 };
 
@@ -67,7 +74,7 @@ export function addCommand(options: AddOptions): void {
 function copyComponentFiles(srcDir: string, destDir: string): void {
   mkdirSync(destDir, { recursive: true });
   for (const entry of readdirSync(srcDir, { withFileTypes: true })) {
-    if (!entry.isFile() || entry.name.includes('.stories.')) {
+    if (!entry.isFile() || entry.name.includes('.stories.') || entry.name.includes('.story-host.')) {
       continue;
     }
     copyFileSync(join(srcDir, entry.name), join(destDir, entry.name));

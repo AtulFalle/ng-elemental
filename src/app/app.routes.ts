@@ -26,6 +26,13 @@ export const appRoutes: Route[] = [
         loadComponent: () =>
           import('./docs/pages/label-doc').then((m) => m.LabelDocPage),
       },
+      {
+        path: 'components/segmented-button',
+        loadComponent: () =>
+          import('./docs/pages/segmented-button-doc').then(
+            (m) => m.SegmentedButtonDocPage,
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

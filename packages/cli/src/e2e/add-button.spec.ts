@@ -155,3 +155,75 @@ describe('add label e2e', () => {
     }
   });
 });
+
+describe('add segmented-button e2e', () => {
+  it('installs @ng-elemental/cli from npm and adds ElSegmentedButton', async () => {
+    const registry = localRegistryUrl();
+    const tmp = await mkdtemp(join(tmpdir(), 'ng-elemental-e2e-'));
+
+    try {
+      await cp(fixtureDir, tmp, { recursive: true });
+
+      npmInstall(
+        ['install', '@ng-elemental/cli@e2e', '--registry', registry, '--no-fund', '--no-audit'],
+        tmp,
+      );
+
+      const installedRoot = join(tmp, 'node_modules/@ng-elemental/cli');
+      const cliBin = join(installedRoot, 'index.cjs');
+      expect(existsSync(cliBin), `Installed CLI missing at ${cliBin}`).toBe(true);
+      expect(
+        existsSync(join(installedRoot, 'registry/segmented-button/segmented-button.ts')),
+      ).toBe(true);
+      expect(
+        existsSync(
+          join(installedRoot, 'registry/segmented-button/segmented-button-item.ts'),
+        ),
+      ).toBe(true);
+      expect(
+        existsSync(join(installedRoot, 'registry/segmented-button/segmented-button.html')),
+      ).toBe(true);
+      expect(
+        existsSync(join(installedRoot, 'registry/segmented-button/segmented-button.scss')),
+      ).toBe(true);
+      expect(
+        existsSync(
+          join(installedRoot, 'registry/segmented-button/segmented-button.stories.ts'),
+        ),
+      ).toBe(false);
+
+      run(process.execPath, [cliBin, 'init', '--yes'], tmp);
+      run(process.execPath, [cliBin, 'add', 'segmented-button'], tmp);
+
+      const groupTs = await readFile(
+        join(tmp, 'src/app/ui/segmented-button/segmented-button.ts'),
+        'utf8',
+      );
+      expect(groupTs).toContain("selector: 'el-segmented-button'");
+      expect(groupTs).toContain('export class ElSegmentedButton');
+      expect(groupTs).toContain('export { ElSegmentedButtonItem }');
+
+      const itemTs = await readFile(
+        join(tmp, 'src/app/ui/segmented-button/segmented-button-item.ts'),
+        'utf8',
+      );
+      expect(itemTs).toContain("selector: 'el-segmented-button-item'");
+      expect(itemTs).toContain('export class ElSegmentedButtonItem');
+
+      const groupHtml = await readFile(
+        join(tmp, 'src/app/ui/segmented-button/segmented-button.html'),
+        'utf8',
+      );
+      expect(groupHtml).toContain('<ng-content');
+
+      const scss = await readFile(
+        join(tmp, 'src/app/ui/segmented-button/segmented-button.scss'),
+        'utf8',
+      );
+      expect(scss).toContain('.el-segmented-button');
+      expect(scss).toContain('.el-segmented-button-item');
+    } finally {
+      await rm(tmp, { recursive: true, force: true });
+    }
+  });
+});

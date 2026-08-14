@@ -1,7 +1,15 @@
-import '@fontsource-variable/geist';
-import '@fontsource-variable/geist-mono';
 import type { Preview } from '@storybook/angular-vite';
 
-const preview: Preview = {};
+const preview: Preview = {
+  parameters: {
+    backgrounds: {
+      default: 'surface',
+      values: [
+        { name: 'surface', value: '#fffbfe' },
+        { name: 'muted', value: '#f3edf7' },
+      ],
+    },
+  },
+};
 
 export default preview;

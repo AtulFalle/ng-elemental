@@ -1,0 +1,135 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Segmented Button</h1>
+    <p class="docs-lead">
+      A single-choice control for switching between related views or options,
+      styled as a connected button group with the same variants as Button.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project:
+    <code>npx @ng-elemental/cli add segmented-button</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-segmented-button
+        [value]="view()"
+        (valueChange)="view.set($event)"
+        ariaLabel="View mode"
+      >
+        <el-segmented-button-item value="list">List</el-segmented-button-item>
+        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+        <el-segmented-button-item value="board">Board</el-segmented-button-item>
+      </el-segmented-button>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Import the group and item components, then compose segments with
+      <code>el-segmented-button-item</code>:
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Variants</h3>
+    <app-preview>
+      <el-segmented-button
+        variant="primary"
+        [value]="primaryDemo()"
+        (valueChange)="primaryDemo.set($event)"
+        ariaLabel="Primary"
+      >
+        <el-segmented-button-item value="list">List</el-segmented-button-item>
+        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+      </el-segmented-button>
+      <el-segmented-button
+        variant="secondary"
+        [value]="secondaryDemo()"
+        (valueChange)="secondaryDemo.set($event)"
+        ariaLabel="Secondary"
+      >
+        <el-segmented-button-item value="list">List</el-segmented-button-item>
+        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+      </el-segmented-button>
+      <el-segmented-button
+        variant="ghost"
+        [value]="ghostDemo()"
+        (valueChange)="ghostDemo.set($event)"
+        ariaLabel="Ghost"
+      >
+        <el-segmented-button-item value="list">List</el-segmented-button-item>
+        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+      </el-segmented-button>
+    </app-preview>
+
+    <h3>Sizes</h3>
+    <app-preview>
+      <el-segmented-button
+        [value]="sizeDemo()"
+        (valueChange)="sizeDemo.set($event)"
+        size="sm"
+        ariaLabel="Small"
+      >
+        <el-segmented-button-item value="day">Day</el-segmented-button-item>
+        <el-segmented-button-item value="week">Week</el-segmented-button-item>
+      </el-segmented-button>
+      <el-segmented-button
+        [value]="sizeDemo()"
+        (valueChange)="sizeDemo.set($event)"
+        size="md"
+        ariaLabel="Medium"
+      >
+        <el-segmented-button-item value="day">Day</el-segmented-button-item>
+        <el-segmented-button-item value="week">Week</el-segmented-button-item>
+      </el-segmented-button>
+      <el-segmented-button
+        [value]="sizeDemo()"
+        (valueChange)="sizeDemo.set($event)"
+        size="lg"
+        ariaLabel="Large"
+      >
+        <el-segmented-button-item value="day">Day</el-segmented-button-item>
+        <el-segmented-button-item value="week">Week</el-segmented-button-item>
+      </el-segmented-button>
+    </app-preview>
+
+    <h3>Disabled</h3>
+    <app-preview>
+      <el-segmented-button value="list" [disabled]="true" ariaLabel="Disabled group">
+        <el-segmented-button-item value="list">List</el-segmented-button-item>
+        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+      </el-segmented-button>
+      <el-segmented-button
+        [value]="disabledDemo()"
+        (valueChange)="disabledDemo.set($event)"
+        ariaLabel="Disabled item"
+      >
+        <el-segmented-button-item value="list">List</el-segmented-button-item>
+        <el-segmented-button-item value="grid" [disabled]="true">Grid</el-segmented-button-item>
+        <el-segmented-button-item value="board">Board</el-segmented-button-item>
+      </el-segmented-button>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-segmented-button</h3>
+    <app-props-table [props]="groupProps" />
+    <h3>el-segmented-button-item</h3>
+    <app-props-table [props]="itemProps" />
+  </section>
+</article>
