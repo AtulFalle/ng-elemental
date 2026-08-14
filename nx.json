@@ -13,13 +13,19 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json"
     ],
+    "docsApp": [
+      "{projectRoot}/src/**",
+      "{projectRoot}/public/**",
+      "{projectRoot}/tsconfig.app.json",
+      "{projectRoot}/.storybook/**"
+    ],
     "sharedGlobals": []
   },
   "targetDefaults": {
     "@angular/build:application": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["docsApp", "^production"]
     },
     "@nx/eslint:lint": {
       "cache": true,
@@ -33,7 +39,8 @@
       ]
     },
     "build-storybook": {
-      "cache": true
+      "cache": true,
+      "inputs": ["docsApp"]
     },
     "@nx/esbuild:esbuild": {
       "cache": true,

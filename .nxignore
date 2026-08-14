@@ -1,2 +1,10 @@
-e2e/fixtures
-tmp
+# Files excluded from Nx affected calculation (docs/meta only).
+# Source and config changes are intentionally NOT listed here.
+
+**/README.md
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+LICENSE
+SECURITY.md
+docs/

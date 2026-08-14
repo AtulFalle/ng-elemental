@@ -1,0 +1,44 @@
+'area:cli':
+  - changed-files:
+      - any-glob-to-any-file: 'packages/cli/**'
+
+'area:ui':
+  - changed-files:
+      - any-glob-to-any-file: 'packages/ui/**'
+
+'area:docs':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/**'
+          - 'public/**'
+          - '.storybook/**'
+
+'area:ci':
+  - changed-files:
+      - any-glob-to-any-file: '.github/**'
+
+'area:infra':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'nx.json'
+          - 'package.json'
+          - 'package-lock.json'
+          - 'tsconfig*.json'
+          - 'eslint*.mjs'
+          - 'vitest.config.*'
+          - '.nxignore'
+          - '.prettierrc'
+          - '.prettierignore'
+
+'area:release':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'CHANGELOG.md'
+          - '.github/workflows/release.yml'
+
+'type:docs':
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+          - 'docs/**'
+          - 'src/app/docs/**'

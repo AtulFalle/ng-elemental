@@ -5,7 +5,8 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "./src",
-  "tags": [],
+  "tags": ["scope:docs", "type:app", "platform:web"],
+  "implicitDependencies": ["ui"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
@@ -77,6 +78,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
+      "inputs": ["docsApp", "{workspaceRoot}/eslint.config.mjs"],
       "options": {
         "lintFilePatterns": [
           "./src"

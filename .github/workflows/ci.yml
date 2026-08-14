@@ -13,6 +13,9 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  NX_DAEMON: 'false'
+
 jobs:
   ci:
     name: Lint, build, test
@@ -36,11 +39,48 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Derive SHAs for nx affected
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Set Nx scope
+        id: nx-scope
+        env:
+          FULL_CI: ${{ github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'needs:full-ci') }}
+        run: |
+          if [ "$FULL_CI" = "true" ]; then
+            echo "mode=full" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=affected" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Show affected projects
+        if: steps.nx-scope.outputs.mode == 'affected'
+        run: |
+          echo "Affected projects:"
+          npx nx show projects --affected --withTarget=lint || true
+          echo ""
+          echo "Planned targets: lint, build, test"
+
       - name: Lint
-        run: npx nx run-many -t lint
+        run: |
+          if [ "${{ steps.nx-scope.outputs.mode }}" = "full" ]; then
+            npx nx run-many -t lint
+          else
+            npx nx affected -t lint
+          fi
 
       - name: Build
-        run: npx nx run-many -t build
+        run: |
+          if [ "${{ steps.nx-scope.outputs.mode }}" = "full" ]; then
+            npx nx run-many -t build
+          else
+            npx nx affected -t build
+          fi
 
       - name: Test and e2e
-        run: npx nx run-many -t test
+        run: |
+          if [ "${{ steps.nx-scope.outputs.mode }}" = "full" ]; then
+            npx nx run-many -t test
+          else
+            npx nx affected -t test
+          fi
