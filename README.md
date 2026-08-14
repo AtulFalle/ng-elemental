@@ -70,7 +70,7 @@ Add `theme` to copy `tokens.scss` and optional `ElThemeService`. Import tokens o
 }
 ```
 
-Override tokens on `:root` for global changes, on a wrapper element for scoped styling, or via `provideElTheme()` for runtime theming. Each component reads its colors from `--el-button-*`, `--el-label-*`, and related variables.
+Override tokens on `:root` for global changes, on a wrapper element for scoped styling, or via `provideElTheme()` for runtime theming. Each component reads its colors from `--el-button-*`, `--el-label-*`, `--el-input-*`, and related variables.
 
 ## Typography
 
@@ -101,7 +101,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `checkbox`, `slide-toggle`, `radio`, `chip`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `chip`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -157,6 +157,34 @@ Use `--force` to overwrite an existing component folder.
 | `htmlFor` | `string` | `''` | Associated control id |
 | `required` | `boolean` | `false` | Shows required indicator |
 | `disabled` | `boolean` | `false` | Muted, non-interactive label |
+
+### Input (`el-input`)
+
+Text field primitive. Pair with `el-label` for a caption; error *messages* belong to a future form-field. Mask is optional.
+
+```html
+<el-input [(value)]="email" type="email" placeholder="you@example.com" inputId="email" />
+
+<el-input [(value)]="search" type="search" placeholder="Search" inputId="search">
+  <el-icon elInputPrefix name="magnifying-glass" size="sm" />
+</el-input>
+
+<el-input [(value)]="phone" type="tel" mask="(000) 000-0000" placeholder="Phone" inputId="phone" />
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `''` | Display value (two-way bindable), including mask literals |
+| `type` | `text` \| `email` \| `password` \| `tel` \| `url` \| `search` \| `number` | `text` | Native input type |
+| `mask` | `string` | `''` | Optional pattern: `0` digit, `A` letter, `*` alphanumeric. Ignored for `number` |
+| `size` | `sm` \| `md` \| `lg` | `md` | Field size |
+| `placeholder` | `string` | `''` | Native placeholder |
+| `disabled` | `boolean` | `false` | Non-interactive state |
+| `readOnly` | `boolean` | `false` | Native read-only state |
+| `error` | `boolean` | `false` | Error border and `aria-invalid` |
+| `inputId` | `string` | `''` | Native input id |
+
+Prefix/suffix: project content with `elInputPrefix` / `elInputSuffix`. Icons need the `icon` component.
 
 ### Checkbox (`el-checkbox`)
 

@@ -11,6 +11,13 @@ export {
 } from './lib/button/button';
 export { ElLabel, type ElLabelVariant } from './lib/label/label';
 export {
+  ElInput,
+  ElInputPrefix,
+  ElInputSuffix,
+  type ElInputSize,
+  type ElInputType,
+} from './lib/input/input';
+export {
   ElCheckbox,
   type ElCheckboxLabelPosition,
 } from './lib/checkbox/checkbox';

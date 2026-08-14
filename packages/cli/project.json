@@ -55,6 +55,11 @@
             "output": "registry/label"
           },
           {
+            "glob": "input.{ts,html,scss}",
+            "input": "packages/ui/src/lib/input",
+            "output": "registry/input"
+          },
+          {
             "glob": "checkbox.{ts,html,scss}",
             "input": "packages/ui/src/lib/checkbox",
             "output": "registry/checkbox"

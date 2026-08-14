@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ElInput` text field with types, prefix/suffix slots, error/disabled states, and optional pattern mask (`ng-elemental add input`)
 - `ElSlideToggle` on/off switch with size, label position, and optional track/thumb icon slots (`ng-elemental add slide-toggle`)
 - `ElIcon` Font Awesome 6 icon component (`ng-elemental add icon`)
 - Button and chip integrations for Font Awesome start/end icons

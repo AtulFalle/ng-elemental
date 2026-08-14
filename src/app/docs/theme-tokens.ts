@@ -121,6 +121,37 @@ export const LABEL_TOKENS: TokenDefinition[] = [
   },
 ];
 
+export const INPUT_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-input-bg',
+    description: 'Input field background.',
+  },
+  {
+    name: '--el-input-border',
+    description: 'Default field border color.',
+  },
+  {
+    name: '--el-input-border-hover',
+    description: 'Border color on hover and focus.',
+  },
+  {
+    name: '--el-input-border-error',
+    description: 'Border color in the error state.',
+  },
+  {
+    name: '--el-input-placeholder-fg',
+    description: 'Placeholder text color.',
+  },
+  {
+    name: '--el-input-affix-fg',
+    description: 'Prefix and suffix text or icon color.',
+  },
+  {
+    name: '--el-input-focus-ring',
+    description: 'Focus ring color around the field.',
+  },
+];
+
 export const CHECKBOX_TOKENS: TokenDefinition[] = [
   {
     name: '--el-checkbox-size',

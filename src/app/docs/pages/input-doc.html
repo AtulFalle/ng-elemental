@@ -1,0 +1,146 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Input</h1>
+    <p class="docs-lead">
+      Text field primitive with sizes, native types, prefix/suffix slots, and
+      error or disabled styling. Field label and error messages belong to a
+      future form-field — this control is the input itself. Mask is optional.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>, then
+    <code>npx @ng-elemental/cli add input</code>. Prefix or suffix icons also
+    need <code>npx @ng-elemental/cli add icon</code>.
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-stack docs-field-demo">
+        <el-label htmlFor="email-preview">Email</el-label>
+        <el-input
+          [(value)]="email"
+          type="email"
+          placeholder="you@example.com"
+          inputId="email-preview"
+        />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Bind the display string with <code>[(value)]</code>. Leave
+      <code>mask</code> empty unless you need a pattern. Pair with
+      <code>el-label</code> via <code>inputId</code> / <code>htmlFor</code>.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Types</h3>
+    <app-preview>
+      <div class="docs-stack docs-field-demo">
+        <el-input
+          [(value)]="email"
+          type="email"
+          placeholder="Email"
+          inputId="ex-email"
+        />
+        <el-input
+          [(value)]="password"
+          type="password"
+          placeholder="Password"
+          inputId="ex-password"
+        />
+        <el-input
+          [(value)]="quantity"
+          type="number"
+          placeholder="Quantity"
+          inputId="ex-number"
+        />
+      </div>
+    </app-preview>
+
+    <h3>Prefix and suffix</h3>
+    <app-preview>
+      <div class="docs-stack docs-field-demo">
+        <el-input
+          [(value)]="search"
+          type="search"
+          placeholder="Search"
+          inputId="ex-search"
+        >
+          <el-icon elInputPrefix name="magnifying-glass" size="sm" />
+        </el-input>
+        <el-input [(value)]="amount" placeholder="Amount" inputId="ex-amount">
+          <span elInputPrefix>$</span>
+          <span elInputSuffix>USD</span>
+        </el-input>
+      </div>
+    </app-preview>
+
+    <h3>Optional mask</h3>
+    <p>
+      Set <code>mask</code> only when you need it.
+      <code>0</code> is a digit, <code>A</code> a letter,
+      <code>*</code> alphanumeric. Other characters are inserted as literals.
+      The bound value includes those literals.
+    </p>
+    <app-preview>
+      <div class="docs-field-demo">
+        <el-input
+          [(value)]="phone"
+          type="tel"
+          mask="(000) 000-0000"
+          placeholder="(555) 123-4567"
+          inputId="ex-phone"
+        />
+      </div>
+    </app-preview>
+
+    <h3>Sizes</h3>
+    <app-preview>
+      <div class="docs-stack docs-field-demo">
+        <el-input [(value)]="sm" size="sm" placeholder="Small" inputId="ex-sm" />
+        <el-input [(value)]="md" size="md" placeholder="Medium" inputId="ex-md" />
+        <el-input [(value)]="lg" size="lg" placeholder="Large" inputId="ex-lg" />
+      </div>
+    </app-preview>
+
+    <h3>States</h3>
+    <app-preview>
+      <div class="docs-stack docs-field-demo">
+        <el-input value="Read only" readOnly placeholder="Readonly" inputId="ex-readonly" />
+        <el-input value="Cannot edit" disabled placeholder="Disabled" inputId="ex-disabled" />
+        <el-input value="Invalid" error placeholder="Error" inputId="ex-error" />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Input colors and metrics come from CSS variables. See
+      <a routerLink="/theming">Theming</a> for setup.
+    </p>
+    <app-tokens-table [tokens]="inputTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

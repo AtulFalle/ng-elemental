@@ -192,6 +192,21 @@
   --el-select-toolbar-fg: var(--el-color-accent);
   --el-select-focus-ring: var(--el-segmented-md3-focus);
 
+  // ── Input ────────────────────────────────────────────────────────────────
+  --el-input-bg: var(--el-color-surface);
+  --el-input-fg: var(--el-color-fg);
+  --el-input-fg-disabled: var(--el-color-fg-disabled);
+  --el-input-border: var(--el-color-border);
+  --el-input-border-hover: var(--el-color-border-muted);
+  --el-input-border-error: var(--el-color-error);
+  --el-input-placeholder-fg: var(--el-color-fg-muted);
+  --el-input-affix-fg: var(--el-color-fg-muted);
+  --el-input-radius: 0.375rem;
+  --el-input-min-height: 2.5rem;
+  --el-input-padding: 0.5rem 0.75rem;
+  --el-input-font-size: 0.875rem;
+  --el-input-focus-ring: var(--el-segmented-md3-focus);
+
   // ── Canvas / surfaces (Storybook, docs) ──────────────────────────────────
   --el-surface-canvas: #fffbfe;
   --el-surface-canvas-muted: #f3edf7;

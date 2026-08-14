@@ -37,6 +37,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/label-doc').then((m) => m.LabelDocPage),
       },
       {
+        path: 'components/input',
+        loadComponent: () =>
+          import('./docs/pages/input-doc').then((m) => m.InputDocPage),
+      },
+      {
         path: 'components/checkbox',
         loadComponent: () =>
           import('./docs/pages/checkbox-doc').then((m) => m.CheckboxDocPage),

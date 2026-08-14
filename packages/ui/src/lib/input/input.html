@@ -1,0 +1,24 @@
+<div class="el-input__field">
+  <span class="el-input__prefix">
+    <ng-content select="[elInputPrefix]" />
+  </span>
+
+  <input
+    #input
+    class="el-input__control"
+    [type]="type()"
+    [id]="inputId() || null"
+    [name]="name() || null"
+    [placeholder]="placeholder() || null"
+    [disabled]="disabled()"
+    [readOnly]="readOnly()"
+    [attr.autocomplete]="autocomplete() || null"
+    [attr.aria-label]="ariaLabel() || null"
+    [attr.aria-invalid]="error() ? true : null"
+    (input)="onInput($event)"
+  />
+
+  <span class="el-input__suffix">
+    <ng-content select="[elInputSuffix]" />
+  </span>
+</div>

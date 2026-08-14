@@ -26,6 +26,11 @@ const COMPONENT_EXAMPLES: Record<
     className: 'ElLabel',
     usage: '<el-label htmlFor="email" variant="default">Email</el-label>',
   },
+  input: {
+    className: 'ElInput',
+    usage:
+      '<el-input [(value)]="email" type="email" placeholder="you@example.com" inputId="email" />',
+  },
   checkbox: {
     className: 'ElCheckbox',
     usage: `<el-checkbox [(checked)]="accepted" inputId="terms">

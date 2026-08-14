@@ -47,6 +47,7 @@ Commands:
   init          Create elemental.json and the components directory
   add button            Copy the Button component into your project
   add label             Copy the Label component into your project
+  add input             Copy the Input component into your project
   add checkbox          Copy the Checkbox component into your project
   add slide-toggle      Copy the Slide Toggle component into your project
   add radio             Copy the Radio component into your project

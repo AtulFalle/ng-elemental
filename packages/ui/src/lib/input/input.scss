@@ -1,0 +1,129 @@
+:host {
+  display: inline-flex;
+  width: 100%;
+  max-width: 24rem;
+  vertical-align: top;
+}
+
+:host(.el-input--disabled) {
+  pointer-events: none;
+}
+
+.el-input {
+  &__field {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: var(--el-input-min-height);
+    padding: var(--el-input-padding);
+    border: 1px solid var(--el-input-border);
+    border-radius: var(--el-input-radius);
+    background: var(--el-input-bg);
+    font-family: var(--el-font-sans);
+    font-size: var(--el-input-font-size);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--el-input-fg);
+  }
+
+  &__field:hover {
+    border-color: var(--el-input-border-hover);
+  }
+
+  &__field:focus-within {
+    border-color: var(--el-input-border-hover);
+    outline: 2px solid var(--el-input-focus-ring);
+    outline-offset: 2px;
+  }
+
+  &__prefix,
+  &__suffix {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    color: var(--el-input-affix-fg);
+  }
+
+  &__prefix:not(:has(*)),
+  &__suffix:not(:has(*)) {
+    display: none;
+  }
+
+  &__prefix {
+    padding-inline-end: 0.5rem;
+  }
+
+  &__suffix {
+    padding-inline-start: 0.5rem;
+  }
+
+  &__control {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    appearance: none;
+  }
+
+  &__control::placeholder {
+    color: var(--el-input-placeholder-fg);
+  }
+
+  &__control:focus {
+    outline: none;
+  }
+
+  &__control:disabled {
+    color: var(--el-input-fg-disabled);
+    cursor: not-allowed;
+  }
+}
+
+:host(.el-input--sm) {
+  --el-input-min-height: 2rem;
+  --el-input-padding: 0.25rem 0.625rem;
+  --el-input-font-size: 0.75rem;
+}
+
+:host(.el-input--md) {
+  --el-input-min-height: 2.5rem;
+  --el-input-padding: 0.5rem 0.75rem;
+  --el-input-font-size: 0.875rem;
+}
+
+:host(.el-input--lg) {
+  --el-input-min-height: 3rem;
+  --el-input-padding: 0.75rem 1rem;
+  --el-input-font-size: 1rem;
+}
+
+:host(.el-input--error) .el-input__field {
+  border-color: var(--el-input-border-error);
+}
+
+:host(.el-input--disabled) .el-input__field {
+  color: var(--el-input-fg-disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+:host(.el-input--error) .el-input__field:hover,
+:host(.el-input--error) .el-input__field:focus-within {
+  border-color: var(--el-input-border-error);
+}
+
+:host(.el-input--error) .el-input__field:focus-within {
+  outline-color: var(--el-input-border-error);
+}
+
+:host(.el-input--disabled) .el-input__field:hover,
+:host(.el-input--disabled) .el-input__field:focus-within {
+  border-color: var(--el-input-border);
+  outline: none;
+}
