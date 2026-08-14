@@ -27,6 +27,7 @@ export const DOC_NAV: DocNavSection[] = [
       { label: 'Icon', path: '/components/icon' },
       { label: 'Label', path: '/components/label' },
       { label: 'Checkbox', path: '/components/checkbox' },
+      { label: 'Radio', path: '/components/radio' },
       { label: 'Chip', path: '/components/chip' },
       { label: 'Segmented Button', path: '/components/segmented-button' },
     ],

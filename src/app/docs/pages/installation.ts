@@ -15,12 +15,8 @@ export class InstallationPage {
   protected readonly themeAddCode = `npx @ng-elemental/cli add theme`;
 
   protected readonly addComponentsCode = `npx @ng-elemental/cli add theme
-npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
-npx @ng-elemental/cli add label
-npx @ng-elemental/cli add checkbox
-npx @ng-elemental/cli add chip
-npx @ng-elemental/cli add segmented-button`;
+npx @ng-elemental/cli add <component>`;
 
   protected readonly fontAwesomeCode = `npm install @fortawesome/fontawesome-free`;
 

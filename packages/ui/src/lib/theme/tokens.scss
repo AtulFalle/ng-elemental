@@ -118,6 +118,26 @@
   --el-checkbox-error-border: var(--el-color-error);
   --el-checkbox-focus-ring: var(--el-segmented-md3-focus);
 
+  // ── Radio (Material Design 3) ────────────────────────────────────────────
+  --el-radio-size: 1.125rem;
+  --el-radio-dot-size: 0.625rem;
+  --el-radio-gap: 0.5rem;
+  --el-radio-border-width: 2px;
+  --el-radio-label-size: 0.875rem;
+  --el-radio-label-fg: var(--el-segmented-md3-on-surface);
+  --el-radio-label-fg-disabled: var(--el-color-fg-disabled);
+  --el-radio-border: var(--el-segmented-md3-outline);
+  --el-radio-border-disabled: rgb(28 27 31 / 0.12);
+  --el-radio-bg: transparent;
+  --el-radio-bg-disabled: rgb(28 27 31 / 0.04);
+  --el-radio-selected-border: var(--el-segmented-md3-focus);
+  --el-radio-selected-border-disabled: rgb(28 27 31 / 0.38);
+  --el-radio-dot: var(--el-segmented-md3-focus);
+  --el-radio-dot-disabled: rgb(28 27 31 / 0.38);
+  --el-radio-focus-ring: var(--el-segmented-md3-focus);
+  --el-radio-group-gap-vertical: 0.75rem;
+  --el-radio-group-gap-horizontal: 1.5rem;
+
   // ── Canvas / surfaces (Storybook, docs) ──────────────────────────────────
   --el-surface-canvas: #fffbfe;
   --el-surface-canvas-muted: #f3edf7;
@@ -152,6 +172,11 @@
   --el-checkbox-border-disabled: rgb(230 225 229 / 0.12);
   --el-checkbox-bg-disabled: rgb(230 225 229 / 0.04);
   --el-checkbox-selected-bg-disabled: rgb(230 225 229 / 0.38);
+
+  --el-radio-border-disabled: rgb(230 225 229 / 0.12);
+  --el-radio-bg-disabled: rgb(230 225 229 / 0.04);
+  --el-radio-selected-border-disabled: rgb(230 225 229 / 0.38);
+  --el-radio-dot-disabled: rgb(230 225 229 / 0.38);
 
   --el-surface-canvas: #1c1b1f;
   --el-surface-canvas-muted: #141218;

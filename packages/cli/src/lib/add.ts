@@ -32,6 +32,13 @@ const COMPONENT_EXAMPLES: Record<
   Accept terms and conditions
 </el-checkbox>`,
   },
+  radio: {
+    className: 'ElRadio, ElRadioGroup',
+    usage: `<el-radio-group [(value)]="contact" ariaLabel="Contact method">
+  <el-radio value="email" inputId="contact-email">Email</el-radio>
+  <el-radio value="phone" inputId="contact-phone">Phone</el-radio>
+</el-radio-group>`,
+  },
   chip: {
     className: 'ElChip',
     usage: `<el-chip type="filter" [(selected)]="active">Filter</el-chip>`,

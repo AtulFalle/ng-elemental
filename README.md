@@ -22,13 +22,11 @@ From your Angular project:
 ```sh
 npx @ng-elemental/cli init
 npx @ng-elemental/cli add theme
-npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
-npx @ng-elemental/cli add label
-npx @ng-elemental/cli add checkbox
-npx @ng-elemental/cli add chip
-npx @ng-elemental/cli add segmented-button
+npx @ng-elemental/cli add <component>
 ```
+
+Add `theme` first for design tokens, then copy only the components you need. See [CLI reference](#cli-reference) for available component names.
 
 `init` creates `elemental.json` and a components directory (default: `src/app/ui`).
 
@@ -103,7 +101,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `checkbox`, `chip`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `checkbox`, `radio`, `chip`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -179,6 +177,38 @@ Use `--force` to overwrite an existing component folder.
 | `disabled` | `boolean` | `false` | Non-interactive state |
 | `error` | `boolean` | `false` | Error styling |
 | `labelPosition` | `left` \| `right` | `right` | Label text placement |
+| `inputId` | `string` | `''` | Native input id |
+
+### Radio (`el-radio-group`, `el-radio`)
+
+```html
+<el-radio-group [(value)]="contact" direction="vertical" ariaLabel="Contact method">
+  <el-radio value="email" inputId="contact-email">Email</el-radio>
+  <el-radio value="phone" inputId="contact-phone">Phone</el-radio>
+</el-radio-group>
+
+<el-radio labelPosition="left" value="option-a" inputId="option-a">
+  Label on the left
+</el-radio>
+```
+
+**`el-radio-group`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `''` | Selected value (two-way bindable) |
+| `direction` | `vertical` \| `horizontal` | `vertical` | Group layout |
+| `disabled` | `boolean` | `false` | Disables all radios |
+| `name` | `string` | `''` | Shared form name (auto-generated when omitted) |
+| `ariaLabel` | `string` | — | Accessible group label |
+
+**`el-radio`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | required | Value when selected |
+| `labelPosition` | `left` \| `right` | `right` | Label text placement |
+| `disabled` | `boolean` | `false` | Non-interactive state |
 | `inputId` | `string` | `''` | Native input id |
 
 ### Chip (`el-chip`)

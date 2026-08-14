@@ -1,0 +1,27 @@
+<label
+  class="el-radio"
+  [class.el-radio--label-left]="labelPosition() === 'left'"
+  [class.el-radio--label-right]="labelPosition() === 'right'"
+  [class.el-radio--checked]="checked()"
+  [class.el-radio--disabled]="isDisabled()"
+>
+  <input
+    #input
+    class="el-radio__input"
+    type="radio"
+    [id]="inputId() || null"
+    [name]="groupName()"
+    [value]="value()"
+    [disabled]="isDisabled()"
+    [attr.aria-checked]="checked()"
+    (change)="onInputChange()"
+  />
+
+  <span class="el-radio__control" aria-hidden="true">
+    <span class="el-radio__dot"></span>
+  </span>
+
+  <span class="el-radio__label">
+    <ng-content />
+  </span>
+</label>

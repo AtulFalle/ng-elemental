@@ -156,6 +156,45 @@ export const CHECKBOX_TOKENS: TokenDefinition[] = [
   },
 ];
 
+export const RADIO_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-radio-size',
+    description: 'Radio control width and height.',
+  },
+  {
+    name: '--el-radio-gap',
+    description: 'Space between the control and label text.',
+  },
+  {
+    name: '--el-radio-label-fg',
+    description: 'Label text color.',
+  },
+  {
+    name: '--el-radio-border',
+    description: 'Unchecked border color.',
+  },
+  {
+    name: '--el-radio-selected-border',
+    description: 'Checked outer ring color.',
+  },
+  {
+    name: '--el-radio-dot',
+    description: 'Inner dot color when selected.',
+  },
+  {
+    name: '--el-radio-focus-ring',
+    description: 'Focus ring color around the control.',
+  },
+  {
+    name: '--el-radio-group-gap-vertical',
+    description: 'Spacing between radios in a vertical group.',
+  },
+  {
+    name: '--el-radio-group-gap-horizontal',
+    description: 'Spacing between radios in a horizontal group.',
+  },
+];
+
 export const SEGMENTED_BUTTON_TOKENS: TokenDefinition[] = [
   {
     name: '--el-segmented-track-bg-primary',

@@ -12,12 +12,8 @@ import { CodeBlock } from '../ui/code-block';
 export class HomePage {
   protected readonly quickStartCode = `npx @ng-elemental/cli init
 npx @ng-elemental/cli add theme
-npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
-npx @ng-elemental/cli add label
-npx @ng-elemental/cli add checkbox
-npx @ng-elemental/cli add chip
-npx @ng-elemental/cli add segmented-button`;
+npx @ng-elemental/cli add <component>`;
 
   protected readonly usageCode = `import { Component } from '@angular/core';
 import { ElButton } from './ui/button/button';

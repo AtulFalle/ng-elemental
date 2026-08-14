@@ -47,6 +47,15 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['checkbox'],
   },
   {
+    name: 'radio',
+    assetGlobs: [
+      'radio.{ts,html,scss}',
+      'radio-group.{ts,html,scss}',
+      'radio.token.ts',
+    ],
+    requiredBasenames: ['radio', 'radio-group', 'radio.token'],
+  },
+  {
     name: 'chip',
     assetGlobs: ['chip.{ts,html,scss}'],
     requiredBasenames: ['chip'],

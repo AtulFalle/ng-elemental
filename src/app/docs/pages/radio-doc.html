@@ -1,0 +1,120 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Radio</h1>
+    <p class="docs-lead">
+      Material Design 3 radio buttons with label placement and vertical or
+      horizontal group layouts.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add radio</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-radio-group [(value)]="contact" ariaLabel="Contact method">
+        <el-radio value="email" inputId="contact-email-preview">Email</el-radio>
+        <el-radio value="phone" inputId="contact-phone-preview">Phone</el-radio>
+        <el-radio value="mail" inputId="contact-mail-preview">Mail</el-radio>
+      </el-radio-group>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Wrap radios in <code>el-radio-group</code> and bind the selected value
+      with two-way binding:
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Vertical group</h3>
+    <app-preview>
+      <el-radio-group
+        [(value)]="contact"
+        direction="vertical"
+        ariaLabel="Contact method"
+      >
+        <el-radio value="email" inputId="contact-email-v">Email</el-radio>
+        <el-radio value="phone" inputId="contact-phone-v">Phone</el-radio>
+        <el-radio value="mail" inputId="contact-mail-v">Mail</el-radio>
+      </el-radio-group>
+    </app-preview>
+
+    <h3>Horizontal group</h3>
+    <app-preview>
+      <el-radio-group
+        [(value)]="size"
+        direction="horizontal"
+        ariaLabel="Size"
+      >
+        <el-radio value="small" inputId="size-small">Small</el-radio>
+        <el-radio value="medium" inputId="size-medium">Medium</el-radio>
+        <el-radio value="large" inputId="size-large">Large</el-radio>
+      </el-radio-group>
+    </app-preview>
+
+    <h3>Label position</h3>
+    <app-preview>
+      <el-radio-group value="right" ariaLabel="Label position">
+        <el-radio value="right" inputId="radio-right" labelPosition="right">
+          Label on the right (default)
+        </el-radio>
+        <el-radio value="left" inputId="radio-left" labelPosition="left">
+          Label on the left
+        </el-radio>
+      </el-radio-group>
+    </app-preview>
+
+    <h3>States</h3>
+    <app-preview>
+      <div class="docs-stack">
+        <el-radio-group value="standard" ariaLabel="Shipping">
+          <el-radio value="standard" inputId="ship-standard">Standard</el-radio>
+          <el-radio value="express" inputId="ship-express">Express</el-radio>
+        </el-radio-group>
+        <el-radio-group value="option-1" [disabled]="true" ariaLabel="Disabled group">
+          <el-radio value="option-1" inputId="disabled-1">Disabled group</el-radio>
+          <el-radio value="option-2" inputId="disabled-2">Option 2</el-radio>
+        </el-radio-group>
+        <el-radio-group value="available" ariaLabel="With disabled option">
+          <el-radio value="available" inputId="opt-available">Available</el-radio>
+          <el-radio value="unavailable" inputId="opt-unavailable" [disabled]="true">
+            Unavailable
+          </el-radio>
+        </el-radio-group>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Radio styling follows Material Design 3 and uses dedicated CSS variables.
+      See <a routerLink="/theming">Theming</a> for setup.
+    </p>
+    <app-tokens-table [tokens]="radioTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-radio-group</h3>
+    <app-props-table [props]="groupProps" />
+    <h3>el-radio</h3>
+    <app-props-table [props]="radioProps" />
+  </section>
+</article>

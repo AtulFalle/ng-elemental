@@ -6,8 +6,7 @@ This package is **not published to npm**. End users receive component files thro
 
 ```sh
 npx @ng-elemental/cli add button
-npx @ng-elemental/cli add label
-npx @ng-elemental/cli add segmented-button
+npx @ng-elemental/cli add <component>
 npx @ng-elemental/cli add theme
 ```
 

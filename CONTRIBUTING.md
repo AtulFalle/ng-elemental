@@ -69,7 +69,7 @@ node dist/packages/cli/index.cjs add label
 3. **Register the component in `packages/cli/src/lib/component-registry.ts`** — add `assetGlobs`, `requiredBasenames`, and usage examples in `add.ts`.
 4. Add matching registry asset entries in `packages/cli/project.json` (copy `assetGlobs` exactly; **never use `*` wildcards** in registry globs).
 5. Run `npx nx test cli` — registry unit tests verify `project.json` stays in sync and the built registry has no story files.
-6. Extend CLI e2e coverage in `packages/cli/src/e2e/` for install/add smoke checks.
+6. Add an e2e smoke test in `packages/cli/src/e2e/add-<name>.spec.ts` (one file per component; shared setup lives in `helpers.ts`).
 7. Document the component in the root `README.md` and `packages/cli/README.md`.
 
 The manifest in `component-registry.ts` is the single source of truth. CI fails if:

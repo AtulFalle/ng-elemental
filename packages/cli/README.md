@@ -37,10 +37,7 @@ Copies component source files into `componentsDir`.
 ```sh
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
-npx @ng-elemental/cli add label
-npx @ng-elemental/cli add checkbox
-npx @ng-elemental/cli add chip
-npx @ng-elemental/cli add segmented-button
+npx @ng-elemental/cli add <component>
 npx @ng-elemental/cli add button --force   # overwrite existing files
 ```
 
@@ -64,6 +61,7 @@ export class MyComponent {}
 | `button` | `el-button` | `ElButton` |
 | `label` | `el-label` | `ElLabel` |
 | `checkbox` | `el-checkbox` | `ElCheckbox` |
+| `radio` | `el-radio-group`, `el-radio` | `ElRadioGroup`, `ElRadio` |
 | `chip` | `el-chip` | `ElChip` |
 | `icon` | `el-icon` | `ElIcon` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |

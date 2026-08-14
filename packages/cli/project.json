@@ -60,6 +60,21 @@
             "output": "registry/checkbox"
           },
           {
+            "glob": "radio.{ts,html,scss}",
+            "input": "packages/ui/src/lib/radio",
+            "output": "registry/radio"
+          },
+          {
+            "glob": "radio-group.{ts,html,scss}",
+            "input": "packages/ui/src/lib/radio",
+            "output": "registry/radio"
+          },
+          {
+            "glob": "radio.token.ts",
+            "input": "packages/ui/src/lib/radio",
+            "output": "registry/radio"
+          },
+          {
             "glob": "chip.{ts,html,scss}",
             "input": "packages/ui/src/lib/chip",
             "output": "registry/chip"

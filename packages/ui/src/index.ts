@@ -15,6 +15,12 @@ export {
   type ElCheckboxLabelPosition,
 } from './lib/checkbox/checkbox';
 export {
+  ElRadio,
+  ElRadioGroup,
+  type ElRadioLabelPosition,
+  type ElRadioGroupDirection,
+} from './lib/radio/radio-group';
+export {
   ElChip,
   type ElChipAppearance,
   type ElChipType,
