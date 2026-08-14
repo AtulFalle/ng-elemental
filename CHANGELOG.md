@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `ElCheckbox` Material Design 3 checkbox with label text and left/right label placement (`ng-elemental add checkbox`)
+
+### Fixed
+
+- `@ng-elemental/cli` npm package now includes `README.md` in published tarball
+
 ## [0.0.3] - 2026-08-14
 
 ### Added

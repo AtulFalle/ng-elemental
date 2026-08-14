@@ -73,6 +73,13 @@ jobs:
       - name: Build CLI
         run: npx nx build cli
 
+      - name: Verify README in publish output
+        run: |
+          if [ ! -f dist/packages/cli/README.md ]; then
+            echo "dist/packages/cli/README.md is missing. npm will not show a package README."
+            exit 1
+          fi
+
       - name: Publish @ng-elemental/cli
         id: publish
         working-directory: dist/packages/cli

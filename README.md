@@ -24,6 +24,7 @@ npx @ng-elemental/cli init
 npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add label
+npx @ng-elemental/cli add checkbox
 npx @ng-elemental/cli add segmented-button
 ```
 
@@ -100,7 +101,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `button`, `label`, `segmented-button`.
+Available components: `theme`, `button`, `label`, `checkbox`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -135,6 +136,27 @@ Use `--force` to overwrite an existing component folder.
 | `htmlFor` | `string` | `''` | Associated control id |
 | `required` | `boolean` | `false` | Shows required indicator |
 | `disabled` | `boolean` | `false` | Muted, non-interactive label |
+
+### Checkbox (`el-checkbox`)
+
+```html
+<el-checkbox [(checked)]="accepted" inputId="terms">
+  Accept terms and conditions
+</el-checkbox>
+
+<el-checkbox labelPosition="left" [(checked)]="newsletter" inputId="newsletter">
+  Send me updates
+</el-checkbox>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean` | `false` | Checked state (two-way bindable) |
+| `indeterminate` | `boolean` | `false` | Mixed selection state |
+| `disabled` | `boolean` | `false` | Non-interactive state |
+| `error` | `boolean` | `false` | Error styling |
+| `labelPosition` | `left` \| `right` | `right` | Label text placement |
+| `inputId` | `string` | `''` | Native input id |
 
 ### Segmented Button (`el-segmented-button`)
 

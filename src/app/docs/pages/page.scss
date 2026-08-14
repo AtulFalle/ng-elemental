@@ -89,3 +89,9 @@
 .docs-cli-hint code {
   font-weight: 600;
 }
+
+.docs-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}

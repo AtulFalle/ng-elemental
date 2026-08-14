@@ -45,6 +45,11 @@
             "output": "registry/label"
           },
           {
+            "glob": "checkbox.{ts,html,scss}",
+            "input": "packages/ui/src/lib/checkbox",
+            "output": "registry/checkbox"
+          },
+          {
             "glob": "segmented-button.{ts,html,scss}",
             "input": "packages/ui/src/lib/segmented-button",
             "output": "registry/segmented-button"

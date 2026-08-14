@@ -6,6 +6,10 @@ export {
 } from './lib/button/button';
 export { ElLabel, type ElLabelVariant } from './lib/label/label';
 export {
+  ElCheckbox,
+  type ElCheckboxLabelPosition,
+} from './lib/checkbox/checkbox';
+export {
   ElSegmentedButton,
   ElSegmentedButtonItem,
   type ElSegmentedButtonSize,

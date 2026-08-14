@@ -1,0 +1,31 @@
+<label
+  class="el-checkbox"
+  [class.el-checkbox--label-left]="labelPosition() === 'left'"
+  [class.el-checkbox--label-right]="labelPosition() === 'right'"
+  [class.el-checkbox--checked]="checked()"
+  [class.el-checkbox--indeterminate]="indeterminate()"
+  [class.el-checkbox--disabled]="disabled()"
+  [class.el-checkbox--error]="error()"
+>
+  <input
+    #input
+    class="el-checkbox__input"
+    type="checkbox"
+    [id]="inputId() || null"
+    [name]="name() || null"
+    [value]="value() || null"
+    [disabled]="disabled()"
+    [attr.aria-checked]="indeterminate() ? 'mixed' : checked()"
+    [attr.aria-invalid]="error() ? true : null"
+    (change)="onInputChange($event)"
+  />
+
+  <span class="el-checkbox__box" aria-hidden="true">
+    <span class="el-checkbox__mark el-checkbox__mark--check"></span>
+    <span class="el-checkbox__mark el-checkbox__mark--indeterminate"></span>
+  </span>
+
+  <span class="el-checkbox__label">
+    <ng-content />
+  </span>
+</label>

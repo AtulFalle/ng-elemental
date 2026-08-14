@@ -16,6 +16,7 @@ export class InstallationPage {
 
   protected readonly addComponentsCode = `npx @ng-elemental/cli add button
 npx @ng-elemental/cli add label
+npx @ng-elemental/cli add checkbox
 npx @ng-elemental/cli add segmented-button`;
 
   protected readonly configCode = `{

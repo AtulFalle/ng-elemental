@@ -32,6 +32,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/label-doc').then((m) => m.LabelDocPage),
       },
       {
+        path: 'components/checkbox',
+        loadComponent: () =>
+          import('./docs/pages/checkbox-doc').then((m) => m.CheckboxDocPage),
+      },
+      {
         path: 'components/segmented-button',
         loadComponent: () =>
           import('./docs/pages/segmented-button-doc').then(

@@ -156,6 +156,48 @@ describe('add label e2e', () => {
   });
 });
 
+describe('add checkbox e2e', () => {
+  it('installs @ng-elemental/cli from npm and adds ElCheckbox', async () => {
+    const registry = localRegistryUrl();
+    const tmp = await mkdtemp(join(tmpdir(), 'ng-elemental-e2e-'));
+
+    try {
+      await cp(fixtureDir, tmp, { recursive: true });
+
+      npmInstall(
+        ['install', '@ng-elemental/cli@e2e', '--registry', registry, '--no-fund', '--no-audit'],
+        tmp,
+      );
+
+      const installedRoot = join(tmp, 'node_modules/@ng-elemental/cli');
+      const cliBin = join(installedRoot, 'index.cjs');
+      expect(existsSync(cliBin), `Installed CLI missing at ${cliBin}`).toBe(true);
+      expectValidInstalledRegistry(installedRoot);
+
+      run(process.execPath, [cliBin, 'init', '--yes'], tmp);
+      run(process.execPath, [cliBin, 'add', 'checkbox'], tmp);
+
+      const checkboxTs = await readFile(join(tmp, 'src/app/ui/checkbox/checkbox.ts'), 'utf8');
+      expect(checkboxTs).toContain("selector: 'el-checkbox'");
+      expect(checkboxTs).toContain('export class ElCheckbox');
+      expect(checkboxTs).toContain("ElCheckboxLabelPosition = 'left' | 'right'");
+
+      const checkboxHtml = await readFile(join(tmp, 'src/app/ui/checkbox/checkbox.html'), 'utf8');
+      expect(checkboxHtml).toContain('el-checkbox');
+      expect(checkboxHtml).toContain('<ng-content');
+      expect(checkboxHtml).toContain('labelPosition');
+
+      const checkboxScss = await readFile(join(tmp, 'src/app/ui/checkbox/checkbox.scss'), 'utf8');
+      expect(checkboxScss).toContain('.el-checkbox');
+      expect(checkboxScss).toContain('--el-checkbox-size');
+
+      expect(existsSync(join(tmp, 'src/app/ui/checkbox/checkbox.stories.ts'))).toBe(false);
+    } finally {
+      await rm(tmp, { recursive: true, force: true });
+    }
+  });
+});
+
 describe('add segmented-button e2e', () => {
   it('installs @ng-elemental/cli from npm and adds ElSegmentedButton', async () => {
     const registry = localRegistryUrl();

@@ -2,6 +2,7 @@
 # Source and config changes are intentionally NOT listed here.
 
 **/README.md
+!packages/cli/README.md
 CHANGELOG.md
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md

@@ -36,6 +36,11 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['label'],
   },
   {
+    name: 'checkbox',
+    assetGlobs: ['checkbox.{ts,html,scss}'],
+    requiredBasenames: ['checkbox'],
+  },
+  {
     name: 'segmented-button',
     assetGlobs: [
       'segmented-button.{ts,html,scss}',

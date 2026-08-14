@@ -13,6 +13,7 @@ export class HomePage {
   protected readonly quickStartCode = `npx @ng-elemental/cli init
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add label
+npx @ng-elemental/cli add checkbox
 npx @ng-elemental/cli add segmented-button`;
 
   protected readonly usageCode = `import { Component } from '@angular/core';

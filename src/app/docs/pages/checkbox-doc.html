@@ -1,0 +1,89 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Checkbox</h1>
+    <p class="docs-lead">
+      Material Design 3 checkbox with label text, left/right label placement,
+      and indeterminate support.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add checkbox</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-checkbox [(checked)]="accepted" inputId="terms-preview">
+        Accept terms and conditions
+      </el-checkbox>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>Project label text as content and bind checked state with two-way binding:</p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Checkbox list</h3>
+    <app-preview>
+      <div class="docs-stack">
+        <el-checkbox [(checked)]="notifications" inputId="cb-notifications">
+          Notifications
+        </el-checkbox>
+        <el-checkbox [(checked)]="marketing" inputId="cb-marketing">
+          Marketing emails
+        </el-checkbox>
+        <el-checkbox [indeterminate]="true" inputId="cb-select-all">
+          Select all
+        </el-checkbox>
+      </div>
+    </app-preview>
+
+    <h3>Label position</h3>
+    <app-preview>
+      <el-checkbox labelPosition="right" [checked]="true" inputId="cb-right">
+        Label on the right (default)
+      </el-checkbox>
+      <el-checkbox labelPosition="left" [checked]="true" inputId="cb-left">
+        Label on the left
+      </el-checkbox>
+    </app-preview>
+
+    <h3>States</h3>
+    <app-preview>
+      <el-checkbox [checked]="true" inputId="cb-checked">Checked</el-checkbox>
+      <el-checkbox [disabled]="true" inputId="cb-disabled">Disabled</el-checkbox>
+      <el-checkbox [disabled]="true" [checked]="true" inputId="cb-disabled-checked">
+        Disabled checked
+      </el-checkbox>
+      <el-checkbox [error]="true" inputId="cb-error">Error</el-checkbox>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Checkbox styling follows Material Design 3 and uses dedicated CSS
+      variables. See <a routerLink="/theming">Theming</a> for setup.
+    </p>
+    <app-tokens-table [tokens]="checkboxTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

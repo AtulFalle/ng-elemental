@@ -1,0 +1,123 @@
+.el-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--el-checkbox-gap);
+  max-width: 100%;
+  font-family: var(--el-font-sans);
+  font-size: var(--el-checkbox-label-size);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--el-checkbox-label-fg);
+  cursor: pointer;
+  user-select: none;
+
+  &--label-left {
+    flex-direction: row-reverse;
+  }
+
+  &--disabled {
+    color: var(--el-checkbox-label-fg-disabled);
+    cursor: not-allowed;
+  }
+
+  &__input {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: var(--el-checkbox-size);
+    height: var(--el-checkbox-size);
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  &__box {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--el-checkbox-size);
+    height: var(--el-checkbox-size);
+    border: var(--el-checkbox-border-width) solid var(--el-checkbox-border);
+    border-radius: var(--el-checkbox-radius);
+    background: var(--el-checkbox-bg);
+  }
+
+  &--checked &__box,
+  &--indeterminate &__box {
+    border-color: var(--el-checkbox-selected-bg);
+    background: var(--el-checkbox-selected-bg);
+  }
+
+  &--disabled &__box {
+    border-color: var(--el-checkbox-border-disabled);
+    background: var(--el-checkbox-bg-disabled);
+  }
+
+  &--error &__box {
+    border-color: var(--el-checkbox-error-border);
+  }
+
+  &--disabled.el-checkbox--checked &__box,
+  &--disabled.el-checkbox--indeterminate &__box {
+    border-color: transparent;
+    background: var(--el-checkbox-selected-bg-disabled);
+  }
+
+  &--error.el-checkbox--checked &__box,
+  &--error.el-checkbox--indeterminate &__box {
+    border-color: var(--el-checkbox-error-border);
+    background: var(--el-checkbox-error-border);
+  }
+
+  &__mark {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    display: block;
+    opacity: 0;
+    background: var(--el-checkbox-mark);
+    pointer-events: none;
+    transform: scale(1);
+    transition: opacity 80ms ease;
+  }
+
+  &__mark--check {
+    width: 0.625rem;
+    height: 0.5rem;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8' fill='none'%3E%3Cpath fill='black' d='M3.5 7.5 0 4l1.1-1.1L3.5 5.3 8.9 0 10 1.1z'/%3E%3C/svg%3E");
+  }
+
+  &__mark--indeterminate {
+    width: 0.625rem;
+    height: 0.125rem;
+    border-radius: 1px;
+  }
+
+  &--checked &__mark--check {
+    opacity: 1;
+  }
+
+  &--indeterminate &__mark--check {
+    opacity: 0;
+  }
+
+  &--indeterminate &__mark--indeterminate {
+    opacity: 1;
+  }
+
+  &__label {
+    min-width: 0;
+  }
+
+  &__input:focus-visible + &__box {
+    outline: 2px solid var(--el-checkbox-focus-ring);
+    outline-offset: 2px;
+  }
+}

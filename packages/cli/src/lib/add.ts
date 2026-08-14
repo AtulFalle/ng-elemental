@@ -22,6 +22,12 @@ const COMPONENT_EXAMPLES: Record<
     className: 'ElLabel',
     usage: '<el-label htmlFor="email" variant="default">Email</el-label>',
   },
+  checkbox: {
+    className: 'ElCheckbox',
+    usage: `<el-checkbox [(checked)]="accepted" inputId="terms">
+  Accept terms and conditions
+</el-checkbox>`,
+  },
   'segmented-button': {
     className: 'ElSegmentedButton, ElSegmentedButtonItem',
     usage: `<el-segmented-button [(value)]="view" ariaLabel="View mode">

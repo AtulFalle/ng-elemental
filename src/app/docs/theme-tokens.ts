@@ -104,6 +104,41 @@ export const LABEL_TOKENS: TokenDefinition[] = [
   },
 ];
 
+export const CHECKBOX_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-checkbox-size',
+    description: 'Checkbox control width and height.',
+  },
+  {
+    name: '--el-checkbox-gap',
+    description: 'Space between the control and label text.',
+  },
+  {
+    name: '--el-checkbox-label-fg',
+    description: 'Label text color.',
+  },
+  {
+    name: '--el-checkbox-border',
+    description: 'Unchecked border color.',
+  },
+  {
+    name: '--el-checkbox-selected-bg',
+    description: 'Checked and indeterminate fill color.',
+  },
+  {
+    name: '--el-checkbox-mark',
+    description: 'Checkmark and indeterminate bar color.',
+  },
+  {
+    name: '--el-checkbox-error-border',
+    description: 'Error state border and fill color.',
+  },
+  {
+    name: '--el-checkbox-focus-ring',
+    description: 'Focus ring color around the control.',
+  },
+];
+
 export const SEGMENTED_BUTTON_TOKENS: TokenDefinition[] = [
   {
     name: '--el-segmented-track-bg-primary',

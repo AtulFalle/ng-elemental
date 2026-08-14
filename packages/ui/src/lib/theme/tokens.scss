@@ -56,6 +56,24 @@
   --el-segmented-item-border-ghost: var(--el-color-border);
   --el-segmented-item-hover-bg-ghost: var(--el-color-surface-muted);
 
+  // ── Checkbox (Material Design 3) ─────────────────────────────────────────
+  --el-checkbox-size: 1.125rem;
+  --el-checkbox-gap: 0.5rem;
+  --el-checkbox-radius: 2px;
+  --el-checkbox-border-width: 2px;
+  --el-checkbox-label-size: 0.875rem;
+  --el-checkbox-label-fg: var(--el-segmented-md3-on-surface);
+  --el-checkbox-label-fg-disabled: var(--el-color-fg-disabled);
+  --el-checkbox-border: var(--el-segmented-md3-outline);
+  --el-checkbox-border-disabled: rgb(28 27 31 / 0.12);
+  --el-checkbox-bg: transparent;
+  --el-checkbox-bg-disabled: rgb(28 27 31 / 0.04);
+  --el-checkbox-selected-bg: var(--el-segmented-md3-focus);
+  --el-checkbox-selected-bg-disabled: rgb(28 27 31 / 0.38);
+  --el-checkbox-mark: var(--el-color-fg-inverse);
+  --el-checkbox-error-border: var(--el-color-error);
+  --el-checkbox-focus-ring: var(--el-segmented-md3-focus);
+
   // ── Canvas / surfaces (Storybook, docs) ──────────────────────────────────
   --el-surface-canvas: #fffbfe;
   --el-surface-canvas-muted: #f3edf7;
@@ -83,6 +101,10 @@
   --el-segmented-md3-secondary-container: #4a4458;
   --el-segmented-md3-on-secondary-container: #e8def8;
   --el-segmented-md3-focus: #d0bcff;
+
+  --el-checkbox-border-disabled: rgb(230 225 229 / 0.12);
+  --el-checkbox-bg-disabled: rgb(230 225 229 / 0.04);
+  --el-checkbox-selected-bg-disabled: rgb(230 225 229 / 0.38);
 
   --el-surface-canvas: #1c1b1f;
   --el-surface-canvas-muted: #141218;
