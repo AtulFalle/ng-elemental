@@ -1,0 +1,53 @@
+# GitHub label definitions for ng-elemental.
+# Sync with: gh label create ...  or  github.com/AtulFalle/ng-elemental/labels
+
+# Area — where the change lives (auto-applied on PRs via labeler.yml)
+- name: area:cli
+  color: '1D4ED8'
+  description: CLI package (packages/cli)
+
+- name: area:ui
+  color: '7C3AED'
+  description: UI component source (packages/ui)
+
+- name: area:docs
+  color: '059669'
+  description: Documentation site and docs content
+
+- name: area:ci
+  color: '475569'
+  description: GitHub Actions and CI configuration
+
+- name: area:infra
+  color: '64748B'
+  description: Workspace tooling (Nx, ESLint, TypeScript, npm)
+
+- name: area:release
+  color: 'B45309'
+  description: Release, changelog, and npm publish
+
+# Type — nature of the change (mostly manual; type:docs is auto on markdown)
+- name: type:feature
+  color: '16A34A'
+  description: New feature or component
+
+- name: type:bugfix
+  color: 'DC2626'
+  description: Bug fix
+
+- name: type:docs
+  color: '0891B2'
+  description: Documentation-only change
+
+- name: type:chore
+  color: '94A3B8'
+  description: Maintenance, tooling, or housekeeping
+
+- name: type:breaking
+  color: 'BE123C'
+  description: Breaking change for consumers
+
+# CI control
+- name: needs:full-ci
+  color: 'EA580C'
+  description: Run full CI on this PR instead of affected-only checks

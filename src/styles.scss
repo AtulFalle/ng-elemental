@@ -1,11 +1,34 @@
 :root {
   --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
   --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+
+  --docs-fg: #111827;
+  --docs-muted: #6b7280;
+  --docs-border: #e5e7eb;
+  --docs-surface: #ffffff;
+  --docs-surface-muted: #f9fafb;
+  --docs-sidebar-bg: #fafafa;
+  --docs-accent: #1d4ed8;
+  --docs-accent-muted: #eff6ff;
+  --docs-code-bg: #0f172a;
+  --docs-code-header-bg: #1e293b;
+  --docs-code-fg: #e2e8f0;
+  --docs-code-inline-bg: #f3f4f6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html,
 body {
+  margin: 0;
   font-family: var(--el-font-sans);
+  color: var(--docs-fg);
+  background: var(--docs-surface);
+  -webkit-font-smoothing: antialiased;
 }
 
 code,

@@ -1,0 +1,60 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Introduction</h1>
+    <p class="docs-lead">
+      NgElemental provides copy-paste Angular UI components. Run the CLI and
+      component source files land in your project — you own and customize the
+      code.
+    </p>
+  </header>
+
+  <section>
+    <h2>What makes it different</h2>
+    <p>
+      NgElemental is not a traditional npm UI library. Components are added as
+      source (TypeScript, HTML, SCSS) so you can adapt styling, behavior, and
+      structure without fighting a black-box dependency.
+    </p>
+  </section>
+
+  <section>
+    <h2>Requirements</h2>
+    <ul>
+      <li><strong>Angular</strong> 22 or later</li>
+      <li><strong>Node.js</strong> 24 or later (for the CLI)</li>
+    </ul>
+    <p>
+      Components use encapsulated SCSS with BEM-style class names. Tailwind is
+      not required.
+    </p>
+  </section>
+
+  <section>
+    <h2>Quick start</h2>
+    <p>From your Angular project:</p>
+    <app-code-block [code]="quickStartCode" language="shell" />
+    <p>
+      <code>init</code> creates <code>elemental.json</code> and a components
+      directory (default: <code>src/app/ui</code>).
+    </p>
+    <p>
+      <code>add</code> copies the selected component into that directory. See
+      <a routerLink="/installation">Installation</a> for full setup including
+      typography.
+    </p>
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>Import the copied component in a standalone Angular component:</p>
+    <app-code-block [code]="usageCode" />
+  </section>
+
+  <section>
+    <h2>Available components</h2>
+    <ul class="docs-link-list">
+      <li><a routerLink="/components/button">Button</a> — primary actions and form controls</li>
+      <li><a routerLink="/components/label">Label</a> — accessible form labels</li>
+    </ul>
+  </section>
+</article>

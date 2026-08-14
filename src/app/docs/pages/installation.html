@@ -1,0 +1,72 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Installation</h1>
+    <p class="docs-lead">
+      Add NgElemental components to an existing Angular 22+ project using the
+      CLI.
+    </p>
+  </header>
+
+  <section>
+    <h2>1. Initialize the CLI</h2>
+    <p>
+      Run <code>init</code> from your Angular project root. This creates
+      <code>elemental.json</code> and the default components directory.
+    </p>
+    <app-code-block [code]="initCode" language="shell" />
+    <p>
+      Use <code>--yes</code> to skip prompts. Use <code>add &lt;name&gt; --force</code>
+      to overwrite an existing component folder.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. Configure output directory</h2>
+    <p>
+      <code>elemental.json</code> controls where components are copied:
+    </p>
+    <app-code-block [code]="configCode" language="json" />
+    <p>
+      Change <code>componentsDir</code> before running <code>add</code> if you
+      prefer a different location.
+    </p>
+  </section>
+
+  <section>
+    <h2>3. Add typography</h2>
+    <p>
+      Components expect <strong>Geist</strong> (UI) and
+      <strong>Geist Mono</strong> (code). Install the font packages:
+    </p>
+    <app-code-block [code]="fontsCode" language="shell" />
+    <p>Add their CSS to <code>styles</code> in your Angular config:</p>
+    <app-code-block [code]="angularJsonNote" language="json" />
+    <p>Then define CSS variables in your global styles:</p>
+    <app-code-block [code]="stylesCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>CLI reference</h2>
+    <div class="docs-props-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Command</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>npx @ng-elemental/cli init [--yes]</code></td>
+            <td>Create config and components directory</td>
+          </tr>
+          <tr>
+            <td><code>npx @ng-elemental/cli add &lt;name&gt; [--force]</code></td>
+            <td>Copy a component into your project</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Available components: <code>button</code>, <code>label</code>.</p>
+  </section>
+</article>

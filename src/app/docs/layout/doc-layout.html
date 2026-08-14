@@ -1,0 +1,29 @@
+<div class="docs-shell">
+  <aside class="docs-sidebar">
+    <a routerLink="/" class="docs-brand">NgElemental</a>
+    <p class="docs-tagline">Copy-paste Angular components</p>
+
+    @for (section of nav; track section.title) {
+      <nav class="docs-nav-section" [attr.aria-label]="section.title">
+        <h2>{{ section.title }}</h2>
+        <ul>
+          @for (item of section.items; track item.path) {
+            <li>
+              <a
+                routerLink="{{ item.path }}"
+                routerLinkActive="is-active"
+                [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+              >
+                {{ item.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+    }
+  </aside>
+
+  <main class="docs-main">
+    <router-outlet />
+  </main>
+</div>
