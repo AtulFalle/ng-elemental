@@ -108,6 +108,55 @@
       </el-card>
     </app-preview>
     <app-code-block [code]="avatarComposeCode" language="html" />
+
+    <h3>Compact (file list)</h3>
+    <p>
+      Use <code>size="compact"</code> for dense horizontal rows — leading media,
+      middle header/content, trailing footer actions.
+    </p>
+    <app-preview>
+      <div
+        style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 28rem"
+      >
+        <el-card size="compact">
+          <el-icon elCardMedia name="file-lines" />
+          <div
+            elCardHeader
+            style="font-weight: 600; color: var(--el-color-fg)"
+          >
+            report.pdf
+          </div>
+          <div elCardContent>2.4 MB</div>
+          <div elCardFooter>
+            <el-button
+              variant="ghost"
+              size="sm"
+              iconStart="xmark"
+              aria-label="Remove report.pdf"
+            />
+          </div>
+        </el-card>
+        <el-card size="compact">
+          <el-icon elCardMedia name="image" />
+          <div
+            elCardHeader
+            style="font-weight: 600; color: var(--el-color-fg)"
+          >
+            cover.png
+          </div>
+          <div elCardContent>840 KB</div>
+          <div elCardFooter>
+            <el-button
+              variant="ghost"
+              size="sm"
+              iconStart="xmark"
+              aria-label="Remove cover.png"
+            />
+          </div>
+        </el-card>
+      </div>
+    </app-preview>
+    <app-code-block [code]="compactCode" language="html" />
   </section>
 
   <section>

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { ElAvatar } from '../avatar/avatar';
 import { ElButton } from '../button/button';
+import { ElIcon } from '../icon/icon';
 import { ElCard } from './card';
 
 const meta: Meta<ElCard> = {
@@ -11,9 +12,14 @@ const meta: Meta<ElCard> = {
       control: 'select',
       options: ['outlined', 'elevated'],
     },
+    size: {
+      control: 'select',
+      options: ['default', 'compact'],
+    },
   },
   args: {
     appearance: 'outlined',
+    size: 'default',
   },
   render: (args) => ({
     props: args,
@@ -21,7 +27,7 @@ const meta: Meta<ElCard> = {
       imports: [ElCard],
     },
     template: `
-      <el-card [appearance]="appearance" style="max-width: 22rem">
+      <el-card [appearance]="appearance" [size]="size" style="max-width: 22rem">
         <div elCardHeader>
           <strong>Card title</strong>
         </div>
@@ -91,6 +97,46 @@ export const WithAvatar: Story = {
           <el-button size="sm" variant="secondary">Follow</el-button>
         </div>
       </el-card>
+    `,
+  }),
+};
+
+export const CompactFileRow: Story = {
+  render: () => ({
+    moduleMetadata: { imports: [ElCard, ElButton, ElIcon] },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 28rem">
+        <el-card size="compact">
+          <el-icon elCardMedia name="file-lines" />
+          <div elCardHeader style="font-weight: 600; color: var(--el-color-fg)">
+            report.pdf
+          </div>
+          <div elCardContent>2.4 MB</div>
+          <div elCardFooter>
+            <el-button
+              variant="ghost"
+              size="sm"
+              iconStart="xmark"
+              aria-label="Remove report.pdf"
+            />
+          </div>
+        </el-card>
+        <el-card size="compact">
+          <el-icon elCardMedia name="image" />
+          <div elCardHeader style="font-weight: 600; color: var(--el-color-fg)">
+            cover.png
+          </div>
+          <div elCardContent>840 KB</div>
+          <div elCardFooter>
+            <el-button
+              variant="ghost"
+              size="sm"
+              iconStart="xmark"
+              aria-label="Remove cover.png"
+            />
+          </div>
+        </el-card>
+      </div>
     `,
   }),
 };

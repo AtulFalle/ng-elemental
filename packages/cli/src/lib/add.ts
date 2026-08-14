@@ -86,6 +86,12 @@ const COMPONENT_EXAMPLES: Record<
   <div elCardHeader>Title</div>
   <div elCardContent>Body</div>
   <div elCardFooter>Actions</div>
+</el-card>
+<el-card size="compact">
+  <el-icon elCardMedia name="file-lines" />
+  <div elCardHeader>report.pdf</div>
+  <div elCardContent>2.4 MB</div>
+  <div elCardFooter>…</div>
 </el-card>`,
   },
 

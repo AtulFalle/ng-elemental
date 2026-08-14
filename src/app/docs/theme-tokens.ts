@@ -559,4 +559,16 @@ export const CARD_TOKENS: TokenDefinition[] = [
     name: '--el-card-elevated-shadow',
     description: 'Box shadow for elevated appearance.',
   },
+  {
+    name: '--el-card-compact-padding',
+    description: 'Outer padding for compact (horizontal) cards.',
+  },
+  {
+    name: '--el-card-compact-gap',
+    description: 'Gap between media, body, and footer in compact cards.',
+  },
+  {
+    name: '--el-card-compact-media-size',
+    description: 'Leading media slot size in compact cards.',
+  },
 ];

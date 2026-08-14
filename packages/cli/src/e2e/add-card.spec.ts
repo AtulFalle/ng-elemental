@@ -14,7 +14,9 @@ describe('add card e2e', () => {
       expect(cardTs).toContain("selector: 'el-card'");
       expect(cardTs).toContain('export class ElCard');
       expect(cardTs).toContain('appearance');
+      expect(cardTs).toContain('size');
       expect(cardTs).toContain("ElCardAppearance = 'outlined' | 'elevated'");
+      expect(cardTs).toContain("ElCardSize = 'default' | 'compact'");
 
       const cardHtml = await readFile(
         componentUiPath(tmp, 'card', 'card.html'),
@@ -24,6 +26,7 @@ describe('add card e2e', () => {
       expect(cardHtml).toContain('elCardHeader');
       expect(cardHtml).toContain('elCardContent');
       expect(cardHtml).toContain('elCardFooter');
+      expect(cardHtml).toContain('el-card__body');
 
       const cardScss = await readFile(
         componentUiPath(tmp, 'card', 'card.scss'),
@@ -32,7 +35,9 @@ describe('add card e2e', () => {
       expect(cardScss).toContain('.el-card');
       expect(cardScss).toContain('--el-card-bg');
       expect(cardScss).toContain('--el-card-elevated-shadow');
+      expect(cardScss).toContain('--el-card-compact-padding');
       expect(cardScss).toContain('&--outlined');
+      expect(cardScss).toContain('&--compact');
 
       expect(existsSync(componentUiPath(tmp, 'card', 'card.stories.ts'))).toBe(
         false,

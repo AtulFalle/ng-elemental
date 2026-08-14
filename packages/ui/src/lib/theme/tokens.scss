@@ -241,6 +241,12 @@
   --el-card-elevated-shadow:
     0 1px 2px rgb(0 0 0 / 0.06),
     0 4px 12px rgb(0 0 0 / 0.08);
+  --el-card-compact-radius: 0.5rem;
+  --el-card-compact-padding: 0.5rem 0.75rem;
+  --el-card-compact-gap: 0.75rem;
+  --el-card-compact-body-gap: 0.125rem;
+  --el-card-compact-media-size: 2rem;
+  --el-card-compact-content-font-size: 0.8125rem;
 
   // ── Input ────────────────────────────────────────────────────────────────
   --el-input-bg: var(--el-color-surface);

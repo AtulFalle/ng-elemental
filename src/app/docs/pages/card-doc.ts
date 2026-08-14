@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElAvatar, ElButton, ElCard } from '@ng-elemental/ui';
+import { ElAvatar, ElButton, ElCard, ElIcon } from '@ng-elemental/ui';
 import { CARD_TOKENS } from '../theme-tokens';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
@@ -16,6 +16,7 @@ import { TokensTable } from '../ui/tokens-table';
     ElAvatar,
     ElButton,
     ElCard,
+    ElIcon,
     CodeBlock,
     Preview,
     PropsTable,
@@ -29,7 +30,7 @@ export class CardDocPage {
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add card
-# optional — for people-card examples:
+# optional — for people-card / file-row examples:
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add avatar
 npx @ng-elemental/cli add button`;
@@ -69,9 +70,19 @@ export class MyComponent {}`;
   </div>
 </el-card>`;
 
+  protected readonly compactCode = `<el-card size="compact">
+  <el-icon elCardMedia name="file-lines" />
+  <div elCardHeader>report.pdf</div>
+  <div elCardContent>2.4 MB</div>
+  <div elCardFooter>
+    <el-button variant="ghost" size="sm" iconStart="xmark" aria-label="Remove" />
+  </div>
+</el-card>`;
+
   protected readonly globalTokensCode = `:root {
   --el-card-radius: 1rem;
   --el-card-padding: 1.25rem;
+  --el-card-compact-padding: 0.5rem 0.75rem;
   --el-card-border: #d1d5db;
 }`;
 
@@ -82,6 +93,13 @@ export class MyComponent {}`;
       default: "'outlined'",
       description: 'Outlined border or elevated shadow surface.',
     },
+    {
+      name: 'size',
+      type: "'default' | 'compact'",
+      default: "'default'",
+      description:
+        'Compact is a horizontal row (media | body | footer) for dense lists like file uploads.',
+    },
   ];
 
   protected readonly slots: PropDefinition[] = [
@@ -89,25 +107,26 @@ export class MyComponent {}`;
       name: 'elCardMedia',
       type: 'attribute',
       default: '—',
-      description: 'Top media region (flush to card edges).',
+      description:
+        'Media region — full-bleed on top (default) or leading icon/thumb (compact).',
     },
     {
       name: 'elCardHeader',
       type: 'attribute',
       default: '—',
-      description: 'Header region (title, avatar, actions).',
+      description: 'Header region (title, avatar, file name).',
     },
     {
       name: 'elCardContent',
       type: 'attribute',
       default: '—',
-      description: 'Body content.',
+      description: 'Body content (description, file size, meta).',
     },
     {
       name: 'elCardFooter',
       type: 'attribute',
       default: '—',
-      description: 'Footer actions or meta.',
+      description: 'Footer actions or meta (remove, retry).',
     },
   ];
 }

@@ -456,20 +456,30 @@ Presentational container with named slots. Not interactive — wire clicks on co
   <div elCardContent>Body</div>
   <div elCardFooter>Actions</div>
 </el-card>
+
+<el-card size="compact">
+  <el-icon elCardMedia name="file-lines" />
+  <div elCardHeader>report.pdf</div>
+  <div elCardContent>2.4 MB</div>
+  <div elCardFooter>
+    <el-button variant="ghost" size="sm" iconStart="xmark" aria-label="Remove" />
+  </div>
+</el-card>
 ```
 
 | Input | Type | Default | Description |
 | --- | --- | --- | --- |
 | `appearance` | `outlined` \| `elevated` | `outlined` | Border or shadow surface |
+| `size` | `default` \| `compact` | `default` | Compact = horizontal row for dense lists |
 
 | Slot attribute | Description |
 | --- | --- |
-| `elCardMedia` | Top media (flush to edges) |
+| `elCardMedia` | Top media (default) or leading icon/thumb (compact) |
 | `elCardHeader` | Header region |
 | `elCardContent` | Body |
 | `elCardFooter` | Footer |
 
-Compose with `el-avatar` in the header when needed (separate `add avatar`).
+Compose with `el-avatar` / `el-icon` / `el-button` in slots when needed (separate `add` packages).
 
 ### Segmented Button (`el-segmented-button`)
 

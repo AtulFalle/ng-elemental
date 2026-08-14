@@ -71,7 +71,7 @@ export {
 export { ElProgress, type ElProgressSize } from './lib/progress/progress';
 export { ElProgressCircle } from './lib/progress/progress-circle';
 export { ElAvatar, type ElAvatarSize } from './lib/avatar/avatar';
-export { ElCard, type ElCardAppearance } from './lib/card/card';
+export { ElCard, type ElCardAppearance, type ElCardSize } from './lib/card/card';
 export {
   ElThemeService,
   provideElTheme,
