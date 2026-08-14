@@ -363,6 +363,45 @@ export const SELECT_TOKENS: TokenDefinition[] = [
   },
 ];
 
+export const DATEPICKER_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-datepicker-trigger-border',
+    description: 'Trigger border color.',
+  },
+  {
+    name: '--el-datepicker-placeholder-fg',
+    description: 'Placeholder text color when nothing is selected.',
+  },
+  {
+    name: '--el-datepicker-panel-bg',
+    description: 'Dropdown panel background.',
+  },
+  {
+    name: '--el-datepicker-panel-shadow',
+    description: 'Dropdown panel shadow.',
+  },
+  {
+    name: '--el-datepicker-day-selected-bg',
+    description: 'Selected day and clock tick background.',
+  },
+  {
+    name: '--el-datepicker-range-bg',
+    description: 'In-between days in a selected or hovered range.',
+  },
+  {
+    name: '--el-datepicker-clock-face-bg',
+    description: 'Analog clock face background.',
+  },
+  {
+    name: '--el-datepicker-clock-hand',
+    description: 'Clock hand and center cap color.',
+  },
+  {
+    name: '--el-datepicker-focus-ring',
+    description: 'Focus ring color for the trigger, days, and clock.',
+  },
+];
+
 export const CHIP_TOKENS: TokenDefinition[] = [
   {
     name: '--el-chip-height',

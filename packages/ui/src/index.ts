@@ -48,6 +48,20 @@ export {
   type ElSelectValueContext,
 } from './lib/select/select';
 export {
+  ElDatePicker,
+  ElCalendar,
+  ElClock,
+  ElDateFields,
+  type ElDatePickerMode,
+  type ElDatePickerSize,
+  type ElHourCycle,
+  type ElCalendarMode,
+} from './lib/datepicker/date-picker';
+export {
+  ElDateRangePicker,
+  type ElDateRange,
+} from './lib/datepicker/date-range-picker';
+export {
   ElSegmentedButton,
   ElSegmentedButtonItem,
   type ElSegmentedButtonSize,

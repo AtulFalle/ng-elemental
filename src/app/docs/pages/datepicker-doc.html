@@ -1,0 +1,142 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Date Picker</h1>
+    <p class="docs-lead">
+      Select a date from a calendar, a time from an analog clock, or both.
+      Type <code>DD-MM-YYYY</code> and <code>HH:MM</code> in number fields —
+      they stay in sync with the calendar and clock. No native date/time
+      inputs and no third-party date library.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
+    <code>npx @ng-elemental/cli add icon</code>,
+    <code>npx @ng-elemental/cli add input</code>,
+    <code>npx @ng-elemental/cli add segmented-button</code>, then
+    <code>npx @ng-elemental/cli add datepicker</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-datepicker-demo">
+        <el-date-picker
+          [(value)]="dateValue"
+          mode="date"
+          placeholder="Select date"
+          ariaLabel="Date"
+        />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Bind a <code>Date | null</code> with <code>[(value)]</code>.
+      <code>mode="date"</code> shows a month grid with clickable month and year
+      headers, plus DD-MM-YYYY fields at the bottom.
+      <code>mode="time"</code> shows HH:MM, AM/PM, and a clock face.
+      <code>mode="datetime"</code> switches between both in the same panel.
+      The trigger always displays <code>dd-MM-yyyy</code> (plus time when needed).
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Time</h3>
+    <app-preview>
+      <div class="docs-datepicker-demo">
+        <el-date-picker
+          [(value)]="timeValue"
+          mode="time"
+          placeholder="Select time"
+          ariaLabel="Time"
+        />
+      </div>
+    </app-preview>
+
+    <h3>Date and time</h3>
+    <app-preview>
+      <div class="docs-datepicker-demo">
+        <el-date-picker
+          [(value)]="dateTimeValue"
+          mode="datetime"
+          placeholder="Select date and time"
+          ariaLabel="Date and time"
+        />
+      </div>
+    </app-preview>
+
+    <h3>24-hour clock</h3>
+    <app-preview>
+      <div class="docs-datepicker-demo">
+        <el-date-picker
+          [(value)]="hour24Value"
+          mode="time"
+          hourCycle="h23"
+          placeholder="Select time"
+          ariaLabel="Time 24-hour"
+        />
+      </div>
+    </app-preview>
+
+    <h3>Sizes</h3>
+    <app-preview>
+      <div class="docs-stack docs-datepicker-demo">
+        <el-date-picker
+          [(value)]="smValue"
+          size="sm"
+          placeholder="Small"
+          ariaLabel="Small"
+        />
+        <el-date-picker
+          [(value)]="mdValue"
+          size="md"
+          placeholder="Medium"
+          ariaLabel="Medium"
+        />
+        <el-date-picker
+          [(value)]="lgValue"
+          size="lg"
+          placeholder="Large"
+          ariaLabel="Large"
+        />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Date picker uses dedicated CSS variables. See
+      <a routerLink="/theming">Theming</a> for setup. Panels are positioned
+      inside the component — ancestors with <code>overflow: hidden</code> can
+      clip the calendar.
+    </p>
+    <app-tokens-table [tokens]="datepickerTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-date-picker</h3>
+    <app-props-table [props]="pickerProps" />
+    <p>
+      Requires <code>icon</code>, <code>input</code>, and
+      <code>segmented-button</code>. See
+      <a routerLink="/components/date-range-picker">Date Range Picker</a> for
+      start–end selection (same <code>add datepicker</code> command).
+    </p>
+  </section>
+</article>

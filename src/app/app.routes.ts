@@ -62,6 +62,18 @@ export const appRoutes: Route[] = [
           import('./docs/pages/select-doc').then((m) => m.SelectDocPage),
       },
       {
+        path: 'components/datepicker',
+        loadComponent: () =>
+          import('./docs/pages/datepicker-doc').then((m) => m.DatepickerDocPage),
+      },
+      {
+        path: 'components/date-range-picker',
+        loadComponent: () =>
+          import('./docs/pages/date-range-picker-doc').then(
+            (m) => m.DateRangePickerDocPage,
+          ),
+      },
+      {
         path: 'components/chip',
         loadComponent: () =>
           import('./docs/pages/chip-doc').then((m) => m.ChipDocPage),

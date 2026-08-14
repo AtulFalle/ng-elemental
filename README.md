@@ -101,7 +101,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `chip`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -313,6 +313,51 @@ Combobox with an open panel slot. Item bodies and the closed trigger are templat
 Optional `ng-template elSelectValue` replaces the trigger string. `el-select-group` labels sections and is not selectable.
 
 Requires the `icon` component for the trigger chevron and selected check marks.
+
+### Date Picker (`el-date-picker`)
+
+Calendar and analog clock. Type `DD-MM-YYYY` / `HH:MM` or pick from the grid and dial. Click the month or year in the calendar header to jump. Requires `icon`, `input`, and `segmented-button`.
+
+```html
+<el-date-picker [(value)]="when" mode="date" placeholder="Select date" />
+<el-date-picker [(value)]="when" mode="time" hourCycle="h12" />
+<el-date-picker [(value)]="when" mode="datetime" />
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `Date \| null` | `null` | Selected local date/time (two-way) |
+| `mode` | `date` \| `time` \| `datetime` | `date` | Calendar, clock, or both |
+| `hourCycle` | `h12` \| `h23` | `h12` | 12-hour AM/PM or 24-hour dial |
+| `minuteStep` | `number` | `5` | Minute ticks on the analog dial |
+| `min` | `Date \| null` | `null` | Earliest selectable day |
+| `max` | `Date \| null` | `null` | Latest selectable day |
+| `locale` | `string` | — | Weekday names and month title |
+| `size` | `sm` \| `md` \| `lg` | `md` | Trigger size |
+| `placeholder` | `string` | `Select date` | Trigger text when empty |
+| `disabled` | `boolean` | `false` | Disables the control |
+| `ariaLabel` | `string` | — | Accessible trigger name |
+
+Date fields are always `DD-MM-YYYY`. The trigger uses the same format (plus time when `mode` includes time).
+
+### Date Range Picker (`el-date-range-picker`)
+
+Same two-month calendar as Date Picker, no time. Ships with `add datepicker`. Click start then end, or type From / To as `DD-MM-YYYY`. Use the arrows or month/year labels to move across months.
+
+```html
+<el-date-range-picker [(value)]="range" placeholder="Select date range" />
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `{ start: Date \| null; end: Date \| null }` | `{ start: null, end: null }` | Selected range (two-way) |
+| `min` | `Date \| null` | `null` | Earliest selectable day |
+| `max` | `Date \| null` | `null` | Latest selectable day |
+| `locale` | `string` | — | Weekday names and month title |
+| `size` | `sm` \| `md` \| `lg` | `md` | Trigger size |
+| `placeholder` | `string` | `Select date range` | Trigger text when empty |
+| `disabled` | `boolean` | `false` | Disables the control |
+| `ariaLabel` | `string` | — | Accessible trigger name |
 
 ### Chip (`el-chip`)
 

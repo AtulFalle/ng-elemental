@@ -1,0 +1,102 @@
+<button
+  type="button"
+  class="el-date-range-picker__trigger"
+  [attr.aria-expanded]="open()"
+  aria-haspopup="dialog"
+  [attr.aria-label]="ariaLabel() || null"
+  [attr.aria-disabled]="disabled() || null"
+  [disabled]="disabled()"
+  (click)="toggleOpen($event)"
+  (keydown)="onTriggerKeydown($event)"
+>
+  <span
+    class="el-date-range-picker__value"
+    [class.el-date-range-picker__value--placeholder]="isPlaceholder()"
+  >
+    {{ triggerLabel() }}
+  </span>
+  <el-icon
+    class="el-date-range-picker__icon"
+    name="calendar"
+    [size]="size()"
+  />
+</button>
+
+<div
+  class="el-date-range-picker__panel"
+  [class.el-date-range-picker__panel--open]="open()"
+  [attr.inert]="open() ? null : ''"
+  role="dialog"
+  [attr.aria-label]="ariaLabel() || placeholder()"
+>
+  @if (open()) {
+    <div class="el-date-range-picker__pair">
+      <button
+        type="button"
+        class="el-date-range-picker__nav"
+        aria-label="Previous month"
+        [disabled]="disabled() || !canGoPrev()"
+        (click)="shiftMonth(-1)"
+      >
+        <el-icon name="chevron-left" size="sm" />
+      </button>
+
+      <div
+        class="el-date-range-picker__months"
+        (mouseleave)="hovered.set(null)"
+      >
+        <el-calendar
+          class="el-date-range-picker__month"
+          mode="range"
+          [month]="leftMonth()"
+          [rangeStart]="value().start"
+          [rangeEnd]="value().end"
+          [hover]="hovered()"
+          [min]="min()"
+          [max]="max()"
+          [locale]="locale()"
+          [disabled]="disabled()"
+          (daySelected)="onDaySelected($event)"
+          (monthChange)="onLeftMonth($event)"
+          (dateHover)="hovered.set($event)"
+        />
+        <el-calendar
+          class="el-date-range-picker__month"
+          mode="range"
+          [month]="rightMonth()"
+          [rangeStart]="value().start"
+          [rangeEnd]="value().end"
+          [hover]="hovered()"
+          [min]="min()"
+          [max]="max()"
+          [locale]="locale()"
+          [disabled]="disabled()"
+          (daySelected)="onDaySelected($event)"
+          (monthChange)="onRightMonth($event)"
+          (dateHover)="hovered.set($event)"
+        />
+      </div>
+
+      <button
+        type="button"
+        class="el-date-range-picker__nav"
+        aria-label="Next month"
+        [disabled]="disabled() || !canGoNext()"
+        (click)="shiftMonth(1)"
+      >
+        <el-icon name="chevron-right" size="sm" />
+      </button>
+    </div>
+
+    <el-date-fields
+      mode="range"
+      [start]="value().start"
+      [end]="value().end"
+      [min]="min()"
+      [max]="max()"
+      [disabled]="disabled()"
+      (startCommit)="onStartCommit($event)"
+      (endCommit)="onEndCommit($event)"
+    />
+  }
+</div>

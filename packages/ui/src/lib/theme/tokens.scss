@@ -207,6 +207,37 @@
   --el-input-font-size: 0.875rem;
   --el-input-focus-ring: var(--el-segmented-md3-focus);
 
+  // ── Date picker ──────────────────────────────────────────────────────────
+  --el-datepicker-fg: var(--el-color-fg);
+  --el-datepicker-muted-fg: var(--el-color-fg-muted);
+  --el-datepicker-trigger-bg: var(--el-color-surface);
+  --el-datepicker-trigger-fg: var(--el-color-fg);
+  --el-datepicker-trigger-border: var(--el-color-border);
+  --el-datepicker-trigger-border-hover: var(--el-color-border-muted);
+  --el-datepicker-trigger-radius: 0.375rem;
+  --el-datepicker-trigger-min-height: 2.5rem;
+  --el-datepicker-trigger-padding: 0.5rem 0.75rem;
+  --el-datepicker-trigger-font-size: 0.875rem;
+  --el-datepicker-placeholder-fg: var(--el-color-fg-muted);
+  --el-datepicker-panel-bg: var(--el-color-surface);
+  --el-datepicker-panel-border: var(--el-color-border);
+  --el-datepicker-panel-width: 20.5rem;
+  --el-datepicker-panel-shadow:
+    0 4px 6px rgb(0 0 0 / 0.08),
+    0 8px 24px rgb(0 0 0 / 0.08);
+  --el-datepicker-day-radius: 999px;
+  --el-datepicker-day-hover-bg: var(--el-color-overlay-hover-muted);
+  --el-datepicker-day-selected-bg: var(--el-color-accent);
+  --el-datepicker-day-selected-fg: var(--el-color-fg-inverse);
+  --el-datepicker-day-fg-disabled: var(--el-color-fg-disabled);
+  --el-datepicker-today-border: var(--el-color-accent);
+  --el-datepicker-range-bg: var(--el-color-accent-subtle);
+  --el-datepicker-clock-size: 16rem;
+  --el-datepicker-clock-face-bg: var(--el-color-surface-muted);
+  --el-datepicker-clock-face-border: var(--el-color-border);
+  --el-datepicker-clock-hand: var(--el-color-accent);
+  --el-datepicker-focus-ring: var(--el-segmented-md3-focus);
+
   // ── Canvas / surfaces (Storybook, docs) ──────────────────────────────────
   --el-surface-canvas: #fffbfe;
   --el-surface-canvas-muted: #f3edf7;
@@ -253,6 +284,10 @@
   --el-slide-toggle-track-on-bg-disabled: rgb(230 225 229 / 0.38);
 
   --el-select-panel-shadow:
+    0 4px 6px rgb(0 0 0 / 0.28),
+    0 8px 24px rgb(0 0 0 / 0.32);
+
+  --el-datepicker-panel-shadow:
     0 4px 6px rgb(0 0 0 / 0.28),
     0 8px 24px rgb(0 0 0 / 0.32);
 

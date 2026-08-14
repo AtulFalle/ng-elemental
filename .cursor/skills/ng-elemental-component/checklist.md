@@ -53,3 +53,11 @@ Do not list `.stories.ts`. CI fails if stories land in `dist/packages/cli/regist
 ## E2E smoke
 
 Assert selector, class name, key template bits, token usage in SCSS, and that `.stories.ts` was **not** copied. Follow `packages/cli/src/e2e/add-select.spec.ts`.
+
+## State ownership (before merge)
+
+- [ ] State table filled (value, open/view, hover/preview, drafts) — one owner each
+- [ ] No stub instance of a widget with the body hidden
+- [ ] No `effect` copying an input into a child signal
+- [ ] Selection / range / set reduce lives on the parent, not in every child
+- [ ] Local UI reset is remount or one explicit reset, not both

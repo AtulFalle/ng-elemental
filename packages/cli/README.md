@@ -65,6 +65,7 @@ export class MyComponent {}
 | `slide-toggle` | `el-slide-toggle` | `ElSlideToggle` |
 | `radio` | `el-radio-group`, `el-radio` | `ElRadioGroup`, `ElRadio` |
 | `select` | `el-select`, `el-select-item`, `el-select-group` | `ElSelect`, `ElSelectItem`, `ElSelectGroup` |
+| `datepicker` | `el-date-picker`, `el-date-range-picker` | `ElDatePicker`, `ElDateRangePicker` |
 | `chip` | `el-chip` | `ElChip` |
 | `icon` | `el-icon` | `ElIcon` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |

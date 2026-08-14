@@ -1,0 +1,83 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Date Range Picker</h1>
+    <p class="docs-lead">
+      Two months side by side, without time. Click a start day then an end day,
+      or type From / To as <code>DD-MM-YYYY</code>. Use the arrows or the month
+      and year labels to move either calendar. In-between days highlight as a
+      series.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
+    <code>npx @ng-elemental/cli add icon</code>,
+    <code>npx @ng-elemental/cli add input</code>,
+    <code>npx @ng-elemental/cli add segmented-button</code>, then
+    <code>npx @ng-elemental/cli add datepicker</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-datepicker-demo docs-datepicker-demo--range">
+        <el-date-range-picker
+          [(value)]="range"
+          placeholder="Select date range"
+          ariaLabel="Date range"
+        />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Bind a <code>start</code> / <code>end</code> object with
+      <code>[(value)]</code>. Two months are shown at once. Click the month or
+      year in either header to jump, or use the previous / next arrows. The first
+      click (or complete From fields) sets start; the second sets end and closes
+      the panel. If the second day is before the first, the ends swap. Hover
+      previews the range after start is chosen.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+    <h3>Empty</h3>
+    <app-preview>
+      <div class="docs-datepicker-demo docs-datepicker-demo--range">
+        <el-date-range-picker
+          [(value)]="emptyRange"
+          placeholder="Select date range"
+          ariaLabel="Empty range"
+        />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Range picker shares Date Picker tokens. See
+      <a routerLink="/theming">Theming</a> and
+      <a routerLink="/components/datepicker">Date Picker</a>.
+    </p>
+    <app-tokens-table [tokens]="datepickerTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-date-range-picker</h3>
+    <app-props-table [props]="rangeProps" />
+  </section>
+</article>

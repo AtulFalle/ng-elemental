@@ -68,6 +68,11 @@ const COMPONENT_EXAMPLES: Record<
   <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
 </el-segmented-button>`,
   },
+  datepicker: {
+    className: 'ElDatePicker, ElDateRangePicker',
+    usage: `<el-date-picker [(value)]="when" mode="date" />
+<el-date-range-picker [(value)]="range" />`,
+  },
   theme: {
     className: 'ElThemeService',
     usage: `// styles.scss — @use './theme/tokens';

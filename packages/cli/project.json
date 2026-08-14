@@ -130,6 +130,36 @@
             "output": "registry/segmented-button"
           },
           {
+            "glob": "date.ts",
+            "input": "packages/ui/src/lib/datepicker",
+            "output": "registry/datepicker"
+          },
+          {
+            "glob": "calendar.{ts,html,scss}",
+            "input": "packages/ui/src/lib/datepicker",
+            "output": "registry/datepicker"
+          },
+          {
+            "glob": "clock.{ts,html,scss}",
+            "input": "packages/ui/src/lib/datepicker",
+            "output": "registry/datepicker"
+          },
+          {
+            "glob": "date-fields.{ts,html,scss}",
+            "input": "packages/ui/src/lib/datepicker",
+            "output": "registry/datepicker"
+          },
+          {
+            "glob": "date-picker.{ts,html,scss}",
+            "input": "packages/ui/src/lib/datepicker",
+            "output": "registry/datepicker"
+          },
+          {
+            "glob": "date-range-picker.{ts,html,scss}",
+            "input": "packages/ui/src/lib/datepicker",
+            "output": "registry/datepicker"
+          },
+          {
             "glob": "theme.ts",
             "input": "packages/ui/src/lib/theme",
             "output": "registry/theme"

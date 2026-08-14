@@ -12,6 +12,7 @@
 - Two-way state via `model()` (same as radio `value` and checkbox `checked`) — not `ControlValueAccessor` unless required later
 - Selector prefix `el-`
 - Compound widgets: injection token in `<name>.token.ts`, parent `providers: [{ provide: TOKEN, useExisting: Parent }]`
+- One owner per piece of state (value, open/view, hover/preview, drafts). Children emit events; do not mirror inputs into child signals with `effect`, lastX caches, or show/hide flags. See `ng-elemental-review`.
 
 ## Style
 

@@ -1,0 +1,73 @@
+<button
+  type="button"
+  class="el-date-picker__trigger"
+  [attr.aria-expanded]="open()"
+  aria-haspopup="dialog"
+  [attr.aria-label]="ariaLabel() || null"
+  [attr.aria-disabled]="disabled() || null"
+  [disabled]="disabled()"
+  (click)="toggleOpen($event)"
+  (keydown)="onTriggerKeydown($event)"
+>
+  <span
+    class="el-date-picker__value"
+    [class.el-date-picker__value--placeholder]="isPlaceholder()"
+  >
+    {{ triggerLabel() }}
+  </span>
+  <el-icon
+    class="el-date-picker__icon"
+    [name]="triggerIcon()"
+    [size]="size()"
+  />
+</button>
+
+<div
+  class="el-date-picker__panel"
+  [class.el-date-picker__panel--open]="open()"
+  [attr.inert]="open() ? null : ''"
+  role="dialog"
+  [attr.aria-label]="ariaLabel() || placeholder()"
+>
+  @if (mode() === 'datetime') {
+    <el-segmented-button
+      class="el-date-picker__tabs"
+      [(value)]="section"
+      size="sm"
+      ariaLabel="Date or time"
+      [disabled]="disabled()"
+    >
+      <el-segmented-button-item value="date">Date</el-segmented-button-item>
+      <el-segmented-button-item value="time">Time</el-segmented-button-item>
+    </el-segmented-button>
+  }
+
+  @if (open() && showCalendar()) {
+    <el-calendar
+      [selected]="value()"
+      [(month)]="viewMonth"
+      [min]="min()"
+      [max]="max()"
+      [locale]="locale()"
+      [disabled]="disabled()"
+      (daySelected)="onDateSelected($event)"
+    />
+    <el-date-fields
+      [date]="value()"
+      [min]="min()"
+      [max]="max()"
+      [disabled]="disabled()"
+      (dateCommit)="onDateSelected($event)"
+    />
+  }
+
+  @if (open() && showClock()) {
+    <el-clock
+      [value]="value()"
+      [hourCycle]="hourCycle()"
+      [minuteStep]="minuteStep()"
+      [disabled]="disabled()"
+      (timeSelected)="onTimeSelected($event)"
+    />
+  }
+</div>

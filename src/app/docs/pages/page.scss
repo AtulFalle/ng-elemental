@@ -127,6 +127,17 @@
   align-self: flex-start;
 }
 
+.docs-datepicker-demo {
+  width: 100%;
+  max-width: 24rem;
+  min-height: 32rem;
+  align-self: flex-start;
+}
+
+.docs-datepicker-demo--range {
+  max-width: 48rem;
+}
+
 .docs-field-demo {
   width: 100%;
   max-width: 24rem;

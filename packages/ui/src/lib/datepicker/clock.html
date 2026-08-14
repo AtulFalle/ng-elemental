@@ -1,0 +1,75 @@
+<div
+  class="el-clock__face"
+  role="slider"
+  tabindex="0"
+  [attr.aria-label]="stage() === 'hour' ? 'Hours' : 'Minutes'"
+  [attr.aria-valuemin]="0"
+  [attr.aria-valuemax]="stage() === 'hour' && hourCycle() === 'h23' ? 23 : stage() === 'hour' ? 12 : 59"
+  [attr.aria-valuenow]="stage() === 'hour' ? hours() : minutes()"
+  [attr.aria-disabled]="disabled() || null"
+  (keydown)="onFaceKeydown($event)"
+>
+  <div
+    class="el-clock__hand"
+    [class.el-clock__hand--inner]="hourCycle() === 'h23' && stage() === 'hour' && hours() < 12"
+    [style.transform]="'rotate(' + handDeg() + 'deg)'"
+  ></div>
+  <div class="el-clock__center"></div>
+  @for (tick of ticks(); track tick.ring + '-' + tick.value) {
+    <button
+      type="button"
+      class="el-clock__tick"
+      [class.el-clock__tick--inner]="tick.ring === 'inner'"
+      [class.el-clock__tick--selected]="tick.selected"
+      [class.el-clock__tick--active]="activeTick() === tick.value"
+      [style.transform]="tick.transform"
+      [disabled]="disabled()"
+      [attr.tabindex]="-1"
+      (click)="onTickClick(tick)"
+    >
+      {{ tick.label }}
+    </button>
+  }
+</div>
+
+<div class="el-clock__fields" (focusout)="onFieldsBlur($event)">
+  <div class="el-clock__field" (focusin)="showHours()">
+    <el-input
+      [value]="hourField()"
+      type="number"
+      size="sm"
+      placeholder="HH"
+      autocomplete="off"
+      ariaLabel="Hour"
+      [disabled]="disabled()"
+      (valueChange)="onHourField($event)"
+    />
+  </div>
+  <span class="el-clock__sep">:</span>
+  <div class="el-clock__field" (focusin)="goToMinutes()">
+    <el-input
+      [value]="minuteField()"
+      type="number"
+      size="sm"
+      placeholder="MM"
+      autocomplete="off"
+      ariaLabel="Minute"
+      [disabled]="disabled()"
+      (valueChange)="onMinuteField($event)"
+      (keydown.enter)="onMinuteEnter($event)"
+    />
+  </div>
+  @if (hourCycle() === 'h12') {
+    <el-segmented-button
+      class="el-clock__meridiem"
+      [value]="meridiem()"
+      size="sm"
+      ariaLabel="AM or PM"
+      [disabled]="disabled()"
+      (valueChange)="onMeridiem($event)"
+    >
+      <el-segmented-button-item value="am">AM</el-segmented-button-item>
+      <el-segmented-button-item value="pm">PM</el-segmented-button-item>
+    </el-segmented-button>
+  }
+</div>

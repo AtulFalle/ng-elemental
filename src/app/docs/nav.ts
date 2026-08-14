@@ -31,6 +31,8 @@ export const DOC_NAV: DocNavSection[] = [
       { label: 'Slide Toggle', path: '/components/slide-toggle' },
       { label: 'Radio', path: '/components/radio' },
       { label: 'Select', path: '/components/select' },
+      { label: 'Date Picker', path: '/components/datepicker' },
+      { label: 'Date Range Picker', path: '/components/date-range-picker' },
       { label: 'Chip', path: '/components/chip' },
       { label: 'Segmented Button', path: '/components/segmented-button' },
     ],

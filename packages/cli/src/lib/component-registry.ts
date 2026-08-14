@@ -101,6 +101,25 @@ export const COMPONENT_REGISTRY = [
     ],
   },
   {
+    name: 'datepicker',
+    assetGlobs: [
+      'date.ts',
+      'calendar.{ts,html,scss}',
+      'clock.{ts,html,scss}',
+      'date-fields.{ts,html,scss}',
+      'date-picker.{ts,html,scss}',
+      'date-range-picker.{ts,html,scss}',
+    ],
+    requiredBasenames: [
+      'date',
+      'calendar',
+      'clock',
+      'date-fields',
+      'date-picker',
+      'date-range-picker',
+    ],
+  },
+  {
     name: 'theme',
     sourceDir: 'packages/ui/src/lib/theme',
     assetGlobs: [

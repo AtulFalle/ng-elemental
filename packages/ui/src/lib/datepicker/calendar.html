@@ -1,0 +1,109 @@
+<div class="el-calendar__header">
+  <div class="el-calendar__title">
+    @if (view() === 'year') {
+      <span class="el-calendar__title-text">{{ yearName() }}</span>
+    } @else if (view() === 'month') {
+      <button
+        type="button"
+        class="el-calendar__period"
+        aria-label="Choose year"
+        [disabled]="disabled()"
+        (click)="openYearView()"
+      >
+        {{ yearName() }}
+      </button>
+    } @else {
+      <button
+        type="button"
+        class="el-calendar__period"
+        aria-label="Choose month"
+        [disabled]="disabled()"
+        (click)="openMonthView()"
+      >
+        {{ monthName() }}
+      </button>
+      <button
+        type="button"
+        class="el-calendar__period"
+        aria-label="Choose year"
+        [disabled]="disabled()"
+        (click)="openYearView()"
+      >
+        {{ yearName() }}
+      </button>
+    }
+  </div>
+</div>
+
+@if (view() === 'month') {
+  <div class="el-calendar__picker" role="listbox" aria-label="Month">
+    @for (item of monthItems(); track item.value) {
+      <button
+        type="button"
+        class="el-calendar__picker-item"
+        role="option"
+        [class.el-calendar__picker-item--selected]="item.selected"
+        [class.el-calendar__picker-item--today]="item.today"
+        [attr.aria-selected]="item.selected"
+        [disabled]="item.disabled"
+        (click)="selectMonth(item.value)"
+      >
+        {{ item.label }}
+      </button>
+    }
+  </div>
+} @else if (view() === 'year') {
+  <div
+    class="el-calendar__picker el-calendar__picker--years"
+    role="listbox"
+    aria-label="Year"
+  >
+    @for (item of yearItems(); track item.value) {
+      <button
+        type="button"
+        class="el-calendar__picker-item"
+        role="option"
+        [class.el-calendar__picker-item--selected]="item.selected"
+        [class.el-calendar__picker-item--today]="item.today"
+        [attr.aria-selected]="item.selected"
+        [disabled]="item.disabled"
+        (click)="selectYear(item.value)"
+      >
+        {{ item.label }}
+      </button>
+    }
+  </div>
+} @else {
+  <div class="el-calendar__grid" role="grid" [attr.aria-label]="monthTitle()">
+    <div class="el-calendar__weekdays" role="row">
+      @for (label of weekdayLabels(); track $index) {
+        <div class="el-calendar__weekday" role="columnheader">{{ label }}</div>
+      }
+    </div>
+
+    @for (row of weeks(); track $index) {
+      <div class="el-calendar__row" role="row">
+        @for (cell of row; track cell.iso) {
+          <button
+            type="button"
+            class="el-calendar__day"
+            role="gridcell"
+            [class.el-calendar__day--outside]="!cell.inCurrentMonth"
+            [class.el-calendar__day--today]="cell.today"
+            [class.el-calendar__day--selected]="cell.selected"
+            [class.el-calendar__day--range-start]="cell.rangeStart"
+            [class.el-calendar__day--range-end]="cell.rangeEnd"
+            [class.el-calendar__day--in-range]="cell.inRange"
+            [attr.tabindex]="cell.focused ? 0 : -1"
+            [attr.aria-selected]="cell.selected"
+            [disabled]="cell.disabled"
+            (click)="onDayClick(cell.date)"
+            (mouseenter)="onDayEnter(cell.date)"
+          >
+            {{ cell.day }}
+          </button>
+        }
+      </div>
+    }
+  </div>
+}

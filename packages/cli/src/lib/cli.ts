@@ -53,5 +53,6 @@ Commands:
   add radio             Copy the Radio component into your project
   add select            Copy the Select component into your project
   add segmented-button  Copy the Segmented Button component into your project
+  add datepicker        Copy the Date Picker and Date Range Picker into your project
 `);
 }

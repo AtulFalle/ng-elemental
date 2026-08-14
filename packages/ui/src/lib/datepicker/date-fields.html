@@ -1,0 +1,117 @@
+@if (mode() === 'range') {
+  <div class="el-date-fields__row" (focusout)="onStartBlur($event)">
+    <span class="el-date-fields__label">From</span>
+    <div class="el-date-fields__field">
+      <el-input
+        [(value)]="startDayField"
+        type="number"
+        size="sm"
+        placeholder="DD"
+        autocomplete="off"
+        ariaLabel="Start day"
+        [disabled]="disabled()"
+      />
+    </div>
+    <span class="el-date-fields__sep">-</span>
+    <div class="el-date-fields__field">
+      <el-input
+        [(value)]="startMonthField"
+        type="number"
+        size="sm"
+        placeholder="MM"
+        autocomplete="off"
+        ariaLabel="Start month"
+        [disabled]="disabled()"
+      />
+    </div>
+    <span class="el-date-fields__sep">-</span>
+    <div class="el-date-fields__field el-date-fields__field--year">
+      <el-input
+        [(value)]="startYearField"
+        type="number"
+        size="sm"
+        placeholder="YYYY"
+        autocomplete="off"
+        ariaLabel="Start year"
+        [disabled]="disabled()"
+      />
+    </div>
+  </div>
+
+  <div class="el-date-fields__row" (focusout)="onEndBlur($event)">
+    <span class="el-date-fields__label">To</span>
+    <div class="el-date-fields__field">
+      <el-input
+        [(value)]="endDayField"
+        type="number"
+        size="sm"
+        placeholder="DD"
+        autocomplete="off"
+        ariaLabel="End day"
+        [disabled]="disabled()"
+      />
+    </div>
+    <span class="el-date-fields__sep">-</span>
+    <div class="el-date-fields__field">
+      <el-input
+        [(value)]="endMonthField"
+        type="number"
+        size="sm"
+        placeholder="MM"
+        autocomplete="off"
+        ariaLabel="End month"
+        [disabled]="disabled()"
+      />
+    </div>
+    <span class="el-date-fields__sep">-</span>
+    <div class="el-date-fields__field el-date-fields__field--year">
+      <el-input
+        [(value)]="endYearField"
+        type="number"
+        size="sm"
+        placeholder="YYYY"
+        autocomplete="off"
+        ariaLabel="End year"
+        [disabled]="disabled()"
+      />
+    </div>
+  </div>
+} @else {
+  <div class="el-date-fields__row" (focusout)="onSingleBlur($event)">
+    <div class="el-date-fields__field">
+      <el-input
+        [(value)]="dayField"
+        type="number"
+        size="sm"
+        placeholder="DD"
+        autocomplete="off"
+        ariaLabel="Day"
+        [disabled]="disabled()"
+      />
+    </div>
+    <span class="el-date-fields__sep">-</span>
+    <div class="el-date-fields__field">
+      <el-input
+        [(value)]="monthField"
+        type="number"
+        size="sm"
+        placeholder="MM"
+        autocomplete="off"
+        ariaLabel="Month"
+        [disabled]="disabled()"
+      />
+    </div>
+    <span class="el-date-fields__sep">-</span>
+    <div class="el-date-fields__field el-date-fields__field--year">
+      <el-input
+        [(value)]="yearField"
+        type="number"
+        size="sm"
+        placeholder="YYYY"
+        autocomplete="off"
+        ariaLabel="Year"
+        [disabled]="disabled()"
+      />
+    </div>
+  </div>
+}
