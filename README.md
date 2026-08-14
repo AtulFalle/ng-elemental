@@ -320,6 +320,13 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for developmen
 
 Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
 
+## Support NgElemental
+
+NgElemental is free and open source. If it saves you time or helps your project,
+consider supporting its continued development. ❤️
+
+[**Sponsor NgElemental**](https://github.com/sponsors/AtulFalle)
+
 ## Security
 
 To report a vulnerability, see [SECURITY.md](SECURITY.md).
