@@ -43,6 +43,21 @@
             "glob": "label.{ts,html,scss}",
             "input": "packages/ui/src/lib/label",
             "output": "registry/label"
+          },
+          {
+            "glob": "segmented-button.{ts,html,scss}",
+            "input": "packages/ui/src/lib/segmented-button",
+            "output": "registry/segmented-button"
+          },
+          {
+            "glob": "segmented-button-item.{ts,html,scss}",
+            "input": "packages/ui/src/lib/segmented-button",
+            "output": "registry/segmented-button"
+          },
+          {
+            "glob": "segmented-button.token.ts",
+            "input": "packages/ui/src/lib/segmented-button",
+            "output": "registry/segmented-button"
           }
         ],
         "esbuildOptions": {

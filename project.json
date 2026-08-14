@@ -101,7 +101,7 @@
         "configDir": "./.storybook",
         "compodoc": false,
         "styles": [
-          "./src/styles.scss"
+          "./.storybook/styles.scss"
         ]
       },
       "configurations": {
@@ -120,7 +120,7 @@
         "configDir": "./.storybook",
         "compodoc": false,
         "styles": [
-          "./src/styles.scss"
+          "./.storybook/styles.scss"
         ]
       },
       "configurations": {

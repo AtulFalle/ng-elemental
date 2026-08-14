@@ -1,0 +1,6 @@
+// Single Storybook global styles entry — add shared layers here, not per-component imports.
+@use '../packages/ui/src/styles/tokens';
+@use '../packages/ui/src/styles/storybook-canvas';
+
+@import '@fontsource-variable/geist/index.css';
+@import '@fontsource-variable/geist-mono/index.css';

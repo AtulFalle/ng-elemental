@@ -1,0 +1,13 @@
+// Storybook canvas defaults. Import via .storybook/styles.scss — not shipped to consumers.
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--el-font-sans);
+  -webkit-font-smoothing: antialiased;
+}

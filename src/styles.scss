@@ -1,7 +1,6 @@
-:root {
-  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
-  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+@use '../packages/ui/src/styles/tokens';
 
+:root {
   --docs-fg: #111827;
   --docs-muted: #6b7280;
   --docs-border: #e5e7eb;

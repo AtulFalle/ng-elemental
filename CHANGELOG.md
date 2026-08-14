@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_No npm release yet. Pending CLI/UI changes will be listed here before the next tag._
+### Added
+
+- `ElSegmentedButton` and `ElSegmentedButtonItem` single-choice control (`ng-elemental add segmented-button`)
 
 ## [0.0.2] - 2026-08-14
 

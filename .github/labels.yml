@@ -1,7 +1,8 @@
 # GitHub label definitions for ng-elemental.
-# Sync with: gh label create ...  or  github.com/AtulFalle/ng-elemental/labels
+# Synced automatically by .github/workflows/sync-labels.yml on push to master.
+# Manual sync: Actions → Sync labels → Run workflow
 
-# Area — where the change lives (auto-applied on PRs via labeler.yml)
+# Scope — where the change lives (auto-applied on PRs via labeler.yml)
 - name: area:cli
   color: '1D4ED8'
   description: CLI package (packages/cli)
@@ -12,26 +13,26 @@
 
 - name: area:docs
   color: '059669'
-  description: Documentation site and docs content
+  description: Documentation site, Storybook, and docs content
 
 - name: area:ci
-  color: '475569'
+  color: '0E7490'
   description: GitHub Actions and CI configuration
 
 - name: area:infra
-  color: '64748B'
+  color: '6366F1'
   description: Workspace tooling (Nx, ESLint, TypeScript, npm)
 
 - name: area:release
   color: 'B45309'
   description: Release, changelog, and npm publish
 
-# Type — nature of the change (mostly manual; type:docs is auto on markdown)
+# Type — nature of the change (manual on PRs; type:docs auto on markdown)
 - name: type:feature
   color: '16A34A'
   description: New feature or component
 
-- name: type:bugfix
+- name: type:bug
   color: 'DC2626'
   description: Bug fix
 
@@ -40,7 +41,7 @@
   description: Documentation-only change
 
 - name: type:chore
-  color: '94A3B8'
+  color: 'A16207'
   description: Maintenance, tooling, or housekeeping
 
 - name: type:breaking
@@ -48,6 +49,8 @@
   description: Breaking change for consumers
 
 # CI control
-- name: needs:full-ci
+- name: ci:full
   color: 'EA580C'
   description: Run full CI on this PR instead of affected-only checks
+
+# Deprecated (remove from GitHub after sync): needs:full-ci, type:bugfix, bug, enhancement

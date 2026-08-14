@@ -1,0 +1,24 @@
+// Shared design tokens for NgElemental UI components.
+// Loaded once globally (Storybook, docs). Components consume via CSS custom properties.
+
+:root {
+  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
+  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+
+  // Button
+  --el-button-primary-bg: #1d4ed8;
+  --el-button-primary-bg-hover: #1e40af;
+  --el-button-primary-fg: #fff;
+  --el-button-secondary-bg: #e5e7eb;
+  --el-button-secondary-bg-hover: #d1d5db;
+  --el-button-secondary-fg: #111827;
+  --el-button-ghost-fg: #1d4ed8;
+  --el-button-ghost-bg-hover: #eff6ff;
+
+  // Segmented button — Material Design 3 (Penpot)
+  --el-segmented-md3-outline: #79747e;
+  --el-segmented-md3-on-surface: #1c1b1f;
+  --el-segmented-md3-secondary-container: #e8def8;
+  --el-segmented-md3-on-secondary-container: #1e192b;
+  --el-segmented-md3-focus: #6750a4;
+}

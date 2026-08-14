@@ -11,7 +11,9 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "storybook": "nx storybook",
+    "build-storybook": "nx build-storybook"
   },
   "dependencies": {
     "@angular/animations": "~22.0.4",

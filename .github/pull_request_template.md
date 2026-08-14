@@ -4,11 +4,15 @@
 
 ## Type of change
 
-- [ ] Bug fix
-- [ ] New component or feature
-- [ ] Documentation
-- [ ] Refactor or tooling
-- [ ] Other (describe below)
+Label the PR with one `type:*` label when ready for review:
+
+- [ ] `type:bug` — Bug fix
+- [ ] `type:feature` — New component or feature
+- [ ] `type:docs` — Documentation only
+- [ ] `type:chore` — Refactor or tooling
+- [ ] `type:breaking` — Breaking change for consumers
+
+Path-based `area:*` labels are applied automatically.
 
 ## Test plan
 

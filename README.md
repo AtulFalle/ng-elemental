@@ -23,6 +23,7 @@ From your Angular project:
 npx @ng-elemental/cli init
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add label
+npx @ng-elemental/cli add segmented-button
 ```
 
 `init` creates `elemental.json` and a components directory (default: `src/app/ui`).
@@ -91,7 +92,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `button`, `label`.
+Available components: `button`, `label`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -126,6 +127,32 @@ Use `--force` to overwrite an existing component folder.
 | `htmlFor` | `string` | `''` | Associated control id |
 | `required` | `boolean` | `false` | Shows required indicator |
 | `disabled` | `boolean` | `false` | Muted, non-interactive label |
+
+### Segmented Button (`el-segmented-button`)
+
+```html
+<el-segmented-button [(value)]="view" ariaLabel="View mode">
+  <el-segmented-button-item value="list">List</el-segmented-button-item>
+  <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+</el-segmented-button>
+```
+
+**`el-segmented-button`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `''` | Selected segment value (two-way bindable) |
+| `variant` | `primary` \| `secondary` \| `ghost` | `secondary` | Visual style (matches Button) |
+| `size` | `sm` \| `md` \| `lg` | `md` | Control size |
+| `disabled` | `boolean` | `false` | Disables the entire group |
+| `ariaLabel` | `string` | — | Accessible label for the radiogroup |
+
+**`el-segmented-button-item`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | (required) | Unique segment value |
+| `disabled` | `boolean` | `false` | Disables this segment |
 
 ## Packages
 

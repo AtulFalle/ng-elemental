@@ -1,0 +1,67 @@
+:host {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--el-segmented-track-border);
+  border-radius: var(--el-segmented-radius, 1.25rem);
+  overflow: hidden;
+  background-color: var(--el-segmented-track-bg, transparent);
+}
+
+:host(.el-segmented-button--sm) {
+  --el-segmented-item-padding: 0.25rem 0.75rem;
+  --el-segmented-item-font-size: 0.75rem;
+  --el-segmented-radius: 1rem;
+  min-height: 2rem;
+}
+
+:host(.el-segmented-button--md) {
+  --el-segmented-item-padding: 0.5625rem 1rem;
+  --el-segmented-item-font-size: 0.875rem;
+  --el-segmented-radius: 1.25rem;
+  min-height: 2.5rem;
+}
+
+:host(.el-segmented-button--lg) {
+  --el-segmented-item-padding: 0.75rem 1.25rem;
+  --el-segmented-item-font-size: 1rem;
+  --el-segmented-radius: 1.5rem;
+  min-height: 3rem;
+}
+
+:host(.el-segmented-button--primary) {
+  --el-segmented-track-bg: #dbeafe;
+  --el-segmented-track-border: var(--el-button-primary-bg);
+  --el-segmented-item-color: var(--el-button-primary-bg);
+  --el-segmented-item-border: var(--el-button-primary-bg);
+  --el-segmented-item-hover-bg: rgb(255 255 255 / 0.45);
+  --el-segmented-item-selected-bg: var(--el-button-primary-bg);
+  --el-segmented-item-selected-color: var(--el-button-primary-fg);
+  --el-segmented-focus-color: var(--el-button-primary-bg);
+}
+
+:host(.el-segmented-button--secondary) {
+  --el-segmented-track-bg: transparent;
+  --el-segmented-track-border: var(--el-segmented-md3-outline);
+  --el-segmented-item-color: var(--el-segmented-md3-on-surface);
+  --el-segmented-item-border: var(--el-segmented-md3-outline);
+  --el-segmented-item-hover-bg: rgb(28 27 31 / 0.04);
+  --el-segmented-item-selected-bg: var(--el-segmented-md3-secondary-container);
+  --el-segmented-item-selected-color: var(--el-segmented-md3-on-secondary-container);
+  --el-segmented-focus-color: var(--el-segmented-md3-focus);
+}
+
+:host(.el-segmented-button--ghost) {
+  --el-segmented-track-bg: transparent;
+  --el-segmented-track-border: #e5e7eb;
+  --el-segmented-item-color: var(--el-button-ghost-fg);
+  --el-segmented-item-border: #e5e7eb;
+  --el-segmented-item-hover-bg: #f9fafb;
+  --el-segmented-item-selected-bg: var(--el-button-ghost-bg-hover);
+  --el-segmented-item-selected-color: var(--el-button-ghost-fg);
+  --el-segmented-focus-color: var(--el-button-ghost-fg);
+}
+
+:host(.el-segmented-button--disabled) {
+  opacity: 0.38;
+  pointer-events: none;
+}

@@ -11,7 +11,8 @@ import { CodeBlock } from '../ui/code-block';
 export class InstallationPage {
   protected readonly initCode = `npx @ng-elemental/cli init
 npx @ng-elemental/cli add button
-npx @ng-elemental/cli add label`;
+npx @ng-elemental/cli add label
+npx @ng-elemental/cli add segmented-button`;
 
   protected readonly configCode = `{
   "componentsDir": "src/app/ui"
