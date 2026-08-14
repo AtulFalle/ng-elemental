@@ -26,6 +26,12 @@ export interface ComponentRegistryEntry {
  */
 export const COMPONENT_REGISTRY = [
   {
+    name: 'icon',
+    assetGlobs: ['icon.{ts,scss}', 'fontawesome.scss'],
+    requiredBasenames: ['icon'],
+    requiredFiles: ['fontawesome.scss'],
+  },
+  {
     name: 'button',
     assetGlobs: ['button.{ts,html,scss}'],
     requiredBasenames: ['button'],
@@ -39,6 +45,11 @@ export const COMPONENT_REGISTRY = [
     name: 'checkbox',
     assetGlobs: ['checkbox.{ts,html,scss}'],
     requiredBasenames: ['checkbox'],
+  },
+  {
+    name: 'chip',
+    assetGlobs: ['chip.{ts,html,scss}'],
+    requiredBasenames: ['chip'],
   },
   {
     name: 'segmented-button',
@@ -56,9 +67,21 @@ export const COMPONENT_REGISTRY = [
   {
     name: 'theme',
     sourceDir: 'packages/ui/src/lib/theme',
-    assetGlobs: ['theme.ts', 'theme.token.ts', 'tokens.scss'],
+    assetGlobs: [
+      'theme.ts',
+      'theme.token.ts',
+      'tokens.scss',
+      'fonts.scss',
+      'geist-latin-wght-normal.woff2',
+      'geist-mono-latin-wght-normal.woff2',
+    ],
     requiredBasenames: ['theme', 'theme.token'],
-    requiredFiles: ['tokens.scss'],
+    requiredFiles: [
+      'tokens.scss',
+      'fonts.scss',
+      'geist-latin-wght-normal.woff2',
+      'geist-mono-latin-wght-normal.woff2',
+    ],
   },
 ] as const satisfies readonly ComponentRegistryEntry[];
 

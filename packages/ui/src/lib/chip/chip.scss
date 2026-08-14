@@ -1,0 +1,194 @@
+:host(.el-chip-host) {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.el-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--el-chip-gap);
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: var(--el-chip-height);
+  padding-inline: var(--el-chip-padding-x);
+  border: 1px solid transparent;
+  border-radius: var(--el-chip-radius);
+  background: transparent;
+  font-family: var(--el-font-sans);
+  font-size: var(--el-chip-font-size);
+  font-weight: var(--el-chip-font-weight);
+  line-height: 1.25;
+  letter-spacing: 0.01px;
+  color: var(--el-chip-fg-outlined);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.15s ease;
+
+  &:disabled,
+  &--disabled {
+    color: var(--el-color-fg-disabled);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--el-chip-focus-ring);
+    outline-offset: 2px;
+  }
+
+  &--outlined {
+    border-color: var(--el-chip-border);
+    background: transparent;
+    color: var(--el-chip-fg-outlined);
+  }
+
+  &--filled {
+    border-color: transparent;
+    background: var(--el-chip-bg-filled);
+    color: var(--el-chip-fg-filled);
+  }
+
+  &--elevated {
+    position: relative;
+    isolation: isolate;
+    border-color: transparent;
+    background: var(--el-chip-bg-elevated);
+    box-shadow: var(--el-chip-elevated-shadow);
+    color: var(--el-chip-fg-outlined);
+
+    &::before {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--el-chip-elevated-tint);
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  &--assist {
+    color: var(--el-chip-fg-assist);
+  }
+
+  &--with-icon-start {
+    padding-inline-start: var(--el-chip-padding-x-icon-leading);
+  }
+
+  &--with-close {
+    gap: 0;
+    padding-inline: 0;
+    overflow: hidden;
+  }
+
+  &--with-close.el-chip--with-icon-start {
+    padding-inline-start: 0;
+  }
+
+  &--outlined:not(.el-chip--disabled):hover {
+    background: var(--el-chip-hover-bg-outlined);
+  }
+
+  &--filled:not(.el-chip--disabled):hover,
+  &--selected:not(.el-chip--disabled):hover {
+    background: var(--el-chip-hover-bg-filled);
+  }
+
+  &--elevated:not(.el-chip--disabled):hover {
+    box-shadow: var(--el-chip-elevated-shadow-hover);
+  }
+
+  &__body {
+    display: inline-flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    gap: var(--el-chip-gap);
+    min-width: 0;
+    min-height: var(--el-chip-height);
+    padding-inline: var(--el-chip-padding-x);
+    border: none;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--el-chip-focus-ring);
+      outline-offset: -2px;
+    }
+  }
+
+  &--with-close &__body {
+    flex: 0 1 auto;
+    padding-inline-end: var(--el-chip-padding-x-close);
+  }
+
+  &--with-close.el-chip--with-icon-start &__body {
+    padding-inline-start: var(--el-chip-padding-x-icon-leading);
+  }
+
+  &__icon-start {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__icon-end {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+
+    &:empty {
+      display: none;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.38;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--el-chip-focus-ring);
+      outline-offset: -2px;
+    }
+  }
+
+  &--with-close &__icon-end {
+    flex-shrink: 0;
+    width: calc(var(--el-chip-icon-size) + var(--el-chip-padding-x-close));
+    height: var(--el-chip-height);
+    padding-inline-end: var(--el-chip-padding-x-close);
+  }
+
+  &__icon-end:not(:disabled):hover {
+    background: var(--el-chip-remove-hover-bg);
+  }
+
+  &__label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

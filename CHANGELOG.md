@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `ElIcon` Font Awesome 6 icon component (`ng-elemental add icon`)
+- Button and chip integrations for Font Awesome start/end icons
+- `ElChip` Material Design 3 chips for assist, filter, and suggestion use cases (`ng-elemental add chip`)
+- Bundled Geist fonts in theme package with system-ui fallbacks (no manual font install)
+
 ## [0.0.4] - 2026-08-14
 
 ### Added

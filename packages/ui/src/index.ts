@@ -1,4 +1,9 @@
 export {
+  ElIcon,
+  type ElIconSize,
+  type ElIconVariant,
+} from './lib/icon/icon';
+export {
   ElButton,
   type ElButtonSize,
   type ElButtonType,
@@ -9,6 +14,11 @@ export {
   ElCheckbox,
   type ElCheckboxLabelPosition,
 } from './lib/checkbox/checkbox';
+export {
+  ElChip,
+  type ElChipAppearance,
+  type ElChipType,
+} from './lib/chip/chip';
 export {
   ElSegmentedButton,
   ElSegmentedButtonItem,

@@ -15,11 +15,13 @@ See the [contributing guide](../../CONTRIBUTING.md) if you are working on compon
 
 ## Theming
 
-Design tokens live in `packages/ui/src/lib/theme/tokens.scss`. Import once in your global styles:
+Design tokens and bundled Geist fonts live in `packages/ui/src/lib/theme/`. Import once in global styles:
 
 ```scss
 @use './path/to/theme/tokens';
 ```
+
+Geist ships with the theme (`fonts.scss` + woff2 files). System-ui fonts are used as fallback when bundled fonts are unavailable.
 
 Customize colors by overriding CSS variables on `:root` or via `provideElTheme()`:
 
@@ -42,7 +44,7 @@ Built-in dark mode: set `mode: 'dark'` or add `data-el-theme="dark"` on `<html>`
 
 Component stories live next to source (`*.stories.ts`). Storybook loads styles through a single global entry:
 
-- `.storybook/styles.scss` — fonts + shared UI tokens + canvas defaults
+- `.storybook/styles.scss` — shared UI tokens, bundled fonts, canvas defaults
 - `packages/ui/src/lib/theme/tokens.scss` — design tokens (`:root` CSS variables)
 - Each component — own `styleUrl` with BEM classes referencing tokens (no hardcoded colors)
 

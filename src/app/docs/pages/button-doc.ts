@@ -28,9 +28,9 @@ export class ButtonDocPage {
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-button variant="primary">Save</el-button>
+  protected readonly usageCode = `<el-button variant="primary" iconStart="plus">Save</el-button>
 <el-button variant="secondary" size="sm">Cancel</el-button>
-<el-button variant="ghost" disabled>Disabled</el-button>`;
+<el-button variant="ghost" iconEnd="arrow-right">Next</el-button>`;
 
   protected readonly globalTokensCode = `:root {
   --el-button-primary-bg: #6366f1;
@@ -72,6 +72,24 @@ export class MyComponent {}`;
       type: "'button' | 'submit' | 'reset'",
       default: "'button'",
       description: 'Native button type attribute.',
+    },
+    {
+      name: 'iconStart',
+      type: 'string',
+      default: "''",
+      description: 'Font Awesome icon name shown before the label (requires icon component).',
+    },
+    {
+      name: 'iconEnd',
+      type: 'string',
+      default: "''",
+      description: 'Font Awesome icon name shown after the label (requires icon component).',
+    },
+    {
+      name: 'iconVariant',
+      type: "'solid' | 'regular' | 'brands'",
+      default: "'solid'",
+      description: 'Font Awesome style for button icons.',
     },
   ];
 }

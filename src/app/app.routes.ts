@@ -27,6 +27,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/button-doc').then((m) => m.ButtonDocPage),
       },
       {
+        path: 'components/icon',
+        loadComponent: () =>
+          import('./docs/pages/icon-doc').then((m) => m.IconDocPage),
+      },
+      {
         path: 'components/label',
         loadComponent: () =>
           import('./docs/pages/label-doc').then((m) => m.LabelDocPage),
@@ -35,6 +40,11 @@ export const appRoutes: Route[] = [
         path: 'components/checkbox',
         loadComponent: () =>
           import('./docs/pages/checkbox-doc').then((m) => m.CheckboxDocPage),
+      },
+      {
+        path: 'components/chip',
+        loadComponent: () =>
+          import('./docs/pages/chip-doc').then((m) => m.ChipDocPage),
       },
       {
         path: 'components/segmented-button',

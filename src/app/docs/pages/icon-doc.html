@@ -1,0 +1,93 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Icon</h1>
+    <p class="docs-lead">
+      Font Awesome 6 icons via a lightweight wrapper. Use icon names from
+      <a href="https://fontawesome.com/icons" target="_blank" rel="noopener noreferrer">fontawesome.com</a>
+      across buttons, chips, and custom layouts.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add icon</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-row">
+        <el-icon name="check" />
+        <el-icon name="xmark" />
+        <el-icon name="star" />
+        <el-icon name="github" variant="brands" />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Setup</h2>
+    <p>
+      Icons require Font Awesome 6. Theme (bundled Geist fonts + tokens) is
+      recommended for consistent typography — see
+      <a routerLink="/installation">Installation</a>.
+    </p>
+    <p>Install Font Awesome and import styles once in your global stylesheet:</p>
+    <app-code-block [code]="installCode" language="shell" />
+    <app-code-block [code]="stylesCode" language="scss" />
+    <p>Then add the icon component:</p>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Integration</h2>
+
+    <h3>Buttons</h3>
+    <app-preview>
+      <div class="docs-row">
+        <el-button variant="primary" iconStart="plus">Add</el-button>
+        <el-button variant="secondary" iconEnd="arrow-right">Next</el-button>
+      </div>
+    </app-preview>
+    <app-code-block [code]="buttonCode" language="html" />
+
+    <h3>Chips</h3>
+    <app-preview>
+      <div class="docs-row">
+        <el-chip type="assist" iconStart="key">Assist</el-chip>
+        <el-chip type="filter" [(selected)]="filterActive">Filter</el-chip>
+        @for (tag of tags(); track tag) {
+          <el-chip
+            type="suggestion"
+            appearance="filled"
+            [removable]="true"
+            (removed)="removeTag(tag)"
+          >
+            {{ tag }}
+          </el-chip>
+        }
+      </div>
+    </app-preview>
+    <app-code-block [code]="chipCode" language="html" />
+    <p>
+      Button and chip components require the icon component when using
+      <code>iconStart</code> / <code>iconEnd</code> — run
+      <code>npx @ng-elemental/cli add icon</code> first.
+    </p>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <app-tokens-table [tokens]="iconTokens" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

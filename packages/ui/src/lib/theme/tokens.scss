@@ -1,10 +1,13 @@
 // NgElemental design tokens — single source of truth for theme colors.
 // Import once globally (Storybook, docs, consumer styles.scss).
+// Bundled Geist fonts load via fonts.scss; system fonts are used as fallback.
 //
 // Customization:
 //   1. Override CSS variables on :root or a wrapper element.
 //   2. Use provideElTheme({ variables: { '--el-color-accent': '#…' } }).
 //   3. Set data-el-theme="dark" for the built-in dark palette.
+
+@use './fonts';
 
 :root,
 [data-el-theme='light'] {
@@ -26,8 +29,17 @@
   --el-color-fg-disabled: rgb(28 27 31 / 0.38);
 
   // ── Typography ───────────────────────────────────────────────────────────
-  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
-  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+  --el-font-sans:
+    'Geist Variable', Geist, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --el-font-mono:
+    'Geist Mono Variable', 'Geist Mono', ui-monospace, 'Cascadia Code', 'Segoe UI Mono', Menlo,
+    Consolas, monospace;
+
+  // ── Icon (Font Awesome 6) ────────────────────────────────────────────────
+  --el-icon-size-sm: 0.875rem;
+  --el-icon-size-md: 1.125rem;
+  --el-icon-size-lg: 1.25rem;
 
   // ── Button ───────────────────────────────────────────────────────────────
   --el-button-primary-bg: var(--el-color-accent);
@@ -55,6 +67,38 @@
   --el-segmented-track-border-ghost: var(--el-color-border);
   --el-segmented-item-border-ghost: var(--el-color-border);
   --el-segmented-item-hover-bg-ghost: var(--el-color-surface-muted);
+
+  // ── Chip (Material Design 3) ─────────────────────────────────────────────
+  --el-chip-height: 2rem;
+  --el-chip-radius: 8px;
+  --el-chip-gap: 0.5rem;
+  --el-chip-font-size: 0.875rem;
+  --el-chip-font-weight: 500;
+  --el-chip-padding-x: 1rem;
+  --el-chip-padding-x-input: 0.75rem;
+  --el-chip-padding-x-icon-leading: 0.5rem;
+  --el-chip-padding-x-close: 0.5rem;
+  --el-chip-icon-size: 1.125rem;
+  --el-chip-border: var(--el-segmented-md3-outline);
+  --el-chip-fg-outlined: #49454e;
+  --el-chip-fg-assist: var(--el-segmented-md3-on-surface);
+  --el-chip-fg-filled: var(--el-segmented-md3-on-secondary-container);
+  --el-chip-bg-filled: var(--el-segmented-md3-secondary-container);
+  --el-chip-bg-elevated: var(--el-surface-canvas);
+  --el-chip-elevated-tint: rgb(103 80 164 / 0.05);
+  --el-chip-elevated-shadow:
+    0 1px 1px rgb(0 0 0 / 0.16),
+    0 2px 2px rgb(0 0 0 / 0.09),
+    0 4px 4px rgb(0 0 0 / 0.05);
+  --el-chip-elevated-shadow-hover:
+    0 1px 2px rgb(0 0 0 / 0.18),
+    0 3px 3px rgb(0 0 0 / 0.12),
+    0 6px 6px rgb(0 0 0 / 0.08);
+  --el-chip-hover-bg: var(--el-color-overlay-hover-muted);
+  --el-chip-hover-bg-outlined: var(--el-color-overlay-hover-muted);
+  --el-chip-hover-bg-filled: rgb(103 80 164 / 0.12);
+  --el-chip-remove-hover-bg: rgb(28 27 31 / 0.08);
+  --el-chip-focus-ring: var(--el-segmented-md3-focus);
 
   // ── Checkbox (Material Design 3) ─────────────────────────────────────────
   --el-checkbox-size: 1.125rem;
@@ -101,6 +145,9 @@
   --el-segmented-md3-secondary-container: #4a4458;
   --el-segmented-md3-on-secondary-container: #e8def8;
   --el-segmented-md3-focus: #d0bcff;
+
+  --el-chip-hover-bg-filled: rgb(208 188 255 / 0.16);
+  --el-chip-remove-hover-bg: rgb(230 225 229 / 0.08);
 
   --el-checkbox-border-disabled: rgb(230 225 229 / 0.12);
   --el-checkbox-bg-disabled: rgb(230 225 229 / 0.04);

@@ -6,8 +6,28 @@
   [class.el-button--sm]="size() === 'sm'"
   [class.el-button--md]="size() === 'md'"
   [class.el-button--lg]="size() === 'lg'"
+  [class.el-button--with-icon-start]="iconStart()"
+  [class.el-button--with-icon-end]="iconEnd()"
   [disabled]="disabled()"
   [type]="type()"
 >
-  <ng-content />
+  @if (iconStart()) {
+    <el-icon
+      class="el-button__icon"
+      [name]="iconStart()"
+      [variant]="iconVariant()"
+      [size]="iconSize()"
+    />
+  }
+  <span class="el-button__label">
+    <ng-content />
+  </span>
+  @if (iconEnd()) {
+    <el-icon
+      class="el-button__icon"
+      [name]="iconEnd()"
+      [variant]="iconVariant()"
+      [size]="iconSize()"
+    />
+  }
 </button>

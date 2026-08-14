@@ -22,10 +22,25 @@
     <ul>
       <li><strong>Angular</strong> 22 or later</li>
       <li><strong>Node.js</strong> 24 or later (for the CLI)</li>
+      <li>
+        <strong>Theme</strong> — add with <code>npx @ng-elemental/cli add theme</code>.
+        Includes design tokens and bundled Geist fonts with system-ui fallbacks.
+        No separate font npm package is required.
+      </li>
+      <li>
+        <strong>Font Awesome 6</strong> (optional) — required only when using
+        <code>el-icon</code> or icon props on buttons and chips. Install
+        <code>&#64;fortawesome/fontawesome-free</code> and import
+        <code>fontawesome.scss</code> once in global styles.
+      </li>
     </ul>
     <p>
       Components use encapsulated SCSS with BEM-style class names and design
       tokens as CSS custom properties. Tailwind is not required.
+    </p>
+    <p>
+      See <a routerLink="/installation">Installation</a> for step-by-step setup
+      of theme, fonts, and icons.
     </p>
   </section>
 
@@ -63,9 +78,11 @@
   <section>
     <h2>Available components</h2>
     <ul class="docs-link-list">
+      <li><a routerLink="/components/icon">Icon</a> — Font Awesome icons by name</li>
       <li><a routerLink="/components/button">Button</a> — primary actions and form controls</li>
       <li><a routerLink="/components/label">Label</a> — accessible form labels</li>
       <li><a routerLink="/components/checkbox">Checkbox</a> — Material Design 3 checkbox with label text</li>
+      <li><a routerLink="/components/chip">Chip</a> — assist, filter, and suggestion chips with start/end icons</li>
       <li><a routerLink="/components/segmented-button">Segmented Button</a> — single-choice view or option switcher</li>
     </ul>
   </section>

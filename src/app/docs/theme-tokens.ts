@@ -42,11 +42,28 @@ export const SEMANTIC_TOKENS: TokenDefinition[] = [
   },
   {
     name: '--el-font-sans',
-    description: 'UI font stack for all components.',
+    description:
+      'UI font stack. Geist Variable is bundled with theme; falls back to system-ui.',
   },
   {
     name: '--el-font-mono',
-    description: 'Monospace font stack for code.',
+    description:
+      'Monospace font stack. Geist Mono Variable is bundled; falls back to system monospace.',
+  },
+];
+
+export const ICON_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-icon-size-sm',
+    description: 'Small icon size used in compact controls.',
+  },
+  {
+    name: '--el-icon-size-md',
+    description: 'Default icon size.',
+  },
+  {
+    name: '--el-icon-size-lg',
+    description: 'Large icon size for emphasis.',
   },
 ];
 
@@ -187,5 +204,48 @@ export const SEGMENTED_BUTTON_TOKENS: TokenDefinition[] = [
   {
     name: '--el-color-fg-disabled',
     description: 'Disabled item text color.',
+  },
+];
+
+export const CHIP_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-chip-height',
+    description: 'Chip minimum height.',
+  },
+  {
+    name: '--el-chip-radius',
+    description: 'Corner radius for all chip surfaces.',
+  },
+  {
+    name: '--el-chip-border',
+    description: 'Outlined chip border color.',
+  },
+  {
+    name: '--el-chip-fg-outlined',
+    description: 'Label color on outlined and elevated chips.',
+  },
+  {
+    name: '--el-chip-fg-assist',
+    description: 'Label color on assist chips.',
+  },
+  {
+    name: '--el-chip-fg-filled',
+    description: 'Label color on filled and selected filter chips.',
+  },
+  {
+    name: '--el-chip-bg-filled',
+    description: 'Background for filled, input, and selected filter chips.',
+  },
+  {
+    name: '--el-chip-bg-elevated',
+    description: 'Background for elevated suggestion chips.',
+  },
+  {
+    name: '--el-chip-elevated-shadow',
+    description: 'Shadow stack for elevated suggestion chips.',
+  },
+  {
+    name: '--el-chip-focus-ring',
+    description: 'Focus ring color around interactive chips.',
   },
 ];

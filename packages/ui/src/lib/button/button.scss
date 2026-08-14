@@ -34,6 +34,14 @@
     font-size: 1rem;
   }
 
+  &__label {
+    min-width: 0;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+  }
+
   &--primary {
     background-color: var(--el-button-primary-bg);
     color: var(--el-button-primary-fg);

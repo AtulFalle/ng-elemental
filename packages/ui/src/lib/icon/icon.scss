@@ -1,0 +1,29 @@
+:host(.el-icon-host) {
+  display: inline-flex;
+  line-height: 0;
+}
+
+.el-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+
+  &::before {
+    line-height: 1;
+  }
+
+  &--sm {
+    font-size: var(--el-icon-size-sm);
+  }
+
+  &--md {
+    font-size: var(--el-icon-size-md);
+  }
+
+  &--lg {
+    font-size: var(--el-icon-size-lg);
+  }
+}

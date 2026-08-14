@@ -28,8 +28,6 @@
           }
         ],
         "styles": [
-          "node_modules/@fontsource-variable/geist/index.css",
-          "node_modules/@fontsource-variable/geist-mono/index.css",
           "./src/styles.scss"
         ],
         "browser": "./src/main.ts"

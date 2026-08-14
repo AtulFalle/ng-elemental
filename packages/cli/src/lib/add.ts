@@ -14,9 +14,13 @@ const COMPONENT_EXAMPLES: Record<
   AvailableComponent,
   { className: string; usage: string }
 > = {
+  icon: {
+    className: 'ElIcon',
+    usage: '<el-icon name="check" />',
+  },
   button: {
     className: 'ElButton',
-    usage: '<el-button variant="primary">Save</el-button>',
+    usage: '<el-button variant="primary" iconStart="plus">Add item</el-button>',
   },
   label: {
     className: 'ElLabel',
@@ -27,6 +31,10 @@ const COMPONENT_EXAMPLES: Record<
     usage: `<el-checkbox [(checked)]="accepted" inputId="terms">
   Accept terms and conditions
 </el-checkbox>`,
+  },
+  chip: {
+    className: 'ElChip',
+    usage: `<el-chip type="filter" [(selected)]="active">Filter</el-chip>`,
   },
   'segmented-button': {
     className: 'ElSegmentedButton, ElSegmentedButtonItem',

@@ -198,6 +198,84 @@ describe('add checkbox e2e', () => {
   });
 });
 
+describe('add icon e2e', () => {
+  it('installs @ng-elemental/cli from npm and adds ElIcon', async () => {
+    const registry = localRegistryUrl();
+    const tmp = await mkdtemp(join(tmpdir(), 'ng-elemental-e2e-'));
+
+    try {
+      await cp(fixtureDir, tmp, { recursive: true });
+
+      npmInstall(
+        ['install', '@ng-elemental/cli@e2e', '--registry', registry, '--no-fund', '--no-audit'],
+        tmp,
+      );
+
+      const installedRoot = join(tmp, 'node_modules/@ng-elemental/cli');
+      const cliBin = join(installedRoot, 'index.cjs');
+      expect(existsSync(cliBin), `Installed CLI missing at ${cliBin}`).toBe(true);
+      expectValidInstalledRegistry(installedRoot);
+
+      run(process.execPath, [cliBin, 'init', '--yes'], tmp);
+      run(process.execPath, [cliBin, 'add', 'icon'], tmp);
+
+      const iconTs = await readFile(join(tmp, 'src/app/ui/icon/icon.ts'), 'utf8');
+      expect(iconTs).toContain("selector: 'el-icon'");
+      expect(iconTs).toContain('export class ElIcon');
+
+      const iconScss = await readFile(join(tmp, 'src/app/ui/icon/icon.scss'), 'utf8');
+      expect(iconScss).toContain('.el-icon');
+
+      expect(existsSync(join(tmp, 'src/app/ui/icon/fontawesome.scss'))).toBe(true);
+      expect(existsSync(join(tmp, 'src/app/ui/icon/icon.stories.ts'))).toBe(false);
+    } finally {
+      await rm(tmp, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('add chip e2e', () => {
+  it('installs @ng-elemental/cli from npm and adds ElChip', async () => {
+    const registry = localRegistryUrl();
+    const tmp = await mkdtemp(join(tmpdir(), 'ng-elemental-e2e-'));
+
+    try {
+      await cp(fixtureDir, tmp, { recursive: true });
+
+      npmInstall(
+        ['install', '@ng-elemental/cli@e2e', '--registry', registry, '--no-fund', '--no-audit'],
+        tmp,
+      );
+
+      const installedRoot = join(tmp, 'node_modules/@ng-elemental/cli');
+      const cliBin = join(installedRoot, 'index.cjs');
+      expect(existsSync(cliBin), `Installed CLI missing at ${cliBin}`).toBe(true);
+      expectValidInstalledRegistry(installedRoot);
+
+      run(process.execPath, [cliBin, 'init', '--yes'], tmp);
+      run(process.execPath, [cliBin, 'add', 'chip'], tmp);
+
+      const chipTs = await readFile(join(tmp, 'src/app/ui/chip/chip.ts'), 'utf8');
+      expect(chipTs).toContain("selector: 'el-chip'");
+      expect(chipTs).toContain('export class ElChip');
+      expect(chipTs).toContain("ElChipType = 'assist' | 'filter' | 'suggestion'");
+
+      const chipHtml = await readFile(join(tmp, 'src/app/ui/chip/chip.html'), 'utf8');
+      expect(chipHtml).toContain('el-chip');
+      expect(chipHtml).toContain('<ng-content');
+      expect(chipHtml).toContain('<el-icon');
+
+      const chipScss = await readFile(join(tmp, 'src/app/ui/chip/chip.scss'), 'utf8');
+      expect(chipScss).toContain('.el-chip');
+      expect(chipScss).toContain('--el-chip-height');
+
+      expect(existsSync(join(tmp, 'src/app/ui/chip/chip.stories.ts'))).toBe(false);
+    } finally {
+      await rm(tmp, { recursive: true, force: true });
+    }
+  });
+});
+
 describe('add segmented-button e2e', () => {
   it('installs @ng-elemental/cli from npm and adds ElSegmentedButton', async () => {
     const registry = localRegistryUrl();

@@ -1,0 +1,46 @@
+<span
+  [style.display]="removable() ? 'inline-flex' : 'contents'"
+  [class.el-chip]="removable()"
+  [class.el-chip--with-close]="removable()"
+  [class]="removable() ? chipModifiers() : null"
+>
+  <button
+    type="button"
+    [class.el-chip]="!removable()"
+    [class.el-chip__body]="removable()"
+    [class]="!removable() ? chipModifiers() : null"
+    [disabled]="disabled()"
+    [attr.role]="isFilter() ? 'checkbox' : null"
+    [attr.aria-checked]="isFilter() ? selected() : null"
+    (click)="onChipClick()"
+  >
+    @if (startIconName()) {
+      <span class="el-chip__icon-start">
+        <el-icon [name]="startIconName()!" size="sm" />
+      </span>
+    } @else {
+      <span class="el-chip__icon-start">
+        <ng-content select="[elChipIconStart]" />
+      </span>
+    }
+    <span class="el-chip__label">
+      <ng-content />
+    </span>
+    @if (!removable()) {
+      <span class="el-chip__icon-end">
+        <ng-content select="[elChipIconEnd]" />
+      </span>
+    }
+  </button>
+  @if (removable()) {
+    <button
+      type="button"
+      class="el-chip__icon-end"
+      [disabled]="disabled()"
+      [attr.aria-label]="removeLabel()"
+      (click)="onRemoveClick($event)"
+    >
+      <el-icon name="xmark" size="sm" />
+    </button>
+  }
+</span>

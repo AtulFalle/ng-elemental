@@ -22,9 +22,11 @@ From your Angular project:
 ```sh
 npx @ng-elemental/cli init
 npx @ng-elemental/cli add theme
+npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add label
 npx @ng-elemental/cli add checkbox
+npx @ng-elemental/cli add chip
 npx @ng-elemental/cli add segmented-button
 ```
 
@@ -74,13 +76,13 @@ Override tokens on `:root` for global changes, on a wrapper element for scoped s
 
 ## Typography
 
-Components expect **Geist** (UI) and **Geist Mono** (code). Install the font packages in your app:
+Geist (UI) and Geist Mono (code) ship with the theme package — no separate font install. Import `tokens.scss` once and fonts load automatically. If bundled fonts are unavailable, components fall back to the system UI stack (`system-ui`, `Segoe UI`, `Roboto`, etc.).
 
-```sh
-npm install @fontsource-variable/geist @fontsource-variable/geist-mono
+```scss
+@use './app/ui/theme/tokens';
 ```
 
-Add their CSS to `styles` in `angular.json` or `project.json`, then import theme tokens in `src/styles.scss` (see [Theming](#theming)).
+Override `--el-font-sans` or `--el-font-mono` on `:root` to use your own typeface.
 
 ## Configuration
 
@@ -101,18 +103,36 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `button`, `label`, `checkbox`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `checkbox`, `chip`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
 ## Components
 
+### Icon (`el-icon`)
+
+[Font Awesome 6](https://fontawesome.com/) icons by name. Requires `@fortawesome/fontawesome-free` and a one-time CSS import — see Installation.
+
+```html
+<el-icon name="check" />
+<el-icon name="github" variant="brands" />
+<el-icon name="heart" variant="regular" size="lg" />
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `name` | `string` | (required) | Icon name without `fa-` prefix |
+| `variant` | `solid` \| `regular` \| `brands` | `solid` | Font Awesome style |
+| `size` | `sm` \| `md` \| `lg` | `md` | Icon size |
+| `decorative` | `boolean` | `true` | Hide from assistive tech when true |
+| `label` | `string` | `''` | Accessible label when not decorative |
+
 ### Button (`el-button`)
 
 ```html
-<el-button variant="primary">Save</el-button>
+<el-button variant="primary" iconStart="plus">Save</el-button>
 <el-button variant="secondary" size="sm">Cancel</el-button>
-<el-button variant="ghost" disabled>Disabled</el-button>
+<el-button variant="ghost" iconEnd="arrow-right">Next</el-button>
 ```
 
 | Input | Type | Default | Description |
@@ -121,6 +141,9 @@ Use `--force` to overwrite an existing component folder.
 | `size` | `sm` \| `md` \| `lg` | `md` | Button size |
 | `disabled` | `boolean` | `false` | Disabled state |
 | `type` | `button` \| `submit` \| `reset` | `button` | Native button type |
+| `iconStart` | `string` | `''` | Font Awesome icon before label |
+| `iconEnd` | `string` | `''` | Font Awesome icon after label |
+| `iconVariant` | `solid` \| `regular` \| `brands` | `solid` | Icon style |
 
 ### Label (`el-label`)
 
@@ -157,6 +180,33 @@ Use `--force` to overwrite an existing component folder.
 | `error` | `boolean` | `false` | Error styling |
 | `labelPosition` | `left` \| `right` | `right` | Label text placement |
 | `inputId` | `string` | `''` | Native input id |
+
+### Chip (`el-chip`)
+
+Material Design 3 chips for assist actions, filters, and suggestions.
+
+```html
+<el-chip type="assist">Assist</el-chip>
+<el-chip type="filter" [(selected)]="active">Filter</el-chip>
+<el-chip type="suggestion" appearance="filled" iconStart="check">With check</el-chip>
+<el-chip type="suggestion" appearance="filled" [removable]="true" (removed)="onRemove()">Tag</el-chip>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `type` | `assist` \| `filter` \| `suggestion` | `assist` | Chip category |
+| `appearance` | `outlined` \| `filled` \| `elevated` | `outlined` | Surface style for suggestion chips |
+| `iconStart` | `string` | `''` | Font Awesome start icon (filter chips show check when selected) |
+| `selected` | `boolean` | `false` | Selection state for filter chips (two-way bindable) |
+| `disabled` | `boolean` | `false` | Non-interactive state |
+| `removable` | `boolean` | `false` | Shows Font Awesome close icon at the end |
+| `removeLabel` | `string` | `Remove` | Accessible label for close button |
+
+| Output | Description |
+| --- | --- |
+| `removed` | Emitted when the close button is clicked |
+
+Requires the `icon` component when using `iconStart` or `removable`.
 
 ### Segmented Button (`el-segmented-button`)
 

@@ -7,6 +7,23 @@
     </p>
   </header>
 
+  <section class="docs-callout">
+    <h2>Before you begin</h2>
+    <ul>
+      <li>
+        <strong>Theme (required for typography &amp; tokens)</strong> — Geist
+        fonts are bundled with the theme package. Import <code>tokens.scss</code>
+        once; no extra font npm install.
+      </li>
+      <li>
+        <strong>Font Awesome (required for icons)</strong> — Only when using
+        <code>el-icon</code>, button icons, or chip icons. Install
+        <code>&#64;fortawesome/fontawesome-free</code> and import
+        <code>fontawesome.scss</code> in global styles.
+      </li>
+    </ul>
+  </section>
+
   <section>
     <h2>1. Initialize the CLI</h2>
     <p>
@@ -33,16 +50,21 @@
   </section>
 
   <section>
-    <h2>3. Add theme tokens</h2>
+    <h2>3. Add theme &amp; typography</h2>
     <p>
-      Components read colors from CSS custom properties. Add the theme package
-      and import <code>tokens.scss</code> in your global styles:
+      The theme package includes design tokens and bundled Geist fonts with
+      system-ui fallbacks. Add it and import <code>tokens.scss</code> once in
+      your global styles:
     </p>
     <app-code-block [code]="themeAddCode" language="shell" />
-    <p>Add fonts and tokens to your Angular styles configuration:</p>
+    <p>Add <code>src/styles.scss</code> to your Angular styles configuration:</p>
     <app-code-block [code]="angularJsonNote" language="json" />
     <p>Then load tokens (and optional overrides) in <code>src/styles.scss</code>:</p>
     <app-code-block [code]="stylesCode" language="scss" />
+    <p>
+      No separate font install is required — Geist ships with the theme. If font
+      files fail to load, components fall back to the system UI stack.
+    </p>
     <p>
       See <a routerLink="/theming">Theming</a> for dark mode, scoped overrides,
       and programmatic customization with <code>provideElTheme()</code>.
@@ -50,12 +72,16 @@
   </section>
 
   <section>
-    <h2>4. Add typography</h2>
+    <h2>4. Add Font Awesome (icons)</h2>
     <p>
-      Components expect <strong>Geist</strong> (UI) and
-      <strong>Geist Mono</strong> (code). Install the font packages:
+      Only needed when using <code>el-icon</code> or icon props on buttons and
+      chips. Install
+      <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome 6</a>
+      and import <code>fontawesome.scss</code> alongside your tokens.
     </p>
-    <app-code-block [code]="fontsCode" language="shell" />
+    <app-code-block [code]="fontAwesomeCode" language="shell" />
+    <p>Import Font Awesome in <code>src/styles.scss</code> (after tokens):</p>
+    <app-code-block [code]="fontAwesomeStylesCode" language="scss" />
   </section>
 
   <section>
@@ -90,6 +116,6 @@
         </tbody>
       </table>
     </div>
-    <p>Available components: <code>theme</code>, <code>button</code>, <code>label</code>, <code>checkbox</code>, <code>segmented-button</code>.</p>
+    <p>Available components: <code>theme</code>, <code>icon</code>, <code>button</code>, <code>label</code>, <code>checkbox</code>, <code>chip</code>, <code>segmented-button</code>.</p>
   </section>
 </article>

@@ -35,6 +35,16 @@
             "output": "."
           },
           {
+            "glob": "icon.{ts,scss}",
+            "input": "packages/ui/src/lib/icon",
+            "output": "registry/icon"
+          },
+          {
+            "glob": "fontawesome.scss",
+            "input": "packages/ui/src/lib/icon",
+            "output": "registry/icon"
+          },
+          {
             "glob": "button.{ts,html,scss}",
             "input": "packages/ui/src/lib/button",
             "output": "registry/button"
@@ -48,6 +58,11 @@
             "glob": "checkbox.{ts,html,scss}",
             "input": "packages/ui/src/lib/checkbox",
             "output": "registry/checkbox"
+          },
+          {
+            "glob": "chip.{ts,html,scss}",
+            "input": "packages/ui/src/lib/chip",
+            "output": "registry/chip"
           },
           {
             "glob": "segmented-button.{ts,html,scss}",
@@ -76,6 +91,21 @@
           },
           {
             "glob": "tokens.scss",
+            "input": "packages/ui/src/lib/theme",
+            "output": "registry/theme"
+          },
+          {
+            "glob": "fonts.scss",
+            "input": "packages/ui/src/lib/theme",
+            "output": "registry/theme"
+          },
+          {
+            "glob": "geist-latin-wght-normal.woff2",
+            "input": "packages/ui/src/lib/theme",
+            "output": "registry/theme"
+          },
+          {
+            "glob": "geist-mono-latin-wght-normal.woff2",
             "input": "packages/ui/src/lib/theme",
             "output": "registry/theme"
           }

@@ -1,0 +1,114 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Chip</h1>
+    <p class="docs-lead">
+      Material Design 3 chips with Font Awesome start icons (checkmark or custom
+      names) and an optional close icon at the end.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
+    <code>npx @ng-elemental/cli add icon</code>, then
+    <code>npx @ng-elemental/cli add chip</code>
+  </div>
+
+  <section class="docs-callout">
+    <h2>Prerequisites</h2>
+    <ul>
+      <li>
+        <strong>Theme</strong> — bundled Geist fonts and design tokens. See
+        <a routerLink="/installation">Installation</a> §3.
+      </li>
+      <li>
+        <strong>Icon + Font Awesome</strong> — required for start/close icons.
+        Install <code>&#64;fortawesome/fontawesome-free</code> and import
+        <code>fontawesome.scss</code>. See
+        <a routerLink="/components/icon">Icon</a> setup.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-chip type="assist" iconStart="key">Assist chip</el-chip>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>Project label text as content. Filter chips support two-way selection binding:</p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Assist chips</h3>
+    <app-preview>
+      <div class="docs-row">
+        <el-chip type="assist">Assist</el-chip>
+        <el-chip type="assist" iconStart="key">With icon</el-chip>
+      </div>
+    </app-preview>
+
+    <h3>Filter chips</h3>
+    <app-preview>
+      <div class="docs-row">
+        <el-chip type="filter">Filter off</el-chip>
+        <el-chip type="filter" [(selected)]="filterActive">Filter on</el-chip>
+      </div>
+    </app-preview>
+
+    <h3>Icons at start and end</h3>
+    <app-preview>
+      <div class="docs-row">
+        <el-chip type="suggestion" appearance="filled" iconStart="check">
+          Check at start
+        </el-chip>
+        @for (tag of tags(); track tag) {
+          <el-chip
+            type="suggestion"
+            appearance="filled"
+            [removable]="true"
+            (removed)="removeTag(tag)"
+          >
+            {{ tag }}
+          </el-chip>
+        }
+      </div>
+    </app-preview>
+
+    <h3>Suggestion chips</h3>
+    <app-preview>
+      <div class="docs-row">
+        <el-chip type="suggestion" appearance="outlined">Outlined</el-chip>
+        <el-chip type="suggestion" appearance="filled">Filled</el-chip>
+        <el-chip type="suggestion" appearance="elevated">Elevated</el-chip>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Chip styling follows Material Design 3 and uses dedicated CSS variables.
+      See <a routerLink="/theming">Theming</a> for setup.
+    </p>
+    <app-tokens-table [tokens]="chipTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>
