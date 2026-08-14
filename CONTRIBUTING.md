@@ -66,10 +66,17 @@ node dist/packages/cli/index.cjs add label
 
 1. Implement the component in `packages/ui/src/lib/<name>/` (`.ts`, `.html`, `.scss`, and a `.stories.ts` file).
 2. Export it from `packages/ui/src/index.ts` if needed for the demo app.
-3. Register the component in `packages/cli/src/lib/add.ts` (`AVAILABLE_COMPONENTS` and examples).
-4. Add the registry asset glob in `packages/cli/project.json`.
-5. Extend CLI e2e coverage in `packages/cli/src/e2e/`.
-6. Document the component in the root `README.md` and `packages/cli/README.md`.
+3. **Register the component in `packages/cli/src/lib/component-registry.ts`** — add `assetGlobs`, `requiredBasenames`, and usage examples in `add.ts`.
+4. Add matching registry asset entries in `packages/cli/project.json` (copy `assetGlobs` exactly; **never use `*` wildcards** in registry globs).
+5. Run `npx nx test cli` — registry unit tests verify `project.json` stays in sync and the built registry has no story files.
+6. Extend CLI e2e coverage in `packages/cli/src/e2e/` for install/add smoke checks.
+7. Document the component in the root `README.md` and `packages/cli/README.md`.
+
+The manifest in `component-registry.ts` is the single source of truth. CI fails if:
+
+- `project.json` registry globs drift from the manifest
+- The built registry includes `.stories.` or `.story-host.` files
+- Required component source files are missing from `dist/packages/cli/registry/`
 
 Follow existing conventions:
 

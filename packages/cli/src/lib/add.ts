@@ -1,10 +1,14 @@
 import { copyFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import {
+  AVAILABLE_COMPONENTS,
+  isRegistryFilenameAllowed,
+  type AvailableComponent,
+} from './component-registry';
 import { readConfig } from './config';
 import { getComponentRegistryDir } from './registry';
 
-export const AVAILABLE_COMPONENTS = ['button', 'label', 'segmented-button'] as const;
-export type AvailableComponent = (typeof AVAILABLE_COMPONENTS)[number];
+export { AVAILABLE_COMPONENTS, type AvailableComponent } from './component-registry';
 
 const COMPONENT_EXAMPLES: Record<
   AvailableComponent,
@@ -74,7 +78,7 @@ export function addCommand(options: AddOptions): void {
 function copyComponentFiles(srcDir: string, destDir: string): void {
   mkdirSync(destDir, { recursive: true });
   for (const entry of readdirSync(srcDir, { withFileTypes: true })) {
-    if (!entry.isFile() || entry.name.includes('.stories.') || entry.name.includes('.story-host.')) {
+    if (!entry.isFile() || !isRegistryFilenameAllowed(entry.name)) {
       continue;
     }
     copyFileSync(join(srcDir, entry.name), join(destDir, entry.name));

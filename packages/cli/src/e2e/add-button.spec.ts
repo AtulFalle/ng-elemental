@@ -4,6 +4,7 @@ import { cp, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { validateBuiltRegistry } from '../lib/registry-validation';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '../../../..');
 const fixtureDir = join(repoRoot, 'e2e/fixtures/consumer-app');
@@ -53,6 +54,11 @@ function npmInstall(args: string[], cwd: string): string {
   }
 }
 
+function expectValidInstalledRegistry(installedRoot: string): void {
+  const errors = validateBuiltRegistry(join(installedRoot, 'registry'));
+  expect(errors, errors.join('\n')).toEqual([]);
+}
+
 describe('add button e2e', () => {
   it('installs @ng-elemental/cli from npm and adds ElButton', async () => {
     const registry = localRegistryUrl();
@@ -69,10 +75,7 @@ describe('add button e2e', () => {
       const installedRoot = join(tmp, 'node_modules/@ng-elemental/cli');
       const cliBin = join(installedRoot, 'index.cjs');
       expect(existsSync(cliBin), `Installed CLI missing at ${cliBin}`).toBe(true);
-      expect(existsSync(join(installedRoot, 'registry/button/button.ts'))).toBe(true);
-      expect(existsSync(join(installedRoot, 'registry/button/button.html'))).toBe(true);
-      expect(existsSync(join(installedRoot, 'registry/button/button.scss'))).toBe(true);
-      expect(existsSync(join(installedRoot, 'registry/button/button.stories.ts'))).toBe(false);
+      expectValidInstalledRegistry(installedRoot);
 
       const installedPkg = JSON.parse(await readFile(join(installedRoot, 'package.json'), 'utf8')) as {
         name?: string;
@@ -127,10 +130,7 @@ describe('add label e2e', () => {
       const installedRoot = join(tmp, 'node_modules/@ng-elemental/cli');
       const cliBin = join(installedRoot, 'index.cjs');
       expect(existsSync(cliBin), `Installed CLI missing at ${cliBin}`).toBe(true);
-      expect(existsSync(join(installedRoot, 'registry/label/label.ts'))).toBe(true);
-      expect(existsSync(join(installedRoot, 'registry/label/label.html'))).toBe(true);
-      expect(existsSync(join(installedRoot, 'registry/label/label.scss'))).toBe(true);
-      expect(existsSync(join(installedRoot, 'registry/label/label.stories.ts'))).toBe(false);
+      expectValidInstalledRegistry(installedRoot);
 
       run(process.execPath, [cliBin, 'init', '--yes'], tmp);
       run(process.execPath, [cliBin, 'add', 'label'], tmp);
@@ -172,25 +172,7 @@ describe('add segmented-button e2e', () => {
       const installedRoot = join(tmp, 'node_modules/@ng-elemental/cli');
       const cliBin = join(installedRoot, 'index.cjs');
       expect(existsSync(cliBin), `Installed CLI missing at ${cliBin}`).toBe(true);
-      expect(
-        existsSync(join(installedRoot, 'registry/segmented-button/segmented-button.ts')),
-      ).toBe(true);
-      expect(
-        existsSync(
-          join(installedRoot, 'registry/segmented-button/segmented-button-item.ts'),
-        ),
-      ).toBe(true);
-      expect(
-        existsSync(join(installedRoot, 'registry/segmented-button/segmented-button.html')),
-      ).toBe(true);
-      expect(
-        existsSync(join(installedRoot, 'registry/segmented-button/segmented-button.scss')),
-      ).toBe(true);
-      expect(
-        existsSync(
-          join(installedRoot, 'registry/segmented-button/segmented-button.stories.ts'),
-        ),
-      ).toBe(false);
+      expectValidInstalledRegistry(installedRoot);
 
       run(process.execPath, [cliBin, 'init', '--yes'], tmp);
       run(process.execPath, [cliBin, 'add', 'segmented-button'], tmp);
@@ -216,12 +198,17 @@ describe('add segmented-button e2e', () => {
       );
       expect(groupHtml).toContain('<ng-content');
 
-      const scss = await readFile(
+      const groupScss = await readFile(
         join(tmp, 'src/app/ui/segmented-button/segmented-button.scss'),
         'utf8',
       );
-      expect(scss).toContain('.el-segmented-button');
-      expect(scss).toContain('.el-segmented-button-item');
+      expect(groupScss).toContain(':host');
+
+      const itemScss = await readFile(
+        join(tmp, 'src/app/ui/segmented-button/segmented-button-item.scss'),
+        'utf8',
+      );
+      expect(itemScss).toContain(':host(.el-segmented-button-item--selected)');
     } finally {
       await rm(tmp, { recursive: true, force: true });
     }

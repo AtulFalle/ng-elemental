@@ -45,7 +45,7 @@ jobs:
       - name: Set Nx scope
         id: nx-scope
         env:
-          FULL_CI: ${{ github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'needs:full-ci') }}
+          FULL_CI: ${{ github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'ci:full') }}
         run: |
           if [ "$FULL_CI" = "true" ]; then
             echo "mode=full" >> "$GITHUB_OUTPUT"
