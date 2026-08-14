@@ -69,6 +69,12 @@ const COMPONENT_EXAMPLES: Record<
     className: 'ElChip',
     usage: `<el-chip type="filter" [(selected)]="active">Filter</el-chip>`,
   },
+  progress: {
+    className: 'ElProgress, ElProgressCircle',
+    usage: `<el-progress [value]="42" showValue />
+<el-progress-circle [value]="72" showValue />`,
+  },
+
   'segmented-button': {
     className: 'ElSegmentedButton, ElSegmentedButtonItem',
     usage: `<el-segmented-button [(value)]="view" ariaLabel="View mode">

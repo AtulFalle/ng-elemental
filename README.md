@@ -101,7 +101,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -404,6 +404,26 @@ Material Design 3 chips for assist actions, filters, and suggestions.
 | `removed` | Emitted when the close button is clicked |
 
 Requires the `icon` component when using `iconStart` or `removable`.
+
+### Progress (`el-progress`, `el-progress-circle`)
+
+Line and circle progress indicators. Determinate (`value` / `max`) or indeterminate animation. Optional percent label via `showValue`.
+
+```html
+<el-progress [value]="42" showValue />
+<el-progress indeterminate />
+
+<el-progress-circle [value]="72" showValue size="lg" />
+<el-progress-circle indeterminate />
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number` | `0` | Current progress (clamped to 0…max) |
+| `max` | `number` | `100` | Upper bound |
+| `indeterminate` | `boolean` | `false` | Animated unknown progress |
+| `showValue` | `boolean` | `false` | Show rounded percent when determinate |
+| `size` | `sm` \| `md` \| `lg` | `md` | Track thickness or circle diameter |
 
 ### Segmented Button (`el-segmented-button`)
 

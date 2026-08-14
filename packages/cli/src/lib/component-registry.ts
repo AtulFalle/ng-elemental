@@ -93,6 +93,16 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['chip'],
   },
   {
+    name: 'progress',
+    assetGlobs: [
+      'progress.{ts,html,scss}',
+      'progress-circle.{ts,html,scss}',
+      'progress-utils.ts',
+    ],
+    requiredBasenames: ['progress', 'progress-circle', 'progress-utils'],
+  },
+
+  {
     name: 'segmented-button',
     assetGlobs: [
       'segmented-button.{ts,html,scss}',

@@ -84,6 +84,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/chip-doc').then((m) => m.ChipDocPage),
       },
       {
+        path: 'components/progress',
+        loadComponent: () =>
+          import('./docs/pages/progress-doc').then((m) => m.ProgressDocPage),
+      },
+      {
         path: 'components/segmented-button',
         loadComponent: () =>
           import('./docs/pages/segmented-button-doc').then(

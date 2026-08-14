@@ -451,3 +451,42 @@ export const CHIP_TOKENS: TokenDefinition[] = [
     description: 'Focus ring color around interactive chips.',
   },
 ];
+
+export const PROGRESS_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-progress-track-bg',
+    description: 'Background of the unfilled track (line and circle).',
+  },
+  {
+    name: '--el-progress-fill-bg',
+    description: 'Fill / stroke color for completed progress.',
+  },
+  {
+    name: '--el-progress-label-fg',
+    description: 'Percent label text color.',
+  },
+  {
+    name: '--el-progress-track-radius',
+    description: 'Corner radius of the line track.',
+  },
+  {
+    name: '--el-progress-track-height-sm',
+    description: 'Line track height at size sm.',
+  },
+  {
+    name: '--el-progress-track-height-md',
+    description: 'Line track height at size md.',
+  },
+  {
+    name: '--el-progress-track-height-lg',
+    description: 'Line track height at size lg.',
+  },
+  {
+    name: '--el-progress-circle-size-md',
+    description: 'Circle diameter at size md (also sm/lg variants).',
+  },
+  {
+    name: '--el-progress-circle-stroke-md',
+    description: 'Circle stroke width at size md (also sm/lg variants).',
+  },
+];

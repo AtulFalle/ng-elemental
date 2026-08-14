@@ -1,0 +1,91 @@
+:host {
+  display: inline-block;
+}
+
+.el-progress-circle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--el-progress-circle-size);
+  height: var(--el-progress-circle-size);
+}
+
+.el-progress-circle__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.el-progress-circle__track,
+.el-progress-circle__fill {
+  stroke-width: var(--el-progress-circle-stroke);
+}
+
+.el-progress-circle__track {
+  stroke: var(--el-progress-track-bg);
+}
+
+.el-progress-circle__fill {
+  stroke: var(--el-progress-fill-bg);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.2s ease;
+}
+
+.el-progress-circle--indeterminate .el-progress-circle__svg {
+  animation: el-progress-circle-rotate 1.2s linear infinite;
+}
+
+.el-progress-circle--indeterminate .el-progress-circle__fill {
+  transition: none;
+}
+
+.el-progress-circle__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--el-progress-label-fg);
+  font-family: var(--el-font-sans);
+  font-size: var(--el-progress-circle-label-size);
+  font-weight: 500;
+  line-height: 1;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.el-progress-circle--sm {
+  --el-progress-circle-size: var(--el-progress-circle-size-sm);
+  --el-progress-circle-stroke: var(--el-progress-circle-stroke-sm);
+  --el-progress-circle-label-size: var(--el-progress-label-size-sm);
+}
+
+.el-progress-circle--md {
+  --el-progress-circle-size: var(--el-progress-circle-size-md);
+  --el-progress-circle-stroke: var(--el-progress-circle-stroke-md);
+  --el-progress-circle-label-size: var(--el-progress-label-size-md);
+}
+
+.el-progress-circle--lg {
+  --el-progress-circle-size: var(--el-progress-circle-size-lg);
+  --el-progress-circle-stroke: var(--el-progress-circle-stroke-lg);
+  --el-progress-circle-label-size: var(--el-progress-label-size-lg);
+}
+
+@keyframes el-progress-circle-rotate {
+  to {
+    transform: rotate(270deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .el-progress-circle__fill {
+    transition: none;
+  }
+
+  .el-progress-circle--indeterminate .el-progress-circle__svg {
+    animation: none;
+  }
+}

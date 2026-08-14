@@ -1,0 +1,15 @@
+<div [class]="rootClass()">
+  <div class="el-progress__track">
+    @if (indeterminate()) {
+      <div class="el-progress__fill el-progress__fill--indeterminate"></div>
+    } @else {
+      <div
+        class="el-progress__fill"
+        [style.width.%]="percent()"
+      ></div>
+    }
+  </div>
+  @if (showLabel()) {
+    <span class="el-progress__label">{{ labelText() }}</span>
+  }
+</div>

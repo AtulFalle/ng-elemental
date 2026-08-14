@@ -120,6 +120,22 @@
             "output": "registry/chip"
           },
           {
+            "glob": "progress.{ts,html,scss}",
+            "input": "packages/ui/src/lib/progress",
+            "output": "registry/progress"
+          },
+          {
+            "glob": "progress-circle.{ts,html,scss}",
+            "input": "packages/ui/src/lib/progress",
+            "output": "registry/progress"
+          },
+          {
+            "glob": "progress-utils.ts",
+            "input": "packages/ui/src/lib/progress",
+            "output": "registry/progress"
+          },
+
+          {
             "glob": "segmented-button.{ts,html,scss}",
             "input": "packages/ui/src/lib/segmented-button",
             "output": "registry/segmented-button"

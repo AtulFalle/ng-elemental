@@ -198,6 +198,24 @@
   --el-select-toolbar-fg: var(--el-color-accent);
   --el-select-focus-ring: var(--el-segmented-md3-focus);
 
+  // ── Progress ─────────────────────────────────────────────────────────────
+  --el-progress-track-bg: var(--el-color-border);
+  --el-progress-fill-bg: var(--el-color-accent);
+  --el-progress-label-fg: var(--el-color-fg-muted);
+  --el-progress-track-radius: 999px;
+  --el-progress-track-height-sm: 0.25rem;
+  --el-progress-track-height-md: 0.375rem;
+  --el-progress-track-height-lg: 0.5rem;
+  --el-progress-label-size-sm: 0.75rem;
+  --el-progress-label-size-md: 0.875rem;
+  --el-progress-label-size-lg: 1rem;
+  --el-progress-circle-size-sm: 2.5rem;
+  --el-progress-circle-size-md: 3.5rem;
+  --el-progress-circle-size-lg: 4.5rem;
+  --el-progress-circle-stroke-sm: 0.2rem;
+  --el-progress-circle-stroke-md: 0.25rem;
+  --el-progress-circle-stroke-lg: 0.3125rem;
+
   // ── Input ────────────────────────────────────────────────────────────────
   --el-input-bg: var(--el-color-surface);
   --el-input-fg: var(--el-color-fg);

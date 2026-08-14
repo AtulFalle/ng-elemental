@@ -68,6 +68,7 @@ export class MyComponent {}
 | `select` | `el-select`, `el-select-item`, `el-select-group` | `ElSelect`, `ElSelectItem`, `ElSelectGroup` |
 | `datepicker` | `el-date-picker`, `el-date-range-picker` | `ElDatePicker`, `ElDateRangePicker` |
 | `chip` | `el-chip` | `ElChip` |
+| `progress` | `el-progress`, `el-progress-circle` | `ElProgress`, `ElProgressCircle` |
 | `icon` | `el-icon` | `ElIcon` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |
 

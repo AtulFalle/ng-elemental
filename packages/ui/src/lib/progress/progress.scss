@@ -1,0 +1,84 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.el-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.el-progress__track {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  height: var(--el-progress-track-height);
+  border-radius: var(--el-progress-track-radius);
+  background: var(--el-progress-track-bg);
+}
+
+.el-progress__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--el-progress-fill-bg);
+  transition: width 0.2s ease;
+}
+
+.el-progress__fill--indeterminate {
+  position: absolute;
+  inset-block: 0;
+  width: 40%;
+  transition: none;
+  animation: el-progress-indeterminate 1.4s ease-in-out infinite;
+}
+
+.el-progress__label {
+  flex: 0 0 auto;
+  min-width: 2.5rem;
+  color: var(--el-progress-label-fg);
+  font-family: var(--el-font-sans);
+  font-size: var(--el-progress-label-size);
+  font-weight: 500;
+  line-height: 1;
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.el-progress--sm {
+  --el-progress-track-height: var(--el-progress-track-height-sm);
+  --el-progress-label-size: var(--el-progress-label-size-sm);
+}
+
+.el-progress--md {
+  --el-progress-track-height: var(--el-progress-track-height-md);
+  --el-progress-label-size: var(--el-progress-label-size-md);
+}
+
+.el-progress--lg {
+  --el-progress-track-height: var(--el-progress-track-height-lg);
+  --el-progress-label-size: var(--el-progress-label-size-lg);
+}
+
+@keyframes el-progress-indeterminate {
+  0% {
+    inset-inline-start: -40%;
+  }
+
+  100% {
+    inset-inline-start: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .el-progress__fill {
+    transition: none;
+  }
+
+  .el-progress__fill--indeterminate {
+    inset-inline-start: 30%;
+    width: 40%;
+    animation: none;
+  }
+}
