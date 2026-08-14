@@ -13,7 +13,7 @@ NgElemental is **not** a traditional npm UI library. Components are added as sou
 - **Angular** 22 or later
 - **Node.js** 24 or later (for the CLI)
 
-Components use encapsulated SCSS with BEM-style class names. Tailwind is not required.
+Components use encapsulated SCSS with BEM-style class names and CSS design tokens. Tailwind is not required.
 
 ## Quick start
 
@@ -21,6 +21,7 @@ From your Angular project:
 
 ```sh
 npx @ng-elemental/cli init
+npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add label
 npx @ng-elemental/cli add segmented-button
@@ -56,6 +57,20 @@ import { ElButton } from './ui/button/button';
 export class App {}
 ```
 
+## Theming
+
+Add `theme` to copy `tokens.scss` and optional `ElThemeService`. Import tokens once in global styles:
+
+```scss
+@use './app/ui/theme/tokens';
+
+:root {
+  --el-color-accent: #6366f1;
+}
+```
+
+Override tokens on `:root` for global changes, on a wrapper element for scoped styling, or via `provideElTheme()` for runtime theming. Each component reads its colors from `--el-button-*`, `--el-label-*`, and related variables.
+
 ## Typography
 
 Components expect **Geist** (UI) and **Geist Mono** (code). Install the font packages in your app:
@@ -64,14 +79,7 @@ Components expect **Geist** (UI) and **Geist Mono** (code). Install the font pac
 npm install @fontsource-variable/geist @fontsource-variable/geist-mono
 ```
 
-Add their CSS to `styles` in `angular.json` or `project.json`, then define:
-
-```scss
-:root {
-  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
-  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
-}
-```
+Add their CSS to `styles` in `angular.json` or `project.json`, then import theme tokens in `src/styles.scss` (see [Theming](#theming)).
 
 ## Configuration
 
@@ -92,7 +100,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `button`, `label`, `segmented-button`.
+Available components: `theme`, `button`, `label`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 

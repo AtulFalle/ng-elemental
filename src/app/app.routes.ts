@@ -17,6 +17,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/installation').then((m) => m.InstallationPage),
       },
       {
+        path: 'theming',
+        loadComponent: () =>
+          import('./docs/pages/theme-doc').then((m) => m.ThemeDocPage),
+      },
+      {
         path: 'components/button',
         loadComponent: () =>
           import('./docs/pages/button-doc').then((m) => m.ButtonDocPage),

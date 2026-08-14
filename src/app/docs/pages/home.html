@@ -24,8 +24,8 @@
       <li><strong>Node.js</strong> 24 or later (for the CLI)</li>
     </ul>
     <p>
-      Components use encapsulated SCSS with BEM-style class names. Tailwind is
-      not required.
+      Components use encapsulated SCSS with BEM-style class names and design
+      tokens as CSS custom properties. Tailwind is not required.
     </p>
   </section>
 
@@ -48,6 +48,16 @@
     <h2>Usage</h2>
     <p>Import the copied component in a standalone Angular component:</p>
     <app-code-block [code]="usageCode" />
+  </section>
+
+  <section>
+    <h2>Theming</h2>
+    <p>
+      Colors and typography are controlled by CSS variables in
+      <code>tokens.scss</code>. Override tokens globally or per section — no
+      need to fork component styles.
+    </p>
+    <p><a routerLink="/theming">Read the theming guide →</a></p>
   </section>
 
   <section>

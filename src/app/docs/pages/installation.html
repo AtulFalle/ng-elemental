@@ -33,16 +33,39 @@
   </section>
 
   <section>
-    <h2>3. Add typography</h2>
+    <h2>3. Add theme tokens</h2>
+    <p>
+      Components read colors from CSS custom properties. Add the theme package
+      and import <code>tokens.scss</code> in your global styles:
+    </p>
+    <app-code-block [code]="themeAddCode" language="shell" />
+    <p>Add fonts and tokens to your Angular styles configuration:</p>
+    <app-code-block [code]="angularJsonNote" language="json" />
+    <p>Then load tokens (and optional overrides) in <code>src/styles.scss</code>:</p>
+    <app-code-block [code]="stylesCode" language="scss" />
+    <p>
+      See <a routerLink="/theming">Theming</a> for dark mode, scoped overrides,
+      and programmatic customization with <code>provideElTheme()</code>.
+    </p>
+  </section>
+
+  <section>
+    <h2>4. Add typography</h2>
     <p>
       Components expect <strong>Geist</strong> (UI) and
       <strong>Geist Mono</strong> (code). Install the font packages:
     </p>
     <app-code-block [code]="fontsCode" language="shell" />
-    <p>Add their CSS to <code>styles</code> in your Angular config:</p>
-    <app-code-block [code]="angularJsonNote" language="json" />
-    <p>Then define CSS variables in your global styles:</p>
-    <app-code-block [code]="stylesCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>5. Add components</h2>
+    <p>Copy the components you need into your project:</p>
+    <app-code-block [code]="addComponentsCode" language="shell" />
+    <p>
+      Each component page documents how to customize its appearance via design
+      tokens.
+    </p>
   </section>
 
   <section>
@@ -67,6 +90,6 @@
         </tbody>
       </table>
     </div>
-    <p>Available components: <code>button</code>, <code>label</code>, <code>segmented-button</code>.</p>
+    <p>Available components: <code>theme</code>, <code>button</code>, <code>label</code>, <code>segmented-button</code>.</p>
   </section>
 </article>

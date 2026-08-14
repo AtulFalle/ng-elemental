@@ -58,6 +58,21 @@
             "glob": "segmented-button.token.ts",
             "input": "packages/ui/src/lib/segmented-button",
             "output": "registry/segmented-button"
+          },
+          {
+            "glob": "theme.ts",
+            "input": "packages/ui/src/lib/theme",
+            "output": "registry/theme"
+          },
+          {
+            "glob": "theme.token.ts",
+            "input": "packages/ui/src/lib/theme",
+            "output": "registry/theme"
+          },
+          {
+            "glob": "tokens.scss",
+            "input": "packages/ui/src/lib/theme",
+            "output": "registry/theme"
           }
         ],
         "esbuildOptions": {

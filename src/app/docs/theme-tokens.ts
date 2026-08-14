@@ -1,0 +1,156 @@
+export interface TokenDefinition {
+  name: string;
+  description: string;
+}
+
+export const SEMANTIC_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-color-accent',
+    description: 'Primary brand color used by primary buttons and accents.',
+  },
+  {
+    name: '--el-color-accent-hover',
+    description: 'Hover state for accent-colored surfaces.',
+  },
+  {
+    name: '--el-color-accent-subtle',
+    description: 'Subtle accent background (ghost button hover, highlights).',
+  },
+  {
+    name: '--el-color-fg',
+    description: 'Default foreground text color.',
+  },
+  {
+    name: '--el-color-fg-muted',
+    description: 'Muted foreground for secondary text.',
+  },
+  {
+    name: '--el-color-fg-inverse',
+    description: 'Text on accent or dark backgrounds.',
+  },
+  {
+    name: '--el-color-error',
+    description: 'Error and destructive emphasis color.',
+  },
+  {
+    name: '--el-color-border',
+    description: 'Default border and secondary fill color.',
+  },
+  {
+    name: '--el-color-border-muted',
+    description: 'Border hover and secondary fill hover.',
+  },
+  {
+    name: '--el-font-sans',
+    description: 'UI font stack for all components.',
+  },
+  {
+    name: '--el-font-mono',
+    description: 'Monospace font stack for code.',
+  },
+];
+
+export const BUTTON_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-button-primary-bg',
+    description: 'Primary button background. Defaults to --el-color-accent.',
+  },
+  {
+    name: '--el-button-primary-bg-hover',
+    description: 'Primary button hover background.',
+  },
+  {
+    name: '--el-button-primary-fg',
+    description: 'Primary button label color.',
+  },
+  {
+    name: '--el-button-secondary-bg',
+    description: 'Secondary button background.',
+  },
+  {
+    name: '--el-button-secondary-bg-hover',
+    description: 'Secondary button hover background.',
+  },
+  {
+    name: '--el-button-secondary-fg',
+    description: 'Secondary button label color.',
+  },
+  {
+    name: '--el-button-ghost-fg',
+    description: 'Ghost button label color.',
+  },
+  {
+    name: '--el-button-ghost-bg-hover',
+    description: 'Ghost button hover background.',
+  },
+];
+
+export const LABEL_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-label-fg',
+    description: 'Default label text color.',
+  },
+  {
+    name: '--el-label-fg-muted',
+    description: 'Muted variant label color.',
+  },
+  {
+    name: '--el-label-fg-error',
+    description: 'Error variant label color.',
+  },
+  {
+    name: '--el-label-required',
+    description: 'Required asterisk color.',
+  },
+];
+
+export const SEGMENTED_BUTTON_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-segmented-track-bg-primary',
+    description: 'Primary variant track background.',
+  },
+  {
+    name: '--el-segmented-track-border-ghost',
+    description: 'Ghost variant outer border color.',
+  },
+  {
+    name: '--el-segmented-item-border-ghost',
+    description: 'Ghost variant divider between items.',
+  },
+  {
+    name: '--el-segmented-item-hover-bg-ghost',
+    description: 'Ghost variant item hover background.',
+  },
+  {
+    name: '--el-segmented-md3-outline',
+    description: 'Secondary variant border and divider color.',
+  },
+  {
+    name: '--el-segmented-md3-on-surface',
+    description: 'Secondary variant default item text.',
+  },
+  {
+    name: '--el-segmented-md3-secondary-container',
+    description: 'Secondary variant selected item background.',
+  },
+  {
+    name: '--el-segmented-md3-on-secondary-container',
+    description: 'Secondary variant selected item text.',
+  },
+  {
+    name: '--el-segmented-md3-focus',
+    description: 'Focus ring color for secondary variant.',
+  },
+  {
+    name: '--el-color-overlay-hover',
+    description: 'Primary variant item hover overlay.',
+  },
+  {
+    name: '--el-color-overlay-hover-muted',
+    description: 'Secondary variant item hover overlay.',
+  },
+  {
+    name: '--el-color-fg-disabled',
+    description: 'Disabled item text color.',
+  },
+];

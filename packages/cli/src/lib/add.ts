@@ -29,6 +29,11 @@ const COMPONENT_EXAMPLES: Record<
   <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
 </el-segmented-button>`,
   },
+  theme: {
+    className: 'ElThemeService',
+    usage: `// styles.scss — @use './theme/tokens';
+// app.config.ts — provideElTheme({ mode: 'light', variables: { '--el-color-accent': '#6366f1' } })`,
+  },
 };
 
 export interface AddOptions {

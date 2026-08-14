@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Theme and design tokens (`ng-elemental add theme`) with light/dark palettes and CSS variable customization via `provideElTheme()`
+- ESLint rules for Angular 22 patterns and BEM class names; Stylelint for BEM selectors and no hardcoded hex in component SCSS
 - `ElSegmentedButton` and `ElSegmentedButtonItem` single-choice control (`ng-elemental add segmented-button`)
+
+### Changed
+
+- Button, label, and segmented-button styles now consume design tokens instead of hardcoded colors
 
 ## [0.0.2] - 2026-08-14
 

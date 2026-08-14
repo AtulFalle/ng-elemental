@@ -11,3 +11,10 @@ export {
   type ElSegmentedButtonSize,
   type ElSegmentedButtonVariant,
 } from './lib/segmented-button/segmented-button';
+export {
+  ElThemeService,
+  provideElTheme,
+  EL_THEME_OPTIONS,
+  type ElThemeMode,
+  type ElThemeOptions,
+} from './lib/theme/theme';

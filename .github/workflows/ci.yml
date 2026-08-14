@@ -59,7 +59,7 @@ jobs:
           echo "Affected projects:"
           npx nx show projects --affected --withTarget=lint || true
           echo ""
-          echo "Planned targets: lint, build, test"
+          echo "Planned targets: lint, stylelint, build, test"
 
       - name: Lint
         run: |
@@ -67,6 +67,14 @@ jobs:
             npx nx run-many -t lint
           else
             npx nx affected -t lint
+          fi
+
+      - name: Stylelint
+        run: |
+          if [ "${{ steps.nx-scope.outputs.mode }}" = "full" ]; then
+            npx nx run-many -t stylelint
+          else
+            npx nx affected -t stylelint
           fi
 
       - name: Build

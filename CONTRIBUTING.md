@@ -23,7 +23,7 @@ Thank you for your interest in contributing. NgElemental is an Angular UI compon
 git clone https://github.com/AtulFalle/ng-elemental.git
 cd ng-elemental
 npm ci
-npx nx run-many -t lint build test
+npx nx run-many -t lint stylelint build test
 ```
 
 ### Project layout
@@ -80,9 +80,10 @@ The manifest in `component-registry.ts` is the single source of truth. CI fails 
 
 Follow existing conventions:
 
-- Standalone Angular components with `input()` and `ChangeDetectionStrategy.OnPush`
-- Encapsulated SCSS with BEM-style class names
+- Encapsulated SCSS with BEM-style class names (`el-block`, `el-block__element`, `el-block--modifier`)
+- Design tokens via CSS custom properties in `packages/ui/src/lib/theme/tokens.scss` — no hardcoded colors in component styles
 - Selector prefix `el-`
+- Modern Angular patterns enforced by ESLint (`input()`, `inject()`, host metadata, `@if` control flow) and Stylelint (BEM selectors, no hex outside tokens)
 
 ## Pull requests
 
@@ -90,7 +91,7 @@ Contributors merge work through PRs. CI runs lint, build, and test on every pull
 
 1. Fork the repository and create a feature branch from `master`.
 2. Keep changes focused and include tests when behavior changes.
-3. Run `npx nx run-many -t lint build test` before opening a PR.
+3. Run `npx nx run-many -t lint stylelint build test` before opening a PR.
 4. For user-visible changes, add a note under `[Unreleased]` in `CHANGELOG.md`. Do **not** bump `packages/cli/package.json` version in contributor PRs — the maintainer does that at release time.
 5. Describe what changed and how you tested it in the PR description.
 
