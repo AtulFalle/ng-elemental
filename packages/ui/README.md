@@ -1,5 +1,12 @@
 # @ng-elemental/ui
 
-Internal source of truth for NgElemental components. This package is not published.
+Internal component source for [NgElemental](https://github.com/AtulFalle/ng-elemental).
 
-Users get these files via `@ng-elemental/cli` (`npx @ng-elemental/cli add button`, `npx @ng-elemental/cli add label`).
+This package is **not published to npm**. End users receive component files through `@ng-elemental/cli`:
+
+```sh
+npx @ng-elemental/cli add button
+npx @ng-elemental/cli add label
+```
+
+See the [contributing guide](../../CONTRIBUTING.md) if you are working on components in this repository.

@@ -30,6 +30,11 @@
             "output": "."
           },
           {
+            "glob": "README.md",
+            "input": "packages/cli",
+            "output": "."
+          },
+          {
             "glob": "button.{ts,html,scss}",
             "input": "packages/ui/src/lib/button",
             "output": "registry/button"

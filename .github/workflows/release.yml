@@ -3,21 +3,51 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*'
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
-  github-release:
-    name: GitHub Release
+  release:
+    name: Publish and create GitHub Release
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org/
+
+      - name: Pin npm
+        run: npm install -g npm@11.17.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify tag matches package version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./packages/cli/package.json').version")"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "Tag v$TAG does not match packages/cli/package.json version $PKG"
+            exit 1
+          fi
+
+      - name: Build CLI
+        run: npx nx build cli
+
+      - name: Publish @ng-elemental/cli
+        working-directory: dist/packages/cli
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
 
       - name: Create GitHub Release
         env:
@@ -27,14 +57,9 @@ jobs:
           TAG="${GITHUB_REF_NAME}"
           VERSION="${TAG#v}"
 
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "GitHub release $TAG already exists"
-            exit 0
-          fi
-
           NOTES="$(awk -v ver="$VERSION" '
-            $0 ~ "^## " ver "($| \\()" { capture = 1; next }
-            /^## / && capture { exit }
+            $0 ~ "^## \\[" ver "\\]" { capture = 1; next }
+            /^## \\[/ && capture { exit }
             capture { print }
           ' CHANGELOG.md)"
           NOTES="$(printf '%s\n' "$NOTES" | sed '/./,$!d')"
@@ -43,13 +68,7 @@ jobs:
             NOTES="Release ${TAG}"
           fi
 
-          PRERELEASE_ARGS=()
-          if [[ "$VERSION" == *-* ]]; then
-            PRERELEASE_ARGS+=(--prerelease)
-          fi
-
           gh release create "$TAG" \
             --title "$TAG" \
             --notes "$NOTES" \
-            --verify-tag \
-            "${PRERELEASE_ARGS[@]}"
+            --verify-tag
