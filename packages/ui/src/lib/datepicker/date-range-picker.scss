@@ -154,3 +154,12 @@
   --el-datepicker-trigger-padding: 0.75rem 1rem;
   --el-datepicker-trigger-font-size: 1rem;
 }
+
+:host(.el-date-range-picker--error) .el-date-range-picker__trigger {
+  border-color: var(--el-datepicker-trigger-border-error);
+}
+
+:host(.el-date-range-picker--error) .el-date-range-picker__trigger:focus-visible,
+:host(.el-date-range-picker--error) .el-date-range-picker__trigger:hover:not(:disabled) {
+  border-color: var(--el-datepicker-trigger-border-error);
+}

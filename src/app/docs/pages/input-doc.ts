@@ -119,7 +119,7 @@ export class MyComponent {}`;
       name: 'error',
       type: 'boolean',
       default: 'false',
-      description: 'Error border and aria-invalid. Message text belongs to a future form-field.',
+      description: 'Error border and aria-invalid. Pair with el-form-error for message text.',
     },
     {
       name: 'inputId',

@@ -22,6 +22,7 @@ export class ElSlideToggle {
   readonly checked = model(false);
   readonly size = input<ElSlideToggleSize>('md');
   readonly disabled = input(false, { transform: booleanAttribute });
+  readonly error = input(false, { transform: booleanAttribute });
   readonly labelPosition = input<ElSlideToggleLabelPosition>('right');
   readonly name = input('');
   readonly value = input('');

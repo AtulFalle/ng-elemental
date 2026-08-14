@@ -71,6 +71,10 @@
     --thumb-bg: var(--el-slide-toggle-thumb-on-bg-disabled);
   }
 
+  &--error {
+    --track-bd: var(--el-slide-toggle-error-border);
+  }
+
   &__input,
   &__track {
     width: calc(var(--track-w) + var(--track-extra));

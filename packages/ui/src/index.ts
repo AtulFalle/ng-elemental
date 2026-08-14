@@ -10,6 +10,7 @@ export {
   type ElButtonVariant,
 } from './lib/button/button';
 export { ElLabel, type ElLabelVariant } from './lib/label/label';
+export { ElFormError } from './lib/form-error/form-error';
 export {
   ElInput,
   ElInputPrefix,

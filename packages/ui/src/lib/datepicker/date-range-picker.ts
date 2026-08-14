@@ -41,6 +41,7 @@ export type { ElDateRange } from './date';
     '[class.el-date-range-picker--lg]': 'size() === "lg"',
     '[class.el-date-range-picker--open]': 'open()',
     '[class.el-date-range-picker--disabled]': 'disabled()',
+    '[class.el-date-range-picker--error]': 'error()',
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown)': 'onDocumentKeydown($event)',
   },
@@ -54,6 +55,7 @@ export class ElDateRangePicker {
   readonly locale = input<string>();
   readonly size = input<ElDatePickerSize>('md');
   readonly disabled = input(false, { transform: booleanAttribute });
+  readonly error = input(false, { transform: booleanAttribute });
   readonly placeholder = input('Select date range');
   readonly ariaLabel = input<string>();
 

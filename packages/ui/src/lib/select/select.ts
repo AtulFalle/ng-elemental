@@ -49,6 +49,7 @@ export {
     '[class.el-select--lg]': 'size() === "lg"',
     '[class.el-select--open]': 'open()',
     '[class.el-select--disabled]': 'disabled()',
+    '[class.el-select--error]': 'error()',
     '[class.el-select--multiple]': 'multiple()',
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown)': 'onDocumentKeydown($event)',
@@ -65,6 +66,7 @@ export class ElSelect implements ElSelectContext {
   readonly size = input<ElSelectSize>('md');
   readonly placeholder = input('Select');
   readonly disabled = input(false, { transform: booleanAttribute });
+  readonly error = input(false, { transform: booleanAttribute });
   readonly ariaLabel = input<string>();
 
   private readonly valueTemplate = contentChild(ElSelectValue);

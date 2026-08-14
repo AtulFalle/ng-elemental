@@ -37,6 +37,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/label-doc').then((m) => m.LabelDocPage),
       },
       {
+        path: 'components/form-error',
+        loadComponent: () =>
+          import('./docs/pages/form-error-doc').then((m) => m.FormErrorDocPage),
+      },
+      {
         path: 'components/input',
         loadComponent: () =>
           import('./docs/pages/input-doc').then((m) => m.InputDocPage),

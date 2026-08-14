@@ -90,6 +90,13 @@ export class MyComponent {}`;
       description: 'Non-interactive slide toggle state.',
     },
     {
+      name: 'error',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Error border on the track and aria-invalid. Pair with el-form-error for message text.',
+    },
+    {
       name: 'labelPosition',
       type: "'left' | 'right'",
       default: "'right'",

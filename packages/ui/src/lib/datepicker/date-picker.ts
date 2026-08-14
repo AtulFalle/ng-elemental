@@ -66,6 +66,7 @@ export {
     '[class.el-date-picker--lg]': 'size() === "lg"',
     '[class.el-date-picker--open]': 'open()',
     '[class.el-date-picker--disabled]': 'disabled()',
+    '[class.el-date-picker--error]': 'error()',
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown)': 'onDocumentKeydown($event)',
   },
@@ -83,6 +84,7 @@ export class ElDatePicker {
   readonly locale = input<string>();
   readonly size = input<ElDatePickerSize>('md');
   readonly disabled = input(false, { transform: booleanAttribute });
+  readonly error = input(false, { transform: booleanAttribute });
   readonly placeholder = input('Select date');
   readonly ariaLabel = input<string>();
 

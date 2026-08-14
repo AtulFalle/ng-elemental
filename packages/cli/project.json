@@ -55,6 +55,11 @@
             "output": "registry/label"
           },
           {
+            "glob": "form-error.{ts,html,scss}",
+            "input": "packages/ui/src/lib/form-error",
+            "output": "registry/form-error"
+          },
+          {
             "glob": "input.{ts,html,scss}",
             "input": "packages/ui/src/lib/input",
             "output": "registry/input"

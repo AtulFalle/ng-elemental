@@ -7,6 +7,7 @@
   [attr.aria-controls]="listboxId"
   [attr.aria-label]="ariaLabel() || null"
   [attr.aria-disabled]="disabled() || null"
+  [attr.aria-invalid]="error() ? true : null"
   [disabled]="disabled()"
   (click)="toggleOpen($event)"
   (keydown)="onTriggerKeydown($event)"

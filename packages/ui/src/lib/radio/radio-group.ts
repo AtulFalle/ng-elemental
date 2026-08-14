@@ -25,9 +25,11 @@ export { EL_RADIO_GROUP } from './radio.token';
     '[class.el-radio-group--vertical]': 'direction() === "vertical"',
     '[class.el-radio-group--horizontal]': 'direction() === "horizontal"',
     '[class.el-radio-group--disabled]': 'disabled()',
+    '[class.el-radio-group--error]': 'error()',
     role: 'radiogroup',
     '[attr.aria-label]': 'ariaLabel() || null',
     '[attr.aria-disabled]': 'disabled() || null',
+    '[attr.aria-invalid]': 'error() ? true : null',
     '(keydown)': 'onKeydown($event)',
   },
 })
@@ -37,6 +39,7 @@ export class ElRadioGroup {
   readonly value = model<string>('');
   readonly direction = input<ElRadioGroupDirection>('vertical');
   readonly disabled = input(false, { transform: booleanAttribute });
+  readonly error = input(false, { transform: booleanAttribute });
   readonly name = input('');
   readonly ariaLabel = input<string>();
 

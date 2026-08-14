@@ -7,6 +7,7 @@
   [class.el-slide-toggle--label-right]="labelPosition() === 'right'"
   [class.el-slide-toggle--checked]="checked()"
   [class.el-slide-toggle--disabled]="disabled()"
+  [class.el-slide-toggle--error]="error()"
 >
   <input
     #input
@@ -18,6 +19,7 @@
     [value]="value() || null"
     [disabled]="disabled()"
     [attr.aria-checked]="checked()"
+    [attr.aria-invalid]="error() ? true : null"
     (change)="onInputChange($event)"
   />
 

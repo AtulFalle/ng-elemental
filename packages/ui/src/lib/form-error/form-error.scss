@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  margin: 0;
+  font-family: var(--el-font-sans);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--el-form-error-fg);
+}
+
+.el-form-error__text {
+  display: inline;
+}

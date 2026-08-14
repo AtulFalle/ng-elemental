@@ -101,7 +101,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -158,9 +158,28 @@ Use `--force` to overwrite an existing component folder.
 | `required` | `boolean` | `false` | Shows required indicator |
 | `disabled` | `boolean` | `false` | Muted, non-interactive label |
 
+### Form Error (`el-form-error`)
+
+Presentational validation message. Compose with `el-label` and any control; wire `[error]` and `aria-describedby` yourself.
+
+```html
+<el-label htmlFor="email" required>Email</el-label>
+<el-input
+  inputId="email"
+  [(value)]="email"
+  [error]="invalid"
+  [attr.aria-describedby]="invalid ? 'email-err' : null"
+/>
+@if (invalid) {
+  <el-form-error id="email-err">Email is required</el-form-error>
+}
+```
+
+Host uses `role="alert"`. Optional host `id` for `aria-describedby`. Token: `--el-form-error-fg`.
+
 ### Input (`el-input`)
 
-Text field primitive. Pair with `el-label` for a caption; error *messages* belong to a future form-field. Mask is optional.
+Text field primitive. Pair with `el-label` for a caption and `el-form-error` for message text. Mask is optional.
 
 ```html
 <el-input [(value)]="email" type="email" placeholder="you@example.com" inputId="email" />

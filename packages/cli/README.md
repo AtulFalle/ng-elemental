@@ -60,6 +60,7 @@ export class MyComponent {}
 | `theme` | — | `ElThemeService` (+ `tokens.scss`) |
 | `button` | `el-button` | `ElButton` |
 | `label` | `el-label` | `ElLabel` |
+| `form-error` | `el-form-error` | `ElFormError` |
 | `input` | `el-input` | `ElInput` |
 | `checkbox` | `el-checkbox` | `ElCheckbox` |
 | `slide-toggle` | `el-slide-toggle` | `ElSlideToggle` |

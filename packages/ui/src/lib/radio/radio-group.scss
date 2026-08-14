@@ -16,3 +16,9 @@
 :host(.el-radio-group--disabled) {
   pointer-events: none;
 }
+
+:host(.el-radio-group--error) {
+  outline: 1px solid var(--el-radio-group-error-border);
+  outline-offset: 4px;
+  border-radius: 0.25rem;
+}

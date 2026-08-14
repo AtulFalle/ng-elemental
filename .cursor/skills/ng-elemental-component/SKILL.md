@@ -25,6 +25,7 @@ Compose existing `El*` components. Build a new primitive only when none of them 
 | Radio group | `ElRadioGroup` + `ElRadio` |
 | Chips / tags | `ElChip` |
 | Form label | `ElLabel` |
+| Form error message | `ElFormError` |
 | Dropdown / combobox | `ElSelect` + `ElSelectItem` |
 | Segmented choice | `ElSegmentedButton` + `ElSegmentedButtonItem` |
 | Theme / tokens | `provideElTheme()`, `tokens.scss` |

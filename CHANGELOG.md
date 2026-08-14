@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ElFormError` presentational validation message (`ng-elemental add form-error`)
 - `ElInput` text field with types, prefix/suffix slots, error/disabled states, and optional pattern mask (`ng-elemental add input`)
 - `ElSlideToggle` on/off switch with size, label position, and optional track/thumb icon slots (`ng-elemental add slide-toggle`)
 - `ElIcon` Font Awesome 6 icon component (`ng-elemental add icon`)

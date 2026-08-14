@@ -121,6 +121,13 @@ export const LABEL_TOKENS: TokenDefinition[] = [
   },
 ];
 
+export const FORM_ERROR_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-form-error-fg',
+    description: 'Form error message text color.',
+  },
+];
+
 export const INPUT_TOKENS: TokenDefinition[] = [
   {
     name: '--el-input-bg',

@@ -132,6 +132,12 @@ export class MyComponent {}`;
       description: 'Disables the trigger and all items.',
     },
     {
+      name: 'error',
+      type: 'boolean',
+      default: 'false',
+      description: 'Error border on the trigger and aria-invalid. Pair with el-form-error for message text.',
+    },
+    {
       name: 'ariaLabel',
       type: 'string',
       default: 'undefined',

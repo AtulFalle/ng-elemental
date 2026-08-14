@@ -57,6 +57,9 @@
   --el-label-fg-error: var(--el-color-error);
   --el-label-required: var(--el-color-error);
 
+  // ── Form error ───────────────────────────────────────────────────────────
+  --el-form-error-fg: var(--el-label-fg-error);
+
   // ── Segmented button (Material Design 3) ─────────────────────────────────
   --el-segmented-md3-outline: #79747e;
   --el-segmented-md3-on-surface: #1c1b1f;
@@ -137,6 +140,7 @@
   --el-radio-focus-ring: var(--el-segmented-md3-focus);
   --el-radio-group-gap-vertical: 0.75rem;
   --el-radio-group-gap-horizontal: 1.5rem;
+  --el-radio-group-error-border: var(--el-color-error);
 
   // ── Slide toggle ─────────────────────────────────────────────────────────
   --el-slide-toggle-gap: 0.5rem;
@@ -164,12 +168,14 @@
   --el-slide-toggle-icon-on-fg-disabled: var(--el-color-fg-inverse);
   --el-slide-toggle-icon-off-fg-disabled: var(--el-color-fg-disabled);
   --el-slide-toggle-focus-ring: var(--el-segmented-md3-focus);
+  --el-slide-toggle-error-border: var(--el-color-error);
 
   // ── Select ───────────────────────────────────────────────────────────────
   --el-select-trigger-bg: var(--el-color-surface);
   --el-select-trigger-fg: var(--el-color-fg);
   --el-select-trigger-border: var(--el-color-border);
   --el-select-trigger-border-hover: var(--el-color-border-muted);
+  --el-select-trigger-border-error: var(--el-color-error);
   --el-select-trigger-radius: 0.375rem;
   --el-select-trigger-min-height: 2.5rem;
   --el-select-trigger-padding: 0.5rem 0.75rem;
@@ -214,6 +220,7 @@
   --el-datepicker-trigger-fg: var(--el-color-fg);
   --el-datepicker-trigger-border: var(--el-color-border);
   --el-datepicker-trigger-border-hover: var(--el-color-border-muted);
+  --el-datepicker-trigger-border-error: var(--el-color-error);
   --el-datepicker-trigger-radius: 0.375rem;
   --el-datepicker-trigger-min-height: 2.5rem;
   --el-datepicker-trigger-padding: 0.5rem 0.75rem;

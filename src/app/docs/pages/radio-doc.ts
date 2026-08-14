@@ -71,6 +71,13 @@ export class MyComponent {}`;
       description: 'Disables all radios in the group.',
     },
     {
+      name: 'error',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Invalid outline on the group and aria-invalid. Pair with el-form-error for message text.',
+    },
+    {
       name: 'name',
       type: 'string',
       default: "''",

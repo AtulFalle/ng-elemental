@@ -26,6 +26,14 @@ const COMPONENT_EXAMPLES: Record<
     className: 'ElLabel',
     usage: '<el-label htmlFor="email" variant="default">Email</el-label>',
   },
+  'form-error': {
+    className: 'ElFormError',
+    usage: `<el-label htmlFor="email" required>Email</el-label>
+<el-input inputId="email" [(value)]="email" [error]="invalid" />
+@if (invalid) {
+  <el-form-error id="email-err">Email is required</el-form-error>
+}`,
+  },
   input: {
     className: 'ElInput',
     usage:

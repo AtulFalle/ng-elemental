@@ -42,6 +42,11 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['label'],
   },
   {
+    name: 'form-error',
+    assetGlobs: ['form-error.{ts,html,scss}'],
+    requiredBasenames: ['form-error'],
+  },
+  {
     name: 'input',
     assetGlobs: ['input.{ts,html,scss}'],
     requiredBasenames: ['input'],
