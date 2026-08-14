@@ -138,6 +138,33 @@
   --el-radio-group-gap-vertical: 0.75rem;
   --el-radio-group-gap-horizontal: 1.5rem;
 
+  // ── Slide toggle ─────────────────────────────────────────────────────────
+  --el-slide-toggle-gap: 0.5rem;
+  --el-slide-toggle-track-border-width: 2px;
+  --el-slide-toggle-thumb-inset: 0.125rem;
+  --el-slide-toggle-icon-inset: 0.125rem;
+  --el-slide-toggle-label-size: 0.875rem;
+  --el-slide-toggle-label-fg: var(--el-segmented-md3-on-surface);
+  --el-slide-toggle-label-fg-disabled: var(--el-color-fg-disabled);
+  --el-slide-toggle-track-off-bg: var(--el-color-surface-muted);
+  --el-slide-toggle-track-off-border: var(--el-segmented-md3-outline);
+  --el-slide-toggle-thumb-off-bg: var(--el-segmented-md3-outline);
+  --el-slide-toggle-icon-off-fg: var(--el-segmented-md3-on-surface);
+  --el-slide-toggle-track-on-bg: var(--el-segmented-md3-focus);
+  --el-slide-toggle-track-on-border: var(--el-segmented-md3-focus);
+  --el-slide-toggle-thumb-on-bg: var(--el-color-fg-inverse);
+  --el-slide-toggle-icon-on-fg: var(--el-color-fg-inverse);
+  --el-slide-toggle-thumb-icon-on-fg: var(--el-segmented-md3-focus);
+  --el-slide-toggle-thumb-icon-off-fg: var(--el-color-fg-inverse);
+  --el-slide-toggle-track-off-bg-disabled: rgb(28 27 31 / 0.04);
+  --el-slide-toggle-track-off-border-disabled: rgb(28 27 31 / 0.12);
+  --el-slide-toggle-thumb-off-bg-disabled: rgb(28 27 31 / 0.38);
+  --el-slide-toggle-track-on-bg-disabled: rgb(28 27 31 / 0.38);
+  --el-slide-toggle-thumb-on-bg-disabled: var(--el-color-fg-inverse);
+  --el-slide-toggle-icon-on-fg-disabled: var(--el-color-fg-inverse);
+  --el-slide-toggle-icon-off-fg-disabled: var(--el-color-fg-disabled);
+  --el-slide-toggle-focus-ring: var(--el-segmented-md3-focus);
+
   // ── Select ───────────────────────────────────────────────────────────────
   --el-select-trigger-bg: var(--el-color-surface);
   --el-select-trigger-fg: var(--el-color-fg);
@@ -204,6 +231,11 @@
   --el-radio-bg-disabled: rgb(230 225 229 / 0.04);
   --el-radio-selected-border-disabled: rgb(230 225 229 / 0.38);
   --el-radio-dot-disabled: rgb(230 225 229 / 0.38);
+
+  --el-slide-toggle-track-off-bg-disabled: rgb(230 225 229 / 0.04);
+  --el-slide-toggle-track-off-border-disabled: rgb(230 225 229 / 0.12);
+  --el-slide-toggle-thumb-off-bg-disabled: rgb(230 225 229 / 0.38);
+  --el-slide-toggle-track-on-bg-disabled: rgb(230 225 229 / 0.38);
 
   --el-select-panel-shadow:
     0 4px 6px rgb(0 0 0 / 0.28),

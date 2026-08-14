@@ -1,0 +1,44 @@
+<label
+  class="el-slide-toggle"
+  [class.el-slide-toggle--sm]="size() === 'sm'"
+  [class.el-slide-toggle--md]="size() === 'md'"
+  [class.el-slide-toggle--lg]="size() === 'lg'"
+  [class.el-slide-toggle--label-left]="labelPosition() === 'left'"
+  [class.el-slide-toggle--label-right]="labelPosition() === 'right'"
+  [class.el-slide-toggle--checked]="checked()"
+  [class.el-slide-toggle--disabled]="disabled()"
+>
+  <input
+    #input
+    class="el-slide-toggle__input"
+    type="checkbox"
+    role="switch"
+    [id]="inputId() || null"
+    [name]="name() || null"
+    [value]="value() || null"
+    [disabled]="disabled()"
+    [attr.aria-checked]="checked()"
+    (change)="onInputChange($event)"
+  />
+
+  <span class="el-slide-toggle__track" aria-hidden="true">
+    <span class="el-slide-toggle__track-icon el-slide-toggle__track-icon--on">
+      <ng-content select="[elSlideToggleTrackOnIcon]" />
+    </span>
+    <span class="el-slide-toggle__track-icon el-slide-toggle__track-icon--off">
+      <ng-content select="[elSlideToggleTrackOffIcon]" />
+    </span>
+    <span class="el-slide-toggle__thumb">
+      <span class="el-slide-toggle__thumb-icon el-slide-toggle__thumb-icon--on">
+        <ng-content select="[elSlideToggleThumbOnIcon]" />
+      </span>
+      <span class="el-slide-toggle__thumb-icon el-slide-toggle__thumb-icon--off">
+        <ng-content select="[elSlideToggleThumbOffIcon]" />
+      </span>
+    </span>
+  </span>
+
+  <span class="el-slide-toggle__label">
+    <ng-content />
+  </span>
+</label>

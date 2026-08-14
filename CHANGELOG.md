@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ElSlideToggle` on/off switch with size, label position, and optional track/thumb icon slots (`ng-elemental add slide-toggle`)
 - `ElIcon` Font Awesome 6 icon component (`ng-elemental add icon`)
 - Button and chip integrations for Font Awesome start/end icons
 - `ElChip` Material Design 3 chips for assist, filter, and suggestion use cases (`ng-elemental add chip`)

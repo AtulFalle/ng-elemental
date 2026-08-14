@@ -42,6 +42,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/checkbox-doc').then((m) => m.CheckboxDocPage),
       },
       {
+        path: 'components/slide-toggle',
+        loadComponent: () =>
+          import('./docs/pages/slide-toggle-doc').then((m) => m.SlideToggleDocPage),
+      },
+      {
         path: 'components/radio',
         loadComponent: () =>
           import('./docs/pages/radio-doc').then((m) => m.RadioDocPage),

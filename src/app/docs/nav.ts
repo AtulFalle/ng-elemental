@@ -27,6 +27,7 @@ export const DOC_NAV: DocNavSection[] = [
       { label: 'Icon', path: '/components/icon' },
       { label: 'Label', path: '/components/label' },
       { label: 'Checkbox', path: '/components/checkbox' },
+      { label: 'Slide Toggle', path: '/components/slide-toggle' },
       { label: 'Radio', path: '/components/radio' },
       { label: 'Select', path: '/components/select' },
       { label: 'Chip', path: '/components/chip' },

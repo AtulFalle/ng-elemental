@@ -15,6 +15,11 @@ export {
   type ElCheckboxLabelPosition,
 } from './lib/checkbox/checkbox';
 export {
+  ElSlideToggle,
+  type ElSlideToggleLabelPosition,
+  type ElSlideToggleSize,
+} from './lib/slide-toggle/slide-toggle';
+export {
   ElRadio,
   ElRadioGroup,
   type ElRadioLabelPosition,

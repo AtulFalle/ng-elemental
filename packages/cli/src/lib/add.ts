@@ -32,6 +32,12 @@ const COMPONENT_EXAMPLES: Record<
   Accept terms and conditions
 </el-checkbox>`,
   },
+  'slide-toggle': {
+    className: 'ElSlideToggle',
+    usage: `<el-slide-toggle [(checked)]="enabled" inputId="notifications">
+  Notifications
+</el-slide-toggle>`,
+  },
   radio: {
     className: 'ElRadio, ElRadioGroup',
     usage: `<el-radio-group [(value)]="contact" ariaLabel="Contact method">

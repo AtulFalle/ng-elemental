@@ -61,6 +61,7 @@ export class MyComponent {}
 | `button` | `el-button` | `ElButton` |
 | `label` | `el-label` | `ElLabel` |
 | `checkbox` | `el-checkbox` | `ElCheckbox` |
+| `slide-toggle` | `el-slide-toggle` | `ElSlideToggle` |
 | `radio` | `el-radio-group`, `el-radio` | `ElRadioGroup`, `ElRadio` |
 | `select` | `el-select`, `el-select-item`, `el-select-group` | `ElSelect`, `ElSelectItem`, `ElSelectGroup` |
 | `chip` | `el-chip` | `ElChip` |

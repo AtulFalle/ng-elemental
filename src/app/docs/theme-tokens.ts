@@ -156,6 +156,53 @@ export const CHECKBOX_TOKENS: TokenDefinition[] = [
   },
 ];
 
+export const SLIDE_TOGGLE_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-slide-toggle-track-on-bg',
+    description: 'Track fill when the switch is on.',
+  },
+  {
+    name: '--el-slide-toggle-track-on-border',
+    description: 'Track border when the switch is on.',
+  },
+  {
+    name: '--el-slide-toggle-thumb-on-bg',
+    description: 'Thumb fill when the switch is on.',
+  },
+  {
+    name: '--el-slide-toggle-icon-on-fg',
+    description: 'Track on-icon color against the filled track.',
+  },
+  {
+    name: '--el-slide-toggle-track-off-bg',
+    description: 'Track fill when the switch is off.',
+  },
+  {
+    name: '--el-slide-toggle-track-off-border',
+    description: 'Track border when the switch is off.',
+  },
+  {
+    name: '--el-slide-toggle-thumb-off-bg',
+    description: 'Thumb fill when the switch is off.',
+  },
+  {
+    name: '--el-slide-toggle-icon-off-fg',
+    description: 'Track off-icon color against the outlined track.',
+  },
+  {
+    name: '--el-slide-toggle-thumb-icon-on-fg',
+    description: 'Thumb on-icon color against the on thumb.',
+  },
+  {
+    name: '--el-slide-toggle-thumb-icon-off-fg',
+    description: 'Thumb off-icon color against the off thumb.',
+  },
+  {
+    name: '--el-slide-toggle-focus-ring',
+    description: 'Focus ring color around the track.',
+  },
+];
+
 export const RADIO_TOKENS: TokenDefinition[] = [
   {
     name: '--el-radio-size',

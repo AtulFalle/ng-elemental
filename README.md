@@ -101,7 +101,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `checkbox`, `radio`, `chip`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `checkbox`, `slide-toggle`, `radio`, `chip`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -180,6 +180,40 @@ Use `--force` to overwrite an existing component folder.
 | `inputId` | `string` | `''` | Native input id |
 
 Requires the `icon` component (Font Awesome check mark).
+
+### Slide Toggle (`el-slide-toggle`)
+
+```html
+<el-slide-toggle [(checked)]="enabled" inputId="notifications">
+  Notifications
+</el-slide-toggle>
+
+<el-slide-toggle labelPosition="left" size="sm" [(checked)]="wifi" inputId="wifi">
+  Wi-Fi
+</el-slide-toggle>
+
+<el-slide-toggle [(checked)]="darkMode" inputId="dark-mode">
+  <el-icon elSlideToggleTrackOnIcon name="check" size="sm" />
+  <el-icon elSlideToggleTrackOffIcon name="xmark" size="sm" />
+  Dark mode
+</el-slide-toggle>
+
+<el-slide-toggle [(checked)]="alerts" inputId="alerts">
+  <el-icon elSlideToggleThumbOnIcon name="check" size="sm" />
+  <el-icon elSlideToggleThumbOffIcon name="xmark" size="sm" />
+  Alerts
+</el-slide-toggle>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean` | `false` | On/off state (two-way bindable) |
+| `size` | `sm` \| `md` \| `lg` | `md` | Track and thumb size |
+| `disabled` | `boolean` | `false` | Non-interactive state |
+| `labelPosition` | `left` \| `right` | `right` | Inline text placement |
+| `inputId` | `string` | `''` | Native input id |
+
+Optional icons: `elSlideToggleTrackOnIcon` / `elSlideToggleTrackOffIcon` sit in the track; `elSlideToggleThumbOnIcon` / `elSlideToggleThumbOffIcon` sit in the thumb (add `icon` first). The track adds horizontal padding when any icon slot has content. Field label, error, and value accessors are out of scope for this primitive.
 
 ### Radio (`el-radio-group`, `el-radio`)
 

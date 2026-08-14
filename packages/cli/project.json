@@ -60,6 +60,11 @@
             "output": "registry/checkbox"
           },
           {
+            "glob": "slide-toggle.{ts,html,scss}",
+            "input": "packages/ui/src/lib/slide-toggle",
+            "output": "registry/slide-toggle"
+          },
+          {
             "glob": "radio.{ts,html,scss}",
             "input": "packages/ui/src/lib/radio",
             "output": "registry/radio"

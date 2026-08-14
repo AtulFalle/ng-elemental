@@ -1,0 +1,181 @@
+.el-slide-toggle {
+  --track-w: 2.5rem;
+  --track-h: 1.5rem;
+  --thumb: 1.125rem;
+  --icon: 0.75rem;
+  --track-extra: 0rem;
+  --icon-x: var(--el-slide-toggle-icon-inset);
+  --track-bg: var(--el-slide-toggle-track-off-bg);
+  --track-bd: var(--el-slide-toggle-track-off-border);
+  --thumb-bg: var(--el-slide-toggle-thumb-off-bg);
+  --thumb-x: var(--el-slide-toggle-thumb-inset);
+  --on-op: 0;
+  --off-op: 1;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--el-slide-toggle-gap);
+  max-width: 100%;
+  font-family: var(--el-font-sans);
+  font-size: var(--el-slide-toggle-label-size);
+  line-height: 1.25;
+  color: var(--el-slide-toggle-label-fg);
+  cursor: pointer;
+  user-select: none;
+
+  &:has(.el-slide-toggle__track-icon > *) {
+    --track-extra: calc(var(--icon) + 0.125rem);
+  }
+
+  &--sm {
+    --track-w: 2rem;
+    --track-h: 1.25rem;
+    --thumb: 0.875rem;
+    --icon: 0.625rem;
+    font-size: 0.75rem;
+  }
+
+  &--lg {
+    --track-w: 3rem;
+    --track-h: 1.75rem;
+    --thumb: 1.375rem;
+    --icon: 0.875rem;
+    font-size: 1rem;
+  }
+
+  &--label-left {
+    flex-direction: row-reverse;
+  }
+
+  &--checked {
+    --track-bg: var(--el-slide-toggle-track-on-bg);
+    --track-bd: var(--el-slide-toggle-track-on-border);
+    --thumb-bg: var(--el-slide-toggle-thumb-on-bg);
+    --thumb-x: calc(100% - var(--thumb) - var(--el-slide-toggle-thumb-inset));
+    --on-op: 1;
+    --off-op: 0;
+  }
+
+  &--disabled {
+    --track-bg: var(--el-slide-toggle-track-off-bg-disabled);
+    --track-bd: var(--el-slide-toggle-track-off-border-disabled);
+    --thumb-bg: var(--el-slide-toggle-thumb-off-bg-disabled);
+    color: var(--el-slide-toggle-label-fg-disabled);
+    cursor: not-allowed;
+  }
+
+  &--disabled.el-slide-toggle--checked {
+    --track-bg: var(--el-slide-toggle-track-on-bg-disabled);
+    --track-bd: transparent;
+    --thumb-bg: var(--el-slide-toggle-thumb-on-bg-disabled);
+  }
+
+  &__input,
+  &__track {
+    width: calc(var(--track-w) + var(--track-extra));
+    height: var(--track-h);
+  }
+
+  &__input {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  &__track {
+    position: relative;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: var(--el-slide-toggle-track-border-width) solid var(--track-bd);
+    border-radius: 999px;
+    background: var(--track-bg);
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  &__thumb {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 50%;
+    inset-inline-start: var(--thumb-x);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--thumb);
+    height: var(--thumb);
+    overflow: hidden;
+    border-radius: 50%;
+    background: var(--thumb-bg);
+    transform: translateY(-50%);
+    transition:
+      inset-inline-start 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  &__track-icon,
+  &__thumb-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon);
+    height: var(--icon);
+    font-size: var(--icon);
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  &__track-icon {
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+  }
+
+  &__track-icon--on {
+    inset-inline-start: var(--icon-x);
+    color: var(--el-slide-toggle-icon-on-fg);
+    opacity: var(--on-op);
+  }
+
+  &__track-icon--off {
+    inset-inline-end: var(--icon-x);
+    color: var(--el-slide-toggle-icon-off-fg);
+    opacity: var(--off-op);
+  }
+
+  &__thumb-icon--on {
+    color: var(--el-slide-toggle-thumb-icon-on-fg);
+    opacity: var(--on-op);
+  }
+
+  &__thumb-icon--off {
+    color: var(--el-slide-toggle-thumb-icon-off-fg);
+    opacity: var(--off-op);
+  }
+
+  &--disabled &__track-icon--on {
+    color: var(--el-slide-toggle-icon-on-fg-disabled);
+  }
+
+  &--disabled &__track-icon--off {
+    color: var(--el-slide-toggle-icon-off-fg-disabled);
+  }
+
+  &--disabled &__thumb-icon {
+    color: var(--el-color-fg-disabled);
+  }
+
+  &__label {
+    min-width: 0;
+  }
+
+  &__input:focus-visible + &__track {
+    outline: 2px solid var(--el-slide-toggle-focus-ring);
+    outline-offset: 2px;
+  }
+}

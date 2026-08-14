@@ -47,6 +47,11 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['checkbox'],
   },
   {
+    name: 'slide-toggle',
+    assetGlobs: ['slide-toggle.{ts,html,scss}'],
+    requiredBasenames: ['slide-toggle'],
+  },
+  {
     name: 'radio',
     assetGlobs: [
       'radio.{ts,html,scss}',

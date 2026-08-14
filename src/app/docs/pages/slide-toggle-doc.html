@@ -1,0 +1,115 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Slide Toggle</h1>
+    <p class="docs-lead">
+      On/off switch with size variants, left/right inline text, and optional
+      track or thumb icon slots. Field label, error, and value accessors belong
+      to a future form-field — this control is the switch primitive.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>, then
+    <code>npx @ng-elemental/cli add slide-toggle</code>. Custom on/off icons
+    also need <code>npx @ng-elemental/cli add icon</code>.
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-slide-toggle [(checked)]="notifications" inputId="notifications-preview">
+        Notifications
+      </el-slide-toggle>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Project inline text as content and bind on/off state with two-way
+      binding. Track icons use <code>elSlideToggleTrackOnIcon</code> /
+      <code>elSlideToggleTrackOffIcon</code>. Thumb icons use
+      <code>elSlideToggleThumbOnIcon</code> /
+      <code>elSlideToggleThumbOffIcon</code>. The track gains horizontal padding
+      when any of those slots have content.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Sizes</h3>
+    <app-preview>
+      <div class="docs-stack">
+        <el-slide-toggle size="sm" [checked]="true" inputId="st-sm">Small</el-slide-toggle>
+        <el-slide-toggle size="md" [checked]="true" inputId="st-md">Medium</el-slide-toggle>
+        <el-slide-toggle size="lg" [checked]="true" inputId="st-lg">Large</el-slide-toggle>
+      </div>
+    </app-preview>
+
+    <h3>Label position</h3>
+    <app-preview>
+      <div class="docs-stack">
+        <el-slide-toggle labelPosition="right" [checked]="true" inputId="st-right">
+          Label on the right (default)
+        </el-slide-toggle>
+        <el-slide-toggle labelPosition="left" [checked]="true" inputId="st-left">
+          Label on the left
+        </el-slide-toggle>
+      </div>
+    </app-preview>
+
+    <h3>Track icons</h3>
+    <app-preview>
+      <el-slide-toggle [(checked)]="wifi" inputId="st-wifi">
+        <el-icon elSlideToggleTrackOnIcon name="check" size="sm" />
+        <el-icon elSlideToggleTrackOffIcon name="xmark" size="sm" />
+        Wi-Fi
+      </el-slide-toggle>
+    </app-preview>
+
+    <h3>Thumb icons</h3>
+    <app-preview>
+      <el-slide-toggle [(checked)]="darkMode" inputId="st-thumb">
+        <el-icon elSlideToggleThumbOnIcon name="check" size="sm" />
+        <el-icon elSlideToggleThumbOffIcon name="xmark" size="sm" />
+        Dark mode
+      </el-slide-toggle>
+    </app-preview>
+
+    <h3>States</h3>
+    <app-preview>
+      <div class="docs-stack">
+        <el-slide-toggle [checked]="true" inputId="st-on">On</el-slide-toggle>
+        <el-slide-toggle [checked]="false" inputId="st-off">Off</el-slide-toggle>
+        <el-slide-toggle [disabled]="true" inputId="st-disabled">Disabled</el-slide-toggle>
+        <el-slide-toggle [disabled]="true" [checked]="true" inputId="st-disabled-on">
+          Disabled on
+        </el-slide-toggle>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      On and off colors come from theme tokens (same MD3 palette as checkbox
+      and radio). See <a routerLink="/theming">Theming</a> for setup.
+    </p>
+    <app-tokens-table [tokens]="slideToggleTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>
