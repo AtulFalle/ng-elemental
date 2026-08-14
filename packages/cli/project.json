@@ -135,6 +135,16 @@
             "output": "registry/progress"
           },
           {
+            "glob": "slider.{ts,html,scss}",
+            "input": "packages/ui/src/lib/slider",
+            "output": "registry/slider"
+          },
+          {
+            "glob": "slider-utils.ts",
+            "input": "packages/ui/src/lib/slider",
+            "output": "registry/slider"
+          },
+          {
             "glob": "avatar.{ts,html,scss}",
             "input": "packages/ui/src/lib/avatar",
             "output": "registry/avatar"

@@ -74,6 +74,11 @@ const COMPONENT_EXAMPLES: Record<
     usage: `<el-progress [value]="42" showValue />
 <el-progress-circle [value]="72" showValue />`,
   },
+  slider: {
+    className: 'ElSlider',
+    usage: `<el-slider [(value)]="volume" [min]="0" [max]="100" showValue />
+<el-slider range [(start)]="minPrice" [(end)]="maxPrice" [step]="5" showTicks showValue />`,
+  },
   avatar: {
     className: 'ElAvatar',
     usage: `<el-avatar src="/avatar.jpg" alt="Jane Doe" />

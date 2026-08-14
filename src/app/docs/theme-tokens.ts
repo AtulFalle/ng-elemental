@@ -491,6 +491,53 @@ export const PROGRESS_TOKENS: TokenDefinition[] = [
   },
 ];
 
+export const SLIDER_TOKENS: TokenDefinition[] = [
+  {
+    name: '--el-slider-track-bg',
+    description: 'Background of the unfilled rail.',
+  },
+  {
+    name: '--el-slider-fill-bg',
+    description: 'Filled portion of the rail.',
+  },
+  {
+    name: '--el-slider-fill-error-bg',
+    description: 'Filled portion when `error` is set.',
+  },
+  {
+    name: '--el-slider-thumb-bg',
+    description: 'Thumb fill color.',
+  },
+  {
+    name: '--el-slider-thumb-border',
+    description: 'Thumb border color.',
+  },
+  {
+    name: '--el-slider-tick-bg',
+    description: 'Tick mark color along the rail.',
+  },
+  {
+    name: '--el-slider-value-bg',
+    description: 'Background of the value label above the thumb.',
+  },
+  {
+    name: '--el-slider-value-fg',
+    description: 'Text color of the value label.',
+  },
+  {
+    name: '--el-slider-focus-ring',
+    description: 'Focus-visible outline on thumbs.',
+  },
+  {
+    name: '--el-slider-track-height-md',
+    description: 'Track height at size md (also sm/lg variants).',
+  },
+  {
+    name: '--el-slider-thumb-size-md',
+    description: 'Thumb diameter at size md (also sm/lg variants).',
+  },
+];
+
 export const AVATAR_TOKENS: TokenDefinition[] = [
   {
     name: '--el-avatar-bg',

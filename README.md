@@ -101,7 +101,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `avatar`, `card`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -424,6 +424,35 @@ Line and circle progress indicators. Determinate (`value` / `max`) or indetermin
 | `indeterminate` | `boolean` | `false` | Animated unknown progress |
 | `showValue` | `boolean` | `false` | Show rounded percent when determinate |
 | `size` | `sm` \| `md` \| `lg` | `md` | Track thickness or circle diameter |
+
+### Slider (`el-slider`)
+
+Horizontal value picker. Single thumb via `[(value)]`, or dual thumbs with `range` + `[(start)]` / `[(end)]`. Optional step ticks and value labels.
+
+```html
+<el-slider [(value)]="volume" [min]="0" [max]="100" showValue />
+<el-slider
+  range
+  [(start)]="minPrice"
+  [(end)]="maxPrice"
+  [step]="5"
+  showTicks
+  showValue
+/>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number` (model) | `0` | Single-thumb value |
+| `start` / `end` | `number` (model) | `0` / `100` | Range thumbs when `range` is set |
+| `min` / `max` | `number` | `0` / `100` | Bounds |
+| `step` | `number` | `1` | Snap increment |
+| `range` | `boolean` | `false` | Dual-thumb mode |
+| `showTicks` | `boolean` | `false` | Tick marks at each step (density capped) |
+| `showValue` | `boolean` | `false` | Value label above each thumb |
+| `size` | `sm` \| `md` \| `lg` | `md` | Track and thumb size |
+| `disabled` | `boolean` | `false` | Disable interaction |
+| `error` | `boolean` | `false` | Error styling |
 
 ### Avatar (`el-avatar`)
 

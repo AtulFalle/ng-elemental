@@ -216,6 +216,38 @@
   --el-progress-circle-stroke-md: 0.25rem;
   --el-progress-circle-stroke-lg: 0.3125rem;
 
+  // ── Slider ───────────────────────────────────────────────────────────────
+  --el-slider-track-bg: var(--el-color-border);
+  --el-slider-track-bg-disabled: var(--el-color-border-muted);
+  --el-slider-fill-bg: var(--el-color-accent);
+  --el-slider-fill-bg-disabled: var(--el-color-fg-disabled);
+  --el-slider-fill-error-bg: var(--el-color-error);
+  --el-slider-track-radius: 999px;
+  --el-slider-track-height-sm: 0.25rem;
+  --el-slider-track-height-md: 0.375rem;
+  --el-slider-track-height-lg: 0.5rem;
+  --el-slider-thumb-size-sm: 0.875rem;
+  --el-slider-thumb-size-md: 1.125rem;
+  --el-slider-thumb-size-lg: 1.375rem;
+  --el-slider-thumb-bg: var(--el-color-surface);
+  --el-slider-thumb-bg-disabled: var(--el-color-surface-muted);
+  --el-slider-thumb-border: var(--el-color-accent);
+  --el-slider-thumb-border-error: var(--el-color-error);
+  --el-slider-thumb-border-disabled: var(--el-color-border-muted);
+  --el-slider-thumb-border-width: 2px;
+  --el-slider-thumb-shadow: 0 1px 2px rgb(17 24 39 / 0.12);
+  --el-slider-tick-bg: var(--el-color-border-muted);
+  --el-slider-tick-width: 2px;
+  --el-slider-tick-height: 0.5rem;
+  --el-slider-value-bg: var(--el-color-fg);
+  --el-slider-value-fg: var(--el-color-fg-inverse);
+  --el-slider-value-bg-disabled: var(--el-color-border-muted);
+  --el-slider-value-fg-disabled: var(--el-color-fg-disabled);
+  --el-slider-value-size-sm: 0.6875rem;
+  --el-slider-value-size-md: 0.75rem;
+  --el-slider-value-size-lg: 0.8125rem;
+  --el-slider-focus-ring: var(--el-segmented-md3-focus);
+
   // ── Avatar ───────────────────────────────────────────────────────────────
   --el-avatar-bg: var(--el-color-accent-subtle);
   --el-avatar-fg: var(--el-color-accent);

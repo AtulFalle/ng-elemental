@@ -89,6 +89,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/progress-doc').then((m) => m.ProgressDocPage),
       },
       {
+        path: 'components/slider',
+        loadComponent: () =>
+          import('./docs/pages/slider-doc').then((m) => m.SliderDocPage),
+      },
+      {
         path: 'components/avatar',
         loadComponent: () =>
           import('./docs/pages/avatar-doc').then((m) => m.AvatarDocPage),

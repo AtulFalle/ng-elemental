@@ -102,6 +102,11 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['progress', 'progress-circle', 'progress-utils'],
   },
   {
+    name: 'slider',
+    assetGlobs: ['slider.{ts,html,scss}', 'slider-utils.ts'],
+    requiredBasenames: ['slider', 'slider-utils'],
+  },
+  {
     name: 'avatar',
     assetGlobs: ['avatar.{ts,html,scss}'],
     requiredBasenames: ['avatar'],

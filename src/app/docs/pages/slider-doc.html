@@ -1,0 +1,112 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Slider</h1>
+    <p class="docs-lead">
+      Horizontal value picker with a single thumb or a dual-thumb range. Supports
+      step snapping, optional tick marks, and value labels.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add slider</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-stack" style="gap: 2rem; max-width: 24rem">
+        <el-slider [(value)]="volume" showValue />
+        <el-slider
+          range
+          [(start)]="minPrice"
+          [(end)]="maxPrice"
+          [step]="5"
+          showTicks
+          showValue
+        />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Bind <code>[(value)]</code> for a single thumb. Set
+      <code>range</code> and bind <code>[(start)]</code> /
+      <code>[(end)]</code> for a range. Values snap to
+      <code>step</code> and stay within <code>min</code>…<code>max</code>.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Sizes</h3>
+    <app-preview>
+      <div class="docs-stack" style="gap: 1.5rem; max-width: 24rem">
+        <el-slider size="sm" [value]="30" showValue />
+        <el-slider size="md" [value]="50" showValue />
+        <el-slider size="lg" [value]="70" showValue />
+      </div>
+    </app-preview>
+
+    <h3>Step and ticks</h3>
+    <app-preview>
+      <div style="max-width: 24rem">
+        <el-slider
+          [(value)]="rating"
+          [min]="0"
+          [max]="10"
+          [step]="1"
+          showTicks
+          showValue
+        />
+      </div>
+    </app-preview>
+
+    <h3>Range</h3>
+    <app-preview>
+      <div style="max-width: 24rem">
+        <el-slider
+          range
+          [(start)]="minPrice"
+          [(end)]="maxPrice"
+          [step]="5"
+          showTicks
+          showValue
+        />
+      </div>
+    </app-preview>
+
+    <h3>Disabled / error</h3>
+    <app-preview>
+      <div class="docs-stack" style="gap: 1.5rem; max-width: 24rem">
+        <el-slider [value]="45" disabled showValue />
+        <el-slider [value]="20" error showValue />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      See <a routerLink="/theming">Theming</a> for setup, then override these
+      tokens globally or on a wrapper.
+    </p>
+    <app-tokens-table [tokens]="sliderTokens" />
+    <h3>Global override</h3>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

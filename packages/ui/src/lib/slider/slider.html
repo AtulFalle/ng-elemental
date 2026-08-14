@@ -1,0 +1,83 @@
+<div [class]="rootClass()">
+  <div
+    #rail
+    class="el-slider__rail"
+    (pointerdown)="onRailPointerDown($event)"
+    (pointermove)="onRailPointerMove($event)"
+    (pointerup)="onRailPointerUp($event)"
+    (pointercancel)="onRailPointerUp($event)"
+  >
+    <div class="el-slider__track"></div>
+    <div
+      class="el-slider__fill"
+      [style.inset-inline-start.%]="fillStartPercent()"
+      [style.width.%]="fillWidthPercent()"
+    ></div>
+
+    @if (showTicks()) {
+      <div class="el-slider__ticks" aria-hidden="true">
+        @for (tick of ticks(); track tick) {
+          <span
+            class="el-slider__tick"
+            [style.inset-inline-start.%]="tickPercent(tick)"
+          ></span>
+        }
+      </div>
+    }
+
+    @if (range()) {
+      <button
+        type="button"
+        class="el-slider__thumb el-slider__thumb--start"
+        [style.inset-inline-start.%]="startPercent()"
+        [disabled]="disabled()"
+        role="slider"
+        [attr.aria-valuemin]="bounds().min"
+        [attr.aria-valuemax]="rangeEnd()"
+        [attr.aria-valuenow]="rangeStart()"
+        [attr.aria-label]="'Minimum value'"
+        (keydown)="onThumbKeydown($event, 'start')"
+        (pointerdown)="onThumbPointerDown($event, 'start')"
+      >
+        @if (showValue()) {
+          <span class="el-slider__value">{{ rangeStart() }}</span>
+        }
+      </button>
+      <button
+        type="button"
+        class="el-slider__thumb el-slider__thumb--end"
+        [style.inset-inline-start.%]="endPercent()"
+        [disabled]="disabled()"
+        role="slider"
+        [attr.aria-valuemin]="rangeStart()"
+        [attr.aria-valuemax]="bounds().max"
+        [attr.aria-valuenow]="rangeEnd()"
+        [attr.aria-label]="'Maximum value'"
+        (keydown)="onThumbKeydown($event, 'end')"
+        (pointerdown)="onThumbPointerDown($event, 'end')"
+      >
+        @if (showValue()) {
+          <span class="el-slider__value">{{ rangeEnd() }}</span>
+        }
+      </button>
+    } @else {
+      <button
+        type="button"
+        class="el-slider__thumb"
+        [style.inset-inline-start.%]="valuePercent()"
+        [disabled]="disabled()"
+        role="slider"
+        [attr.aria-valuemin]="bounds().min"
+        [attr.aria-valuemax]="bounds().max"
+        [attr.aria-valuenow]="singleValue()"
+        [attr.aria-label]="'Value'"
+        (keydown)="onThumbKeydown($event, 'value')"
+        (pointerdown)="onThumbPointerDown($event, 'value')"
+      >
+        @if (showValue()) {
+          <span class="el-slider__value">{{ singleValue() }}</span>
+        }
+      </button>
+    }
+  </div>
+</div>

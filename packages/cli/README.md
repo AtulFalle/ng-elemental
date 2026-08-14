@@ -69,6 +69,7 @@ export class MyComponent {}
 | `datepicker` | `el-date-picker`, `el-date-range-picker` | `ElDatePicker`, `ElDateRangePicker` |
 | `chip` | `el-chip` | `ElChip` |
 | `progress` | `el-progress`, `el-progress-circle` | `ElProgress`, `ElProgressCircle` |
+| `slider` | `el-slider` | `ElSlider` |
 | `avatar` | `el-avatar` | `ElAvatar` |
 | `card` | `el-card` | `ElCard` |
 | `attachment` | `el-attachment` (+ parts) | `ElAttachment`, … |
