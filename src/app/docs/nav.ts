@@ -17,6 +17,10 @@ export const DOC_NAV: DocNavSection[] = [
     ],
   },
   {
+    title: 'Theming',
+    items: [{ label: 'Overview', path: '/theming' }],
+  },
+  {
     title: 'Components',
     items: [
       { label: 'Button', path: '/components/button' },

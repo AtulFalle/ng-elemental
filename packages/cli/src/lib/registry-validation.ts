@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   COMPONENT_REGISTRY,
+  getComponentSourceDir,
   isRegistryFilenameAllowed,
   REGISTRY_GLOB_MUST_NOT_CONTAIN,
   type ComponentRegistryEntry,
@@ -57,6 +58,12 @@ function validateRegistryEntry(
     }
   }
 
+  for (const file of entry.requiredFiles ?? []) {
+    if (!files.includes(file)) {
+      errors.push(`Missing registry/${entry.name}/${file}`);
+    }
+  }
+
   return errors;
 }
 
@@ -84,7 +91,7 @@ export function validateProjectJsonRegistryAssets(
   const assets = extractRegistryAssetsFromProjectJson(projectJsonPath);
 
   for (const entry of COMPONENT_REGISTRY) {
-    const expectedInput = `packages/ui/src/lib/${entry.name}`;
+    const expectedInput = getComponentSourceDir(entry);
     const expectedOutput = `registry/${entry.name}`;
 
     for (const glob of entry.assetGlobs) {

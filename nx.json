@@ -38,6 +38,13 @@
         "{workspaceRoot}/tools/eslint-rules/**/*"
       ]
     },
+    "stylelint": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/packages/ui/.stylelintrc.json"
+      ]
+    },
     "build-storybook": {
       "cache": true,
       "inputs": ["docsApp"]

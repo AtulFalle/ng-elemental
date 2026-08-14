@@ -1,0 +1,89 @@
+// NgElemental design tokens — single source of truth for theme colors.
+// Import once globally (Storybook, docs, consumer styles.scss).
+//
+// Customization:
+//   1. Override CSS variables on :root or a wrapper element.
+//   2. Use provideElTheme({ variables: { '--el-color-accent': '#…' } }).
+//   3. Set data-el-theme="dark" for the built-in dark palette.
+
+:root,
+[data-el-theme='light'] {
+  // ── Semantic colors ──────────────────────────────────────────────────────
+  --el-color-accent: #1d4ed8;
+  --el-color-accent-hover: #1e40af;
+  --el-color-accent-subtle: #eff6ff;
+  --el-color-fg: #111827;
+  --el-color-fg-muted: #6b7280;
+  --el-color-fg-inverse: #fff;
+  --el-color-error: #dc2626;
+  --el-color-border: #e5e7eb;
+  --el-color-border-muted: #d1d5db;
+  --el-color-surface: #fff;
+  --el-color-surface-muted: #f9fafb;
+  --el-color-surface-subtle: #dbeafe;
+  --el-color-overlay-hover: rgb(255 255 255 / 0.45);
+  --el-color-overlay-hover-muted: rgb(28 27 31 / 0.04);
+  --el-color-fg-disabled: rgb(28 27 31 / 0.38);
+
+  // ── Typography ───────────────────────────────────────────────────────────
+  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
+  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+
+  // ── Button ───────────────────────────────────────────────────────────────
+  --el-button-primary-bg: var(--el-color-accent);
+  --el-button-primary-bg-hover: var(--el-color-accent-hover);
+  --el-button-primary-fg: var(--el-color-fg-inverse);
+  --el-button-secondary-bg: var(--el-color-border);
+  --el-button-secondary-bg-hover: var(--el-color-border-muted);
+  --el-button-secondary-fg: var(--el-color-fg);
+  --el-button-ghost-fg: var(--el-color-accent);
+  --el-button-ghost-bg-hover: var(--el-color-accent-subtle);
+
+  // ── Label ────────────────────────────────────────────────────────────────
+  --el-label-fg: var(--el-color-fg);
+  --el-label-fg-muted: var(--el-color-fg-muted);
+  --el-label-fg-error: var(--el-color-error);
+  --el-label-required: var(--el-color-error);
+
+  // ── Segmented button (Material Design 3) ─────────────────────────────────
+  --el-segmented-md3-outline: #79747e;
+  --el-segmented-md3-on-surface: #1c1b1f;
+  --el-segmented-md3-secondary-container: #e8def8;
+  --el-segmented-md3-on-secondary-container: #1e192b;
+  --el-segmented-md3-focus: #6750a4;
+  --el-segmented-track-bg-primary: var(--el-color-surface-subtle);
+  --el-segmented-track-border-ghost: var(--el-color-border);
+  --el-segmented-item-border-ghost: var(--el-color-border);
+  --el-segmented-item-hover-bg-ghost: var(--el-color-surface-muted);
+
+  // ── Canvas / surfaces (Storybook, docs) ──────────────────────────────────
+  --el-surface-canvas: #fffbfe;
+  --el-surface-canvas-muted: #f3edf7;
+}
+
+[data-el-theme='dark'] {
+  --el-color-accent: #60a5fa;
+  --el-color-accent-hover: #3b82f6;
+  --el-color-accent-subtle: #1e3a5f;
+  --el-color-fg: #f3f4f6;
+  --el-color-fg-muted: #9ca3af;
+  --el-color-fg-inverse: #111827;
+  --el-color-error: #f87171;
+  --el-color-border: #374151;
+  --el-color-border-muted: #4b5563;
+  --el-color-surface: #111827;
+  --el-color-surface-muted: #1f2937;
+  --el-color-surface-subtle: #1e3a5f;
+  --el-color-overlay-hover: rgb(255 255 255 / 0.08);
+  --el-color-overlay-hover-muted: rgb(255 255 255 / 0.06);
+  --el-color-fg-disabled: rgb(243 244 246 / 0.38);
+
+  --el-segmented-md3-outline: #938f99;
+  --el-segmented-md3-on-surface: #e6e1e5;
+  --el-segmented-md3-secondary-container: #4a4458;
+  --el-segmented-md3-on-secondary-container: #e8def8;
+  --el-segmented-md3-focus: #d0bcff;
+
+  --el-surface-canvas: #1c1b1f;
+  --el-surface-canvas-muted: #141218;
+}

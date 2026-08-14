@@ -57,6 +57,7 @@ export class MyComponent {}
 
 | Name | Selector | Class |
 | --- | --- | --- |
+| `theme` | — | `ElThemeService` (+ `tokens.scss`) |
 | `button` | `el-button` | `ElButton` |
 | `label` | `el-label` | `ElLabel` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |

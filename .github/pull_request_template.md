@@ -18,7 +18,7 @@ Path-based `area:*` labels are applied automatically.
 
 <!-- How did you verify this works? -->
 
-- [ ] `npx nx run-many -t lint build test`
+- [ ] `npx nx run-many -t lint stylelint build test`
 
 ## Checklist
 

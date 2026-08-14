@@ -1,0 +1,125 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Theming</h1>
+    <p class="docs-lead">
+      NgElemental components read design tokens as CSS custom properties. Override
+      tokens globally, per section, or at runtime — no need to edit component
+      SCSS.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add theme files to your project: <code>npx @ng-elemental/cli add theme</code>
+  </div>
+
+  <section>
+    <h2>Setup</h2>
+    <p>
+      The <code>theme</code> package copies <code>tokens.scss</code> and
+      optional <code>ElThemeService</code> into your components directory. Import
+      tokens once in your global styles so every component receives default
+      values:
+    </p>
+    <app-code-block [code]="addCode" language="shell" />
+    <app-code-block [code]="importTokensCode" language="scss" />
+    <p>
+      Components reference tokens with <code>var(--el-…)</code>. As long as
+      tokens are loaded, styling stays consistent and overridable.
+    </p>
+  </section>
+
+  <section>
+    <h2>Global customization</h2>
+    <p>
+      Set semantic tokens on <code>:root</code> to retheme the entire app.
+      Component tokens such as <code>--el-button-primary-bg</code> inherit from
+      these values by default:
+    </p>
+    <app-code-block [code]="globalOverrideCode" language="scss" />
+    <p>
+      Changing <code>--el-color-accent</code> updates primary buttons, ghost
+      buttons, and primary segmented controls in one place. See each
+      <a routerLink="/components/button">component page</a> for its specific
+      token list.
+    </p>
+  </section>
+
+  <section>
+    <h2>Scoped customization</h2>
+    <p>
+      Override tokens on any ancestor element to style a subtree without
+      affecting the rest of the app. Useful for branded sections, dashboards, or
+      embedded widgets:
+    </p>
+    <app-code-block [code]="scopedOverrideCode" language="scss" />
+    <p>
+      In your template, wrap components in an element with that class:
+    </p>
+    <app-code-block
+      language="html"
+      code='&lt;div class="checkout-panel"&gt;
+  &lt;el-button variant="primary"&gt;Pay now&lt;/el-button&gt;
+&lt;/div&gt;'
+    />
+  </section>
+
+  <section>
+    <h2>Programmatic theming</h2>
+    <p>
+      Use <code>provideElTheme()</code> in <code>app.config.ts</code> to set an
+      initial mode and variable overrides:
+    </p>
+    <app-code-block [code]="provideThemeCode" />
+    <p>
+      Inject <code>ElThemeService</code> anywhere to switch light/dark mode or
+      update variables at runtime:
+    </p>
+    <app-code-block [code]="runtimeThemeCode" />
+  </section>
+
+  <section>
+    <h2>Dark mode</h2>
+    <p>
+      Built-in dark palette values live under
+      <code>[data-el-theme='dark']</code> in <code>tokens.scss</code>. Enable
+      dark mode by:
+    </p>
+    <ul>
+      <li>Calling <code>ElThemeService.setMode('dark')</code></li>
+      <li>Passing <code>mode: 'dark'</code> to <code>provideElTheme()</code></li>
+      <li>Setting <code>data-el-theme="dark"</code> on <code>&lt;html&gt;</code></li>
+    </ul>
+    <app-code-block [code]="darkModeCode" language="html" />
+    <h3>Live preview</h3>
+    <app-preview>
+      <el-button variant="primary" (click)="toggleMode()">
+        Toggle {{ isDark() ? 'light' : 'dark' }} mode
+      </el-button>
+      <el-button variant="secondary">Secondary</el-button>
+      <el-button variant="ghost">Ghost</el-button>
+    </app-preview>
+    <p>
+      This demo toggles <code>data-el-theme</code> on the document root via
+      <code>ElThemeService</code>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Semantic tokens</h2>
+    <p>
+      These base tokens drive most component colors. Override them for broad
+      changes; override component tokens when you need finer control.
+    </p>
+    <app-tokens-table [tokens]="semanticTokens" />
+  </section>
+
+  <section>
+    <h2>Component token reference</h2>
+    <p>Each component documents the tokens it consumes:</p>
+    <ul class="docs-link-list">
+      <li><a routerLink="/components/button">Button tokens</a></li>
+      <li><a routerLink="/components/label">Label tokens</a></li>
+      <li><a routerLink="/components/segmented-button">Segmented button tokens</a></li>
+    </ul>
+  </section>
+</article>

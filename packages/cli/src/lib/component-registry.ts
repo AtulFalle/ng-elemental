@@ -7,13 +7,17 @@ export const REGISTRY_FORBIDDEN_FILENAME_PARTS = [
 export interface ComponentRegistryEntry {
   /** CLI component id (folder name under registry/). */
   readonly name: string;
+  /** Source directory relative to repo root. Defaults to packages/ui/src/lib/<name>. */
+  readonly sourceDir?: string;
   /**
    * Explicit nx/esbuild asset globs for packages/cli/project.json.
    * Do not use `*` wildcards — they can accidentally include story files.
    */
   readonly assetGlobs: readonly string[];
-  /** File basenames that must exist in the built registry (e.g. "button", "segmented-button-item"). */
+  /** TypeScript file basenames that must exist in the built registry (e.g. "button"). */
   readonly requiredBasenames: readonly string[];
+  /** Additional required files with extensions (e.g. "tokens.scss"). */
+  readonly requiredFiles?: readonly string[];
 }
 
 /**
@@ -44,6 +48,13 @@ export const COMPONENT_REGISTRY = [
       'segmented-button.token',
     ],
   },
+  {
+    name: 'theme',
+    sourceDir: 'packages/ui/src/lib/theme',
+    assetGlobs: ['theme.ts', 'theme.token.ts', 'tokens.scss'],
+    requiredBasenames: ['theme', 'theme.token'],
+    requiredFiles: ['tokens.scss'],
+  },
 ] as const satisfies readonly ComponentRegistryEntry[];
 
 export type AvailableComponent = (typeof COMPONENT_REGISTRY)[number]['name'];
@@ -54,6 +65,10 @@ export const AVAILABLE_COMPONENTS: AvailableComponent[] = COMPONENT_REGISTRY.map
 
 /** Registry asset globs must be explicit — never use `*`. */
 export const REGISTRY_GLOB_MUST_NOT_CONTAIN = '*';
+
+export function getComponentSourceDir(entry: ComponentRegistryEntry): string {
+  return entry.sourceDir ?? `packages/ui/src/lib/${entry.name}`;
+}
 
 export function isRegistryFilenameAllowed(filename: string): boolean {
   return !REGISTRY_FORBIDDEN_FILENAME_PARTS.some((part) => filename.includes(part));

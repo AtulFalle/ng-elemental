@@ -126,6 +126,23 @@
   </section>
 
   <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Segmented button variants set local CSS variables on the host element.
+      Override the tokens below globally or on a wrapper to customize borders,
+      selection colors, and hover states. Primary and ghost variants also read
+      shared <a routerLink="/components/button">button tokens</a>.
+    </p>
+    <app-tokens-table [tokens]="segmentedButtonTokens" />
+    <h3>Global override</h3>
+    <p>Customize the secondary (default) Material-style palette:</p>
+    <app-code-block [code]="globalTokensCode" language="scss" />
+    <h3>Scoped override</h3>
+    <p>Restyle ghost segments inside a toolbar without affecting other groups:</p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
     <h2>API Reference</h2>
     <h3>el-segmented-button</h3>
     <app-props-table [props]="groupProps" />

@@ -5,8 +5,8 @@ const preview: Preview = {
     backgrounds: {
       default: 'surface',
       values: [
-        { name: 'surface', value: '#fffbfe' },
-        { name: 'muted', value: '#f3edf7' },
+        { name: 'surface', value: 'var(--el-surface-canvas)' },
+        { name: 'muted', value: 'var(--el-surface-canvas-muted)' },
       ],
     },
   },

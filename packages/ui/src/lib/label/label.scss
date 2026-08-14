@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  font-family: var(--el-font-sans, 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif);
+  font-family: var(--el-font-sans);
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.25;
@@ -13,18 +13,18 @@
   }
 
   &--default {
-    color: #111827;
+    color: var(--el-label-fg);
   }
 
   &--muted {
-    color: #6b7280;
+    color: var(--el-label-fg-muted);
   }
 
   &--error {
-    color: #dc2626;
+    color: var(--el-label-fg-error);
   }
 
   &__required {
-    color: #dc2626;
+    color: var(--el-label-required);
   }
 }

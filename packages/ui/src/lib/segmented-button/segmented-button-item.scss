@@ -44,6 +44,6 @@
 
 :host([aria-disabled='true']) {
   cursor: not-allowed;
-  color: rgb(28 27 31 / 0.38);
+  color: var(--el-color-fg-disabled);
   pointer-events: none;
 }

@@ -1,0 +1,31 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "selector-class-pattern": [
+      "^el-[a-z][a-z0-9-]*(__[a-z0-9-]+)?(--[a-z0-9-]+)?$",
+      {
+        "message": "Expected BEM class selector with el- prefix (e.g. .el-button, .el-button--primary, .el-label__required)"
+      }
+    ],
+    "color-no-hex": [
+      true,
+      {
+        "ignore": ["within-function"]
+      }
+    ],
+    "selector-not-notation": "simple",
+    "declaration-empty-line-before": null
+  },
+  "overrides": [
+    {
+      "files": ["src/lib/theme/tokens.scss"],
+      "rules": {
+        "color-no-hex": null,
+        "alpha-value-notation": null,
+        "value-keyword-case": null,
+        "custom-property-empty-line-before": null,
+        "scss/comment-no-empty": null
+      }
+    }
+  ]
+}

@@ -5,7 +5,7 @@
   gap: 0.5rem;
   border: 1px solid transparent;
   border-radius: 0.375rem;
-  font-family: var(--el-font-sans, 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif);
+  font-family: var(--el-font-sans);
   font-weight: 600;
   line-height: 1.25;
   cursor: pointer;
@@ -35,29 +35,29 @@
   }
 
   &--primary {
-    background-color: #1d4ed8;
-    color: #fff;
+    background-color: var(--el-button-primary-bg);
+    color: var(--el-button-primary-fg);
 
     &:hover:not(:disabled) {
-      background-color: #1e40af;
+      background-color: var(--el-button-primary-bg-hover);
     }
   }
 
   &--secondary {
-    background-color: #e5e7eb;
-    color: #111827;
+    background-color: var(--el-button-secondary-bg);
+    color: var(--el-button-secondary-fg);
 
     &:hover:not(:disabled) {
-      background-color: #d1d5db;
+      background-color: var(--el-button-secondary-bg-hover);
     }
   }
 
   &--ghost {
     background-color: transparent;
-    color: #1d4ed8;
+    color: var(--el-button-ghost-fg);
 
     &:hover:not(:disabled) {
-      background-color: #eff6ff;
+      background-color: var(--el-button-ghost-bg-hover);
     }
   }
 }
