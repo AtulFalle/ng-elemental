@@ -1,13 +1,18 @@
 :host(.el-attachment-host) {
   display: block;
+  min-width: 0;
+  height: 100%;
 }
 
 .el-attachment {
   position: relative;
   display: flex;
+  flex-direction: row;
   align-items: center;
   box-sizing: border-box;
   gap: var(--el-attachment-gap);
+  width: 100%;
+  height: 100%;
   padding: var(--el-attachment-padding);
   border: 1px solid var(--el-attachment-border);
   border-radius: var(--el-attachment-radius);
@@ -15,9 +20,31 @@
   color: var(--el-attachment-fg);
   font-family: var(--el-font-sans);
 
+  &__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--el-attachment-gap);
+    min-width: 0;
+
+    &:not(:has(*)) {
+      display: none;
+    }
+  }
+
   &--vertical {
     flex-direction: column;
     align-items: stretch;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  &--vertical &__body {
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: var(--el-attachment-padding);
   }
 
   &--sm {

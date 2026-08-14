@@ -100,7 +100,7 @@ export class MyComponent {}`;
   </el-attachment-actions>
 </el-attachment>`;
 
-  protected readonly imageCode = `<el-attachment orientation="vertical" state="done">
+  protected readonly imageCode = `<el-attachment orientation="vertical" state="done" style="width: 14rem">
   <el-attachment-media variant="image">
     <img src="/workspace.png" alt="" />
   </el-attachment-media>
@@ -108,6 +108,9 @@ export class MyComponent {}`;
     <el-attachment-title>workspace.png</el-attachment-title>
     <el-attachment-description>PNG · 820 KB</el-attachment-description>
   </el-attachment-content>
+  <el-attachment-actions>
+    <el-attachment-action ariaLabel="Remove workspace.png" />
+  </el-attachment-actions>
 </el-attachment>`;
 
   protected readonly globalTokensCode = `:root {

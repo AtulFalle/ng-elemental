@@ -6,48 +6,34 @@
 .el-attachment-group {
   position: relative;
   min-width: 0;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: 1;
-    width: var(--el-attachment-group-fade-width);
-    pointer-events: none;
-  }
-
-  &::before {
-    left: 0;
-    background: linear-gradient(
-      to right,
-      var(--el-attachment-group-fade-bg),
-      transparent
-    );
-  }
-
-  &::after {
-    right: 0;
-    background: linear-gradient(
-      to left,
-      var(--el-attachment-group-fade-bg),
-      transparent
-    );
-  }
 }
 
 .el-attachment-group__scroller {
   display: flex;
+  align-items: stretch;
   gap: var(--el-attachment-group-gap);
   overflow-x: auto;
-  padding-block: 0.125rem;
+  padding: 0.25rem 0.125rem 0.5rem;
   scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0.125rem;
   scrollbar-width: thin;
 
+  /* Soft edge fade without covering interactive controls */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    rgb(0 0 0) var(--el-attachment-group-fade-width),
+    rgb(0 0 0) calc(100% - var(--el-attachment-group-fade-width)),
+    transparent
+  );
+
   > * {
+    display: block;
     flex: 0 0 auto;
+    box-sizing: border-box;
+    width: var(--el-attachment-group-item-width);
+    min-width: var(--el-attachment-group-item-width);
+    max-width: var(--el-attachment-group-item-width);
     scroll-snap-align: start;
-    min-width: var(--el-attachment-group-item-min-width);
   }
 }

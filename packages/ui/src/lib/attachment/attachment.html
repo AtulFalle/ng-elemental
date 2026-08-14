@@ -1,3 +1,8 @@
 <div [class]="rootClass()">
+  <ng-content select="el-attachment-media" />
+  <div class="el-attachment__body">
+    <ng-content select="el-attachment-content" />
+    <ng-content select="el-attachment-actions" />
+  </div>
   <ng-content />
 </div>

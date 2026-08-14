@@ -1,17 +1,17 @@
 :host(.el-attachment-actions-host) {
   display: block;
   flex: 0 0 auto;
-  margin-inline-start: auto;
 }
 
 .el-attachment-actions {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--el-attachment-actions-gap);
 }
 
-:host-context(.el-attachment--vertical) {
-  margin-inline-start: 0;
-  align-self: flex-end;
+:host-context(.el-attachment--vertical) .el-attachment-actions {
+  align-self: flex-start;
+  padding-block-start: 0.125rem;
 }

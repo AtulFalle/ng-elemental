@@ -279,9 +279,11 @@
   --el-attachment-desc-size-md: 0.75rem;
   --el-attachment-desc-size-lg: 0.8125rem;
   --el-attachment-group-gap: 0.75rem;
-  --el-attachment-group-item-min-width: 12rem;
-  --el-attachment-group-fade-width: 1.5rem;
+  --el-attachment-group-item-width: 14rem;
+  --el-attachment-group-item-min-width: 14rem;
+  --el-attachment-group-fade-width: 1.25rem;
   --el-attachment-group-fade-bg: var(--el-surface-canvas);
+  --el-attachment-vertical-media-height: 8.5rem;
 
   // ── File upload ──────────────────────────────────────────────────────────
   --el-file-upload-bg: var(--el-color-surface);

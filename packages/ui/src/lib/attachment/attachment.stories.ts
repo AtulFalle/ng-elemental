@@ -117,7 +117,7 @@ export const ImageVertical: Story = {
     props: args,
     moduleMetadata: { imports: ATTACHMENT_IMPORTS },
     template: `
-      <el-attachment [state]="state" [orientation]="orientation" style="max-width: 12rem">
+      <el-attachment [state]="state" [orientation]="orientation" style="width: 14rem">
         <el-attachment-media variant="image">
           <img
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=320&q=80"
@@ -164,16 +164,7 @@ export const Group: Story = {
   render: () => ({
     moduleMetadata: { imports: ATTACHMENT_IMPORTS },
     template: `
-      <el-attachment-group ariaLabel="Recent files" style="max-width: 28rem">
-        <el-attachment state="done">
-          <el-attachment-media>
-            <el-icon name="file-lines" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>briefing-notes.pdf</el-attachment-title>
-            <el-attachment-description>PDF · 1.4 MB</el-attachment-description>
-          </el-attachment-content>
-        </el-attachment>
+      <el-attachment-group ariaLabel="Recent files" style="max-width: 36rem">
         <el-attachment state="done" orientation="vertical">
           <el-attachment-media variant="image">
             <img
@@ -185,8 +176,38 @@ export const Group: Story = {
             <el-attachment-title>workspace.png</el-attachment-title>
             <el-attachment-description>PNG · 820 KB</el-attachment-description>
           </el-attachment-content>
+          <el-attachment-actions>
+            <el-attachment-action ariaLabel="Remove workspace.png" />
+          </el-attachment-actions>
         </el-attachment>
-        <el-attachment state="done">
+        <el-attachment state="done" orientation="vertical">
+          <el-attachment-media variant="image">
+            <img
+              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=320&q=80"
+              alt=""
+            />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>desk-reference.jpg</el-attachment-title>
+            <el-attachment-description>JPG · 1.1 MB</el-attachment-description>
+          </el-attachment-content>
+          <el-attachment-actions>
+            <el-attachment-action ariaLabel="Remove desk-reference.jpg" />
+          </el-attachment-actions>
+        </el-attachment>
+        <el-attachment state="done" orientation="vertical">
+          <el-attachment-media>
+            <el-icon name="file-lines" />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>briefing-notes.pdf</el-attachment-title>
+            <el-attachment-description>PDF · 1.4 MB</el-attachment-description>
+          </el-attachment-content>
+          <el-attachment-actions>
+            <el-attachment-action ariaLabel="Remove briefing-notes.pdf" />
+          </el-attachment-actions>
+        </el-attachment>
+        <el-attachment state="done" orientation="vertical">
           <el-attachment-media>
             <el-icon name="file-code" />
           </el-attachment-media>
@@ -194,6 +215,9 @@ export const Group: Story = {
             <el-attachment-title>renderer.tsx</el-attachment-title>
             <el-attachment-description>TSX · 12 KB</el-attachment-description>
           </el-attachment-content>
+          <el-attachment-actions>
+            <el-attachment-action ariaLabel="Remove renderer.tsx" />
+          </el-attachment-actions>
         </el-attachment>
       </el-attachment-group>
     `,

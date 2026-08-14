@@ -610,6 +610,14 @@ export const ATTACHMENT_TOKENS: TokenDefinition[] = [
     name: '--el-attachment-group-gap',
     description: 'Gap between attachments in a group scroller.',
   },
+  {
+    name: '--el-attachment-group-item-width',
+    description: 'Fixed card width for each item in AttachmentGroup.',
+  },
+  {
+    name: '--el-attachment-vertical-media-height',
+    description: 'Image media height when orientation is vertical.',
+  },
 ];
 
 export const FILE_UPLOAD_TOKENS: TokenDefinition[] = [
