@@ -1,0 +1,73 @@
+<button
+  type="button"
+  class="docs-theme-backdrop"
+  aria-label="Close theme panel"
+  (click)="closed.emit()"
+></button>
+
+<aside class="docs-theme-panel" role="dialog" aria-labelledby="docs-theme-panel-title">
+  <header class="docs-theme-panel__header">
+    <h2 id="docs-theme-panel-title">Theme</h2>
+    <button
+      type="button"
+      class="docs-theme-panel__close"
+      aria-label="Close theme panel"
+      (click)="closed.emit()"
+    >
+      <el-icon name="xmark" size="sm" />
+    </button>
+  </header>
+
+  <p class="docs-theme-panel__hint">
+    Pick BRAND colors, click Apply, then browse components. Copy the snippet and
+    paste it after <code>@use</code> of <code>tokens.scss</code> in your app.
+  </p>
+
+  <el-segmented-button
+    class="docs-theme-panel__mode"
+    size="sm"
+    [value]="mode()"
+    (valueChange)="setMode($event)"
+    ariaLabel="Color scheme"
+  >
+    <el-segmented-button-item value="light">Light</el-segmented-button-item>
+    <el-segmented-button-item value="dark">Dark</el-segmented-button-item>
+  </el-segmented-button>
+
+  <div class="docs-theme-panel__actions">
+    <el-button variant="primary" size="sm" (click)="apply()">Apply</el-button>
+    <el-button variant="secondary" size="sm" (click)="reset()">Reset</el-button>
+    <el-button variant="ghost" size="sm" (click)="copy()">
+      {{ copied() ? 'Copied' : 'Copy' }}
+    </el-button>
+  </div>
+
+  <div class="docs-theme-panel__list">
+    @for (group of groups; track group.label) {
+      <section class="docs-theme-panel__group">
+        <h3>{{ group.label }}</h3>
+        @for (token of group.tokens; track token.name) {
+          <label class="docs-theme-panel__row">
+            <span class="docs-theme-panel__name">{{ token.label }}</span>
+            <input
+              type="color"
+              class="docs-theme-panel__swatch"
+              [value]="colorOf(token)"
+              [attr.aria-label]="token.name + ' ' + mode()"
+              (input)="onPicker(token, $event)"
+            />
+            <input
+              type="text"
+              class="docs-theme-panel__hex"
+              spellcheck="false"
+              maxlength="7"
+              [value]="colorOf(token)"
+              [attr.aria-label]="token.name + ' hex'"
+              (change)="onHex(token, $event)"
+            />
+          </label>
+        }
+      </section>
+    }
+  </div>
+</aside>
