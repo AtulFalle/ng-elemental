@@ -27,7 +27,7 @@ describe('add form-error e2e', () => {
         'utf8',
       );
       expect(formErrorScss).toContain('.el-form-error');
-      expect(formErrorScss).toContain('--el-form-error-fg');
+      expect(formErrorScss).toContain('--el-color-error');
 
       expect(
         existsSync(componentUiPath(tmp, 'form-error', 'form-error.stories.ts')),

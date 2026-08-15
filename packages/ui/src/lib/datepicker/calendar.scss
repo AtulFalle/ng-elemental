@@ -1,7 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--el-space-3);
   width: 100%;
 }
 
@@ -21,25 +21,25 @@
     flex: 1;
     align-items: center;
     justify-content: center;
-    gap: 0.25rem;
+    gap: var(--el-space-1);
     font-family: var(--el-font-sans);
     font-size: 0.875rem;
     font-weight: 600;
     text-align: center;
-    color: var(--el-datepicker-fg);
+    color: var(--el-color-on-surface);
   }
 
   &__title-text {
-    padding: 0.25rem 0.375rem;
+    padding: var(--el-space-1) 0.375rem;
   }
 
   &__period {
     display: inline-flex;
     align-items: center;
     gap: 0.125rem;
-    padding: 0.25rem 0.375rem;
+    padding: var(--el-space-1) 0.375rem;
     border: 0;
-    border-radius: var(--el-datepicker-trigger-radius);
+    border-radius: var(--el-radius-xs);
     background: transparent;
     font: inherit;
     color: inherit;
@@ -47,17 +47,17 @@
   }
 
   &__period:disabled {
-    color: var(--el-datepicker-day-fg-disabled);
+    color: var(--el-color-disabled);
     cursor: not-allowed;
   }
 
   &__period:focus-visible {
-    outline: 2px solid var(--el-datepicker-focus-ring);
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
     outline-offset: 2px;
   }
 
   &__period:hover:not(:disabled) {
-    background: var(--el-datepicker-day-hover-bg);
+    background: var(--el-color-hover);
   }
 
   &__grid {
@@ -80,7 +80,7 @@
     font-family: var(--el-font-sans);
     font-size: 0.6875rem;
     font-weight: 600;
-    color: var(--el-datepicker-muted-fg);
+    color: var(--el-color-on-surface-variant);
   }
 
   &__day {
@@ -93,28 +93,28 @@
     aspect-ratio: 1;
     padding: 0;
     border: 0;
-    border-radius: var(--el-datepicker-day-radius);
+    border-radius: var(--el-radius-full);
     background: transparent;
     font-family: var(--el-font-sans);
     font-size: 0.8125rem;
     font-weight: 500;
-    color: var(--el-datepicker-fg);
+    color: var(--el-color-on-surface);
     cursor: pointer;
   }
 
   &__day:disabled {
-    color: var(--el-datepicker-day-fg-disabled);
+    color: var(--el-color-disabled);
     cursor: not-allowed;
   }
 
   &__day:focus-visible {
-    outline: 2px solid var(--el-datepicker-focus-ring);
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
     outline-offset: 1px;
     z-index: 1;
   }
 
   &__day:hover:not(:disabled):not(.el-calendar__day--selected) {
-    background: var(--el-datepicker-day-hover-bg);
+    background: var(--el-color-hover);
   }
 
   &__day--outside {
@@ -122,26 +122,26 @@
   }
 
   &__day--today:not(.el-calendar__day--selected) {
-    box-shadow: inset 0 0 0 1px var(--el-datepicker-today-border);
+    box-shadow: inset 0 0 0 var(--el-border-width) var(--el-color-primary);
   }
 
   &__day--in-range {
-    background: var(--el-datepicker-range-bg);
+    background: var(--el-color-primary-container);
     border-radius: 0;
   }
 
   &__day--selected,
   &__day--range-start,
   &__day--range-end {
-    background: var(--el-datepicker-day-selected-bg);
-    color: var(--el-datepicker-day-selected-fg);
-    border-radius: var(--el-datepicker-day-radius);
+    background: var(--el-color-primary);
+    color: var(--el-color-on-primary);
+    border-radius: var(--el-radius-full);
   }
 
   &__picker {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.25rem;
+    gap: var(--el-space-1);
     min-height: 14rem;
   }
 
@@ -155,37 +155,37 @@
     align-items: center;
     justify-content: center;
     min-height: 3rem;
-    padding: 0.5rem 0.25rem;
+    padding: var(--el-space-2) var(--el-space-1);
     border: 0;
-    border-radius: var(--el-datepicker-trigger-radius);
+    border-radius: var(--el-radius-xs);
     background: transparent;
     font-family: var(--el-font-sans);
     font-size: 0.8125rem;
     font-weight: 500;
-    color: var(--el-datepicker-fg);
+    color: var(--el-color-on-surface);
     cursor: pointer;
   }
 
   &__picker-item:disabled {
-    color: var(--el-datepicker-day-fg-disabled);
+    color: var(--el-color-disabled);
     cursor: not-allowed;
   }
 
   &__picker-item:focus-visible {
-    outline: 2px solid var(--el-datepicker-focus-ring);
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
     outline-offset: 1px;
   }
 
   &__picker-item:hover:not(:disabled):not(.el-calendar__picker-item--selected) {
-    background: var(--el-datepicker-day-hover-bg);
+    background: var(--el-color-hover);
   }
 
   &__picker-item--today:not(.el-calendar__picker-item--selected) {
-    box-shadow: inset 0 0 0 1px var(--el-datepicker-today-border);
+    box-shadow: inset 0 0 0 var(--el-border-width) var(--el-color-primary);
   }
 
   &__picker-item--selected {
-    background: var(--el-datepicker-day-selected-bg);
-    color: var(--el-datepicker-day-selected-fg);
+    background: var(--el-color-primary);
+    color: var(--el-color-on-primary);
   }
 }

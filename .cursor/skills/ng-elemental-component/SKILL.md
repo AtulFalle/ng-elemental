@@ -61,7 +61,7 @@ Stories live next to the component (`*.stories.ts`) and **must not** ship in the
 
 1. Implement in `packages/ui/src/lib/<name>/` (`.ts`, `.html`, `.scss`, `.stories.ts`).
 2. Export from `packages/ui/src/index.ts`.
-3. Add tokens in `tokens.scss` (light + dark if needed). No hex in component SCSS.
+3. Use generic tokens from `tokens.scss` (`--el-color-primary`, `--el-radius-xs`, …). Unique sizes stay hardcoded in the widget SCSS. Do not add `--el-<name>-*` to `tokens.scss`. Hex only in the theme file.
 4. Register in `component-registry.ts` and matching `project.json` assets.
 5. Add `COMPONENT_EXAMPLES` in `add.ts`, help line in `cli.ts`.
 6. Add `packages/cli/src/e2e/add-<name>.spec.ts`.

@@ -11,12 +11,12 @@
   box-sizing: border-box;
   width: var(--el-attachment-media-size, 2.5rem);
   height: var(--el-attachment-media-size, 2.5rem);
-  border-radius: var(--el-attachment-media-radius);
-  background: var(--el-attachment-media-bg);
-  color: var(--el-attachment-media-fg);
+  border-radius: var(--el-radius-sm);
+  background: var(--el-color-surface-container);
+  color: var(--el-color-on-surface-variant);
 
   &--image {
-    background: var(--el-attachment-media-bg);
+    background: var(--el-color-surface-container);
 
     :where(img) {
       display: block;
@@ -39,7 +39,7 @@
 
   &--image {
     width: 100%;
-    height: var(--el-attachment-vertical-media-height, 8.5rem);
+    height: 8.5rem;
     border-radius: 0;
   }
 }

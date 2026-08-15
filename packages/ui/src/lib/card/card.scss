@@ -7,26 +7,26 @@
   flex-direction: column;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: var(--el-card-radius);
-  background: var(--el-card-bg);
-  color: var(--el-card-fg);
+  border-radius: var(--el-radius-md);
+  background: var(--el-color-surface);
+  color: var(--el-color-on-surface);
   font-family: var(--el-font-sans);
 
   &--outlined {
-    border: 1px solid var(--el-card-border);
+    border: var(--el-border-width) solid var(--el-color-outline-variant);
   }
 
   &--elevated {
-    border: 1px solid transparent;
-    box-shadow: var(--el-card-elevated-shadow);
+    border: var(--el-border-width) solid transparent;
+    box-shadow: var(--el-shadow-1);
   }
 
   &--compact {
     flex-direction: row;
     align-items: center;
-    gap: var(--el-card-compact-gap);
-    padding: var(--el-card-compact-padding);
-    border-radius: var(--el-card-compact-radius);
+    gap: var(--el-space-3);
+    padding: var(--el-space-2) var(--el-space-3);
+    border-radius: var(--el-radius-sm);
   }
 }
 
@@ -38,21 +38,21 @@
 .el-card__body {
   display: flex;
   flex-direction: column;
-  gap: var(--el-card-gap);
-  padding: var(--el-card-padding);
+  gap: var(--el-space-3);
+  padding: var(--el-space-4);
   min-width: 0;
 }
 
 .el-card__header {
   display: flex;
   flex-direction: column;
-  gap: var(--el-card-gap);
+  gap: var(--el-space-3);
 }
 
 .el-card__content {
   flex: 1 1 auto;
-  color: var(--el-card-fg-muted);
-  font-size: var(--el-card-content-font-size);
+  color: var(--el-color-on-surface-variant);
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
@@ -60,8 +60,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--el-card-gap);
-  padding: var(--el-card-padding);
+  gap: var(--el-space-3);
+  padding: var(--el-space-4);
 }
 
 .el-card__body + .el-card__footer {
@@ -73,23 +73,23 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  width: var(--el-card-compact-media-size);
-  min-height: var(--el-card-compact-media-size);
-  color: var(--el-card-fg-muted);
+  width: 2rem;
+  min-height: 2rem;
+  color: var(--el-color-on-surface-variant);
 }
 
 .el-card--compact .el-card__body {
   flex: 1 1 auto;
-  gap: var(--el-card-compact-body-gap);
+  gap: 0.125rem;
   padding: 0;
 }
 
 .el-card--compact .el-card__header {
-  gap: var(--el-card-compact-body-gap);
+  gap: 0.125rem;
 }
 
 .el-card--compact .el-card__content {
-  font-size: var(--el-card-compact-content-font-size);
+  font-size: 0.8125rem;
   line-height: 1.35;
 }
 

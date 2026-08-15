@@ -88,7 +88,7 @@ describe('add datepicker e2e', () => {
         'utf8',
       );
       expect(datePickerScss).toContain('.el-date-picker');
-      expect(datePickerScss).toContain('--el-datepicker-trigger-border');
+      expect(datePickerScss).toContain('--el-color-outline-variant');
 
       expect(
         existsSync(componentUiPath(tmp, 'datepicker', 'date-picker.stories.ts')),

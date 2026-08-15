@@ -28,8 +28,8 @@ describe('add progress e2e', () => {
         'utf8',
       );
       expect(progressScss).toContain('.el-progress');
-      expect(progressScss).toContain('--el-progress-track-bg');
-      expect(progressScss).toContain('--el-progress-fill-bg');
+      expect(progressScss).toContain('--el-color-outline-variant');
+      expect(progressScss).toContain('--el-color-primary');
 
       const circleTs = await readFile(
         componentUiPath(tmp, 'progress', 'progress-circle.ts'),

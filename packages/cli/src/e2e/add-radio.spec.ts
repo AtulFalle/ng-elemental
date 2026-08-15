@@ -27,7 +27,7 @@ describe('add radio e2e', () => {
 
       const radioScss = await readFile(componentUiPath(tmp, 'radio', 'radio.scss'), 'utf8');
       expect(radioScss).toContain('.el-radio');
-      expect(radioScss).toContain('--el-radio-size');
+      expect(radioScss).toContain('--el-color-primary');
 
       expect(existsSync(componentUiPath(tmp, 'radio', 'radio.stories.ts'))).toBe(false);
     });

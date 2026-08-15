@@ -19,7 +19,7 @@ describe('add chip e2e', () => {
 
       const chipScss = await readFile(componentUiPath(tmp, 'chip', 'chip.scss'), 'utf8');
       expect(chipScss).toContain('.el-chip');
-      expect(chipScss).toContain('--el-chip-height');
+      expect(chipScss).toContain('--el-color-outline');
 
       expect(existsSync(componentUiPath(tmp, 'chip', 'chip.stories.ts'))).toBe(false);
     });

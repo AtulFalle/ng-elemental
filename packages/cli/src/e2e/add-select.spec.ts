@@ -47,7 +47,7 @@ describe('add select e2e', () => {
         'utf8',
       );
       expect(selectScss).toContain('.el-select');
-      expect(selectScss).toContain('--el-select-trigger-border');
+      expect(selectScss).toContain('--el-color-outline-variant');
 
       expect(existsSync(componentUiPath(tmp, 'select', 'select.stories.ts'))).toBe(
         false,

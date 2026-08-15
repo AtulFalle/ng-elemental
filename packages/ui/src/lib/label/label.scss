@@ -1,7 +1,7 @@
 .el-label {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--el-space-1);
   font-family: var(--el-font-sans);
   font-size: 0.875rem;
   font-weight: 600;
@@ -13,18 +13,18 @@
   }
 
   &--default {
-    color: var(--el-label-fg);
+    color: var(--el-color-on-surface);
   }
 
   &--muted {
-    color: var(--el-label-fg-muted);
+    color: var(--el-color-on-surface-variant);
   }
 
   &--error {
-    color: var(--el-label-fg-error);
+    color: var(--el-color-error);
   }
 
   &__required {
-    color: var(--el-label-required);
+    color: var(--el-color-error);
   }
 }

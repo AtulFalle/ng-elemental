@@ -2,13 +2,13 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--el-radio-gap);
+  gap: var(--el-space-2);
   max-width: 100%;
   font-family: var(--el-font-sans);
-  font-size: var(--el-radio-label-size);
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.25;
-  color: var(--el-radio-label-fg);
+  color: var(--el-color-on-surface);
   cursor: pointer;
   user-select: none;
 
@@ -17,7 +17,7 @@
   }
 
   &--disabled {
-    color: var(--el-radio-label-fg-disabled);
+    color: var(--el-color-disabled);
     cursor: not-allowed;
   }
 
@@ -25,8 +25,8 @@
     position: absolute;
     inset-block-start: 0;
     inset-inline-start: 0;
-    width: var(--el-radio-size);
-    height: var(--el-radio-size);
+    width: 1.125rem;
+    height: 1.125rem;
     margin: 0;
     opacity: 0;
     cursor: inherit;
@@ -39,31 +39,31 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    width: var(--el-radio-size);
-    height: var(--el-radio-size);
-    border: var(--el-radio-border-width) solid var(--el-radio-border);
+    width: 1.125rem;
+    height: 1.125rem;
+    border: var(--el-border-width-thick) solid var(--el-color-outline);
     border-radius: 50%;
-    background: var(--el-radio-bg);
+    background: transparent;
   }
 
   &--checked &__control {
-    border-color: var(--el-radio-selected-border);
+    border-color: var(--el-color-primary);
   }
 
   &--disabled &__control {
-    border-color: var(--el-radio-border-disabled);
-    background: var(--el-radio-bg-disabled);
+    border-color: var(--el-color-disabled-container);
+    background: var(--el-color-disabled-container-subtle);
   }
 
   &--disabled.el-radio--checked &__control {
-    border-color: var(--el-radio-selected-border-disabled);
+    border-color: var(--el-color-disabled);
   }
 
   &__dot {
-    width: var(--el-radio-dot-size);
-    height: var(--el-radio-dot-size);
+    width: 0.625rem;
+    height: 0.625rem;
     border-radius: 50%;
-    background: var(--el-radio-dot);
+    background: var(--el-color-primary);
     opacity: 0;
     transform: scale(0);
     transition:
@@ -77,7 +77,7 @@
   }
 
   &--disabled.el-radio--checked &__dot {
-    background: var(--el-radio-dot-disabled);
+    background: var(--el-color-disabled);
   }
 
   &__label {
@@ -85,7 +85,7 @@
   }
 
   &__input:focus-visible + &__control {
-    outline: 2px solid var(--el-radio-focus-ring);
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
     outline-offset: 2px;
   }
 }

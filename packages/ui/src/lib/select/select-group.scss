@@ -5,19 +5,19 @@
 
 .el-select-group {
   &__label {
-    padding: 0.5rem 0.75rem 0.25rem;
+    padding: var(--el-space-2) var(--el-space-3) var(--el-space-1);
     font-family: var(--el-font-sans);
     font-size: 0.75rem;
     font-weight: 600;
     line-height: 1.25;
     letter-spacing: 0.04em;
-    color: var(--el-select-group-fg);
+    color: var(--el-color-on-surface-variant);
     text-transform: uppercase;
   }
 
   &__items {
     display: flex;
     flex-direction: column;
-    padding-inline-start: 0.5rem;
+    padding-inline-start: var(--el-space-2);
   }
 }

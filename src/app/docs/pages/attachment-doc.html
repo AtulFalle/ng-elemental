@@ -230,9 +230,14 @@
   </section>
 
   <section>
-    <h2>Tokens</h2>
-    <app-tokens-table [tokens]="attachmentTokens" />
-    <app-code-block [code]="globalTokensCode" language="css" />
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
   </section>
 
   <section>

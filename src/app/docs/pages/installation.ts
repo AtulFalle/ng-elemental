@@ -28,10 +28,10 @@ npx @ng-elemental/cli add <component>`;
 
   protected readonly stylesCode = `@use './app/ui/theme/tokens';
 
-// Optional: override brand colors
+// Optional: override brand colors (edit the BRAND block in tokens.scss)
 :root {
-  --el-color-accent: #6366f1;
-  --el-color-accent-hover: #4f46e5;
+  --el-color-primary: light-dark(#6750a4, #d0bcff);
+  --el-color-on-primary: light-dark(#ffffff, #381e72);
 }
 
 // When using icons, also load Font Awesome once:

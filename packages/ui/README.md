@@ -22,22 +22,19 @@ Design tokens and bundled Geist fonts live in `packages/ui/src/lib/theme/`. Impo
 
 Geist ships with the theme (`fonts.scss` + woff2 files). System-ui fonts are used as fallback when bundled fonts are unavailable.
 
-Customize colors by overriding CSS variables on `:root` or via `provideElTheme()`:
+Customize colors by editing the BRAND block in `tokens.scss`. Dark mode is a mode toggle only:
 
 ```typescript
 import { provideElTheme } from './theme/theme';
 
 export const appConfig = {
   providers: [
-    provideElTheme({
-      mode: 'light',
-      variables: { '--el-color-accent': '#6366f1' },
-    }),
+    provideElTheme({ mode: 'light' }),
   ],
 };
 ```
 
-Built-in dark mode: set `mode: 'dark'` or add `data-el-theme="dark"` on `<html>`.
+`setMode('dark')` sets `data-el-theme` and `color-scheme` so `light-dark()` flips. Built-in dark palette lives in the same BRAND pairs.
 
 ## Storybook
 
@@ -45,7 +42,7 @@ Component stories live next to source (`*.stories.ts`). Storybook loads styles t
 
 - `.storybook/styles.scss` — shared UI tokens, bundled fonts, canvas defaults
 - `packages/ui/src/lib/theme/tokens.scss` — design tokens (`:root` CSS variables)
-- Each component — own `styleUrl` with BEM classes referencing tokens (no hardcoded colors)
+- Each component — own `styleUrl` with BEM classes referencing generic tokens (`--el-color-primary`, `--el-radius-xs`, …). Unique sizes stay in the widget file.
 
 Compound components (e.g. segmented button) may use a story host in `packages/ui/src/stories/`. Story hosts are not copied by the CLI.
 

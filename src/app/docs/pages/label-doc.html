@@ -54,21 +54,12 @@
   <section>
     <h2>Styling &amp; tokens</h2>
     <p>
-      Label variants map directly to CSS variables. See
-      <a routerLink="/theming">Theming</a> for setup, then override these
-      tokens globally or on a form section wrapper.
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
     </p>
-    <app-tokens-table [tokens]="labelTokens" />
-    <h3>Global override</h3>
-    <app-code-block [code]="globalTokensCode" language="scss" />
-    <h3>Scoped override</h3>
-    <p>Customize error styling for a specific form group:</p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-    <p>
-      Setting <code>--el-color-error</code> also updates
-      <code>--el-label-fg-error</code> and <code>--el-label-required</code>
-      when you have not overridden the label tokens directly.
-    </p>
   </section>
 
   <section>

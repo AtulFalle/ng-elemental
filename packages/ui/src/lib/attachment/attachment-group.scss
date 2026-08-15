@@ -11,9 +11,9 @@
 .el-attachment-group__scroller {
   display: flex;
   align-items: stretch;
-  gap: var(--el-attachment-group-gap);
+  gap: var(--el-space-3);
   overflow-x: auto;
-  padding: 0.25rem 0.125rem 0.5rem;
+  padding: var(--el-space-1) 0.125rem var(--el-space-2);
   scroll-snap-type: x mandatory;
   scroll-padding-inline: 0.125rem;
   scrollbar-width: thin;
@@ -22,8 +22,8 @@
   mask-image: linear-gradient(
     to right,
     transparent,
-    rgb(0 0 0) var(--el-attachment-group-fade-width),
-    rgb(0 0 0) calc(100% - var(--el-attachment-group-fade-width)),
+    rgb(0 0 0) 1.25rem,
+    rgb(0 0 0) calc(100% - 1.25rem),
     transparent
   );
 
@@ -31,9 +31,9 @@
     display: block;
     flex: 0 0 auto;
     box-sizing: border-box;
-    width: var(--el-attachment-group-item-width);
-    min-width: var(--el-attachment-group-item-width);
-    max-width: var(--el-attachment-group-item-width);
+    width: 14rem;
+    min-width: 14rem;
+    max-width: 14rem;
     scroll-snap-align: start;
   }
 }

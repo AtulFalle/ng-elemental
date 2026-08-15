@@ -10,36 +10,36 @@
   justify-content: center;
   box-sizing: border-box;
   overflow: hidden;
-  border: var(--el-avatar-border-width) solid transparent;
-  border-radius: 999px;
+  border: var(--el-border-width) solid transparent;
+  border-radius: var(--el-radius-full);
   background: transparent;
-  color: var(--el-avatar-fg);
+  color: var(--el-color-primary);
   font-family: var(--el-font-sans);
-  font-weight: var(--el-avatar-font-weight);
+  font-weight: 600;
   line-height: 1;
   user-select: none;
 
   &--fallback {
-    background: var(--el-avatar-bg);
-    border-color: var(--el-avatar-border);
+    background: var(--el-color-primary-container);
+    border-color: var(--el-color-outline);
   }
 
   &--sm {
-    width: var(--el-avatar-size-sm);
-    height: var(--el-avatar-size-sm);
-    font-size: var(--el-avatar-font-size-sm);
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.6875rem;
   }
 
   &--md {
-    width: var(--el-avatar-size-md);
-    height: var(--el-avatar-size-md);
-    font-size: var(--el-avatar-font-size-md);
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.8125rem;
   }
 
   &--lg {
-    width: var(--el-avatar-size-lg);
-    height: var(--el-avatar-size-lg);
-    font-size: var(--el-avatar-font-size-lg);
+    width: 3rem;
+    height: 3rem;
+    font-size: 0.9375rem;
   }
 }
 

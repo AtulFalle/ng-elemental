@@ -60,21 +60,12 @@
   <section>
     <h2>Styling &amp; tokens</h2>
     <p>
-      Button colors come from CSS custom properties — no SCSS edits required.
-      Import <a routerLink="/theming">theme tokens</a> globally, then override
-      the variables below on <code>:root</code> or any wrapper element.
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
     </p>
-    <app-tokens-table [tokens]="buttonTokens" />
-    <h3>Global override</h3>
-    <app-code-block [code]="globalTokensCode" language="scss" />
-    <h3>Scoped override</h3>
-    <p>Apply tokens on a parent to style buttons in one section only:</p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-    <p>
-      Tip: set <code>--el-color-accent</code> to retheme primary and ghost
-      buttons together. Use button-specific tokens when variants need different
-      colors.
-    </p>
   </section>
 
   <section>

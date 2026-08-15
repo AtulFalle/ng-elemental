@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Theme tokens are now a single generic Material 3 file (`light-dark()` color roles + density). Widgets consume `--el-color-primary` and related roles; widget aliases (`--el-button-*`, `--el-chip-*`) are no longer in `tokens.scss`. `ElThemeService` only toggles light/dark via `data-el-theme` and `color-scheme`.
+
 ## [0.0.5] - 2026-08-14
 
 ### Added

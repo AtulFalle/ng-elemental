@@ -31,7 +31,7 @@ describe('add attachment e2e', () => {
         'utf8',
       );
       expect(attachmentScss).toContain('.el-attachment');
-      expect(attachmentScss).toContain('--el-attachment-bg');
+      expect(attachmentScss).toContain('--el-color-surface');
       expect(attachmentScss).toContain('&--error');
 
       expect(

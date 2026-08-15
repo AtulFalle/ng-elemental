@@ -3,14 +3,15 @@
   flex: 1 1 auto;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--el-space-2);
   margin: 0;
   padding: var(--el-segmented-item-padding, 0.5625rem 1rem);
   border: none;
-  border-right: 1px solid var(--el-segmented-item-border, var(--el-segmented-md3-outline));
+  border-right: var(--el-border-width) solid
+    var(--el-segmented-item-border, var(--el-color-outline));
   border-radius: 0;
   background-color: transparent;
-  color: var(--el-segmented-item-color, var(--el-segmented-md3-on-surface));
+  color: var(--el-segmented-item-color, var(--el-color-on-surface));
   font-family: var(--el-font-sans);
   font-size: var(--el-segmented-item-font-size, 0.875rem);
   font-weight: 500;
@@ -31,7 +32,8 @@
 }
 
 :host(:focus-visible) {
-  outline: 2px solid var(--el-segmented-focus-color, var(--el-segmented-md3-focus));
+  outline: var(--el-border-width-thick) solid
+    var(--el-segmented-focus-color, var(--el-color-primary));
   outline-offset: -2px;
   z-index: 1;
 }
@@ -44,6 +46,6 @@
 
 :host([aria-disabled='true']) {
   cursor: not-allowed;
-  color: var(--el-color-fg-disabled);
+  color: var(--el-color-disabled);
   pointer-events: none;
 }

@@ -4,13 +4,13 @@
 
 :host(.el-radio-group--vertical) {
   flex-direction: column;
-  gap: var(--el-radio-group-gap-vertical);
+  gap: var(--el-space-3);
 }
 
 :host(.el-radio-group--horizontal) {
   flex-flow: row wrap;
   align-items: center;
-  gap: var(--el-radio-group-gap-horizontal);
+  gap: var(--el-space-6);
 }
 
 :host(.el-radio-group--disabled) {
@@ -18,7 +18,7 @@
 }
 
 :host(.el-radio-group--error) {
-  outline: 1px solid var(--el-radio-group-error-border);
+  outline: var(--el-border-width) solid var(--el-color-error);
   outline-offset: 4px;
-  border-radius: 0.25rem;
+  border-radius: var(--el-space-1);
 }

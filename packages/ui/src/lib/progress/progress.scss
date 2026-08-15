@@ -4,9 +4,11 @@
 }
 
 .el-progress {
+  --el-progress-track-height: 0.375rem;
+  --el-progress-label-size: 0.875rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--el-space-3);
   width: 100%;
 }
 
@@ -15,14 +17,14 @@
   flex: 1 1 auto;
   overflow: hidden;
   height: var(--el-progress-track-height);
-  border-radius: var(--el-progress-track-radius);
-  background: var(--el-progress-track-bg);
+  border-radius: var(--el-radius-full);
+  background: var(--el-color-outline-variant);
 }
 
 .el-progress__fill {
   height: 100%;
   border-radius: inherit;
-  background: var(--el-progress-fill-bg);
+  background: var(--el-color-primary);
   transition: width 0.2s ease;
 }
 
@@ -37,7 +39,7 @@
 .el-progress__label {
   flex: 0 0 auto;
   min-width: 2.5rem;
-  color: var(--el-progress-label-fg);
+  color: var(--el-color-on-surface-variant);
   font-family: var(--el-font-sans);
   font-size: var(--el-progress-label-size);
   font-weight: 500;
@@ -47,18 +49,18 @@
 }
 
 .el-progress--sm {
-  --el-progress-track-height: var(--el-progress-track-height-sm);
-  --el-progress-label-size: var(--el-progress-label-size-sm);
+  --el-progress-track-height: 0.25rem;
+  --el-progress-label-size: 0.75rem;
 }
 
 .el-progress--md {
-  --el-progress-track-height: var(--el-progress-track-height-md);
-  --el-progress-label-size: var(--el-progress-label-size-md);
+  --el-progress-track-height: 0.375rem;
+  --el-progress-label-size: 0.875rem;
 }
 
 .el-progress--lg {
-  --el-progress-track-height: var(--el-progress-track-height-lg);
-  --el-progress-label-size: var(--el-progress-label-size-lg);
+  --el-progress-track-height: 0.5rem;
+  --el-progress-label-size: 1rem;
 }
 
 @keyframes el-progress-indeterminate {

@@ -36,7 +36,7 @@ describe('add file-upload e2e', () => {
       );
       expect(uploadScss).toContain('.el-file-upload');
       expect(uploadScss).toContain('.el-file-upload__dropzone');
-      expect(uploadScss).toContain('--el-file-upload-border');
+      expect(uploadScss).toContain('--el-color-outline-variant');
       expect(uploadScss).toContain('&--active');
 
       expect(

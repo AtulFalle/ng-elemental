@@ -30,10 +30,9 @@ describe('add avatar e2e', () => {
         'utf8',
       );
       expect(avatarScss).toContain('.el-avatar');
-      expect(avatarScss).toContain('--el-avatar-bg');
-      expect(avatarScss).toContain('--el-avatar-border');
+      expect(avatarScss).toContain('--el-color-primary-container');
+      expect(avatarScss).toContain('--el-color-outline');
       expect(avatarScss).toContain('&--fallback');
-      expect(avatarScss).toContain('--el-avatar-size-md');
 
       expect(existsSync(componentUiPath(tmp, 'avatar', 'avatar.stories.ts'))).toBe(
         false,

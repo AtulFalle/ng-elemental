@@ -60,17 +60,20 @@ export class App {}
 
 ## Theming
 
-Add `theme` to copy `tokens.scss` and optional `ElThemeService`. Import tokens once in global styles:
+Add `theme` to copy `tokens.scss` and optional `ElThemeService`. Import tokens once in global styles, then **edit the BRAND section** in `tokens.scss`:
 
 ```scss
 @use './app/ui/theme/tokens';
 
 :root {
-  --el-color-accent: #6366f1;
+  --el-color-primary: light-dark(#6750a4, #d0bcff);
+  --el-color-on-primary: light-dark(#ffffff, #381e72);
+  --el-color-surface: light-dark(#fffbfe, #1c1b1f);
+  --el-color-on-surface: light-dark(#1c1b1f, #e6e1e5);
 }
 ```
 
-Override tokens on `:root` for global changes, on a wrapper element for scoped styling, or via `provideElTheme()` for runtime theming. Each component reads its colors from `--el-button-*`, `--el-label-*`, `--el-input-*`, and related variables.
+Changing `--el-color-primary` updates buttons, chips, checkboxes, sliders, and other widgets. Unique sizes stay in each widget’s SCSS. Switch dark mode with `provideElTheme({ mode: 'dark' })` or `setMode('dark')` — TypeScript only toggles `data-el-theme` and `color-scheme` so `light-dark()` flips. `add theme --force` overwrites brand edits.
 
 ## Typography
 

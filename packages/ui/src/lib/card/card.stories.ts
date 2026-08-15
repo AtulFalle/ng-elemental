@@ -35,7 +35,7 @@ const meta: Meta<ElCard> = {
           Slot-based body content. Put whatever you need here.
         </div>
         <div elCardFooter>
-          <span style="font-size: 0.875rem; color: var(--el-color-fg-muted)">Footer</span>
+          <span style="font-size: 0.875rem; color: var(--el-color-on-surface-variant)">Footer</span>
         </div>
       </el-card>
     `,
@@ -85,7 +85,7 @@ export const WithAvatar: Story = {
           <el-avatar initials="AL" alt="Ada Lovelace" />
           <div>
             <div style="font-weight: 600">Ada Lovelace</div>
-            <div style="font-size: 0.875rem; color: var(--el-color-fg-muted)">
+            <div style="font-size: 0.875rem; color: var(--el-color-on-surface-variant)">
               Mathematician
             </div>
           </div>
@@ -108,7 +108,7 @@ export const CompactFileRow: Story = {
       <div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 28rem">
         <el-card size="compact">
           <el-icon elCardMedia name="file-lines" />
-          <div elCardHeader style="font-weight: 600; color: var(--el-color-fg)">
+          <div elCardHeader style="font-weight: 600; color: var(--el-color-on-surface)">
             report.pdf
           </div>
           <div elCardContent>2.4 MB</div>
@@ -123,7 +123,7 @@ export const CompactFileRow: Story = {
         </el-card>
         <el-card size="compact">
           <el-icon elCardMedia name="image" />
-          <div elCardHeader style="font-weight: 600; color: var(--el-color-fg)">
+          <div elCardHeader style="font-weight: 600; color: var(--el-color-on-surface)">
             cover.png
           </div>
           <div elCardContent>840 KB</div>
