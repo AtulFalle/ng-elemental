@@ -9,7 +9,7 @@ import {
   ElSelectValue,
 } from './select';
 
-const panelSpace = 'min-height: 18rem; max-width: 24rem;';
+const panelSpace = 'min-height: 18rem; width: 100%;;';
 
 const meta: Meta<ElSelect> = {
   title: 'Components/Select',

@@ -14,7 +14,7 @@
   <section>
     <h2>Preview</h2>
     <app-preview>
-      <div class="docs-stack" style="gap: 2rem; max-width: 24rem;width: 100%;">
+      <div class="docs-stack" style="gap: 2rem; width: 100%;;width: 100%;">
         <el-slider [(value)]="volume" showValue />
         <el-slider
           range
@@ -50,7 +50,7 @@
 
     <h3>Sizes</h3>
     <app-preview>
-      <div class="docs-stack" style="gap: 1.5rem; max-width: 24rem; width: 100%;">
+      <div class="docs-stack" style="gap: 1.5rem; width: 100%;; width: 100%;">
         <el-slider size="sm" [value]="30" showValue />
         <el-slider size="md" [value]="50" showValue />
         <el-slider size="lg" [value]="70" showValue />
@@ -59,7 +59,7 @@
 
     <h3>Step and ticks</h3>
     <app-preview>
-      <div style="max-width: 24rem; width: 100%;">
+      <div style="width: 100%;; width: 100%;">
         <el-slider
           [(value)]="rating"
           [min]="0"
@@ -73,7 +73,7 @@
 
     <h3>Range</h3>
     <app-preview>
-      <div style="max-width: 24rem; width: 100%;">
+      <div style="width: 100%;; width: 100%;">
         <el-slider
           range
           [(start)]="minPrice"
@@ -87,7 +87,7 @@
 
     <h3>Disabled / error</h3>
     <app-preview>
-      <div class="docs-stack" style="gap: 1.5rem; max-width: 24rem; width: 100%;">
+      <div class="docs-stack" style="gap: 1.5rem; width: 100%;; width: 100%;">
         <el-slider [value]="45" disabled showValue />
         <el-slider [value]="20" error showValue />
       </div>

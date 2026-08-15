@@ -16,7 +16,7 @@ const meta: Meta<ElFormError> = {
       imports: [ElFormError, ElLabel, ElInput],
     },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 0.375rem; max-width: 24rem;">
+      <div style="display: flex; flex-direction: column; gap: 0.375rem; width: 100%;;">
         <el-label htmlFor="story-email" required>Email</el-label>
         <el-input
           inputId="story-email"

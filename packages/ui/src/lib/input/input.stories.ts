@@ -90,7 +90,7 @@ export const Sizes: Story = {
     props: { sm: '', md: '', lg: '' },
     moduleMetadata: { imports: [ElInput] },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 24rem;">
+      <div style="display: flex; flex-direction: column; gap: 1rem; width: 100%;;">
         <el-input [(value)]="sm" size="sm" placeholder="Small" inputId="input-sm" />
         <el-input [(value)]="md" size="md" placeholder="Medium" inputId="input-md" />
         <el-input [(value)]="lg" size="lg" placeholder="Large" inputId="input-lg" />
@@ -106,7 +106,7 @@ export const PrefixSuffix: Story = {
       imports: [ElInput, ElInputPrefix, ElInputSuffix, ElIcon],
     },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 24rem;">
+      <div style="display: flex; flex-direction: column; gap: 1rem; width: 100%;;">
         <el-input [(value)]="search" type="search" placeholder="Search" inputId="input-search">
           <el-icon elInputPrefix name="magnifying-glass" size="sm" />
         </el-input>

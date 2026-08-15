@@ -15,7 +15,7 @@
   <section>
     <h2>Preview</h2>
     <app-preview>
-      <div class="docs-stack" style="gap: 1.5rem; max-width: 24rem">
+      <div class="docs-stack" style="gap: 1.5rem; width: 100%;">
         <el-progress [value]="lineValue()" showValue />
         <div style="display: flex; gap: 1.5rem; align-items: center">
           <el-progress-circle [value]="circleValue()" showValue />
@@ -46,7 +46,7 @@
 
     <h3>Line sizes</h3>
     <app-preview>
-      <div class="docs-stack" style="gap: 1rem; max-width: 24rem">
+      <div class="docs-stack" style="gap: 1rem; width: 100%;">
         <el-progress size="sm" [value]="40" showValue />
         <el-progress size="md" [value]="60" showValue />
         <el-progress size="lg" [value]="80" showValue />
@@ -55,14 +55,14 @@
 
     <h3>Line indeterminate</h3>
     <app-preview>
-      <div style="max-width: 24rem">
+      <div style="width: 100%;">
         <el-progress indeterminate />
       </div>
     </app-preview>
 
     <h3>Custom max</h3>
     <app-preview>
-      <div style="max-width: 24rem">
+      <div style="width: 100%;">
         <el-progress [value]="3" [max]="10" showValue />
       </div>
     </app-preview>

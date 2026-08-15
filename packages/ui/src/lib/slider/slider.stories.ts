@@ -53,7 +53,7 @@ const meta: Meta<ElSlider> = {
       [disabled]="disabled"
       [error]="error"
       [size]="size"
-      style="max-width: 24rem"
+      style="width: 100%;"
     />`,
   }),
 };
@@ -86,7 +86,7 @@ export const Sizes: Story = {
   render: () => ({
     moduleMetadata: { imports: [ElSlider] },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 24rem">
+      <div style="display: flex; flex-direction: column; gap: 1.5rem; width: 100%;">
         <el-slider size="sm" [value]="30" showValue />
         <el-slider size="md" [value]="50" showValue />
         <el-slider size="lg" [value]="70" showValue />

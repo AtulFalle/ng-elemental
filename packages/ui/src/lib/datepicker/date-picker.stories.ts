@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { ElDatePicker } from './date-picker';
 
-const panelSpace = 'min-height: 32rem; max-width: 24rem;';
+const panelSpace = 'min-height: 32rem; width: 100%;;';
 
 const meta: Meta<ElDatePicker> = {
   title: 'Components/Date Picker',
