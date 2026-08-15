@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Docs Theme panel: pick BRAND color tokens, apply them for the session, and copy a `:root` CSS snippet for consumer apps
+
 ### Changed
 
 - Theme tokens are now a single generic Material 3 file (`light-dark()` color roles + density). Widgets consume `--el-color-primary` and related roles; widget aliases (`--el-button-*`, `--el-chip-*`) are no longer in `tokens.scss`. `ElThemeService` only toggles light/dark via `data-el-theme` and `color-scheme`.

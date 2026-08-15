@@ -21,9 +21,24 @@
         </ul>
       </nav>
     }
+
+    <button
+      type="button"
+      class="docs-theme-open"
+      (click)="themeOpen.set(true)"
+    >
+      Theme
+      @if (docsTheme.isCustom()) {
+        <span class="docs-theme-open__hint">custom theme on</span>
+      }
+    </button>
   </aside>
 
   <main class="docs-main">
     <router-outlet />
   </main>
 </div>
+
+@if (themeOpen()) {
+  <app-theme-panel (closed)="themeOpen.set(false)" />
+}
