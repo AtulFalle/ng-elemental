@@ -24,7 +24,7 @@
             Slot-based body. Empty slots collapse automatically.
           </div>
           <div elCardFooter>
-            <span style="font-size: 0.875rem; color: var(--el-color-fg-muted)"
+            <span style="font-size: 0.875rem; color: var(--el-color-on-surface-variant)"
               >Footer meta</span
             >
           </div>
@@ -93,7 +93,7 @@
           <el-avatar initials="AL" alt="Ada Lovelace" />
           <div>
             <div style="font-weight: 600">Ada Lovelace</div>
-            <div style="font-size: 0.875rem; color: var(--el-color-fg-muted)">
+            <div style="font-size: 0.875rem; color: var(--el-color-on-surface-variant)">
               Mathematician
             </div>
           </div>
@@ -122,7 +122,7 @@
           <el-icon elCardMedia name="file-lines" />
           <div
             elCardHeader
-            style="font-weight: 600; color: var(--el-color-fg)"
+            style="font-weight: 600; color: var(--el-color-on-surface)"
           >
             report.pdf
           </div>
@@ -140,7 +140,7 @@
           <el-icon elCardMedia name="image" />
           <div
             elCardHeader
-            style="font-weight: 600; color: var(--el-color-fg)"
+            style="font-weight: 600; color: var(--el-color-on-surface)"
           >
             cover.png
           </div>
@@ -162,12 +162,12 @@
   <section>
     <h2>Styling &amp; tokens</h2>
     <p>
-      See <a routerLink="/theming">Theming</a> for setup, then override these
-      tokens globally or on a wrapper.
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
     </p>
-    <app-tokens-table [tokens]="cardTokens" />
-    <h3>Global override</h3>
-    <app-code-block [code]="globalTokensCode" language="scss" />
+    <app-code-block [code]="scopedTokensCode" language="scss" />
   </section>
 
   <section>

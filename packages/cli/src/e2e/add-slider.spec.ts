@@ -30,8 +30,8 @@ describe('add slider e2e', () => {
         'utf8',
       );
       expect(sliderScss).toContain('.el-slider');
-      expect(sliderScss).toContain('--el-slider-track-bg');
-      expect(sliderScss).toContain('--el-slider-fill-bg');
+      expect(sliderScss).toContain('--el-color-outline-variant');
+      expect(sliderScss).toContain('--el-color-primary');
 
       const utilsTs = await readFile(
         componentUiPath(tmp, 'slider', 'slider-utils.ts'),

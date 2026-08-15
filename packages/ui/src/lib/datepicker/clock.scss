@@ -1,7 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--el-space-3);
   width: 100%;
 }
 
@@ -26,26 +26,26 @@
     font-family: var(--el-font-sans);
     font-size: 1rem;
     font-weight: 600;
-    color: var(--el-datepicker-fg);
+    color: var(--el-color-on-surface);
   }
 
   &__meridiem {
     flex-shrink: 0;
-    margin-inline-start: 0.25rem;
+    margin-inline-start: var(--el-space-1);
   }
 
   &__face {
     position: relative;
-    width: var(--el-datepicker-clock-size);
-    height: var(--el-datepicker-clock-size);
+    width: 16rem;
+    height: 16rem;
     margin-inline: auto;
-    border: 1px solid var(--el-datepicker-clock-face-border);
+    border: var(--el-border-width) solid var(--el-color-outline-variant);
     border-radius: 50%;
-    background: var(--el-datepicker-clock-face-bg);
+    background: var(--el-color-surface-container);
   }
 
   &__face:focus-visible {
-    outline: 2px solid var(--el-datepicker-focus-ring);
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
     outline-offset: 2px;
   }
 
@@ -54,17 +54,17 @@
     left: 50%;
     bottom: 50%;
     z-index: 1;
-    width: 2px;
-    height: calc(var(--el-datepicker-clock-size) / 2 - 2.35rem);
+    width: var(--el-border-width-thick);
+    height: calc(16rem / 2 - 2.35rem);
     margin-inline-start: -1px;
     transform-origin: center bottom;
-    background: var(--el-datepicker-clock-hand);
+    background: var(--el-color-primary);
     border-radius: 1px;
     pointer-events: none;
   }
 
   &__hand--inner {
-    height: calc(var(--el-datepicker-clock-size) / 2 - 4.35rem);
+    height: calc(16rem / 2 - 4.35rem);
   }
 
   &__center {
@@ -72,16 +72,16 @@
     top: 50%;
     left: 50%;
     z-index: 2;
-    width: 0.5rem;
-    height: 0.5rem;
-    margin: -0.25rem 0 0 -0.25rem;
+    width: var(--el-space-2);
+    height: var(--el-space-2);
+    margin: calc(var(--el-space-1) * -1) 0 0 calc(var(--el-space-1) * -1);
     border-radius: 50%;
-    background: var(--el-datepicker-clock-hand);
+    background: var(--el-color-primary);
     pointer-events: none;
   }
 
   &__tick {
-    --el-clock-tick-offset: calc(-1 * (var(--el-datepicker-clock-size) / 2 - 1.15rem));
+    --el-clock-tick-offset: calc(-1 * (16rem / 2 - 1.15rem));
 
     position: absolute;
     top: 50%;
@@ -100,17 +100,17 @@
     font-family: var(--el-font-sans);
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--el-datepicker-fg);
+    color: var(--el-color-on-surface);
     cursor: pointer;
   }
 
   &__tick:disabled {
-    color: var(--el-datepicker-day-fg-disabled);
+    color: var(--el-color-disabled);
     cursor: not-allowed;
   }
 
   &__tick--inner {
-    --el-clock-tick-offset: calc(-1 * (var(--el-datepicker-clock-size) / 2 - 3.15rem));
+    --el-clock-tick-offset: calc(-1 * (16rem / 2 - 3.15rem));
 
     width: 1.75rem;
     height: 1.75rem;
@@ -119,12 +119,12 @@
   }
 
   &__tick:hover:not(:disabled):not(.el-clock__tick--selected) {
-    background: var(--el-datepicker-day-hover-bg);
+    background: var(--el-color-hover);
   }
 
   &__tick--selected,
   &__tick--active {
-    background: var(--el-datepicker-day-selected-bg);
-    color: var(--el-datepicker-day-selected-fg);
+    background: var(--el-color-primary);
+    color: var(--el-color-on-primary);
   }
 }

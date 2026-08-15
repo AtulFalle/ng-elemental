@@ -2,13 +2,13 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--el-checkbox-gap);
+  gap: var(--el-space-2);
   max-width: 100%;
   font-family: var(--el-font-sans);
-  font-size: var(--el-checkbox-label-size);
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.25;
-  color: var(--el-checkbox-label-fg);
+  color: var(--el-color-on-surface);
   cursor: pointer;
   user-select: none;
 
@@ -17,7 +17,7 @@
   }
 
   &--disabled {
-    color: var(--el-checkbox-label-fg-disabled);
+    color: var(--el-color-disabled);
     cursor: not-allowed;
   }
 
@@ -25,8 +25,8 @@
     position: absolute;
     inset-block-start: 0;
     inset-inline-start: 0;
-    width: var(--el-checkbox-size);
-    height: var(--el-checkbox-size);
+    width: 1.125rem;
+    height: 1.125rem;
     margin: 0;
     opacity: 0;
     cursor: inherit;
@@ -39,38 +39,38 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    width: var(--el-checkbox-size);
-    height: var(--el-checkbox-size);
-    border: var(--el-checkbox-border-width) solid var(--el-checkbox-border);
-    border-radius: var(--el-checkbox-radius);
-    background: var(--el-checkbox-bg);
+    width: 1.125rem;
+    height: 1.125rem;
+    border: var(--el-border-width-thick) solid var(--el-color-outline);
+    border-radius: 2px;
+    background: transparent;
   }
 
   &--checked &__box,
   &--indeterminate &__box {
-    border-color: var(--el-checkbox-selected-bg);
-    background: var(--el-checkbox-selected-bg);
+    border-color: var(--el-color-primary);
+    background: var(--el-color-primary);
   }
 
   &--disabled &__box {
-    border-color: var(--el-checkbox-border-disabled);
-    background: var(--el-checkbox-bg-disabled);
+    border-color: var(--el-color-disabled-container);
+    background: var(--el-color-disabled-container-subtle);
   }
 
   &--error &__box {
-    border-color: var(--el-checkbox-error-border);
+    border-color: var(--el-color-error);
   }
 
   &--disabled.el-checkbox--checked &__box,
   &--disabled.el-checkbox--indeterminate &__box {
     border-color: transparent;
-    background: var(--el-checkbox-selected-bg-disabled);
+    background: var(--el-color-disabled);
   }
 
   &--error.el-checkbox--checked &__box,
   &--error.el-checkbox--indeterminate &__box {
-    border-color: var(--el-checkbox-error-border);
-    background: var(--el-checkbox-error-border);
+    border-color: var(--el-color-error);
+    background: var(--el-color-error);
   }
 
   &__mark {
@@ -79,7 +79,7 @@
     margin: auto;
     display: block;
     opacity: 0;
-    background: var(--el-checkbox-mark);
+    background: var(--el-color-on-primary);
     pointer-events: none;
   }
 
@@ -90,7 +90,7 @@
   }
 
   &__check-icon {
-    color: var(--el-checkbox-mark);
+    color: var(--el-color-on-primary);
     pointer-events: none;
   }
 
@@ -103,7 +103,7 @@
   }
 
   &__input:focus-visible + &__box {
-    outline: 2px solid var(--el-checkbox-focus-ring);
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
     outline-offset: 2px;
   }
 }

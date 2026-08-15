@@ -1,22 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ElButton } from '@ng-elemental/ui';
-import { BUTTON_TOKENS } from '../theme-tokens';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
 import { PropsTable } from '../ui/props-table';
-import { TokensTable } from '../ui/tokens-table';
 
 @Component({
   selector: 'app-button-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, CodeBlock, Preview, PropsTable, TokensTable],
+  imports: [RouterLink, ElButton, CodeBlock, Preview, PropsTable],
   templateUrl: './button-doc.html',
   styleUrl: './page.scss',
 })
 export class ButtonDocPage {
-  protected readonly buttonTokens = BUTTON_TOKENS;
 
   protected readonly addCode = `npx @ng-elemental/cli add button`;
 
@@ -32,21 +29,10 @@ export class MyComponent {}`;
 <el-button variant="secondary" size="sm">Cancel</el-button>
 <el-button variant="ghost" iconEnd="arrow-right">Next</el-button>`;
 
-  protected readonly globalTokensCode = `:root {
-  --el-button-primary-bg: #6366f1;
-  --el-button-primary-bg-hover: #4f46e5;
-  --el-button-primary-fg: #fff;
+  protected readonly scopedTokensCode = `.checkout-panel {
+  --el-color-primary: #059669;
+  --el-color-on-primary: #ffffff;
 }`;
-
-  protected readonly scopedTokensCode = `.danger-zone {
-  --el-button-primary-bg: #dc2626;
-  --el-button-primary-bg-hover: #b91c1c;
-}
-
-// Template:
-// <div class="danger-zone">
-//   <el-button variant="primary">Delete</el-button>
-// </div>`;
 
   protected readonly props: PropDefinition[] = [
     {

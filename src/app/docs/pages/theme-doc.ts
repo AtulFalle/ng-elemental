@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { ElButton, ElThemeService } from '@ng-elemental/ui';
-import { SEMANTIC_TOKENS } from '../theme-tokens';
+import { COLOR_TOKENS, DENSITY_TOKENS } from '../theme-tokens';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
 import { TokensTable } from '../ui/tokens-table';
@@ -9,44 +8,42 @@ import { TokensTable } from '../ui/tokens-table';
 @Component({
   selector: 'app-theme-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, CodeBlock, Preview, TokensTable],
+  imports: [ElButton, CodeBlock, Preview, TokensTable],
   templateUrl: './theme-doc.html',
   styleUrl: './page.scss',
 })
 export class ThemeDocPage {
   private readonly theme = inject(ElThemeService);
 
-  protected readonly semanticTokens = SEMANTIC_TOKENS;
+  protected readonly colorTokens = COLOR_TOKENS;
+  protected readonly densityTokens = DENSITY_TOKENS;
 
   protected readonly addCode = `npx @ng-elemental/cli add theme`;
 
   protected readonly importTokensCode = `// src/styles.scss
 @use './app/ui/theme/tokens';`;
 
-  protected readonly globalOverrideCode = `:root {
-  --el-color-accent: #6366f1;
-  --el-color-accent-hover: #4f46e5;
-  --el-color-accent-subtle: #eef2ff;
+  protected readonly brandCode = `:root {
+  --el-color-primary: light-dark(#6750a4, #d0bcff);
+  --el-color-on-primary: light-dark(#fff, #381e72);
+  --el-color-error: light-dark(#b3261e, #f2b8b5);
+  --el-color-surface: light-dark(#fffbfe, #1c1b1f);
+  --el-color-on-surface: light-dark(#1c1b1f, #e6e1e5);
+  --el-color-outline: light-dark(#79747e, #938f99);
 }`;
 
   protected readonly scopedOverrideCode = `.checkout-panel {
-  --el-button-primary-bg: #059669;
-  --el-button-primary-bg-hover: #047857;
+  --el-color-primary: #059669;
+  --el-color-on-primary: #ffffff;
 }
 
-// Only buttons inside .checkout-panel use the green palette.`;
+// Buttons, chips, checkboxes, and sliders inside .checkout-panel follow.`;
 
   protected readonly provideThemeCode = `import { provideElTheme } from './app/ui/theme/theme';
 
 export const appConfig = {
   providers: [
-    provideElTheme({
-      mode: 'light',
-      variables: {
-        '--el-color-accent': '#6366f1',
-        '--el-color-accent-hover': '#4f46e5',
-      },
-    }),
+    provideElTheme({ mode: 'light' }),
   ],
 };`;
 
@@ -59,12 +56,6 @@ export class SettingsPage {
 
   useDark(): void {
     this.theme.setMode('dark');
-  }
-
-  useBrand(): void {
-    this.theme.updateVariables({
-      '--el-color-accent': '#6366f1',
-    });
   }
 }`;
 

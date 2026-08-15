@@ -4,12 +4,10 @@ import {
   ElSegmentedButton,
   ElSegmentedButtonItem,
 } from '@ng-elemental/ui';
-import { SEGMENTED_BUTTON_TOKENS } from '../theme-tokens';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
 import { PropsTable } from '../ui/props-table';
-import { TokensTable } from '../ui/tokens-table';
 
 @Component({
   selector: 'app-segmented-button-doc-page',
@@ -21,13 +19,11 @@ import { TokensTable } from '../ui/tokens-table';
     CodeBlock,
     Preview,
     PropsTable,
-    TokensTable,
   ],
   templateUrl: './segmented-button-doc.html',
   styleUrl: './page.scss',
 })
 export class SegmentedButtonDocPage {
-  protected readonly segmentedButtonTokens = SEGMENTED_BUTTON_TOKENS;
 
   protected readonly view = signal('list');
   protected readonly primaryDemo = signal('list');
@@ -62,17 +58,9 @@ export class MyComponent {
   <el-segmented-button-item value="board">Board</el-segmented-button-item>
 </el-segmented-button>`;
 
-  protected readonly globalTokensCode = `:root {
-  --el-segmented-md3-outline: #94a3b8;
-  --el-segmented-md3-secondary-container: #dbeafe;
-  --el-segmented-md3-on-secondary-container: #1e3a8a;
-  --el-segmented-md3-focus: #2563eb;
-}`;
-
-  protected readonly scopedTokensCode = `.toolbar-filters {
-  --el-segmented-track-border-ghost: #cbd5e1;
-  --el-segmented-item-hover-bg-ghost: #f1f5f9;
-  --el-button-ghost-fg: #334155;
+  protected readonly scopedTokensCode = `.checkout-panel {
+  --el-color-primary: #059669;
+  --el-color-on-primary: #ffffff;
 }`;
 
   protected readonly groupProps: PropDefinition[] = [

@@ -14,7 +14,7 @@
   <section>
     <h2>Preview</h2>
     <app-preview>
-      <div class="docs-stack" style="gap: 2rem; max-width: 24rem">
+      <div class="docs-stack" style="gap: 2rem; max-width: 24rem;width: 100%;">
         <el-slider [(value)]="volume" showValue />
         <el-slider
           range
@@ -50,7 +50,7 @@
 
     <h3>Sizes</h3>
     <app-preview>
-      <div class="docs-stack" style="gap: 1.5rem; max-width: 24rem">
+      <div class="docs-stack" style="gap: 1.5rem; max-width: 24rem; width: 100%;">
         <el-slider size="sm" [value]="30" showValue />
         <el-slider size="md" [value]="50" showValue />
         <el-slider size="lg" [value]="70" showValue />
@@ -87,7 +87,7 @@
 
     <h3>Disabled / error</h3>
     <app-preview>
-      <div class="docs-stack" style="gap: 1.5rem; max-width: 24rem">
+      <div class="docs-stack" style="gap: 1.5rem; max-width: 24rem; width: 100%;">
         <el-slider [value]="45" disabled showValue />
         <el-slider [value]="20" error showValue />
       </div>
@@ -97,12 +97,12 @@
   <section>
     <h2>Styling &amp; tokens</h2>
     <p>
-      See <a routerLink="/theming">Theming</a> for setup, then override these
-      tokens globally or on a wrapper.
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
     </p>
-    <app-tokens-table [tokens]="sliderTokens" />
-    <h3>Global override</h3>
-    <app-code-block [code]="globalTokensCode" language="scss" />
+    <app-code-block [code]="scopedTokensCode" language="scss" />
   </section>
 
   <section>

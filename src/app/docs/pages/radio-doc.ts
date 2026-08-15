@@ -1,22 +1,19 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ElRadio, ElRadioGroup } from '@ng-elemental/ui';
-import { RADIO_TOKENS } from '../theme-tokens';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
 import { PropsTable } from '../ui/props-table';
-import { TokensTable } from '../ui/tokens-table';
 
 @Component({
   selector: 'app-radio-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElRadio, ElRadioGroup, CodeBlock, Preview, PropsTable, TokensTable],
+  imports: [RouterLink, ElRadio, ElRadioGroup, CodeBlock, Preview, PropsTable],
   templateUrl: './radio-doc.html',
   styleUrl: './page.scss',
 })
 export class RadioDocPage {
-  protected readonly radioTokens = RADIO_TOKENS;
   protected readonly contact = signal('email');
   protected readonly size = signal('medium');
 
@@ -44,11 +41,9 @@ export class MyComponent {}`;
   Label on the left
 </el-radio>`;
 
-  protected readonly globalTokensCode = `:root {
-  --el-radio-selected-border: #6750a4;
-  --el-radio-dot: #6750a4;
-  --el-radio-border: #79747e;
-  --el-radio-label-fg: #1c1b1f;
+  protected readonly scopedTokensCode = `.checkout-panel {
+  --el-color-primary: #059669;
+  --el-color-on-primary: #ffffff;
 }`;
 
   protected readonly groupProps: PropDefinition[] = [

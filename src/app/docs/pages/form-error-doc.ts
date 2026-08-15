@@ -1,97 +1,94 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { ElFormError, ElInput, ElLabel } from '@ng-elemental/ui';
-import { FORM_ERROR_TOKENS } from '../theme-tokens';
-import type { PropDefinition } from '../nav';
-import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
-import { PropsTable } from '../ui/props-table';
-import { TokensTable } from '../ui/tokens-table';
-
-@Component({
-  selector: 'app-form-error-doc-page',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    RouterLink,
-    ElFormError,
-    ElInput,
-    ElLabel,
-    CodeBlock,
-    Preview,
-    PropsTable,
-    TokensTable,
-  ],
-  templateUrl: './form-error-doc.html',
-  styleUrl: './page.scss',
-})
-export class FormErrorDocPage {
-  protected readonly formErrorTokens = FORM_ERROR_TOKENS;
-  protected readonly email = signal('');
-  protected readonly emailInvalid = signal(true);
-
-  protected readonly addCode = `npx @ng-elemental/cli add theme
-npx @ng-elemental/cli add label
-npx @ng-elemental/cli add input
-npx @ng-elemental/cli add form-error`;
-
-  protected readonly importCode = `import { ElFormError } from './ui/form-error/form-error';
-import { ElLabel } from './ui/label/label';
-import { ElInput } from './ui/input/input';
-
-@Component({
-  imports: [ElFormError, ElLabel, ElInput],
-  template: \`
-    <el-label htmlFor="email" required>Email</el-label>
-    <el-input inputId="email" [(value)]="email" [error]="invalid" />
-    @if (invalid) {
-      <el-form-error id="email-err">Email is required</el-form-error>
-    }
-  \`,
-})
-export class MyComponent {}`;
-
-  protected readonly usageCode = `<div class="my-form">
-  <el-label htmlFor="email" required>Email</el-label>
-  <el-input
-    inputId="email"
-    [(value)]="email"
-    [error]="emailInvalid"
-    [attr.aria-describedby]="emailInvalid ? 'email-err' : null"
-  />
-  @if (emailInvalid) {
-    <el-form-error id="email-err">Email is required</el-form-error>
-  }
-</div>`;
-
-  protected readonly stackCode = `.my-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.my-form__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}`;
-
-  protected readonly globalTokensCode = `:root {
-  --el-form-error-fg: #dc2626;
-}`;
-
-  protected readonly props: PropDefinition[] = [
-    {
-      name: '(content)',
-      type: 'ng-content',
-      default: '—',
-      description: 'Error message text or rich content.',
-    },
-    {
-      name: 'id',
-      type: 'string (host attribute)',
-      default: '—',
-      description:
-        'Optional id so a control can reference this message via aria-describedby.',
-    },
-  ];
-}
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ElFormError, ElInput, ElLabel } from '@ng-elemental/ui';
+import type { PropDefinition } from '../nav';
+import { CodeBlock } from '../ui/code-block';
+import { Preview } from '../ui/preview';
+import { PropsTable } from '../ui/props-table';
+
+@Component({
+  selector: 'app-form-error-doc-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    RouterLink,
+    ElFormError,
+    ElInput,
+    ElLabel,
+    CodeBlock,
+    Preview,
+    PropsTable,
+  ],
+  templateUrl: './form-error-doc.html',
+  styleUrl: './page.scss',
+})
+export class FormErrorDocPage {
+  protected readonly email = signal('');
+  protected readonly emailInvalid = signal(true);
+
+  protected readonly addCode = `npx @ng-elemental/cli add theme
+npx @ng-elemental/cli add label
+npx @ng-elemental/cli add input
+npx @ng-elemental/cli add form-error`;
+
+  protected readonly importCode = `import { ElFormError } from './ui/form-error/form-error';
+import { ElLabel } from './ui/label/label';
+import { ElInput } from './ui/input/input';
+
+@Component({
+  imports: [ElFormError, ElLabel, ElInput],
+  template: \`
+    <el-label htmlFor="email" required>Email</el-label>
+    <el-input inputId="email" [(value)]="email" [error]="invalid" />
+    @if (invalid) {
+      <el-form-error id="email-err">Email is required</el-form-error>
+    }
+  \`,
+})
+export class MyComponent {}`;
+
+  protected readonly usageCode = `<div class="my-form">
+  <el-label htmlFor="email" required>Email</el-label>
+  <el-input
+    inputId="email"
+    [(value)]="email"
+    [error]="emailInvalid"
+    [attr.aria-describedby]="emailInvalid ? 'email-err' : null"
+  />
+  @if (emailInvalid) {
+    <el-form-error id="email-err">Email is required</el-form-error>
+  }
+</div>`;
+
+  protected readonly stackCode = `.my-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.my-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}`;
+
+  protected readonly scopedTokensCode = `.checkout-panel {
+  --el-color-primary: #059669;
+  --el-color-on-primary: #ffffff;
+}`;
+
+  protected readonly props: PropDefinition[] = [
+    {
+      name: '(content)',
+      type: 'ng-content',
+      default: '—',
+      description: 'Error message text or rich content.',
+    },
+    {
+      name: 'id',
+      type: 'string (host attribute)',
+      default: '—',
+      description:
+        'Optional id so a control can reference this message via aria-describedby.',
+    },
+  ];
+}

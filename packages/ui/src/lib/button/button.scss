@@ -2,9 +2,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  border: 1px solid transparent;
-  border-radius: 0.375rem;
+  gap: var(--el-space-2);
+  border: var(--el-border-width) solid transparent;
+  border-radius: var(--el-radius-xs);
   font-family: var(--el-font-sans);
   font-weight: 600;
   line-height: 1.25;
@@ -20,17 +20,17 @@
   }
 
   &--sm {
-    padding: 0.25rem 0.625rem;
+    padding: var(--el-space-1) 0.625rem;
     font-size: 0.75rem;
   }
 
   &--md {
-    padding: 0.5rem 0.875rem;
+    padding: var(--el-space-2) 0.875rem;
     font-size: 0.875rem;
   }
 
   &--lg {
-    padding: 0.75rem 1.25rem;
+    padding: var(--el-space-3) var(--el-space-5);
     font-size: 1rem;
   }
 
@@ -43,29 +43,29 @@
   }
 
   &--primary {
-    background-color: var(--el-button-primary-bg);
-    color: var(--el-button-primary-fg);
+    background-color: var(--el-color-primary);
+    color: var(--el-color-on-primary);
 
     &:hover:not(:disabled) {
-      background-color: var(--el-button-primary-bg-hover);
+      background-color: var(--el-color-primary-hover);
     }
   }
 
   &--secondary {
-    background-color: var(--el-button-secondary-bg);
-    color: var(--el-button-secondary-fg);
+    background-color: var(--el-color-surface-container-highest);
+    color: var(--el-color-on-surface);
 
     &:hover:not(:disabled) {
-      background-color: var(--el-button-secondary-bg-hover);
+      background-color: var(--el-color-outline-variant);
     }
   }
 
   &--ghost {
     background-color: transparent;
-    color: var(--el-button-ghost-fg);
+    color: var(--el-color-primary);
 
     &:hover:not(:disabled) {
-      background-color: var(--el-button-ghost-bg-hover);
+      background-color: var(--el-color-primary-container);
     }
   }
 }

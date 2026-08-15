@@ -231,14 +231,12 @@
   <section>
     <h2>Styling &amp; tokens</h2>
     <p>
-      Select uses dedicated CSS variables. See
-      <a routerLink="/theming">Theming</a> for setup. Panels are positioned
-      inside the component — ancestors with <code>overflow: hidden</code> can
-      clip the menu.
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
     </p>
-    <app-tokens-table [tokens]="selectTokens" />
-    <h3>Global override</h3>
-    <app-code-block [code]="globalTokensCode" language="scss" />
+    <app-code-block [code]="scopedTokensCode" language="scss" />
   </section>
 
   <section>

@@ -3,6 +3,10 @@
   width: 100%;
   max-width: 24rem;
   vertical-align: top;
+
+  --el-input-min-height: 2.5rem;
+  --el-input-padding: 0.5rem 0.75rem;
+  --el-input-font-size: 0.875rem;
 }
 
 :host(.el-input--disabled) {
@@ -17,23 +21,23 @@
     width: 100%;
     min-height: var(--el-input-min-height);
     padding: var(--el-input-padding);
-    border: 1px solid var(--el-input-border);
-    border-radius: var(--el-input-radius);
-    background: var(--el-input-bg);
+    border: var(--el-border-width) solid var(--el-color-outline-variant);
+    border-radius: var(--el-radius-xs);
+    background: var(--el-color-surface);
     font-family: var(--el-font-sans);
     font-size: var(--el-input-font-size);
     font-weight: 400;
     line-height: 1.25;
-    color: var(--el-input-fg);
+    color: var(--el-color-on-surface);
   }
 
   &__field:hover {
-    border-color: var(--el-input-border-hover);
+    border-color: var(--el-color-outline);
   }
 
   &__field:focus-within {
-    border-color: var(--el-input-border-hover);
-    outline: 2px solid var(--el-input-focus-ring);
+    border-color: var(--el-color-outline);
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
     outline-offset: 2px;
   }
 
@@ -42,7 +46,7 @@
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
-    color: var(--el-input-affix-fg);
+    color: var(--el-color-on-surface-variant);
   }
 
   &__prefix:not(:has(*)),
@@ -51,11 +55,11 @@
   }
 
   &__prefix {
-    padding-inline-end: 0.5rem;
+    padding-inline-end: var(--el-space-2);
   }
 
   &__suffix {
-    padding-inline-start: 0.5rem;
+    padding-inline-start: var(--el-space-2);
   }
 
   &__control {
@@ -72,7 +76,7 @@
   }
 
   &__control::placeholder {
-    color: var(--el-input-placeholder-fg);
+    color: var(--el-color-on-surface-variant);
   }
 
   &__control:focus {
@@ -80,7 +84,7 @@
   }
 
   &__control:disabled {
-    color: var(--el-input-fg-disabled);
+    color: var(--el-color-disabled);
     cursor: not-allowed;
   }
 }
@@ -104,26 +108,26 @@
 }
 
 :host(.el-input--error) .el-input__field {
-  border-color: var(--el-input-border-error);
+  border-color: var(--el-color-error);
 }
 
 :host(.el-input--disabled) .el-input__field {
-  color: var(--el-input-fg-disabled);
+  color: var(--el-color-disabled);
   cursor: not-allowed;
   opacity: 0.6;
 }
 
 :host(.el-input--error) .el-input__field:hover,
 :host(.el-input--error) .el-input__field:focus-within {
-  border-color: var(--el-input-border-error);
+  border-color: var(--el-color-error);
 }
 
 :host(.el-input--error) .el-input__field:focus-within {
-  outline-color: var(--el-input-border-error);
+  outline-color: var(--el-color-error);
 }
 
 :host(.el-input--disabled) .el-input__field:hover,
 :host(.el-input--disabled) .el-input__field:focus-within {
-  border-color: var(--el-input-border);
+  border-color: var(--el-color-outline-variant);
   outline: none;
 }

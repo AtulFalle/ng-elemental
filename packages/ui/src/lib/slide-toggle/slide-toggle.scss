@@ -4,23 +4,23 @@
   --thumb: 1.125rem;
   --icon: 0.75rem;
   --track-extra: 0rem;
-  --icon-x: var(--el-slide-toggle-icon-inset);
-  --track-bg: var(--el-slide-toggle-track-off-bg);
-  --track-bd: var(--el-slide-toggle-track-off-border);
-  --thumb-bg: var(--el-slide-toggle-thumb-off-bg);
-  --thumb-x: var(--el-slide-toggle-thumb-inset);
+  --icon-x: 0.125rem;
+  --track-bg: var(--el-color-surface-container);
+  --track-bd: var(--el-color-outline);
+  --thumb-bg: var(--el-color-outline);
+  --thumb-x: 0.125rem;
   --on-op: 0;
   --off-op: 1;
 
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--el-slide-toggle-gap);
+  gap: var(--el-space-2);
   max-width: 100%;
   font-family: var(--el-font-sans);
-  font-size: var(--el-slide-toggle-label-size);
+  font-size: 0.875rem;
   line-height: 1.25;
-  color: var(--el-slide-toggle-label-fg);
+  color: var(--el-color-on-surface);
   cursor: pointer;
   user-select: none;
 
@@ -49,30 +49,30 @@
   }
 
   &--checked {
-    --track-bg: var(--el-slide-toggle-track-on-bg);
-    --track-bd: var(--el-slide-toggle-track-on-border);
-    --thumb-bg: var(--el-slide-toggle-thumb-on-bg);
-    --thumb-x: calc(100% - var(--thumb) - var(--el-slide-toggle-thumb-inset));
+    --track-bg: var(--el-color-primary);
+    --track-bd: var(--el-color-primary);
+    --thumb-bg: var(--el-color-on-primary);
+    --thumb-x: calc(100% - var(--thumb) - 0.125rem);
     --on-op: 1;
     --off-op: 0;
   }
 
   &--disabled {
-    --track-bg: var(--el-slide-toggle-track-off-bg-disabled);
-    --track-bd: var(--el-slide-toggle-track-off-border-disabled);
-    --thumb-bg: var(--el-slide-toggle-thumb-off-bg-disabled);
-    color: var(--el-slide-toggle-label-fg-disabled);
+    --track-bg: var(--el-color-disabled-container-subtle);
+    --track-bd: var(--el-color-disabled-container);
+    --thumb-bg: var(--el-color-disabled);
+    color: var(--el-color-disabled);
     cursor: not-allowed;
   }
 
   &--disabled.el-slide-toggle--checked {
-    --track-bg: var(--el-slide-toggle-track-on-bg-disabled);
+    --track-bg: var(--el-color-disabled);
     --track-bd: transparent;
-    --thumb-bg: var(--el-slide-toggle-thumb-on-bg-disabled);
+    --thumb-bg: var(--el-color-on-primary);
   }
 
   &--error {
-    --track-bd: var(--el-slide-toggle-error-border);
+    --track-bd: var(--el-color-error);
   }
 
   &__input,
@@ -95,8 +95,8 @@
     box-sizing: border-box;
     flex-shrink: 0;
     overflow: hidden;
-    border: var(--el-slide-toggle-track-border-width) solid var(--track-bd);
-    border-radius: 999px;
+    border: var(--el-border-width-thick) solid var(--track-bd);
+    border-radius: var(--el-radius-full);
     background: var(--track-bg);
     transition:
       background-color 0.2s ease,
@@ -142,36 +142,36 @@
 
   &__track-icon--on {
     inset-inline-start: var(--icon-x);
-    color: var(--el-slide-toggle-icon-on-fg);
+    color: var(--el-color-on-primary);
     opacity: var(--on-op);
   }
 
   &__track-icon--off {
     inset-inline-end: var(--icon-x);
-    color: var(--el-slide-toggle-icon-off-fg);
+    color: var(--el-color-on-surface);
     opacity: var(--off-op);
   }
 
   &__thumb-icon--on {
-    color: var(--el-slide-toggle-thumb-icon-on-fg);
+    color: var(--el-color-primary);
     opacity: var(--on-op);
   }
 
   &__thumb-icon--off {
-    color: var(--el-slide-toggle-thumb-icon-off-fg);
+    color: var(--el-color-on-primary);
     opacity: var(--off-op);
   }
 
   &--disabled &__track-icon--on {
-    color: var(--el-slide-toggle-icon-on-fg-disabled);
+    color: var(--el-color-on-primary);
   }
 
   &--disabled &__track-icon--off {
-    color: var(--el-slide-toggle-icon-off-fg-disabled);
+    color: var(--el-color-disabled);
   }
 
   &--disabled &__thumb-icon {
-    color: var(--el-color-fg-disabled);
+    color: var(--el-color-disabled);
   }
 
   &__label {
@@ -179,7 +179,7 @@
   }
 
   &__input:focus-visible + &__track {
-    outline: 2px solid var(--el-slide-toggle-focus-ring);
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
     outline-offset: 2px;
   }
 }

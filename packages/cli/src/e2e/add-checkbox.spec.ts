@@ -28,7 +28,7 @@ describe('add checkbox e2e', () => {
         'utf8',
       );
       expect(checkboxScss).toContain('.el-checkbox');
-      expect(checkboxScss).toContain('--el-checkbox-size');
+      expect(checkboxScss).toContain('--el-color-primary');
 
       expect(existsSync(componentUiPath(tmp, 'checkbox', 'checkbox.stories.ts'))).toBe(false);
     });

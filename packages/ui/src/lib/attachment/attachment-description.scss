@@ -10,9 +10,9 @@
   line-height: 1.35;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--el-attachment-fg-muted);
+  color: var(--el-color-on-surface-variant);
 }
 
 :host-context(.el-attachment--error) .el-attachment-description {
-  color: var(--el-attachment-error-fg);
+  color: var(--el-color-error);
 }

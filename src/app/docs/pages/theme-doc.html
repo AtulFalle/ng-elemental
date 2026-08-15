@@ -2,9 +2,9 @@
   <header class="docs-page__header">
     <h1>Theming</h1>
     <p class="docs-lead">
-      NgElemental components read design tokens as CSS custom properties. Override
-      tokens globally, per section, or at runtime — no need to edit component
-      SCSS.
+      One generic <code>tokens.scss</code> file — Material 3 color roles plus
+      density. Widgets reuse those tokens; you do not add
+      <code>--el-button-*</code> aliases to the theme package.
     </p>
   </header>
 
@@ -29,18 +29,17 @@
   </section>
 
   <section>
-    <h2>Global customization</h2>
+    <h2>Edit the BRAND block</h2>
     <p>
-      Set semantic tokens on <code>:root</code> to retheme the entire app.
-      Component tokens such as <code>--el-button-primary-bg</code> inherit from
-      these values by default:
+      Open the copied <code>tokens.scss</code> and change the BRAND section.
+      Pair each role as <code>light-dark(light, dark)</code>. Changing
+      <code>--el-color-primary</code> once updates buttons, chips, checkboxes,
+      sliders, and other widgets in both modes.
     </p>
-    <app-code-block [code]="globalOverrideCode" language="scss" />
+    <app-code-block [code]="brandCode" language="scss" />
     <p>
-      Changing <code>--el-color-accent</code> updates primary buttons, ghost
-      buttons, and primary segmented controls in one place. See each
-      <a routerLink="/components/button">component page</a> for its specific
-      token list.
+      <code>npx @ng-elemental/cli add theme --force</code> overwrites this file —
+      back up brand edits first.
     </p>
   </section>
 
@@ -48,8 +47,7 @@
     <h2>Scoped customization</h2>
     <p>
       Override tokens on any ancestor element to style a subtree without
-      affecting the rest of the app. Useful for branded sections, dashboards, or
-      embedded widgets:
+      affecting the rest of the app:
     </p>
     <app-code-block [code]="scopedOverrideCode" language="scss" />
     <p>
@@ -64,31 +62,17 @@
   </section>
 
   <section>
-    <h2>Programmatic theming</h2>
+    <h2>Light and dark</h2>
     <p>
-      Use <code>provideElTheme()</code> in <code>app.config.ts</code> to set an
-      initial mode and variable overrides:
+      Color pairs use CSS <code>light-dark()</code>. Dark mode flips when
+      <code>color-scheme</code> is <code>dark</code> — set by
+      <code>ElThemeService.setMode('dark')</code>,
+      <code>provideElTheme</code> with <code>mode: 'dark'</code>, or
+      <code>data-el-theme="dark"</code> on <code>&lt;html&gt;</code>.
+      TypeScript only toggles the mode; it does not hold a color map.
     </p>
     <app-code-block [code]="provideThemeCode" />
-    <p>
-      Inject <code>ElThemeService</code> anywhere to switch light/dark mode or
-      update variables at runtime:
-    </p>
     <app-code-block [code]="runtimeThemeCode" />
-  </section>
-
-  <section>
-    <h2>Dark mode</h2>
-    <p>
-      Built-in dark palette values live under
-      <code>[data-el-theme='dark']</code> in <code>tokens.scss</code>. Enable
-      dark mode by:
-    </p>
-    <ul>
-      <li>Calling <code>ElThemeService.setMode('dark')</code></li>
-      <li>Passing <code>mode: 'dark'</code> to <code>provideElTheme()</code></li>
-      <li>Setting <code>data-el-theme="dark"</code> on <code>&lt;html&gt;</code></li>
-    </ul>
     <app-code-block [code]="darkModeCode" language="html" />
     <h3>Live preview</h3>
     <app-preview>
@@ -99,39 +83,30 @@
       <el-button variant="ghost">Ghost</el-button>
     </app-preview>
     <p>
-      This demo toggles <code>data-el-theme</code> on the document root via
+      This demo toggles <code>data-el-theme</code> and
+      <code>color-scheme</code> on the document root via
       <code>ElThemeService</code>.
     </p>
   </section>
 
   <section>
-    <h2>Semantic tokens</h2>
+    <h2>Color tokens</h2>
     <p>
-      These base tokens drive most component colors. Override them for broad
-      changes; override component tokens when you need finer control.
+      Edit BRAND values in <code>tokens.scss</code> for global changes.
+      Derived tokens (<code>--el-color-primary-hover</code>,
+      <code>--el-color-hover</code>, <code>--el-color-disabled</code>) are
+      <code>color-mix</code> from those roles.
     </p>
-    <app-tokens-table [tokens]="semanticTokens" />
+    <app-tokens-table [tokens]="colorTokens" />
   </section>
 
   <section>
-    <h2>Component token reference</h2>
-    <p>Each component documents the tokens it consumes:</p>
-    <ul class="docs-link-list">
-      <li><a routerLink="/components/button">Button tokens</a></li>
-      <li><a routerLink="/components/label">Label tokens</a></li>
-      <li><a routerLink="/components/form-error">Form Error tokens</a></li>
-      <li><a routerLink="/components/input">Input tokens</a></li>
-      <li><a routerLink="/components/checkbox">Checkbox tokens</a></li>
-      <li><a routerLink="/components/slide-toggle">Slide toggle tokens</a></li>
-      <li><a routerLink="/components/select">Select tokens</a></li>
-      <li><a routerLink="/components/datepicker">Date picker tokens</a></li>
-      <li><a routerLink="/components/segmented-button">Segmented button tokens</a></li>
-      <li><a routerLink="/components/progress">Progress tokens</a></li>
-      <li><a routerLink="/components/slider">Slider tokens</a></li>
-      <li><a routerLink="/components/avatar">Avatar tokens</a></li>
-      <li><a routerLink="/components/card">Card tokens</a></li>
-      <li><a routerLink="/components/attachment">Attachment tokens</a></li>
-      <li><a routerLink="/components/file-upload">File Upload tokens</a></li>
-    </ul>
+    <h2>Density tokens</h2>
+    <p>
+      Spacing, radius, shadow, border width, icon size, and fonts. Unique
+      widget sizes (chip height, slider thumb, avatar diameter) stay in that
+      widget’s SCSS and copy only with that component.
+    </p>
+    <app-tokens-table [tokens]="densityTokens" />
   </section>
 </article>

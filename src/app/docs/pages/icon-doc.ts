@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ElButton, ElChip, ElIcon } from '@ng-elemental/ui';
 import { ICON_TOKENS } from '../theme-tokens';
 import type { PropDefinition } from '../nav';
@@ -10,7 +11,7 @@ import { TokensTable } from '../ui/tokens-table';
 @Component({
   selector: 'app-icon-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ElIcon, ElButton, ElChip, CodeBlock, Preview, PropsTable, TokensTable],
+  imports: [RouterLink, ElIcon, ElButton, ElChip, CodeBlock, Preview, PropsTable, TokensTable],
   templateUrl: './icon-doc.html',
   styleUrl: './page.scss',
 })

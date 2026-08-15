@@ -17,7 +17,8 @@
 ## Style
 
 - BEM: `.el-block`, `.el-block__element`, `.el-block--modifier`
-- Colors only via tokens (`var(--el-…)`). Hex belongs in `tokens.scss` only
+- Colors only via generic theme tokens (`var(--el-color-primary)`, `var(--el-radius-xs)`, …). Hex belongs in `tokens.scss` only
+- Do not add widget aliases (`--el-button-*`, `--el-<name>-*`) to `tokens.scss`. Unique sizes stay hardcoded in that widget’s SCSS
 - Encapsulated component SCSS — no global class leaks
 - Sizes match button: `'sm' | 'md' | 'lg'` when the control has a size
 

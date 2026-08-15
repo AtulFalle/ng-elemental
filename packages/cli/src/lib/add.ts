@@ -137,7 +137,8 @@ const COMPONENT_EXAMPLES: Record<
   theme: {
     className: 'ElThemeService',
     usage: `// styles.scss — @use './theme/tokens';
-// app.config.ts — provideElTheme({ mode: 'light', variables: { '--el-color-accent': '#6366f1' } })`,
+// Open tokens.scss and edit the BRAND block (--el-color-primary, …)
+// app.config.ts — provideElTheme({ mode: 'light' })`,
   },
 };
 

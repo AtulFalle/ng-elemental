@@ -33,8 +33,8 @@ describe('add slide-toggle e2e', () => {
         'utf8',
       );
       expect(slideToggleScss).toContain('.el-slide-toggle');
-      expect(slideToggleScss).toContain('--el-slide-toggle-track-on-bg');
-      expect(slideToggleScss).toContain('--el-slide-toggle-track-off-bg');
+      expect(slideToggleScss).toContain('--el-color-primary');
+      expect(slideToggleScss).toContain('--el-color-outline');
 
       expect(existsSync(componentUiPath(tmp, 'slide-toggle', 'slide-toggle.stories.ts'))).toBe(
         false,

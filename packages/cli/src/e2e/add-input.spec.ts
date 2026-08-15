@@ -23,7 +23,7 @@ describe('add input e2e', () => {
 
       const inputScss = await readFile(componentUiPath(tmp, 'input', 'input.scss'), 'utf8');
       expect(inputScss).toContain('.el-input');
-      expect(inputScss).toContain('--el-input-border');
+      expect(inputScss).toContain('--el-color-outline-variant');
 
       expect(existsSync(componentUiPath(tmp, 'input', 'input.stories.ts'))).toBe(false);
     });

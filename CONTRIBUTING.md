@@ -81,7 +81,7 @@ The manifest in `component-registry.ts` is the single source of truth. CI fails 
 Follow existing conventions:
 
 - Encapsulated SCSS with BEM-style class names (`el-block`, `el-block__element`, `el-block--modifier`)
-- Design tokens via CSS custom properties in `packages/ui/src/lib/theme/tokens.scss` — no hardcoded colors in component styles
+- Design tokens via CSS custom properties in `packages/ui/src/lib/theme/tokens.scss` (generic MD3 color roles + density). Do not add `--el-<name>-*` widget aliases; unique sizes stay in that widget’s SCSS. Hex only in the theme file.
 - Selector prefix `el-`
 - Modern Angular patterns enforced by ESLint (`input()`, `inject()`, host metadata, `@if` control flow) and Stylelint (BEM selectors, no hex outside tokens)
 

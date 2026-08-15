@@ -137,7 +137,7 @@ interface DemoUpload {
           style="
             margin: 0;
             font: 600 0.8125rem/1.3 var(--el-font-sans, system-ui);
-            color: var(--el-color-fg-muted);
+            color: var(--el-color-on-surface-variant);
           "
         >
           Upload progress (compose ElProgress with ElAttachment)

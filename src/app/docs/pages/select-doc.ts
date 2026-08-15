@@ -9,12 +9,10 @@ import {
   ElSelectItem,
   ElSelectValue,
 } from '@ng-elemental/ui';
-import { SELECT_TOKENS } from '../theme-tokens';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
 import { PropsTable } from '../ui/props-table';
-import { TokensTable } from '../ui/tokens-table';
 
 @Component({
   selector: 'app-select-doc-page',
@@ -31,13 +29,11 @@ import { TokensTable } from '../ui/tokens-table';
     CodeBlock,
     Preview,
     PropsTable,
-    TokensTable,
   ],
   templateUrl: './select-doc.html',
   styleUrl: './page.scss',
 })
 export class SelectDocPage {
-  protected readonly selectTokens = SELECT_TOKENS;
   protected readonly city = signal('pune');
   protected readonly cities = signal<string[]>(['pune']);
   protected readonly produce = signal('apple');
@@ -92,10 +88,9 @@ export class MyComponent {}`;
   <el-select-item value="angular" label="Angular">Angular</el-select-item>
 </el-select>`;
 
-  protected readonly globalTokensCode = `:root {
-  --el-select-trigger-border: #79747e;
-  --el-select-item-selected-bg: #eff6ff;
-  --el-select-focus-ring: #6750a4;
+  protected readonly scopedTokensCode = `.checkout-panel {
+  --el-color-primary: #059669;
+  --el-color-on-primary: #ffffff;
 }`;
 
   protected readonly selectProps: PropDefinition[] = [

@@ -16,16 +16,16 @@ Replace `<name>` with the CLI id (folder name), e.g. `select`.
 ## Modify
 
 - [ ] `packages/ui/src/index.ts` — export classes and public types
-- [ ] `packages/ui/src/lib/theme/tokens.scss` — `--el-<name>-*` (and dark overrides)
+- [ ] `packages/ui/src/lib/theme/tokens.scss` — use existing generic color/density tokens only (do **not** add `--el-<name>-*`)
 - [ ] `packages/cli/src/lib/component-registry.ts` — `assetGlobs`, `requiredBasenames`
 - [ ] `packages/cli/project.json` — one asset entry per glob; **never `*`**
 - [ ] `packages/cli/src/lib/add.ts` — `COMPONENT_EXAMPLES`
 - [ ] `packages/cli/src/lib/cli.ts` — `add <name>` help line
 - [ ] `src/app/docs/nav.ts`
 - [ ] `src/app/app.routes.ts` — lazy `loadComponent`
-- [ ] `src/app/docs/theme-tokens.ts` — `*_TOKENS` for the docs table
+- [ ] `src/app/docs/theme-tokens.ts` — only if a **generic** color/density token was added
 - [ ] `src/app/docs/pages/home.html` — available components list
-- [ ] `src/app/docs/pages/theme-doc.html` — token link (if new tokens)
+- [ ] `src/app/docs/pages/<name>-doc.ts/html` — link to Theming; do not add a widget token table
 - [ ] `README.md` — usage + props; note `icon` (or other) prerequisites
 - [ ] `packages/cli/README.md` — available components table
 - [ ] `CHANGELOG.md` — `[Unreleased]` → Added

@@ -5,6 +5,11 @@
 }
 
 .el-attachment {
+  --el-attachment-padding: 0.5rem 0.75rem;
+  --el-attachment-gap: 0.75rem;
+  --el-attachment-media-size: 2.5rem;
+  --el-attachment-title-size: 0.875rem;
+  --el-attachment-desc-size: 0.75rem;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -14,10 +19,10 @@
   width: 100%;
   height: 100%;
   padding: var(--el-attachment-padding);
-  border: 1px solid var(--el-attachment-border);
-  border-radius: var(--el-attachment-radius);
-  background: var(--el-attachment-bg);
-  color: var(--el-attachment-fg);
+  border: var(--el-border-width) solid var(--el-color-outline-variant);
+  border-radius: var(--el-radius-md);
+  background: var(--el-color-surface);
+  color: var(--el-color-on-surface);
   font-family: var(--el-font-sans);
 
   &__body {
@@ -43,42 +48,42 @@
 
   &--vertical &__body {
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: var(--el-space-2);
     padding: var(--el-attachment-padding);
   }
 
   &--sm {
-    --el-attachment-padding: var(--el-attachment-padding-sm);
-    --el-attachment-gap: var(--el-attachment-gap-sm);
-    --el-attachment-media-size: var(--el-attachment-media-size-sm);
-    --el-attachment-title-size: var(--el-attachment-title-size-sm);
-    --el-attachment-desc-size: var(--el-attachment-desc-size-sm);
+    --el-attachment-padding: 0.375rem 0.5rem;
+    --el-attachment-gap: 0.5rem;
+    --el-attachment-media-size: 1.75rem;
+    --el-attachment-title-size: 0.8125rem;
+    --el-attachment-desc-size: 0.6875rem;
   }
 
   &--md {
-    --el-attachment-padding: var(--el-attachment-padding-md);
-    --el-attachment-gap: var(--el-attachment-gap-md);
-    --el-attachment-media-size: var(--el-attachment-media-size-md);
-    --el-attachment-title-size: var(--el-attachment-title-size-md);
-    --el-attachment-desc-size: var(--el-attachment-desc-size-md);
+    --el-attachment-padding: 0.5rem 0.75rem;
+    --el-attachment-gap: 0.75rem;
+    --el-attachment-media-size: 2.5rem;
+    --el-attachment-title-size: 0.875rem;
+    --el-attachment-desc-size: 0.75rem;
   }
 
   &--lg {
-    --el-attachment-padding: var(--el-attachment-padding-lg);
-    --el-attachment-gap: var(--el-attachment-gap-lg);
-    --el-attachment-media-size: var(--el-attachment-media-size-lg);
-    --el-attachment-title-size: var(--el-attachment-title-size-lg);
-    --el-attachment-desc-size: var(--el-attachment-desc-size-lg);
+    --el-attachment-padding: 0.75rem 1rem;
+    --el-attachment-gap: 1rem;
+    --el-attachment-media-size: 3rem;
+    --el-attachment-title-size: 1rem;
+    --el-attachment-desc-size: 0.8125rem;
   }
 
   &--error {
-    border-color: var(--el-attachment-error-border);
-    background: var(--el-attachment-error-bg);
-    color: var(--el-attachment-error-fg);
+    border-color: color-mix(in srgb, var(--el-color-error) 40%, var(--el-color-outline-variant));
+    background: var(--el-color-error-container);
+    color: var(--el-color-error);
   }
 
   &--uploading,
   &--processing {
-    border-color: var(--el-attachment-border);
+    border-color: var(--el-color-outline-variant);
   }
 }

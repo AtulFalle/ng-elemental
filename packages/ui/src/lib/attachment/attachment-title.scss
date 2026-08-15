@@ -11,14 +11,14 @@
   line-height: 1.3;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--el-attachment-fg);
+  color: var(--el-color-on-surface);
 
   &--shimmer {
     background: linear-gradient(
       90deg,
-      var(--el-attachment-fg) 0%,
-      var(--el-attachment-shimmer) 40%,
-      var(--el-attachment-fg) 80%
+      var(--el-color-on-surface) 0%,
+      var(--el-color-on-surface-variant) 40%,
+      var(--el-color-on-surface) 80%
     );
     background-size: 200% 100%;
     background-clip: text;

@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ElDateRangePicker, type ElDateRange } from '@ng-elemental/ui';
-import { DATEPICKER_TOKENS } from '../theme-tokens';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
 import { PropsTable } from '../ui/props-table';
-import { TokensTable } from '../ui/tokens-table';
 
 @Component({
   selector: 'app-date-range-picker-doc-page',
@@ -17,13 +15,11 @@ import { TokensTable } from '../ui/tokens-table';
     CodeBlock,
     Preview,
     PropsTable,
-    TokensTable,
   ],
   templateUrl: './date-range-picker-doc.html',
   styleUrl: './page.scss',
 })
 export class DateRangePickerDocPage {
-  protected readonly datepickerTokens = DATEPICKER_TOKENS;
   protected readonly range = signal<ElDateRange>({
     start: new Date(2026, 7, 14),
     end: new Date(2026, 7, 20),
@@ -57,9 +53,9 @@ export class MyComponent {
   ariaLabel="Date range"
 />`;
 
-  protected readonly globalTokensCode = `:root {
-  --el-datepicker-range-bg: #eff6ff;
-  --el-datepicker-day-selected-bg: #1d4ed8;
+  protected readonly scopedTokensCode = `.checkout-panel {
+  --el-color-primary: #059669;
+  --el-color-on-primary: #ffffff;
 }`;
 
   protected readonly rangeProps: PropDefinition[] = [

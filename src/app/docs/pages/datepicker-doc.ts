@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ElDatePicker } from '@ng-elemental/ui';
-import { DATEPICKER_TOKENS } from '../theme-tokens';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
 import { PropsTable } from '../ui/props-table';
-import { TokensTable } from '../ui/tokens-table';
 
 @Component({
   selector: 'app-datepicker-doc-page',
@@ -17,13 +15,11 @@ import { TokensTable } from '../ui/tokens-table';
     CodeBlock,
     Preview,
     PropsTable,
-    TokensTable,
   ],
   templateUrl: './datepicker-doc.html',
   styleUrl: './page.scss',
 })
 export class DatepickerDocPage {
-  protected readonly datepickerTokens = DATEPICKER_TOKENS;
   protected readonly dateValue = signal<Date | null>(new Date(2026, 7, 14));
   protected readonly timeValue = signal<Date | null>(
     new Date(2026, 7, 14, 14, 30),
@@ -60,10 +56,9 @@ export class MyComponent {
 <el-date-picker [(value)]="when" mode="time" hourCycle="h12" />
 <el-date-picker [(value)]="when" mode="datetime" hourCycle="h23" />`;
 
-  protected readonly globalTokensCode = `:root {
-  --el-datepicker-trigger-border: #79747e;
-  --el-datepicker-day-selected-bg: #1d4ed8;
-  --el-datepicker-focus-ring: #6750a4;
+  protected readonly scopedTokensCode = `.checkout-panel {
+  --el-color-primary: #059669;
+  --el-color-on-primary: #ffffff;
 }`;
 
   protected readonly pickerProps: PropDefinition[] = [

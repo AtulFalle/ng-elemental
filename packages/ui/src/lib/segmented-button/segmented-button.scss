@@ -1,7 +1,7 @@
 :host {
   display: inline-flex;
   align-items: stretch;
-  border: 1px solid var(--el-segmented-track-border);
+  border: var(--el-border-width) solid var(--el-segmented-track-border);
   border-radius: var(--el-segmented-radius, 1.25rem);
   overflow: hidden;
   background-color: var(--el-segmented-track-bg, transparent);
@@ -29,36 +29,36 @@
 }
 
 :host(.el-segmented-button--primary) {
-  --el-segmented-track-bg: var(--el-segmented-track-bg-primary);
-  --el-segmented-track-border: var(--el-button-primary-bg);
-  --el-segmented-item-color: var(--el-button-primary-bg);
-  --el-segmented-item-border: var(--el-button-primary-bg);
-  --el-segmented-item-hover-bg: var(--el-color-overlay-hover);
-  --el-segmented-item-selected-bg: var(--el-button-primary-bg);
-  --el-segmented-item-selected-color: var(--el-button-primary-fg);
-  --el-segmented-focus-color: var(--el-button-primary-bg);
+  --el-segmented-track-bg: var(--el-color-primary-container);
+  --el-segmented-track-border: var(--el-color-primary);
+  --el-segmented-item-color: var(--el-color-primary);
+  --el-segmented-item-border: var(--el-color-primary);
+  --el-segmented-item-hover-bg: var(--el-color-hover);
+  --el-segmented-item-selected-bg: var(--el-color-primary);
+  --el-segmented-item-selected-color: var(--el-color-on-primary);
+  --el-segmented-focus-color: var(--el-color-primary);
 }
 
 :host(.el-segmented-button--secondary) {
   --el-segmented-track-bg: transparent;
-  --el-segmented-track-border: var(--el-segmented-md3-outline);
-  --el-segmented-item-color: var(--el-segmented-md3-on-surface);
-  --el-segmented-item-border: var(--el-segmented-md3-outline);
-  --el-segmented-item-hover-bg: var(--el-color-overlay-hover-muted);
-  --el-segmented-item-selected-bg: var(--el-segmented-md3-secondary-container);
-  --el-segmented-item-selected-color: var(--el-segmented-md3-on-secondary-container);
-  --el-segmented-focus-color: var(--el-segmented-md3-focus);
+  --el-segmented-track-border: var(--el-color-outline);
+  --el-segmented-item-color: var(--el-color-on-surface);
+  --el-segmented-item-border: var(--el-color-outline);
+  --el-segmented-item-hover-bg: var(--el-color-hover);
+  --el-segmented-item-selected-bg: var(--el-color-secondary-container);
+  --el-segmented-item-selected-color: var(--el-color-on-secondary-container);
+  --el-segmented-focus-color: var(--el-color-primary);
 }
 
 :host(.el-segmented-button--ghost) {
   --el-segmented-track-bg: transparent;
-  --el-segmented-track-border: var(--el-segmented-track-border-ghost);
-  --el-segmented-item-color: var(--el-button-ghost-fg);
-  --el-segmented-item-border: var(--el-segmented-item-border-ghost);
-  --el-segmented-item-hover-bg: var(--el-segmented-item-hover-bg-ghost);
-  --el-segmented-item-selected-bg: var(--el-button-ghost-bg-hover);
-  --el-segmented-item-selected-color: var(--el-button-ghost-fg);
-  --el-segmented-focus-color: var(--el-button-ghost-fg);
+  --el-segmented-track-border: var(--el-color-outline-variant);
+  --el-segmented-item-color: var(--el-color-primary);
+  --el-segmented-item-border: var(--el-color-outline-variant);
+  --el-segmented-item-hover-bg: var(--el-color-surface-container);
+  --el-segmented-item-selected-bg: var(--el-color-primary-container);
+  --el-segmented-item-selected-color: var(--el-color-primary);
+  --el-segmented-focus-color: var(--el-color-primary);
 }
 
 :host(.el-segmented-button--disabled) {

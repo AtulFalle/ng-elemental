@@ -3,28 +3,31 @@
 }
 
 .el-file-upload {
+  --el-file-upload-padding: 1.5rem;
+  --el-file-upload-title-size: 1rem;
+  --el-file-upload-hint-size: 0.875rem;
   display: flex;
   flex-direction: column;
-  gap: var(--el-file-upload-gap);
-  color: var(--el-file-upload-fg);
+  gap: var(--el-space-3);
+  color: var(--el-color-on-surface);
   font-family: var(--el-font-sans);
 
   &--sm {
-    --el-file-upload-padding: var(--el-file-upload-padding-sm);
-    --el-file-upload-title-size: var(--el-file-upload-title-size-sm);
-    --el-file-upload-hint-size: var(--el-file-upload-hint-size-sm);
+    --el-file-upload-padding: 1rem;
+    --el-file-upload-title-size: 0.875rem;
+    --el-file-upload-hint-size: 0.75rem;
   }
 
   &--md {
-    --el-file-upload-padding: var(--el-file-upload-padding-md);
-    --el-file-upload-title-size: var(--el-file-upload-title-size-md);
-    --el-file-upload-hint-size: var(--el-file-upload-hint-size-md);
+    --el-file-upload-padding: 1.5rem;
+    --el-file-upload-title-size: 1rem;
+    --el-file-upload-hint-size: 0.875rem;
   }
 
   &--lg {
-    --el-file-upload-padding: var(--el-file-upload-padding-lg);
-    --el-file-upload-title-size: var(--el-file-upload-title-size-lg);
-    --el-file-upload-hint-size: var(--el-file-upload-hint-size-lg);
+    --el-file-upload-padding: 2rem;
+    --el-file-upload-title-size: 1.125rem;
+    --el-file-upload-hint-size: 0.9375rem;
   }
 }
 
@@ -33,12 +36,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--el-file-upload-gap);
+  gap: var(--el-space-3);
   box-sizing: border-box;
   padding: var(--el-file-upload-padding);
-  border: 1.5px dashed var(--el-file-upload-border);
-  border-radius: var(--el-file-upload-radius);
-  background: var(--el-file-upload-bg);
+  border: 1.5px dashed var(--el-color-outline-variant);
+  border-radius: var(--el-radius-md);
+  background: var(--el-color-surface);
   text-align: center;
   cursor: pointer;
   outline: none;
@@ -47,18 +50,18 @@
     background-color 0.15s ease;
 
   &:focus-visible {
-    border-color: var(--el-file-upload-border-active);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--el-color-accent) 25%, transparent);
+    border-color: var(--el-color-primary);
+    box-shadow: 0 0 0 3px var(--el-color-focus);
   }
 
   &--active {
-    border-color: var(--el-file-upload-border-active);
-    background: var(--el-file-upload-bg-active);
+    border-color: var(--el-color-primary);
+    background: var(--el-color-primary-container);
   }
 
   &--reject {
-    border-color: var(--el-file-upload-border-reject);
-    background: var(--el-file-upload-bg-reject);
+    border-color: var(--el-color-error);
+    background: var(--el-color-error-container);
   }
 
   &--disabled {
@@ -68,13 +71,13 @@
 }
 
 .el-file-upload__icon {
-  color: var(--el-file-upload-fg-muted);
+  color: var(--el-color-on-surface-variant);
 }
 
 .el-file-upload__copy {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--el-space-1);
   max-width: 28rem;
 }
 
@@ -89,7 +92,7 @@
   margin: 0;
   font-size: var(--el-file-upload-hint-size);
   line-height: 1.4;
-  color: var(--el-file-upload-fg-muted);
+  color: var(--el-color-on-surface-variant);
 
   &:empty {
     display: none;
@@ -120,7 +123,7 @@
 .el-file-upload__list {
   display: flex;
   flex-direction: column;
-  gap: var(--el-file-upload-list-gap);
+  gap: var(--el-space-2);
   margin: 0;
   padding: 0;
   list-style: none;
