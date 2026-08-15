@@ -104,7 +104,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `tabs`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -512,6 +512,80 @@ Presentational container with named slots. Not interactive — wire clicks on co
 | `elCardFooter` | Footer |
 
 Compose with `el-avatar` / `el-icon` / `el-button` in slots when needed (separate `add` packages).
+
+### List (`el-list`)
+
+Stacked rows with optional leading media, title, description, and trailing meta. Selection is parent-owned.
+
+```html
+<el-list ariaLabel="Inbox">
+  <el-list-item>
+    <el-avatar elListLeading initials="AL" alt="Ada Lovelace" />
+    <span elListTitle>Ada Lovelace</span>
+    <span elListDescription>Notes on the Analytical Engine</span>
+    <span elListTrailing>09:12</span>
+  </el-list-item>
+  <el-list-item interactive [selected]="active" (activated)="select()">
+    Inbox
+  </el-list-item>
+</el-list>
+```
+
+**`el-list`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `appearance` | `outlined` \| `plain` | `outlined` | Bordered surface or flush rows |
+| `size` | `sm` \| `md` \| `lg` | `md` | Density |
+| `divided` | `boolean` | `true` | Hairline separators |
+| `ariaLabel` | `string` | — | Accessible name |
+
+**`el-list-item`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `interactive` | `boolean` | `false` | Focusable row; emits `activated` |
+| `selected` | `boolean` | `false` | Parent-owned highlight |
+| `disabled` | `boolean` | `false` | Dim and block activation |
+
+| Slot attribute | Description |
+| --- | --- |
+| `elListLeading` | Avatar, icon, or thumbnail |
+| `elListTitle` | Primary line |
+| `elListDescription` | Secondary line |
+| `elListTrailing` | Meta, chip, or action |
+
+Unslotted content lands in the body. Optional compose with `avatar`, `icon`, `chip`, `button`.
+
+### Infinite Scroll (`[elInfiniteScroll]`)
+
+Attribute directive for paginated feeds. The parent owns items, loading, and “no more pages”. Demo it with `el-list`.
+
+```html
+<div
+  elInfiniteScroll
+  [disabled]="loading()"
+  [complete]="done()"
+  (loadMore)="loadPage()"
+  style="max-height: 24rem; overflow: auto"
+>
+  <el-list>
+    @for (item of items(); track item.id) {
+      <el-list-item>{{ item.title }}</el-list-item>
+    }
+  </el-list>
+</div>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `disabled` | `boolean` | `false` | Skip `loadMore` while a page is in flight |
+| `complete` | `boolean` | `false` | Stop when the last page is loaded |
+| `rootMargin` | `string` | `'160px'` | IntersectionObserver rootMargin |
+| `threshold` | `number` | `0` | IntersectionObserver threshold |
+| `root` | `host` \| `viewport` | `host` | Scroll root (host needs overflow + max-height) |
+
+Put `overflow: auto` and a max height on the host when `root="host"`. Pair with `list` for rows (`ng-elemental add list`).
 
 ### Attachment (`el-attachment`)
 

@@ -72,6 +72,8 @@ export class MyComponent {}
 | `slider` | `el-slider` | `ElSlider` |
 | `avatar` | `el-avatar` | `ElAvatar` |
 | `card` | `el-card` | `ElCard` |
+| `list` | `el-list`, `el-list-item` | `ElList`, `ElListItem` |
+| `infinite-scroll` | `[elInfiniteScroll]` | `ElInfiniteScroll` |
 | `attachment` | `el-attachment` (+ parts) | `ElAttachment`, … |
 | `file-upload` | `el-file-upload` | `ElFileUpload` |
 | `icon` | `el-icon` | `ElIcon` |

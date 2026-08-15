@@ -117,6 +117,16 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['card'],
   },
   {
+    name: 'list',
+    assetGlobs: ['list.{ts,html,scss}', 'list-item.{ts,html,scss}'],
+    requiredBasenames: ['list', 'list-item'],
+  },
+  {
+    name: 'infinite-scroll',
+    assetGlobs: ['infinite-scroll.ts'],
+    requiredBasenames: ['infinite-scroll'],
+  },
+  {
     name: 'attachment',
     assetGlobs: [
       'attachment.{ts,html,scss}',

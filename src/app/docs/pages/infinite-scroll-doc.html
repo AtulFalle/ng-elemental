@@ -1,0 +1,86 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Infinite Scroll</h1>
+    <p class="docs-lead">
+      Attribute directive that emits <code>loadMore</code> when the user
+      reaches the end of a scroll container. Your parent owns pages, loading,
+      and completion — this demo uses
+      <a routerLink="/components/list">List</a> for the rows.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project:
+    <code>npx @ng-elemental/cli add infinite-scroll</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div
+        elInfiniteScroll
+        [disabled]="loading()"
+        [complete]="complete()"
+        (loadMore)="onLoadMore()"
+        style="width: 100%; max-width: 28rem; max-height: 24rem; overflow: auto"
+      >
+        <el-list appearance="plain" ariaLabel="Notifications">
+          @for (item of items(); track item.id) {
+            <el-list-item>
+              <span elListTitle>{{ item.title }}</span>
+              <span elListDescription>{{ item.description }}</span>
+            </el-list-item>
+          }
+        </el-list>
+        @if (loading()) {
+          <div style="padding: 0.5rem 1rem 1rem">
+            <el-progress indeterminate size="sm" />
+          </div>
+        } @else if (complete()) {
+          <p
+            style="margin: 0; padding: 0.75rem 1rem 1rem; text-align: center; font-size: 0.75rem; color: var(--el-color-on-surface-variant)"
+          >
+            End of list
+          </p>
+        }
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Put <code>elInfiniteScroll</code> on a wrapper with
+      <code>overflow: auto</code> and a max height (default
+      <code>root="host"</code>). Bind
+      <code>[disabled]</code> to your in-flight flag and
+      <code>[complete]</code> when there is no next page. Append items in
+      <code>(loadMore)</code>.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      The directive has no chrome of its own. Row colors come from
+      <a routerLink="/components/list">List</a> (or whatever you project).
+      See <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>Inputs</h3>
+    <app-props-table [props]="props" />
+    <h3>Outputs</h3>
+    <app-props-table [props]="outputs" />
+  </section>
+</article>

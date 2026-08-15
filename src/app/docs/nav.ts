@@ -39,6 +39,8 @@ export const DOC_NAV: DocNavSection[] = [
       { label: 'Slider', path: '/components/slider' },
       { label: 'Avatar', path: '/components/avatar' },
       { label: 'Card', path: '/components/card' },
+      { label: 'List', path: '/components/list' },
+      { label: 'Infinite Scroll', path: '/components/infinite-scroll' },
       { label: 'Attachment', path: '/components/attachment' },
       { label: 'File Upload', path: '/components/file-upload' },
       { label: 'Tabs', path: '/components/tabs' },

@@ -79,6 +79,16 @@ export {
 export { ElAvatar, type ElAvatarSize } from './lib/avatar/avatar';
 export { ElCard, type ElCardAppearance, type ElCardSize } from './lib/card/card';
 export {
+  ElList,
+  ElListItem,
+  type ElListAppearance,
+  type ElListSize,
+} from './lib/list/list';
+export {
+  ElInfiniteScroll,
+  type ElInfiniteScrollRoot,
+} from './lib/infinite-scroll/infinite-scroll';
+export {
   ElAttachment,
   type ElAttachmentOrientation,
   type ElAttachmentSize,

@@ -1,0 +1,17 @@
+<div [class]="rootClass()">
+  <div class="el-list-item__leading">
+    <ng-content select="[elListLeading]" />
+  </div>
+  <div class="el-list-item__body">
+    <div class="el-list-item__title">
+      <ng-content select="[elListTitle]" />
+    </div>
+    <div class="el-list-item__description">
+      <ng-content select="[elListDescription]" />
+    </div>
+    <ng-content />
+  </div>
+  <div class="el-list-item__trailing">
+    <ng-content select="[elListTrailing]" />
+  </div>
+</div>

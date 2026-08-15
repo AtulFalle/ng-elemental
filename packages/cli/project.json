@@ -155,6 +155,21 @@
             "output": "registry/card"
           },
           {
+            "glob": "list.{ts,html,scss}",
+            "input": "packages/ui/src/lib/list",
+            "output": "registry/list"
+          },
+          {
+            "glob": "list-item.{ts,html,scss}",
+            "input": "packages/ui/src/lib/list",
+            "output": "registry/list"
+          },
+          {
+            "glob": "infinite-scroll.ts",
+            "input": "packages/ui/src/lib/infinite-scroll",
+            "output": "registry/infinite-scroll"
+          },
+          {
             "glob": "attachment.{ts,html,scss}",
             "input": "packages/ui/src/lib/attachment",
             "output": "registry/attachment"

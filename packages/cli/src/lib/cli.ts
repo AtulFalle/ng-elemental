@@ -60,6 +60,8 @@ Commands:
   add slider            Copy the Slider component into your project
   add avatar            Copy the Avatar component into your project
   add card              Copy the Card component into your project
+  add list              Copy the List and List Item components into your project
+  add infinite-scroll   Copy the Infinite Scroll directive into your project
   add attachment        Copy the Attachment component into your project
   add file-upload       Copy the File Upload component into your project
 `);

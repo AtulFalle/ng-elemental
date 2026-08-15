@@ -104,6 +104,18 @@ export const appRoutes: Route[] = [
           import('./docs/pages/card-doc').then((m) => m.CardDocPage),
       },
       {
+        path: 'components/list',
+        loadComponent: () =>
+          import('./docs/pages/list-doc').then((m) => m.ListDocPage),
+      },
+      {
+        path: 'components/infinite-scroll',
+        loadComponent: () =>
+          import('./docs/pages/infinite-scroll-doc').then(
+            (m) => m.InfiniteScrollDocPage,
+          ),
+      },
+      {
         path: 'components/attachment',
         loadComponent: () =>
           import('./docs/pages/attachment-doc').then(
