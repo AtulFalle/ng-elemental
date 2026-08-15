@@ -122,6 +122,21 @@ const COMPONENT_EXAMPLES: Record<
 </el-file-upload>`,
   },
 
+  tabs: {
+    className: 'ElTabs, ElTab, ElTabContent',
+    usage: `<el-tabs [(value)]="selected" ariaLabel="Account">
+  <el-tab value="overview" label="Overview">
+    <ng-template elTabContent>
+      <p>Any HTML goes here.</p>
+    </ng-template>
+  </el-tab>
+  <el-tab value="billing" label="Billing">
+    <ng-template elTabContent>
+      <p>Billing details.</p>
+    </ng-template>
+  </el-tab>
+</el-tabs>`,
+  },
   'segmented-button': {
     className: 'ElSegmentedButton, ElSegmentedButtonItem',
     usage: `<el-segmented-button [(value)]="view" ariaLabel="View mode">

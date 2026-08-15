@@ -75,6 +75,7 @@ export class MyComponent {}
 | `attachment` | `el-attachment` (+ parts) | `ElAttachment`, … |
 | `file-upload` | `el-file-upload` | `ElFileUpload` |
 | `icon` | `el-icon` | `ElIcon` |
+| `tabs` | `el-tabs`, `el-tab` | `ElTabs`, `ElTab`, `ElTabContent`, `ElTabLabel` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |
 
 ## Requirements

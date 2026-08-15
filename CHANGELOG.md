@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ElTabs` and `ElTab` with `ng-template` panels and overflow chevrons (`ng-elemental add tabs`; requires `icon`)
 - Docs Theme panel: pick BRAND color tokens, apply them for the session, and copy a `:root` CSS snippet for consumer apps
 
 ### Changed

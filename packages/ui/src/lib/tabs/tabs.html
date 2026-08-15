@@ -1,0 +1,80 @@
+<div
+  class="el-tabs__scroller"
+  [class.el-tabs__scroller--overflow]="overflow()"
+>
+  @if (overflow()) {
+    <button
+      type="button"
+      class="el-tabs__arrow el-tabs__arrow--start"
+      aria-label="Scroll tabs left"
+      tabindex="-1"
+      [disabled]="disabled() || !canScrollStart()"
+      (click)="scrollTabs(-1)"
+    >
+      <el-icon name="chevron-left" size="sm" />
+    </button>
+  }
+
+  <div
+    #tabList
+    class="el-tabs__list"
+    role="tablist"
+    [attr.aria-label]="ariaLabel() || null"
+    aria-orientation="horizontal"
+  >
+    @for (tab of tabs(); track tab.value(); let i = $index) {
+      <button
+        #tabButton
+        type="button"
+        class="el-tabs__tab"
+        [class.el-tabs__tab--selected]="isSelected(tab)"
+        role="tab"
+        [id]="tabId(i)"
+        [attr.aria-selected]="isSelected(tab)"
+        [attr.aria-controls]="panelId(i)"
+        [attr.aria-disabled]="isItemDisabled(tab.disabled()) || null"
+        [disabled]="isItemDisabled(tab.disabled())"
+        [attr.tabindex]="tabIndex(tab)"
+        (click)="onTabClick(tab, i)"
+        (keydown)="onTabListKeydown($event)"
+      >
+        @if (tab.labelTemplate(); as template) {
+          <ng-container [ngTemplateOutlet]="template" />
+        } @else {
+          {{ tab.label() || tab.value() }}
+        }
+      </button>
+    }
+  </div>
+
+  @if (overflow()) {
+    <button
+      type="button"
+      class="el-tabs__arrow el-tabs__arrow--end"
+      aria-label="Scroll tabs right"
+      tabindex="-1"
+      [disabled]="disabled() || !canScrollEnd()"
+      (click)="scrollTabs(1)"
+    >
+      <el-icon name="chevron-right" size="sm" />
+    </button>
+  }
+</div>
+
+@if (activeTab(); as tab) {
+  <div
+    class="el-tabs__panel"
+    role="tabpanel"
+    [id]="panelId(activeIndex())"
+    [attr.aria-labelledby]="tabId(activeIndex())"
+    tabindex="0"
+  >
+    @if (tab.contentTemplate(); as template) {
+      <ng-container [ngTemplateOutlet]="template" />
+    }
+  </div>
+}
+
+<div class="el-tabs__defs">
+  <ng-content />
+</div>

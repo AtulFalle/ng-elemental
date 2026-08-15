@@ -1,0 +1,220 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Tabs</h1>
+    <p class="docs-lead">
+      Switch between related views in one panel. Tab content is an
+      <code>ng-template</code>, so you can pass any HTML. When tabs overflow,
+      chevrons scroll the strip so remaining tabs can be selected.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add tabs</code>
+    (requires <code>icon</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-tabs-demo">
+        <el-tabs
+          [value]="selected()"
+          (valueChange)="selected.set($event)"
+          ariaLabel="Account"
+        >
+          <el-tab value="overview" label="Overview">
+            <ng-template elTabContent>
+              <p>Project overview, status, and recent activity.</p>
+            </ng-template>
+          </el-tab>
+          <el-tab value="billing" label="Billing">
+            <ng-template elTabContent>
+              <p>Invoices, payment methods, and billing contacts.</p>
+            </ng-template>
+          </el-tab>
+          <el-tab value="team" label="Team">
+            <ng-template elTabContent>
+              <p>Members, roles, and pending invitations.</p>
+            </ng-template>
+          </el-tab>
+        </el-tabs>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Import the tabs, tab, and content directive. Put panel markup in
+      <code>&lt;ng-template elTabContent&gt;</code> so inactive panels are not
+      created. Optional <code>elTabLabel</code> templates let the tab header
+      contain any HTML (icons, badges, and so on).
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Custom labels</h3>
+    <p>
+      Compose
+      <a routerLink="/components/icon">Icon</a>
+      in <code>elTabLabel</code> when you need more than plain text. Add icon
+      separately via the CLI.
+    </p>
+    <app-preview>
+      <div class="docs-tabs-demo">
+        <el-tabs
+          [value]="iconDemo()"
+          (valueChange)="iconDemo.set($event)"
+          ariaLabel="Settings"
+        >
+          <el-tab value="profile">
+            <ng-template elTabLabel>
+              <el-icon name="user" size="sm" />
+              Profile
+            </ng-template>
+            <ng-template elTabContent>
+              <p>Name, email, and avatar settings.</p>
+            </ng-template>
+          </el-tab>
+          <el-tab value="security">
+            <ng-template elTabLabel>
+              <el-icon name="shield-halved" size="sm" />
+              Security
+            </ng-template>
+            <ng-template elTabContent>
+              <p>Password, sessions, and two-factor authentication.</p>
+            </ng-template>
+          </el-tab>
+        </el-tabs>
+      </div>
+    </app-preview>
+    <app-code-block [code]="labelTemplateCode" language="html" />
+
+    <h3>Disabled</h3>
+    <app-preview>
+      <div class="docs-tabs-demo">
+        <el-tabs value="overview" disabled ariaLabel="Disabled tabs">
+          <el-tab value="overview" label="Overview">
+            <ng-template elTabContent>
+              <p>Disabled group.</p>
+            </ng-template>
+          </el-tab>
+          <el-tab value="billing" label="Billing">
+            <ng-template elTabContent>
+              <p>Not shown.</p>
+            </ng-template>
+          </el-tab>
+        </el-tabs>
+        <el-tabs
+          [value]="disabledTabDemo()"
+          (valueChange)="disabledTabDemo.set($event)"
+          ariaLabel="Disabled tab"
+        >
+          <el-tab value="overview" label="Overview">
+            <ng-template elTabContent>
+              <p>Overview is available.</p>
+            </ng-template>
+          </el-tab>
+          <el-tab value="billing" label="Billing" disabled>
+            <ng-template elTabContent>
+              <p>Billing is locked.</p>
+            </ng-template>
+          </el-tab>
+          <el-tab value="team" label="Team">
+            <ng-template elTabContent>
+              <p>Team members.</p>
+            </ng-template>
+          </el-tab>
+        </el-tabs>
+      </div>
+    </app-preview>
+
+    <h3>Overflow (responsive)</h3>
+    <p>
+      Extra tabs stay on one row. Chevrons appear when the list overflows —
+      they only scroll the strip, and they snap to the start or end so the
+      first and last tabs stay fully visible. Arrow keys, Home, and End still
+      move between enabled tabs.
+    </p>
+    <app-preview>
+      <div class="docs-tabs-demo docs-tabs-demo--narrow">
+        <el-tabs
+          [value]="overflowDemo()"
+          (valueChange)="overflowDemo.set($event)"
+          ariaLabel="Many sections"
+        >
+          <el-tab value="overview">
+            <ng-template elTabLabel>
+              <el-icon name="house" size="sm" />
+              Overview
+            </ng-template>
+            <ng-template elTabContent><p>Overview</p></ng-template>
+          </el-tab>
+          <el-tab value="usage">
+            <ng-template elTabLabel>
+              <el-icon name="chart-line" size="sm" />
+              Usage
+            </ng-template>
+            <ng-template elTabContent><p>Usage</p></ng-template>
+          </el-tab>
+          <el-tab value="members">
+            <ng-template elTabLabel>
+              <el-icon name="users" size="sm" />
+              Members
+            </ng-template>
+            <ng-template elTabContent><p>Members</p></ng-template>
+          </el-tab>
+          <el-tab value="integrations">
+            <ng-template elTabLabel>
+              <el-icon name="puzzle-piece" size="sm" />
+              Integrations
+            </ng-template>
+            <ng-template elTabContent><p>Integrations</p></ng-template>
+          </el-tab>
+          <el-tab value="history">
+            <ng-template elTabLabel>
+              <el-icon name="file-invoice" size="sm" />
+              Billing history
+            </ng-template>
+            <ng-template elTabContent><p>Billing history</p></ng-template>
+          </el-tab>
+          <el-tab value="audit">
+            <ng-template elTabLabel>
+              <el-icon name="clipboard-list" size="sm" />
+              Audit log
+            </ng-template>
+            <ng-template elTabContent><p>Audit log</p></ng-template>
+          </el-tab>
+        </el-tabs>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-tabs</h3>
+    <app-props-table [props]="tabsProps" />
+    <h3>el-tab</h3>
+    <app-props-table [props]="tabProps" />
+  </section>
+</article>

@@ -140,3 +140,16 @@
   width: 100%;
   align-self: flex-start;
 }
+
+.docs-tabs-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  min-width: 0;
+  align-self: stretch;
+}
+
+.docs-tabs-demo--narrow {
+  max-width: 16rem;
+}
