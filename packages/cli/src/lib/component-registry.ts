@@ -151,6 +151,16 @@ export const COMPONENT_REGISTRY = [
   },
 
   {
+    name: 'tabs',
+    assetGlobs: [
+      'tabs.{ts,html,scss}',
+      'tab.{ts,html,scss}',
+      'tab-content.ts',
+      'tab-label.ts',
+    ],
+    requiredBasenames: ['tabs', 'tab', 'tab-content', 'tab-label'],
+  },
+  {
     name: 'segmented-button',
     assetGlobs: [
       'segmented-button.{ts,html,scss}',

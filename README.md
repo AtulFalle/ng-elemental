@@ -104,7 +104,7 @@ Change `componentsDir` before running `add` if you prefer a different location.
 | `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `tabs`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -560,6 +560,41 @@ Dropbox-style dropzone + browse control. Owns `files` via `model` and auto-rende
 | `disabled` | `boolean` | `false` | Block selection |
 | `size` | `sm` \| `md` \| `lg` | `md` | Dropzone density |
 | `browseLabel` | `string` | `'Browse files'` | Browse button label |
+
+### Tabs (`el-tabs`)
+
+```html
+<el-tabs [(value)]="selected" ariaLabel="Account">
+  <el-tab value="overview" label="Overview">
+    <ng-template elTabContent>
+      <p>Any HTML goes here.</p>
+    </ng-template>
+  </el-tab>
+  <el-tab value="billing" label="Billing">
+    <ng-template elTabContent>
+      <p>Billing details.</p>
+    </ng-template>
+  </el-tab>
+</el-tabs>
+```
+
+**`el-tabs`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `''` | Active tab value (two-way bindable) |
+| `disabled` | `boolean` | `false` | Disables every tab |
+| `ariaLabel` | `string` | — | Accessible name for the tablist |
+
+**`el-tab`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | (required) | Unique tab value |
+| `label` | `string` | `''` | Header text; ignored when `elTabLabel` is set |
+| `disabled` | `boolean` | `false` | Disables this tab |
+
+Put panel markup in `<ng-template elTabContent>`. Optional `<ng-template elTabLabel>` replaces the text header with any HTML. Requires `icon` (chevrons appear when the tab list overflows).
 
 ### Segmented Button (`el-segmented-button`)
 

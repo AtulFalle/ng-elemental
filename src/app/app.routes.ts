@@ -118,6 +118,11 @@ export const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'components/tabs',
+        loadComponent: () =>
+          import('./docs/pages/tabs-doc').then((m) => m.TabsDocPage),
+      },
+      {
         path: 'components/segmented-button',
         loadComponent: () =>
           import('./docs/pages/segmented-button-doc').then(

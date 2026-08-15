@@ -211,6 +211,26 @@
           },
 
           {
+            "glob": "tabs.{ts,html,scss}",
+            "input": "packages/ui/src/lib/tabs",
+            "output": "registry/tabs"
+          },
+          {
+            "glob": "tab.{ts,html,scss}",
+            "input": "packages/ui/src/lib/tabs",
+            "output": "registry/tabs"
+          },
+          {
+            "glob": "tab-content.ts",
+            "input": "packages/ui/src/lib/tabs",
+            "output": "registry/tabs"
+          },
+          {
+            "glob": "tab-label.ts",
+            "input": "packages/ui/src/lib/tabs",
+            "output": "registry/tabs"
+          },
+          {
             "glob": "segmented-button.{ts,html,scss}",
             "input": "packages/ui/src/lib/segmented-button",
             "output": "registry/segmented-button"

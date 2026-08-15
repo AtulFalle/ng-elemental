@@ -68,6 +68,7 @@ export {
   type ElSegmentedButtonSize,
   type ElSegmentedButtonVariant,
 } from './lib/segmented-button/segmented-button';
+export { ElTabs, ElTab, ElTabContent, ElTabLabel } from './lib/tabs/tabs';
 export { ElProgress, type ElProgressSize } from './lib/progress/progress';
 export { ElProgressCircle } from './lib/progress/progress-circle';
 export {
