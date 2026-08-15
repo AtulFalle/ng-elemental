@@ -1,0 +1,168 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>List</h1>
+    <p class="docs-lead">
+      Vertical collection of rows with optional leading media, title,
+      description, and trailing meta. Pair with
+      <a routerLink="/components/infinite-scroll">Infinite Scroll</a>
+      for paginated feeds.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add list</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-list ariaLabel="Inbox" style="max-width: 24rem; width: 100%">
+        <el-list-item>
+          <el-avatar elListLeading initials="AL" alt="Ada Lovelace" />
+          <span elListTitle>Ada Lovelace</span>
+          <span elListDescription>Notes on the Analytical Engine</span>
+          <span elListTrailing>09:12</span>
+        </el-list-item>
+        <el-list-item>
+          <el-avatar elListLeading initials="GH" alt="Grace Hopper" />
+          <span elListTitle>Grace Hopper</span>
+          <span elListDescription>Compiler progress update</span>
+          <span elListTrailing>Yesterday</span>
+        </el-list-item>
+        <el-list-item>
+          <el-icon elListLeading name="file-lines" />
+          <span elListTitle>Quarterly report</span>
+          <span elListDescription>PDF · 2.4 MB</span>
+          <el-chip elListTrailing>Review</el-chip>
+        </el-list-item>
+      </el-list>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Project row content into
+      <code>elListLeading</code>,
+      <code>elListTitle</code>,
+      <code>elListDescription</code>, and
+      <code>elListTrailing</code>. Plain text without slots works too.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Plain text rows</h3>
+    <app-preview>
+      <el-list ariaLabel="Folders" style="max-width: 20rem; width: 100%">
+        <el-list-item>Inbox</el-list-item>
+        <el-list-item>Starred</el-list-item>
+        <el-list-item>Sent</el-list-item>
+        <el-list-item disabled>Archive (unavailable)</el-list-item>
+      </el-list>
+    </app-preview>
+
+    <h3>Interactive selection</h3>
+    <p>
+      The parent owns which row is selected. Items emit
+      <code>activated</code>; they do not toggle themselves.
+    </p>
+    <app-preview>
+      <el-list ariaLabel="People" style="max-width: 24rem; width: 100%">
+        @for (person of people; track person.id) {
+          <el-list-item
+            interactive
+            [selected]="person.id === selectedId()"
+            (activated)="selectedId.set(person.id)"
+          >
+            <el-avatar
+              elListLeading
+              [initials]="person.initials"
+              [alt]="person.name"
+            />
+            <span elListTitle>{{ person.name }}</span>
+            <span elListDescription>{{ person.role }}</span>
+          </el-list-item>
+        }
+      </el-list>
+    </app-preview>
+    <app-code-block [code]="interactiveCode" language="html" />
+
+    <h3>Trailing actions</h3>
+    <app-preview>
+      <el-list ariaLabel="Files" style="max-width: 28rem; width: 100%">
+        <el-list-item>
+          <el-icon elListLeading name="file-lines" />
+          <span elListTitle>report.pdf</span>
+          <span elListDescription>2.4 MB</span>
+          <el-button
+            elListTrailing
+            variant="ghost"
+            size="sm"
+            iconStart="xmark"
+            aria-label="Remove report.pdf"
+          />
+        </el-list-item>
+        <el-list-item>
+          <el-icon elListLeading name="image" />
+          <span elListTitle>cover.png</span>
+          <span elListDescription>840 KB</span>
+          <el-button
+            elListTrailing
+            variant="ghost"
+            size="sm"
+            iconStart="xmark"
+            aria-label="Remove cover.png"
+          />
+        </el-list-item>
+      </el-list>
+    </app-preview>
+
+    <h3>Sizes</h3>
+    <app-preview>
+      <div style="display: grid; gap: 1rem; width: 100%; max-width: 24rem">
+        @for (size of sizes; track size) {
+          <el-list [size]="size" [ariaLabel]="size + ' list'">
+            <el-list-item>
+              <el-icon elListLeading name="inbox" />
+              <span elListTitle>{{ size }} density</span>
+              <span elListDescription>Title, description, trailing meta</span>
+              <span elListTrailing>2</span>
+            </el-list-item>
+          </el-list>
+        }
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-list</h3>
+    <app-props-table [props]="listProps" />
+    <h3>el-list-item</h3>
+    <app-props-table [props]="itemProps" />
+    <h3>Outputs</h3>
+    <app-props-table [props]="itemOutputs" />
+    <h3>Slots</h3>
+    <app-props-table [props]="slots" />
+  </section>
+</article>

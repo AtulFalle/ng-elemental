@@ -85,6 +85,32 @@ const COMPONENT_EXAMPLES: Record<
 <el-avatar initials="JD" alt="Jane Doe" />
 <el-avatar icon="user" alt="Account" />`,
   },
+  list: {
+    className: 'ElList, ElListItem',
+    usage: `<el-list ariaLabel="Inbox">
+  <el-list-item>
+    <el-avatar elListLeading initials="AL" alt="Ada Lovelace" />
+    <span elListTitle>Ada Lovelace</span>
+    <span elListDescription>Analytical Engine notes</span>
+    <span elListTrailing>09:12</span>
+  </el-list-item>
+</el-list>`,
+  },
+  'infinite-scroll': {
+    className: 'ElInfiniteScroll',
+    usage: `<div
+  elInfiniteScroll
+  [disabled]="loading()"
+  [complete]="done()"
+  (loadMore)="loadPage()"
+>
+  <el-list>
+    @for (item of items(); track item.id) {
+      <el-list-item>{{ item.title }}</el-list-item>
+    }
+  </el-list>
+</div>`,
+  },
   card: {
     className: 'ElCard',
     usage: `<el-card appearance="outlined">
