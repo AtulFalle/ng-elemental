@@ -1,0 +1,10 @@
+{
+  "$schema": "https://www.chromatic.com/config-file.schema.json",
+  "zip": true,
+  "externals": [
+    "packages/ui/src/lib/theme/**",
+    "packages/ui/src/styles/**",
+    ".storybook/styles.scss"
+  ],
+  "untraced": ["src/**", "packages/cli/**"]
+}

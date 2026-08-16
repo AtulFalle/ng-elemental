@@ -1,0 +1,183 @@
+name: Chromatic
+
+# PR (UI files only): visual review. Fail until diffs are accepted.
+# master (UI files only): full capture, auto-accept baseline. No second review.
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: chromatic-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+permissions:
+  contents: read
+  statuses: write
+  checks: write
+  pull-requests: write
+
+env:
+  NX_DAEMON: 'false'
+
+jobs:
+  detect-ui:
+    name: Detect UI changes
+    runs-on: ubuntu-latest
+    outputs:
+      ui: ${{ steps.filter.outputs.ui }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Filter UI and Storybook paths
+        id: filter
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PUSH_SHA: ${{ github.sha }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          UI_PATHS='^(packages/ui/|\.storybook/|chromatic\.config\.json$)'
+
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            CHANGED=$(git diff --name-only --diff-filter=ACMRD "${BASE_SHA}...${HEAD_SHA}")
+          else
+            BASE="$BEFORE"
+            if [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+              git fetch origin "$DEFAULT_BRANCH" --depth=1
+              BASE="origin/${DEFAULT_BRANCH}"
+            fi
+            CHANGED=$(git diff --name-only --diff-filter=ACMRD "$BASE" "$PUSH_SHA")
+          fi
+
+          echo "Changed files:"
+          echo "$CHANGED"
+
+          MATCHED=$(echo "$CHANGED" | grep -E "$UI_PATHS" || true)
+          if [ -n "$MATCHED" ]; then
+            echo "ui=true" >> "$GITHUB_OUTPUT"
+            echo "UI / Storybook files that trigger Chromatic:"
+            echo "$MATCHED"
+          else
+            echo "ui=false" >> "$GITHUB_OUTPUT"
+            echo "No UI component or Storybook changes; skipping Chromatic."
+          fi
+
+  chromatic-skip:
+    name: Chromatic
+    needs: detect-ui
+    runs-on: ubuntu-latest
+    if: >-
+      always() &&
+      github.event_name == 'pull_request' &&
+      (
+        needs.detect-ui.result != 'success' ||
+        github.event.pull_request.head.repo.full_name != github.repository ||
+        needs.detect-ui.outputs.ui != 'true'
+      )
+    steps:
+      - name: Fail if path detection failed
+        if: needs.detect-ui.result != 'success'
+        run: |
+          echo "Detect UI changes failed; Chromatic cannot decide whether to run."
+          exit 1
+
+      - name: Skip visual review
+        if: needs.detect-ui.result == 'success'
+        run: |
+          echo "Chromatic visual review is skipped."
+          echo "It publishes only for packages/ui, .storybook, or chromatic.config.json on same-repo PRs."
+
+  chromatic:
+    name: Chromatic
+    needs: detect-ui
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      needs.detect-ui.outputs.ui == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Pin npm
+        run: npm install -g npm@11.17.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Storybook
+        run: npx nx run ng-elemental:build-storybook --configuration=ci
+
+      - name: Review visual changes
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          storybookBuildDir: dist/storybook/ng-elemental
+          storybookBaseDir: .
+          storybookConfigDir: .storybook
+          configFile: chromatic.config.json
+          onlyChanged: true
+          zip: true
+          exitZeroOnChanges: false
+
+  chromatic-baseline:
+    name: Chromatic Baseline
+    needs: detect-ui
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: >-
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/master' &&
+      needs.detect-ui.outputs.ui == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Pin npm
+        run: npm install -g npm@11.17.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Storybook
+        run: npx nx run ng-elemental:build-storybook --configuration=ci
+
+      - name: Update visual baseline
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          storybookBuildDir: dist/storybook/ng-elemental
+          storybookBaseDir: .
+          storybookConfigDir: .storybook
+          configFile: chromatic.config.json
+          onlyChanged: false
+          zip: true
+          autoAcceptChanges: true
+          exitZeroOnChanges: true
