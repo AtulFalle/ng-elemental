@@ -59,7 +59,7 @@
     "@vitest/coverage-v8": "~4.1.0",
     "angular-eslint": "^22.0.0",
     "chromatic": "^18.2.0",
-    "esbuild": "^0.27.0",
+    "esbuild": "^0.28.2",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "jsonc-eslint-parser": "^2.1.0",
