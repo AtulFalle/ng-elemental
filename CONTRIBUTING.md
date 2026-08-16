@@ -87,13 +87,14 @@ Follow existing conventions:
 
 ## Pull requests
 
-Contributors merge work through PRs. CI runs lint, build, and test on every pull request and on every push to `master`. **Merging a PR does not publish anything to npm.**
+Contributors merge work through PRs. CI runs lint, build, and test on every pull request and on every push to `master`. Chromatic visual **review** runs on pull requests only; a merge to `master` only updates the visual baseline. **Merging a PR does not publish anything to npm.**
 
 1. Fork the repository and create a feature branch from `master`.
 2. Keep changes focused and include tests when behavior changes.
 3. Run `npx nx run-many -t lint stylelint build test` before opening a PR.
 4. For user-visible changes, add a note under `[Unreleased]` in `CHANGELOG.md`. Do **not** bump `packages/cli/package.json` version in contributor PRs — the maintainer does that at release time.
 5. Describe what changed and how you tested it in the PR description.
+6. Chromatic runs only when the PR changes `packages/ui`, `.storybook`, or `chromatic.config.json` (not docs or the website). If it reports visual diffs, review and accept them in Chromatic before merging. Re-run the **Chromatic** check after you accept so GitHub sees a passing status. PRs with no visual diffs, and docs/site-only PRs, pass automatically. Do not re-review on `master` — merge updates the baseline.
 
 ## Releases (maintainers only)
 
@@ -101,8 +102,8 @@ Only **`@ng-elemental/cli`** is published to npm.
 
 | Event | What runs |
 | --- | --- |
-| Pull request | CI — lint, build, test |
-| Push to `master` | CI — lint, build, test |
+| Pull request | CI — lint, build, test; Chromatic — visual review only if UI/Storybook files changed |
+| Push to `master` | CI — lint, build, test; Chromatic Baseline — full capture only if UI/Storybook files changed |
 | Push tag `vX.Y.Z` | Opens a release PR (version bump + changelog) |
 | Merge release PR | Publishes to npm, updates tag, creates GitHub Release |
 
@@ -132,6 +133,10 @@ If automation fails after merge, re-run **Publish Release** from the Actions tab
 If a tag was pushed but no PR opened, re-run **Prepare Release** with the same version.
 
 Set `NPM_ACCESS_TOKEN` as a repository secret for the publish workflow.
+
+Set `CHROMATIC_PROJECT_TOKEN` as a repository secret so the Chromatic workflow can publish Storybook. Require the **Chromatic** check (the PR visual review job) on `master` branch protection. Chromatic publishes only when `packages/ui`, `.storybook`, or `chromatic.config.json` change; docs and website PRs get a passing skip. Unapproved UI diffs fail that check until you accept them in Chromatic and re-run the workflow. Merging a UI PR then runs **Chromatic Baseline**, which auto-accepts a full snapshot set so later PRs compare against `master`.
+
+If Chromatic’s GitHub App also publishes builds, turn those automatic builds off so this workflow is the only publisher. Dual publishers duplicate snapshots and create extra diffs.
 
 ## Code of conduct
 

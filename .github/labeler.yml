@@ -29,6 +29,7 @@
           - '.nxignore'
           - '.prettierrc'
           - '.prettierignore'
+          - 'chromatic.config.json'
 
 'area:release':
   - changed-files:

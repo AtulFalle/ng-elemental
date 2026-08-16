@@ -163,6 +163,21 @@ const COMPONENT_EXAMPLES: Record<
   </el-tab>
 </el-tabs>`,
   },
+  accordion: {
+    className: 'ElAccordion, ElAccordionItem, ElAccordionContent',
+    usage: `<el-accordion variant="single" [(value)]="open" ariaLabel="Order details">
+  <el-accordion-item value="shipping" title="Shipping" subtitle="2–5 business days">
+    <ng-template elAccordionContent>
+      <p>Any HTML or components.</p>
+    </ng-template>
+  </el-accordion-item>
+  <el-accordion-item value="billing" title="Billing">
+    <ng-template elAccordionContent>
+      <p>Billing details.</p>
+    </ng-template>
+  </el-accordion-item>
+</el-accordion>`,
+  },
   'segmented-button': {
     className: 'ElSegmentedButton, ElSegmentedButtonItem',
     usage: `<el-segmented-button [(value)]="view" ariaLabel="View mode">

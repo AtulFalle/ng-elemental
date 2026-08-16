@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
+  border: var(--el-border-width) solid var(--el-color-outline-variant);
+  border-radius: var(--el-radius-md);
+  background: var(--el-color-surface);
+  color: var(--el-color-on-surface);
+  font-family: var(--el-font-sans);
+}
+
+:host(.el-accordion--disabled) {
+  color: var(--el-color-disabled);
+}

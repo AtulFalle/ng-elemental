@@ -1,0 +1,57 @@
+<div class="el-accordion-item__header">
+  <h3 class="el-accordion-item__heading">
+    <button
+      #trigger
+      type="button"
+      class="el-accordion-item__trigger"
+      [id]="headerId()"
+      [attr.aria-expanded]="expanded()"
+      [attr.aria-controls]="panelId()"
+      [disabled]="isDisabled()"
+      (click)="onToggle($event)"
+      (keydown)="onTriggerKeydown($event)"
+    >
+      <span class="el-accordion-item__copy">
+        <span class="el-accordion-item__title">
+          @if (titleTemplate(); as template) {
+            <ng-container [ngTemplateOutlet]="template" />
+          } @else {
+            {{ title() }}
+          }
+        </span>
+        @if (hasSubtitle()) {
+          <span class="el-accordion-item__subtitle">
+            @if (subtitleTemplate(); as template) {
+              <ng-container [ngTemplateOutlet]="template" />
+            } @else {
+              {{ subtitle() }}
+            }
+          </span>
+        }
+      </span>
+      <el-icon class="el-accordion-item__chevron" name="chevron-down" size="sm" />
+    </button>
+  </h3>
+  <div class="el-accordion-item__actions">
+    <ng-content select="[elAccordionActions]" />
+  </div>
+</div>
+<div
+  class="el-accordion-item__panel"
+  [class.el-accordion-item__panel--open]="expanded()"
+  role="region"
+  [id]="panelId()"
+  [attr.aria-labelledby]="headerId()"
+  [attr.aria-hidden]="expanded() ? null : true"
+  [attr.inert]="expanded() ? null : ''"
+>
+  <div class="el-accordion-item__panel-inner">
+    @if (contentTemplate(); as template) {
+      @if (expanded()) {
+        <ng-container [ngTemplateOutlet]="template" />
+      }
+    } @else {
+      <ng-content />
+    }
+  </div>
+</div>

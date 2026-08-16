@@ -48,6 +48,9 @@ Thumbs.db
 
 
 storybook-static
+chromatic.log
+chromatic-diagnostics.json
+build-storybook.log
 vitest.config.*.timestamp*
 
 # Local development plans and specs (not for the public repo)

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `ElAccordion` and `ElAccordionItem` with `variant="single"` or `variant="multiple"`, header title/subtitle templates, header actions, and lazy panel content (`ng-elemental add accordion`; requires `icon`)
+
 ## [0.0.8] - 2026-08-16
 
 ### Added
