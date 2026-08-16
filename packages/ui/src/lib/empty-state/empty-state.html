@@ -1,0 +1,20 @@
+<div class="el-empty-state">
+  <div class="el-empty-state__media">
+    <ng-content select="[elEmptyStateMedia]" />
+    @if (icon()) {
+      <el-icon [name]="icon()" size="lg" />
+    }
+  </div>
+  @if (title()) {
+    <div class="el-empty-state__title">{{ title() }}</div>
+  }
+  @if (description()) {
+    <div class="el-empty-state__description">{{ description() }}</div>
+  }
+  <div class="el-empty-state__body">
+    <ng-content />
+  </div>
+  <div class="el-empty-state__actions">
+    <ng-content select="[elEmptyStateActions]" />
+  </div>
+</div>

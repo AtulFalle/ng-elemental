@@ -243,6 +243,16 @@ export const appRoutes: Route[] = [
           import('./docs/pages/dialog-doc').then((m) => m.DialogDocPage),
       },
       {
+        path: 'components/sheet',
+        loadComponent: () =>
+          import('./docs/pages/sheet-doc').then((m) => m.SheetDocPage),
+      },
+      {
+        path: 'components/drawer',
+        loadComponent: () =>
+          import('./docs/pages/drawer-doc').then((m) => m.DrawerDocPage),
+      },
+      {
         path: 'components/alert',
         loadComponent: () =>
           import('./docs/pages/alert-doc').then((m) => m.AlertDocPage),
@@ -251,6 +261,18 @@ export const appRoutes: Route[] = [
         path: 'components/toast',
         loadComponent: () =>
           import('./docs/pages/toast-doc').then((m) => m.ToastDocPage),
+      },
+      {
+        path: 'components/snackbar',
+        loadComponent: () =>
+          import('./docs/pages/snackbar-doc').then((m) => m.SnackbarDocPage),
+      },
+      {
+        path: 'components/empty-state',
+        loadComponent: () =>
+          import('./docs/pages/empty-state-doc').then(
+            (m) => m.EmptyStateDocPage,
+          ),
       },
       {
         path: 'components/segmented-button',

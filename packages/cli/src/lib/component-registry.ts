@@ -374,6 +374,58 @@ export const COMPONENT_REGISTRY = [
     ],
     requiredBasenames: ['toast', 'toaster', 'toast.service'],
   },
+  {
+    name: 'empty-state',
+    assetGlobs: ['empty-state.{ts,html,scss}'],
+    requiredBasenames: ['empty-state'],
+  },
+  {
+    name: 'snackbar',
+    assetGlobs: [
+      'snackbar.{ts,html,scss}',
+      'snackbar.service.ts',
+      'snackbar-ref.ts',
+    ],
+    requiredBasenames: ['snackbar', 'snackbar.service', 'snackbar-ref'],
+  },
+  {
+    name: 'sheet',
+    assetGlobs: [
+      'sheet.{ts,html,scss}',
+      'sheet-close.ts',
+      'sheet.token.ts',
+      'sheet-ref.ts',
+      'sheet.service.ts',
+      'sheet-outlet.ts',
+    ],
+    requiredBasenames: [
+      'sheet',
+      'sheet-close',
+      'sheet.token',
+      'sheet-ref',
+      'sheet.service',
+      'sheet-outlet',
+    ],
+  },
+  {
+    name: 'drawer',
+    assetGlobs: [
+      'drawer.{ts,html,scss}',
+      'drawer-close.ts',
+      'drawer.token.ts',
+      'drawer-ref.ts',
+      'drawer.service.ts',
+      'drawer-outlet.ts',
+    ],
+    requiredBasenames: [
+      'drawer',
+      'drawer-close',
+      'drawer.token',
+      'drawer-ref',
+      'drawer.service',
+      'drawer-outlet',
+    ],
+  },
 
   {
     name: 'tabs',

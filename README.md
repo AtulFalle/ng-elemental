@@ -106,7 +106,7 @@ Change `componentsDir` during `init` (`--path` or the interactive prompt) if you
 | `npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]` | Create config, prompt for the components path, and install theme tokens |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `carousel`, `avatar`, `card`, `container`, `stack`, `grid`, `aspect-ratio`, `scroll-area`, `separator`, `resizable`, `list`, `tree`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `menu`, `menubar`, `popover`, `alert`, `toast`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `carousel`, `avatar`, `card`, `container`, `stack`, `grid`, `aspect-ratio`, `scroll-area`, `separator`, `resizable`, `list`, `tree`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `menu`, `menubar`, `popover`, `dialog`, `sheet`, `drawer`, `alert`, `toast`, `snackbar`, `empty-state`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -884,6 +884,82 @@ const saved = await ref.afterClosed;
 
 `ElDialogService.open()` mounts the same shell on `document.body` and injects `EL_DIALOG_DATA` plus `ElDialogRef` into the custom component. `elDialogClose` dismisses (no result). Call `dialogRef.close(result)` to return a value.
 
+### Sheet (`el-sheet`)
+
+Edge panel (default bottom). Header and footer stay put; only content scrolls. Requires `icon` (and usually `button`).
+
+```html
+<el-button (click)="open.set(true)">Filters</el-button>
+<el-sheet [(open)]="open" title="Filters" side="bottom" size="md">
+  <div elSheetContent>Any HTML or components.</div>
+  <div elSheetFooter>
+    <el-button elSheetClose variant="ghost">Cancel</el-button>
+    <el-button>Apply</el-button>
+  </div>
+</el-sheet>
+```
+
+```ts
+const ref = this.sheet.open(EditFilters, {
+  data: { userId: 1 },
+  title: 'Filters',
+  side: 'bottom',
+});
+const applied = await ref.afterClosed;
+```
+
+**`el-sheet`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `false` | Open state (`model`) |
+| `title` | `string` | `''` | Header text when `elSheetHeader` is omitted |
+| `side` | `top` \| `right` \| `bottom` \| `left` | `bottom` | Edge the panel attaches to |
+| `size` | `sm` \| `md` \| `lg` | `md` | Max-height (top/bottom) or width (left/right) |
+| `closable` | `boolean` | `true` | Header close button |
+| `closeOnBackdrop` | `boolean` | `true` | Dismiss on backdrop click |
+| `closeOnEscape` | `boolean` | `true` | Dismiss on Escape |
+| `ariaLabel` | `string` | — | Name when there is no title |
+
+`ElSheetService.open()` mounts the same shell on `document.body` and injects `EL_SHEET_DATA` plus `ElSheetRef`.
+
+### Drawer (`el-drawer`)
+
+Full-height side panel (default left) with focus trap, Escape, and backdrop dismiss. Requires `icon` (and usually `button`).
+
+```html
+<el-button (click)="open.set(true)">Menu</el-button>
+<el-drawer [(open)]="open" title="Navigation" side="left" size="md">
+  <div elDrawerContent>Any HTML or components.</div>
+  <div elDrawerFooter>
+    <el-button elDrawerClose variant="ghost">Close</el-button>
+  </div>
+</el-drawer>
+```
+
+```ts
+const ref = this.drawer.open(WorkspaceDrawer, {
+  data: { workspace: 'Acme' },
+  title: 'Workspace',
+});
+const saved = await ref.afterClosed;
+```
+
+**`el-drawer`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `false` | Open state (`model`) |
+| `title` | `string` | `''` | Header text when `elDrawerHeader` is omitted |
+| `side` | `left` \| `right` | `left` | Edge the panel attaches to |
+| `size` | `sm` \| `md` \| `lg` | `md` | Panel width |
+| `closable` | `boolean` | `true` | Header close button |
+| `closeOnBackdrop` | `boolean` | `true` | Dismiss on backdrop click |
+| `closeOnEscape` | `boolean` | `true` | Dismiss on Escape |
+| `ariaLabel` | `string` | — | Name when there is no title |
+
+`ElDrawerService.open()` mounts the same shell on `document.body` and injects `EL_DRAWER_DATA` plus `ElDrawerRef`.
+
 ### Infinite Scroll (`[elInfiniteScroll]`)
 
 Attribute directive for paginated feeds. The parent owns items, loading, and “no more pages”. Demo it with `el-list`.
@@ -1278,7 +1354,7 @@ Inline status banner. Parent owns visibility (`@if` + `dismissed`). Requires `ic
 
 ### Toast (`el-toast`, `el-toaster`)
 
-Overlay notifications. Place `<el-toaster />` once in the app shell and call `ElToastService.show()`. Requires `icon`. `el-toast` is presentational if you need a static snackbar.
+Overlay notifications. Place `<el-toaster />` once in the app shell and call `ElToastService.show()`. Requires `icon`. For a single action bar, use [Snackbar](#snackbar-el-snackbar).
 
 ```html
 <el-toaster />
@@ -1296,6 +1372,60 @@ this.toast.show('Sticky', { duration: 0 });
 | `dismissible` | `boolean` | `true` | Close button |
 | `position` | `top-start` \| `top-end` \| `bottom-start` \| `bottom-end` | `bottom-end` | Toaster corner |
 | `duration` | `number` | `4000` | Auto-dismiss ms; `0` is sticky |
+
+### Snackbar (`el-snackbar`)
+
+Single transient bar with an optional action, or projected controls via `elSnackbarActions`. Requires `icon`. Use Toast for stacked corner notifications.
+
+```html
+<el-snackbar [(open)]="open" message="File deleted" action="Undo" (actionClick)="undo()" />
+
+<el-snackbar [(open)]="open" [duration]="0" message="3 selected">
+  <div elSnackbarActions>
+    <el-button variant="ghost" size="sm">Move</el-button>
+    <el-button variant="ghost" size="sm">Delete</el-button>
+  </div>
+</el-snackbar>
+```
+
+```ts
+const ref = this.snackbar.open('File deleted', { action: 'Undo', duration: 4000 });
+ref.actionClick.then(() => this.undo());
+await ref.afterClosed;
+```
+
+| Input / option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `false` | Open state (`model`) |
+| `message` | `string` | `''` | Bar text |
+| `action` | `string` | `''` | Optional action label |
+| `color` | `neutral` \| `success` \| `error` \| `warning` \| `info` | `neutral` | Semantic tone |
+| `duration` | `number` | `4000` | Auto-dismiss ms; `0` is sticky |
+| `dismissible` | `boolean` | `true` | Close button |
+| `position` | `bottom` \| `top` | `bottom` | Fixed edge |
+
+`ElSnackbarService.open()` mounts one bar on `document.body` and replaces it if you open again. The built-in `action` dismisses after click. Projected `elSnackbarActions` do not — the parent owns `open` (use `duration` `0` for a selection bar).
+
+### Empty State (`el-empty-state`)
+
+Placeholder for an empty list or page. Requires `icon`. Project actions with `elEmptyStateActions` (usually `ElButton`).
+
+```html
+<el-empty-state icon="folder-open" title="No projects" description="Create one to get started.">
+  <div elEmptyStateActions>
+    <el-button>Create project</el-button>
+    <el-button variant="ghost">Learn more</el-button>
+  </div>
+</el-empty-state>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `icon` | `string` | `''` | Font Awesome name; omit to hide |
+| `title` | `string` | `''` | Heading |
+| `description` | `string` | `''` | Supporting copy |
+
+Slots: `elEmptyStateMedia` (illustration), default content, `elEmptyStateActions`.
 
 ## Packages
 

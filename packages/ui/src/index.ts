@@ -237,6 +237,41 @@ export {
   type ElToastOptions,
   type ElToastRecord,
 } from './lib/toast/toast.service';
+export { ElEmptyState } from './lib/empty-state/empty-state';
+export {
+  ElSnackbar,
+  type ElSnackbarColor,
+  type ElSnackbarPosition,
+} from './lib/snackbar/snackbar';
+export {
+  ElSnackbarService,
+  type ElSnackbarOpenOptions,
+} from './lib/snackbar/snackbar.service';
+export { ElSnackbarRef } from './lib/snackbar/snackbar-ref';
+export {
+  ElSheet,
+  ElSheetClose,
+  type ElSheetSize,
+  type ElSheetSide,
+} from './lib/sheet/sheet';
+export {
+  ElSheetService,
+  type ElSheetOpenOptions,
+} from './lib/sheet/sheet.service';
+export { ElSheetRef } from './lib/sheet/sheet-ref';
+export { EL_SHEET, EL_SHEET_DATA } from './lib/sheet/sheet.token';
+export {
+  ElDrawer,
+  ElDrawerClose,
+  type ElDrawerSize,
+  type ElDrawerSide,
+} from './lib/drawer/drawer';
+export {
+  ElDrawerService,
+  type ElDrawerOpenOptions,
+} from './lib/drawer/drawer.service';
+export { ElDrawerRef } from './lib/drawer/drawer-ref';
+export { EL_DRAWER, EL_DRAWER_DATA } from './lib/drawer/drawer.token';
 export {
   ElThemeService,
   provideElTheme,

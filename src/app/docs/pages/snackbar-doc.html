@@ -1,0 +1,123 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Snackbar</h1>
+    <p class="docs-lead">
+      Transient bar with a built-in action or projected controls. Open it in
+      the template with
+      <code>[(open)]</code>
+      or from
+      <code>ElSnackbarService.open()</code>.
+      Stacked corner notifications stay on
+      <a routerLink="/components/toast">Toast</a>.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
+    <code>npx @ng-elemental/cli add icon</code>, then
+    <code>npx @ng-elemental/cli add snackbar</code>
+    (custom actions also need <code>button</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-button (click)="open.set(true)">Show snackbar</el-button>
+      <el-snackbar
+        [open]="open()"
+        (openChange)="open.set($event)"
+        message="File deleted"
+        action="Undo"
+      />
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      The parent owns <code>open</code> in the template. The built-in
+      <code>action</code> label dismisses after click. Project any number of
+      controls with <code>elSnackbarActions</code> — those do not auto-dismiss,
+      so keep <code>duration</code> at <code>0</code> for a selection bar. The
+      service mounts one bar on <code>document.body</code> and replaces it if
+      you open again.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Colors</h3>
+    <app-preview>
+      <div class="docs-row">
+        <el-button (click)="showColor('success')">Success</el-button>
+        <el-button (click)="showColor('error')">Error</el-button>
+        <el-button (click)="showColor('warning')">Warning</el-button>
+        <el-button (click)="showColor('info')">Info</el-button>
+      </div>
+      <el-snackbar
+        [open]="colorOpen()"
+        (openChange)="colorOpen.set($event)"
+        [color]="color()"
+        [message]="color() === 'error' ? 'Could not save' : 'Saved'"
+      />
+    </app-preview>
+
+    <h3>Open with a service</h3>
+    <app-preview>
+      <el-button (click)="showService()">Open with service</el-button>
+    </app-preview>
+
+    <h3>Bulk actions</h3>
+    <p>
+      Project buttons with <code>elSnackbarActions</code>. The parent owns
+      visibility (for example, open while items are selected).
+    </p>
+    <app-preview>
+      <el-button (click)="bulkOpen.set(true)">Select 3 items</el-button>
+      <el-snackbar
+        [open]="bulkOpen()"
+        (openChange)="bulkOpen.set($event)"
+        message="3 selected"
+        [duration]="0"
+      >
+        <div elSnackbarActions>
+          <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
+            Move
+          </el-button>
+          <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
+            Delete
+          </el-button>
+          <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
+            Share
+          </el-button>
+        </div>
+      </el-snackbar>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Neutral bars use inverse surface. Semantic colors use the matching
+      container roles. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-snackbar</h3>
+    <app-props-table [props]="props" />
+    <h3>ElSnackbarService.open()</h3>
+    <app-props-table [props]="serviceProps" />
+  </section>
+</article>

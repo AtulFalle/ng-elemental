@@ -102,8 +102,12 @@ export class MyComponent {}
 | `menubar` | `el-menubar` | `ElMenubar` |
 | `popover` | `el-popover`, `el-popover-panel` | `ElPopover`, `ElPopoverPanel`, `ElPopoverTrigger` |
 | `dialog` | `el-dialog` | `ElDialog`, `ElDialogClose`, `ElDialogService` |
+| `sheet` | `el-sheet` | `ElSheet`, `ElSheetClose`, `ElSheetService` |
+| `drawer` | `el-drawer` | `ElDrawer`, `ElDrawerClose`, `ElDrawerService` |
 | `alert` | `el-alert` | `ElAlert` |
 | `toast` | `el-toast`, `el-toaster` | `ElToast`, `ElToaster`, `ElToastService` |
+| `snackbar` | `el-snackbar` | `ElSnackbar`, `ElSnackbarService` |
+| `empty-state` | `el-empty-state` | `ElEmptyState` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |
 
 ## Requirements

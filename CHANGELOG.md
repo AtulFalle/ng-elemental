@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Layout primitives: `ElContainer`, `ElStack`, `ElGrid`, `ElAspectRatio`, `ElScrollArea`, `ElSeparator`, and `ElResizable` with draggable accessible handles (`ng-elemental add container|stack|grid|aspect-ratio|scroll-area|separator|resizable`)
 - `ElDialog` with header/content/footer slots, content scrolling, and `ElDialogService.open()` for custom components with `EL_DIALOG_DATA` (`ng-elemental add dialog`; requires `icon`)
+- `ElSheet` edge panel with slots and `ElSheetService.open()` (`ng-elemental add sheet`; requires `icon`)
+- `ElDrawer` side panel with slots, focus trap, and `ElDrawerService.open()` (`ng-elemental add drawer`; requires `icon`)
+- `ElSnackbar` and `ElSnackbarService.open()` single bar, with projected `elSnackbarActions` for bulk controls (`ng-elemental add snackbar`; requires `icon`)
+- `ElEmptyState` placeholder with icon, copy, and action slots (`ng-elemental add empty-state`; requires `icon`)
 - `ElTree` and `ElTreeItem` with cascade checkboxes, node slots, virtual rows, lazy children, and load more (`ng-elemental add tree`; requires `icon`, `checkbox`, and `button`)
 - `ElCarousel` and `ElCarouselSlide` with prev/next, dots, optional loop, autoplay, peek, and drag (`ng-elemental add carousel`; requires `icon` and `button`)
 - `ElStepper` and `ElStep` with tab-like templates, linear mode, and `next()` / `previous()` (`ng-elemental add stepper`; requires `icon`)

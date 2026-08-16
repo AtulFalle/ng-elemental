@@ -1,0 +1,115 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Sheet</h1>
+    <p class="docs-lead">
+      Edge panel with header, scrolling content, and footer slots. Open it in
+      the template with
+      <code>[(open)]</code>
+      or from
+      <code>ElSheetService.open()</code>
+      with a custom component and injected data.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add sheet</code>
+    (requires <code>icon</code>; examples also need <code>button</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-button (click)="open.set(true)">Open sheet</el-button>
+      <el-sheet
+        [open]="open()"
+        (openChange)="open.set($event)"
+        title="Filters"
+        side="bottom"
+        size="md"
+      >
+        <div elSheetContent>
+          Header and footer stay put. Long content scrolls inside the panel.
+        </div>
+        <div elSheetFooter>
+          <el-button elSheetClose variant="ghost">Cancel</el-button>
+          <el-button (click)="open.set(false)">Apply</el-button>
+        </div>
+      </el-sheet>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Mark projected nodes with <code>elSheetHeader</code>,
+      <code>elSheetContent</code>, or <code>elSheetFooter</code>. Empty slots
+      collapse. Use <code>elSheetClose</code> on a button to dismiss.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Left side</h3>
+    <app-preview>
+      <el-button (click)="sideOpen.set(true)">Open from the left</el-button>
+      <el-sheet
+        [open]="sideOpen()"
+        (openChange)="sideOpen.set($event)"
+        title="Details"
+        side="left"
+        size="sm"
+      >
+        <div elSheetContent>A left sheet uses width sizes instead of height.</div>
+        <div elSheetFooter>
+          <el-button elSheetClose variant="ghost">Close</el-button>
+        </div>
+      </el-sheet>
+    </app-preview>
+
+    <h3>Open with a service</h3>
+    <p>
+      No extra host in the app shell.
+      <code>open()</code>
+      mounts the sheet on
+      <code>document.body</code>
+      and injects
+      <code>EL_SHEET_DATA</code>
+      plus
+      <code>ElSheetRef</code>
+      into the custom component.
+    </p>
+    <app-preview>
+      <el-button (click)="openService()">Open with service</el-button>
+      @if (serviceResult(); as result) {
+        <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
+      }
+    </app-preview>
+    <app-code-block [code]="serviceCode" />
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. See
+      <a routerLink="/theming">Theming</a>
+      for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-sheet</h3>
+    <app-props-table [props]="sheetProps" />
+    <h3>ElSheetService.open()</h3>
+    <app-props-table [props]="serviceProps" />
+  </section>
+</article>

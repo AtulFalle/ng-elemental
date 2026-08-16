@@ -1,0 +1,89 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Empty State</h1>
+    <p class="docs-lead">
+      Placeholder for an empty list, search, or page. Project an illustration,
+      extra copy, and actions. Requires the icon component; examples also use
+      button.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
+    <code>npx @ng-elemental/cli add icon</code>, then
+    <code>npx @ng-elemental/cli add empty-state</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-empty-state
+        icon="folder-open"
+        title="No projects"
+        description="Create a project to get started."
+      >
+        <div elEmptyStateActions>
+          <el-button>Create project</el-button>
+          <el-button variant="ghost">Learn more</el-button>
+        </div>
+      </el-empty-state>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Mark an illustration with <code>elEmptyStateMedia</code> and actions with
+      <code>elEmptyStateActions</code>. Default content lands under the
+      description. Empty slots collapse.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Icon only</h3>
+    <app-preview>
+      <el-empty-state
+        icon="inbox"
+        title="Inbox zero"
+        description="You are all caught up."
+      />
+    </app-preview>
+
+    <h3>Extra copy</h3>
+    <app-preview>
+      <el-empty-state
+        icon="magnifying-glass"
+        title="No results"
+        description="Try a different search term."
+      >
+        Filters are still applied.
+        <div elEmptyStateActions>
+          <el-button variant="secondary">Clear filters</el-button>
+        </div>
+      </el-empty-state>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

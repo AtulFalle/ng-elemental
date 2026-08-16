@@ -544,6 +544,86 @@
             "input": "packages/ui/src/lib/toast",
             "output": "registry/toast"
           },
+          {
+            "glob": "empty-state.{ts,html,scss}",
+            "input": "packages/ui/src/lib/empty-state",
+            "output": "registry/empty-state"
+          },
+          {
+            "glob": "snackbar.{ts,html,scss}",
+            "input": "packages/ui/src/lib/snackbar",
+            "output": "registry/snackbar"
+          },
+          {
+            "glob": "snackbar.service.ts",
+            "input": "packages/ui/src/lib/snackbar",
+            "output": "registry/snackbar"
+          },
+          {
+            "glob": "snackbar-ref.ts",
+            "input": "packages/ui/src/lib/snackbar",
+            "output": "registry/snackbar"
+          },
+          {
+            "glob": "sheet.{ts,html,scss}",
+            "input": "packages/ui/src/lib/sheet",
+            "output": "registry/sheet"
+          },
+          {
+            "glob": "sheet-close.ts",
+            "input": "packages/ui/src/lib/sheet",
+            "output": "registry/sheet"
+          },
+          {
+            "glob": "sheet.token.ts",
+            "input": "packages/ui/src/lib/sheet",
+            "output": "registry/sheet"
+          },
+          {
+            "glob": "sheet-ref.ts",
+            "input": "packages/ui/src/lib/sheet",
+            "output": "registry/sheet"
+          },
+          {
+            "glob": "sheet.service.ts",
+            "input": "packages/ui/src/lib/sheet",
+            "output": "registry/sheet"
+          },
+          {
+            "glob": "sheet-outlet.ts",
+            "input": "packages/ui/src/lib/sheet",
+            "output": "registry/sheet"
+          },
+          {
+            "glob": "drawer.{ts,html,scss}",
+            "input": "packages/ui/src/lib/drawer",
+            "output": "registry/drawer"
+          },
+          {
+            "glob": "drawer-close.ts",
+            "input": "packages/ui/src/lib/drawer",
+            "output": "registry/drawer"
+          },
+          {
+            "glob": "drawer.token.ts",
+            "input": "packages/ui/src/lib/drawer",
+            "output": "registry/drawer"
+          },
+          {
+            "glob": "drawer-ref.ts",
+            "input": "packages/ui/src/lib/drawer",
+            "output": "registry/drawer"
+          },
+          {
+            "glob": "drawer.service.ts",
+            "input": "packages/ui/src/lib/drawer",
+            "output": "registry/drawer"
+          },
+          {
+            "glob": "drawer-outlet.ts",
+            "input": "packages/ui/src/lib/drawer",
+            "output": "registry/drawer"
+          },
 
           {
             "glob": "tabs.{ts,html,scss}",

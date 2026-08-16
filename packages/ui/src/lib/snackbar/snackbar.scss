@@ -1,0 +1,115 @@
+:host(.el-snackbar-host) {
+  display: contents;
+}
+
+.el-snackbar {
+  position: fixed;
+  z-index: 1200;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--el-space-2);
+  box-sizing: border-box;
+  width: max-content;
+  max-width: min(40rem, calc(100vw - 2rem));
+  padding: var(--el-space-3);
+  border-radius: var(--el-radius-sm);
+  background: var(--el-color-inverse-surface);
+  box-shadow: var(--el-shadow-3);
+  color: var(--el-color-inverse-on-surface);
+  font-family: var(--el-font-sans);
+  font-size: 0.875rem;
+  line-height: 1.35;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+
+  &--bottom {
+    inset-block-end: var(--el-space-4);
+  }
+
+  &--top {
+    inset-block-start: var(--el-space-4);
+  }
+
+  &--success {
+    background: var(--el-color-success-container);
+    color: var(--el-color-on-success-container);
+  }
+
+  &--error {
+    background: var(--el-color-error-container);
+    color: var(--el-color-on-error-container);
+  }
+
+  &--warning {
+    background: var(--el-color-warning-container);
+    color: var(--el-color-on-warning-container);
+  }
+
+  &--info {
+    background: var(--el-color-info-container);
+    color: var(--el-color-on-info-container);
+  }
+}
+
+.el-snackbar__message {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.el-snackbar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--el-space-1);
+}
+
+.el-snackbar__actions:empty {
+  display: none;
+}
+
+.el-snackbar__action {
+  flex-shrink: 0;
+  padding: 0.25rem 0.5rem;
+  border: none;
+  border-radius: var(--el-radius-xs);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+
+  &:hover {
+    background: var(--el-color-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.el-snackbar__close {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--el-radius-xs);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--el-color-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
+    outline-offset: 2px;
+  }
+}

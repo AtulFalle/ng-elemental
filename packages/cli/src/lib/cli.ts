@@ -115,5 +115,9 @@ Commands:
   add dialog            Copy the Dialog overlay and dialog service into your project
   add alert             Copy the Alert banner component into your project
   add toast             Copy the Toast, Toaster, and toast service into your project
+  add empty-state       Copy the Empty State placeholder into your project
+  add snackbar          Copy the Snackbar bar and snackbar service into your project
+  add sheet             Copy the Sheet overlay and sheet service into your project
+  add drawer            Copy the Drawer overlay and drawer service into your project
 `);
 }
