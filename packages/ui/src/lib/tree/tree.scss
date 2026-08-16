@@ -1,0 +1,56 @@
+:host(.el-tree-host) {
+  display: block;
+  min-width: 0;
+}
+
+:host(.el-tree-host--virtual) {
+  overflow: auto;
+}
+
+:host(.el-tree-host--disabled) {
+  color: var(--el-color-disabled);
+}
+
+.el-tree__defs {
+  display: none;
+}
+
+.el-tree__spacer {
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.el-tree {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.25rem;
+  min-width: 0;
+  background: transparent;
+  color: var(--el-color-on-surface);
+  font-family: var(--el-font-sans);
+
+  &--outlined {
+    overflow: hidden;
+    border: var(--el-border-width) solid var(--el-color-outline-variant);
+    border-radius: var(--el-radius-md);
+  }
+
+  &--plain {
+    padding: 0;
+  }
+
+  &--virtual {
+    overflow: visible;
+  }
+}
+
+.el-tree__more {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 2rem;
+  padding: 0.25rem 0.5rem;
+  padding-inline-start: calc(0.25rem + (var(--el-tree-level, 0) * 1.25rem) + 1.5rem);
+}

@@ -1,0 +1,149 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Carousel</h1>
+    <p class="docs-lead">
+      Slide track with previous/next controls and dots. Optional loop, autoplay,
+      and a peek of adjacent slides. This is not the
+      <a routerLink="/components/slider">Slider</a>
+      range input.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add carousel</code>
+    (requires <code>icon</code> and <code>button</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-carousel
+        [(index)]="index"
+        ariaLabel="Screenshots"
+        style="width: 100%; max-width: 28rem"
+      >
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
+        </el-carousel-slide>
+      </el-carousel>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      The parent owns <code>index</code>. Prev/next and dots live on
+      <code>el-carousel</code>. Each <code>el-carousel-slide</code> is only a
+      panel — do not put chrome inside the slide.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Loop</h3>
+    <app-preview>
+      <el-carousel loop ariaLabel="Looping slides" style="width: 100%; max-width: 28rem">
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
+        </el-carousel-slide>
+      </el-carousel>
+    </app-preview>
+
+    <h3>Autoplay</h3>
+    <p>
+      Pass an interval in milliseconds. Autoplay pauses while the carousel is
+      hovered, focused, or being dragged, and when the user prefers reduced
+      motion.
+    </p>
+    <app-preview>
+      <el-carousel
+        loop
+        [autoplay]="4000"
+        ariaLabel="Autoplay slides"
+        style="width: 100%; max-width: 28rem"
+      >
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
+        </el-carousel-slide>
+      </el-carousel>
+    </app-preview>
+
+    <h3>Peek</h3>
+    <app-preview>
+      <el-carousel
+        loop
+        [peek]="24"
+        [(index)]="peekIndex"
+        ariaLabel="Peeking slides"
+        style="width: 100%; max-width: 28rem"
+      >
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Four</div>
+        </el-carousel-slide>
+      </el-carousel>
+    </app-preview>
+
+    <h3>Many slides</h3>
+    <app-preview>
+      <el-carousel loop ariaLabel="Many slides" style="width: 100%; max-width: 28rem">
+        @for (n of many; track n) {
+          <el-carousel-slide>
+            <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">{{ n }}</div>
+          </el-carousel-slide>
+        }
+      </el-carousel>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-carousel</h3>
+    <app-props-table [props]="carouselProps" />
+  </section>
+</article>

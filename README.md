@@ -106,7 +106,7 @@ Change `componentsDir` during `init` (`--path` or the interactive prompt) if you
 | `npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]` | Create config, prompt for the components path, and install theme tokens |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `menu`, `menubar`, `popover`, `alert`, `toast`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `carousel`, `avatar`, `card`, `list`, `tree`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `menu`, `menubar`, `popover`, `alert`, `toast`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -460,6 +460,31 @@ Horizontal value picker. Single thumb via `[(value)]`, or dual thumbs with `rang
 | `disabled` | `boolean` | `false` | Disable interaction |
 | `error` | `boolean` | `false` | Error styling |
 
+### Carousel (`el-carousel`)
+
+Slide track with previous/next controls and dots. Optional loop, autoplay, peek of adjacent slides, and pointer drag. Requires `icon` and `button`. This is not `el-slider`.
+
+```html
+<el-carousel [(index)]="i" loop [autoplay]="4000" [peek]="24" ariaLabel="Screenshots">
+  <el-carousel-slide>
+    <img src="dashboard.png" alt="Dashboard" />
+  </el-carousel-slide>
+  <el-carousel-slide>Two</el-carousel-slide>
+</el-carousel>
+```
+
+**`el-carousel`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `index` | `number` (model) | `0` | Active slide |
+| `loop` | `boolean` | `false` | Wrap at the ends |
+| `autoplay` | `number` | `0` | Interval in ms; `0` is off (pauses on hover/focus/drag) |
+| `peek` | `number` | `0` | Pixels of neighboring slides visible |
+| `size` | `sm` \| `md` \| `lg` | `md` | Prev/next control size |
+| `disabled` | `boolean` | `false` | Block interaction |
+| `ariaLabel` | `string` | — | Accessible name |
+
 ### Avatar (`el-avatar`)
 
 Circular image / initials / icon mark. Content priority: `src` → `initials` → `icon` (default `user`). Image errors fall through to the next option.
@@ -566,6 +591,59 @@ Virtual lists use `<ng-template elListItemDef let-item>` instead of projected ro
 | `elListTrailing` | Meta, chip, or action |
 
 Unslotted content lands in the body. Optional compose with `avatar`, `icon`, `chip`, `button`.
+
+### Tree (`el-tree`)
+
+Nested files-and-folders rows. The parent owns `expanded` and `checked`. Requires `icon`, `checkbox`, and `button`.
+
+```html
+<el-tree [(expanded)]="open" [(checked)]="checked" checkbox ariaLabel="Files">
+  <el-tree-item value="docs" label="Documents">
+    <el-icon elTreeLeading name="folder" />
+    <span elTreeActions>
+      <el-button size="sm" variant="ghost" iconStart="ellipsis-vertical" />
+    </span>
+    <el-tree-item value="resume" label="Resume.pdf" />
+  </el-tree-item>
+</el-tree>
+```
+
+**`el-tree`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `appearance` | `outlined` \| `plain` | `outlined` | Bordered surface or flush rows |
+| `size` | `sm` \| `md` \| `lg` | `md` | Density |
+| `checkbox` | `boolean` | `false` | Cascade checkboxes with computed indeterminate |
+| `expanded` | `string[]` | `[]` | Open node ids (`model`) |
+| `checked` | `string[]` | `[]` | Checked subtree roots (`model`) |
+| `nodes` | `ElTreeNode[]` | `[]` | Data mode (virtual, lazy, load more) |
+| `virtual` | `boolean` | `false` | Window flattened visible rows (set a max-height) |
+| `itemHeight` | `number` | `36` | Fixed virtual row height |
+| `overscan` | `number` | `5` | Extra rows above and below the viewport |
+| `loadingIds` | `string[]` | `[]` | Node ids currently loading children |
+| `hasMore` | `boolean` | `false` | Root Load more control in data mode |
+| `ariaLabel` | `string` | — | Accessible name |
+| `disabled` | `boolean` | `false` | Block interaction |
+
+Checking a parent checks descendants. A mixed parent is indeterminate. Expanding a node with `hasChildren` and no `children` emits `loadChildren`. A node `hasMore` flag emits `loadMore` after its visible children.
+
+Virtual trees use `<ng-template elTreeNodeDef let-node>` instead of projected rows.
+
+**`el-tree-item`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | required | Node id |
+| `label` | `string` | `''` | Default label |
+| `icon` | `string` | `''` | Fallback leading icon |
+| `hasChildren` | `boolean` | `false` | Show expand chevron without nested items |
+| `disabled` | `boolean` | `false` | Dim and block interaction |
+
+| Slot attribute | Description |
+| --- | --- |
+| `elTreeLeading` | Icon or thumbnail |
+| `elTreeActions` | Trailing row action |
 
 ### Menu (`el-menu`)
 

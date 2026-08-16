@@ -1,0 +1,219 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Tree</h1>
+    <p class="docs-lead">
+      Hierarchical files-and-folders list. Project nested
+      <code>el-tree-item</code>
+      rows, or pass
+      <code>[nodes]</code>
+      for checkboxes, virtualization, lazy children, and load more.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add tree</code>
+    (requires <code>icon</code>, <code>checkbox</code>, and <code>button</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-tree
+        [(expanded)]="expanded"
+        ariaLabel="Files"
+        style="max-width: 22rem; width: 100%"
+      >
+        <el-tree-item value="docs" label="Documents">
+          <el-icon elTreeLeading name="folder" />
+          <el-tree-item value="resume" label="Resume.pdf">
+            <el-icon elTreeLeading name="file" />
+          </el-tree-item>
+          <el-tree-item value="cover" label="Cover letter.pdf">
+            <el-icon elTreeLeading name="file" />
+          </el-tree-item>
+        </el-tree-item>
+        <el-tree-item value="photos" label="Photos">
+          <el-icon elTreeLeading name="folder" />
+          <el-tree-item value="trip" label="Trip">
+            <el-icon elTreeLeading name="folder" />
+            <el-tree-item value="beach" label="Beach.jpg">
+              <el-icon elTreeLeading name="image" />
+            </el-tree-item>
+          </el-tree-item>
+        </el-tree-item>
+      </el-tree>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      The parent owns <code>expanded</code> and <code>checked</code>. Project
+      leading media with <code>elTreeLeading</code> and row actions with
+      <code>elTreeActions</code>. Nested <code>el-tree-item</code> children
+      form the hierarchy.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Cascade checkboxes</h3>
+    <p>
+      Checking a folder checks descendants. A mixed folder shows indeterminate.
+      The checked model stores subtree roots only.
+    </p>
+    <app-preview>
+      <el-tree
+        checkbox
+        [(expanded)]="expanded"
+        [(checked)]="checked"
+        ariaLabel="Selectable files"
+        style="max-width: 22rem; width: 100%"
+      >
+        <el-tree-item value="docs" label="Documents">
+          <el-icon elTreeLeading name="folder" />
+          <el-tree-item value="resume" label="Resume.pdf">
+            <el-icon elTreeLeading name="file" />
+          </el-tree-item>
+          <el-tree-item value="notes" label="Notes.md">
+            <el-icon elTreeLeading name="file" />
+          </el-tree-item>
+        </el-tree-item>
+        <el-tree-item value="media" label="Media">
+          <el-icon elTreeLeading name="folder" />
+          <el-tree-item value="photo" label="Photo.png">
+            <el-icon elTreeLeading name="image" />
+          </el-tree-item>
+        </el-tree-item>
+      </el-tree>
+    </app-preview>
+
+    <h3>Actions</h3>
+    <app-preview>
+      <el-tree ariaLabel="Project files" style="max-width: 24rem; width: 100%">
+        <el-tree-item value="src" label="src">
+          <el-icon elTreeLeading name="folder" />
+          <el-button
+            elTreeActions
+            variant="ghost"
+            size="sm"
+            iconStart="ellipsis-vertical"
+            aria-label="src actions"
+          />
+          <el-tree-item value="app" label="app.ts">
+            <el-icon elTreeLeading name="file" />
+            <el-button
+              elTreeActions
+              variant="ghost"
+              size="sm"
+              iconStart="ellipsis-vertical"
+              aria-label="app.ts actions"
+            />
+          </el-tree-item>
+        </el-tree-item>
+      </el-tree>
+    </app-preview>
+
+    <h3>Virtual</h3>
+    <p>
+      Set a max-height on <code>el-tree</code>. Virtual mode flattens expanded
+      rows and requires <code>[nodes]</code> plus <code>elTreeNodeDef</code>.
+    </p>
+    <app-preview>
+      <el-tree
+        virtual
+        checkbox
+        [nodes]="fileNodes"
+        [(expanded)]="virtualExpanded"
+        [(checked)]="virtualChecked"
+        [itemHeight]="36"
+        ariaLabel="Virtual files"
+        style="max-height: 16rem; max-width: 24rem; width: 100%"
+      >
+        <ng-template elTreeNodeDef let-node>
+          <el-icon [name]="node.icon ?? 'file'" size="sm" />
+          {{ node.label }}
+        </ng-template>
+      </el-tree>
+    </app-preview>
+    <app-code-block [code]="virtualCode" language="html" />
+
+    <h3>Lazy children and load more</h3>
+    <p>
+      Expand a node with <code>hasChildren</code> and no
+      <code>children</code> to emit <code>loadChildren</code>. Set
+      <code>hasMore</code> on a node to paginate its children.
+    </p>
+    <app-preview>
+      <el-tree
+        [nodes]="lazyNodes()"
+        [loadingIds]="lazyLoading()"
+        [(expanded)]="lazyExpanded"
+        (loadChildren)="onLoadChildren($event)"
+        (loadMore)="onLoadMore($event)"
+        ariaLabel="Lazy folders"
+        style="max-width: 22rem; width: 100%"
+      >
+        <ng-template elTreeNodeDef let-node>
+          <el-icon [name]="node.icon ?? 'folder'" size="sm" />
+          {{ node.label }}
+        </ng-template>
+      </el-tree>
+    </app-preview>
+
+    <h3>Root infinite scroll</h3>
+    <p>
+      Root-level paging is not built in. Compose
+      <a routerLink="/components/infinite-scroll">Infinite Scroll</a>
+      around the tree.
+    </p>
+    <app-code-block [code]="infiniteCode" language="html" />
+
+    <h3>Sizes</h3>
+    <app-preview>
+      <div style="display: grid; gap: 1rem; width: 100%; max-width: 22rem">
+        @for (size of sizes; track size) {
+          <el-tree [size]="size" [ariaLabel]="size + ' tree'">
+            <el-tree-item value="root" [label]="size + ' density'">
+              <el-icon elTreeLeading name="folder" />
+              <el-tree-item value="child" label="Nested file">
+                <el-icon elTreeLeading name="file" />
+              </el-tree-item>
+            </el-tree-item>
+          </el-tree>
+        }
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-tree</h3>
+    <app-props-table [props]="treeProps" />
+    <h3>Outputs</h3>
+    <app-props-table [props]="treeOutputs" />
+    <h3>el-tree-item</h3>
+    <app-props-table [props]="itemProps" />
+    <h3>Slots</h3>
+    <app-props-table [props]="slots" />
+  </section>
+</article>

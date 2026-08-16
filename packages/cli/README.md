@@ -74,9 +74,11 @@ export class MyComponent {}
 | `chip` | `el-chip` | `ElChip` |
 | `progress` | `el-progress`, `el-progress-circle` | `ElProgress`, `ElProgressCircle` |
 | `slider` | `el-slider` | `ElSlider` |
+| `carousel` | `el-carousel`, `el-carousel-slide` | `ElCarousel`, `ElCarouselSlide` |
 | `avatar` | `el-avatar` | `ElAvatar` |
 | `card` | `el-card` | `ElCard` |
 | `list` | `el-list`, `el-list-item` | `ElList`, `ElListItem`, `ElListItemDef` |
+| `tree` | `el-tree`, `el-tree-item` | `ElTree`, `ElTreeItem`, `ElTreeNodeDef` |
 | `infinite-scroll` | `[elInfiniteScroll]` | `ElInfiniteScroll` |
 | `attachment` | `el-attachment` (+ parts) | `ElAttachment`, … |
 | `file-upload` | `el-file-upload` | `ElFileUpload` |

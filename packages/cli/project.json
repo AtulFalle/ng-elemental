@@ -145,6 +145,26 @@
             "output": "registry/slider"
           },
           {
+            "glob": "carousel.{ts,html,scss}",
+            "input": "packages/ui/src/lib/carousel",
+            "output": "registry/carousel"
+          },
+          {
+            "glob": "carousel-slide.{ts,html,scss}",
+            "input": "packages/ui/src/lib/carousel",
+            "output": "registry/carousel"
+          },
+          {
+            "glob": "carousel.token.ts",
+            "input": "packages/ui/src/lib/carousel",
+            "output": "registry/carousel"
+          },
+          {
+            "glob": "carousel-utils.ts",
+            "input": "packages/ui/src/lib/carousel",
+            "output": "registry/carousel"
+          },
+          {
             "glob": "avatar.{ts,html,scss}",
             "input": "packages/ui/src/lib/avatar",
             "output": "registry/avatar"
@@ -173,6 +193,36 @@
             "glob": "list-virtual.ts",
             "input": "packages/ui/src/lib/list",
             "output": "registry/list"
+          },
+          {
+            "glob": "tree.{ts,html,scss}",
+            "input": "packages/ui/src/lib/tree",
+            "output": "registry/tree"
+          },
+          {
+            "glob": "tree-item.{ts,html,scss}",
+            "input": "packages/ui/src/lib/tree",
+            "output": "registry/tree"
+          },
+          {
+            "glob": "tree-node-def.ts",
+            "input": "packages/ui/src/lib/tree",
+            "output": "registry/tree"
+          },
+          {
+            "glob": "tree.token.ts",
+            "input": "packages/ui/src/lib/tree",
+            "output": "registry/tree"
+          },
+          {
+            "glob": "tree-utils.ts",
+            "input": "packages/ui/src/lib/tree",
+            "output": "registry/tree"
+          },
+          {
+            "glob": "tree-virtual.ts",
+            "input": "packages/ui/src/lib/tree",
+            "output": "registry/tree"
           },
           {
             "glob": "infinite-scroll.ts",

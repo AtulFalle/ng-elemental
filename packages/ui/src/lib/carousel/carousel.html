@@ -1,0 +1,62 @@
+<div [class]="rootClass()">
+  <div class="el-carousel__stage">
+    <el-button
+      class="el-carousel__arrow el-carousel__arrow--prev"
+      variant="ghost"
+      [size]="size()"
+      iconStart="chevron-left"
+      [disabled]="!canPrev()"
+      (click)="prev()"
+    >
+      <span class="el-carousel__sr-only">Previous slide</span>
+    </el-button>
+
+    <div
+      #viewport
+      class="el-carousel__viewport"
+      [style.padding-inline.px]="peekPx()"
+      tabindex="0"
+      (keydown)="onViewportKeydown($event)"
+      (pointerdown)="onPointerDown($event)"
+      (pointermove)="onPointerMove($event)"
+      (pointerup)="onPointerUp($event)"
+      (pointercancel)="onPointerUp($event)"
+    >
+      <div
+        class="el-carousel__track"
+        [class.el-carousel__track--instant]="dragging()"
+        [style.gap.px]="peekPx()"
+        [style.transform]="trackTransform()"
+      >
+        <ng-content select="el-carousel-slide" />
+      </div>
+    </div>
+
+    <el-button
+      class="el-carousel__arrow el-carousel__arrow--next"
+      variant="ghost"
+      [size]="size()"
+      iconStart="chevron-right"
+      [disabled]="!canNext()"
+      (click)="next()"
+    >
+      <span class="el-carousel__sr-only">Next slide</span>
+    </el-button>
+  </div>
+
+  @if (slideCount() > 1) {
+    <div class="el-carousel__dots" role="group" aria-label="Slides">
+      @for (slide of slides(); track $index) {
+        <button
+          type="button"
+          class="el-carousel__dot"
+          [class.el-carousel__dot--active]="$index === currentIndex()"
+          [attr.aria-label]="'Slide ' + ($index + 1)"
+          [attr.aria-current]="$index === currentIndex() ? true : null"
+          [disabled]="disabled()"
+          (click)="goTo($index)"
+        ></button>
+      }
+    </div>
+  }
+</div>

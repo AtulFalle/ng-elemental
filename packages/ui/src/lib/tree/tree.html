@@ -1,0 +1,52 @@
+<div [class]="rootClass()">
+  @if (dataMode()) {
+    @if (virtual() && virtualWindow().padStart > 0) {
+      <div
+        class="el-tree__spacer"
+        [style.height.px]="virtualWindow().padStart"
+        aria-hidden="true"
+      ></div>
+    }
+    @for (row of visibleRows(); track row.id; let i = $index) {
+      @if (row.kind === 'node' && row.node) {
+        <el-tree-item
+          [value]="row.id"
+          [label]="row.node.label"
+          [icon]="row.node.icon ?? ''"
+          [disabled]="!!row.node.disabled"
+          [hasChildren]="row.hasChildren"
+          [level]="row.level"
+          [node]="row.node"
+          [rowIndex]="i"
+          [last]="i === visibleRows().length - 1"
+        />
+      } @else {
+        <div
+          class="el-tree__more"
+          [style.--el-tree-level]="row.level"
+        >
+          <el-button
+            variant="ghost"
+            size="sm"
+            [disabled]="disabled() || isRowLoading(row)"
+            (click)="onLoadMoreClick(row)"
+          >
+            Load more
+          </el-button>
+        </div>
+      }
+    }
+    @if (virtual() && virtualWindow().padEnd > 0) {
+      <div
+        class="el-tree__spacer"
+        [style.height.px]="virtualWindow().padEnd"
+        aria-hidden="true"
+      ></div>
+    }
+  } @else {
+    <ng-content />
+  }
+</div>
+<div class="el-tree__defs">
+  <ng-content select="ng-template[elTreeNodeDef]" />
+</div>
