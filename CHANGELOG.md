@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.8] - 2026-08-16
+
 ### Added
 
 - `init` prompts for the components directory (default `src/app/ui`) with `--path` for non-interactive and CI installs
@@ -78,7 +80,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `ElLabel` form-oriented label component (`ng-elemental add label`)
 
-[Unreleased]: https://github.com/AtulFalle/ng-elemental/compare/v0.0.7...HEAD
+[Unreleased]: https://github.com/AtulFalle/ng-elemental/compare/v0.0.8...HEAD
+[0.0.8]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.8
 [0.0.7]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.7
 [0.0.5]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.5
 [0.0.4]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.4
