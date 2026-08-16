@@ -139,6 +139,11 @@ jobs:
           --storybook-config-dir .storybook
           --only-changed
           --zip
+          --untraced 'src/**'
+          --untraced 'packages/cli/**'
+          --externals 'packages/ui/src/lib/theme/**'
+          --externals 'packages/ui/src/styles/**'
+          --externals '.storybook/styles.scss'
 
   chromatic-baseline:
     name: Chromatic Baseline
@@ -174,6 +179,7 @@ jobs:
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Full capture: do not pass TurboSnap flags (--only-changed, --untraced, --externals).
         run: >
           npx chromatic
           --storybook-build-dir dist/storybook/ng-elemental

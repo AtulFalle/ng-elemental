@@ -5,7 +5,7 @@ const config: StorybookConfig = {
     '../src/app/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
     '../packages/ui/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
   ],
-  addons: [],
+  addons: ['@storybook/addon-vitest'],
   framework: {
     name: '@storybook/angular-vite',
     options: {
