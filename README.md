@@ -106,7 +106,7 @@ Change `componentsDir` during `init` (`--path` or the interactive prompt) if you
 | `npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]` | Create config, prompt for the components path, and install theme tokens |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `accordion`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -708,6 +708,83 @@ Expandable sections. The group owns which panels are open. Requires `icon` (head
 | `disabled` | `boolean` | `false` | Disables this item |
 
 Put panel markup in `<ng-template elAccordionContent>` (lazy while collapsed). Optional `<ng-template elAccordionTitle>` / `elAccordionSubtitle` replace the text header. Header actions use `[elAccordionActions]` so they sit before the expand icon and do not toggle the panel.
+
+### Table (`el-table`)
+
+Data table from `[data]` plus `el-table-column` children. Cells stringify `row[name]` unless a column provides `elTableCell`. The table does not sort or page the array. Requires `icon`. Optional `pagination` for the footer.
+
+```html
+<el-table [data]="users" [(sort)]="sort" ariaLabel="People">
+  <el-table-column name="name" label="Name" sortable width="12rem" />
+  <el-table-column name="status" label="Status">
+    <ng-template elTableCell let-user>
+      <el-chip>{{ user.status }}</el-chip>
+    </ng-template>
+  </el-table-column>
+  <ng-template elTableExpand let-user>{{ user.bio }}</ng-template>
+  <el-pagination [(page)]="page" [total]="total" />
+</el-table>
+```
+
+**`el-table`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `data` | `object[]` | `[]` | Visible rows (already sorted/paged) |
+| `track` | `string` | `'id'` | Row identity key |
+| `sort` | `{ name, direction } \| null` | `null` | Active sort (two-way). Does not reorder `data` |
+| `expanded` | `string \| string[]` | `''` | Expanded row id(s) |
+| `expandVariant` | `single` \| `multiple` | `single` | How many detail rows can stay open |
+| `size` | `sm` \| `md` \| `lg` | `md` | Cell density |
+| `appearance` | `outlined` \| `plain` | `outlined` | Border treatment |
+| `striped` | `boolean` | `false` | Alternate row backgrounds |
+| `stickyHeader` | `boolean` | `false` | Pin the header while scrolling |
+| `loading` | `boolean` | `false` | Loading slot / “Loading…” |
+| `empty` | `boolean` | `false` | Empty slot (also when `data` is empty) |
+| `virtual` | `boolean` | `false` | Render visible rows only (fixed height; not with expand) |
+| `itemHeight` | `number` | `44` | Virtual row height in pixels |
+| `caption` | `string` | `''` | Visible caption |
+| `ariaLabel` | `string` | — | Accessible name |
+
+**`el-table-column`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `name` | `string` | (required) | Row property key |
+| `label` | `string` | `''` | Header text; ignored when `elTableHeader` is set |
+| `sortable` | `boolean` | `false` | Sort button (none → asc → desc) |
+| `width` | `string` | `''` | Column width (`12rem`, `20%`, …) |
+| `align` | `start` \| `center` \| `end` | `start` | Cell alignment |
+
+Optional `<ng-template elTableHeader>` / `elTableCell` / `elTableExpand`. Project `el-pagination` for a footer. Empty/loading copy: `[elTableEmpty]` / `[elTableLoading]`.
+
+### Pagination (`el-pagination`)
+
+Page window. Does not slice data. Requires `icon`, `button`, and `select`.
+
+```html
+<el-pagination
+  [(page)]="page"
+  [(pageSize)]="pageSize"
+  [total]="1000"
+  showPageSize
+/>
+```
+
+**`el-pagination`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `page` | `number` | `1` | Current 1-based page (two-way) |
+| `pageSize` | `number` | `20` | Rows per page (two-way) |
+| `total` | `number` | `0` | Total item count |
+| `pageSizeOptions` | `number[]` | `[10, 20, 50]` | Options when `showPageSize` is set |
+| `siblingCount` | `number` | `1` | Pages beside the current page |
+| `showFirstLast` | `boolean` | `true` | First and last buttons |
+| `showPageSize` | `boolean` | `false` | Rows-per-page select |
+| `size` | `sm` \| `md` \| `lg` | `md` | Control size |
+| `disabled` | `boolean` | `false` | Disables every control |
+| `ariaLabel` | `string` | `'Pagination'` | Accessible name |
 
 ### Segmented Button (`el-segmented-button`)
 

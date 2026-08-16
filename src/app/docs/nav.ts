@@ -45,6 +45,8 @@ export const DOC_NAV: DocNavSection[] = [
       { label: 'File Upload', path: '/components/file-upload' },
       { label: 'Tabs', path: '/components/tabs' },
       { label: 'Accordion', path: '/components/accordion' },
+      { label: 'Table', path: '/components/table' },
+      { label: 'Pagination', path: '/components/pagination' },
       { label: 'Segmented Button', path: '/components/segmented-button' },
     ],
   },

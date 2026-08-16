@@ -94,5 +94,7 @@ Commands:
   add infinite-scroll   Copy the Infinite Scroll directive into your project
   add attachment        Copy the Attachment component into your project
   add file-upload       Copy the File Upload component into your project
+  add table             Copy the Table component into your project
+  add pagination        Copy the Pagination component into your project
 `);
 }

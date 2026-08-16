@@ -224,6 +224,51 @@
             "input": "packages/ui/src/lib/file-upload",
             "output": "registry/file-upload"
           },
+          {
+            "glob": "table.{ts,html,scss}",
+            "input": "packages/ui/src/lib/table",
+            "output": "registry/table"
+          },
+          {
+            "glob": "table-column.ts",
+            "input": "packages/ui/src/lib/table",
+            "output": "registry/table"
+          },
+          {
+            "glob": "table-header.ts",
+            "input": "packages/ui/src/lib/table",
+            "output": "registry/table"
+          },
+          {
+            "glob": "table-cell-def.ts",
+            "input": "packages/ui/src/lib/table",
+            "output": "registry/table"
+          },
+          {
+            "glob": "table-expand.ts",
+            "input": "packages/ui/src/lib/table",
+            "output": "registry/table"
+          },
+          {
+            "glob": "table-virtual.ts",
+            "input": "packages/ui/src/lib/table",
+            "output": "registry/table"
+          },
+          {
+            "glob": "table.token.ts",
+            "input": "packages/ui/src/lib/table",
+            "output": "registry/table"
+          },
+          {
+            "glob": "pagination.{ts,html,scss}",
+            "input": "packages/ui/src/lib/pagination",
+            "output": "registry/pagination"
+          },
+          {
+            "glob": "pagination-utils.ts",
+            "input": "packages/ui/src/lib/pagination",
+            "output": "registry/pagination"
+          },
 
           {
             "glob": "tabs.{ts,html,scss}",

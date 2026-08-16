@@ -1,0 +1,162 @@
+<div [class]="rootClass()">
+  <div
+    #viewport
+    class="el-table__viewport"
+    (scroll)="onViewportScroll($event)"
+  >
+    <table
+      class="el-table__table"
+      [attr.aria-label]="ariaLabel() || null"
+    >
+      @if (caption()) {
+        <caption class="el-table__caption">{{ caption() }}</caption>
+      }
+      <thead class="el-table__head">
+        <tr class="el-table__row el-table__row--head">
+          @if (canExpand()) {
+            <th class="el-table__expand-cell" scope="col">
+              <span class="el-table__sr-only">Expand</span>
+            </th>
+          }
+          @for (column of columns(); track column.name()) {
+            <th
+              class="el-table__cell el-table__cell--head"
+              scope="col"
+              [style.width]="column.width() || null"
+              [style.text-align]="column.align()"
+              [attr.aria-sort]="column.sortable() ? ariaSort(column.name()) : null"
+            >
+              @if (column.sortable()) {
+                <button
+                  type="button"
+                  class="el-table__sort"
+                  (click)="toggleSort(column.name())"
+                >
+                  @if (column.headerTemplate(); as template) {
+                    <ng-container [ngTemplateOutlet]="template" />
+                  } @else {
+                    <span>{{ column.headerText() }}</span>
+                  }
+                  <el-icon
+                    class="el-table__sort-icon"
+                    [name]="sortIcon(column.name())"
+                    size="sm"
+                  />
+                </button>
+              } @else if (column.headerTemplate(); as template) {
+                <ng-container [ngTemplateOutlet]="template" />
+              } @else {
+                {{ column.headerText() }}
+              }
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody class="el-table__body">
+        <tr
+          class="el-table__row el-table__row--status"
+          [class.el-table__row--status-hidden]="!showStatus()"
+        >
+          <td class="el-table__cell el-table__status" [attr.colspan]="colSpan()">
+            <div class="el-table__status-copy" [hidden]="!loading()">
+              <div class="el-table__status-slot">
+                <ng-content select="[elTableLoading]" />
+              </div>
+              <span class="el-table__status-fallback">Loading…</span>
+            </div>
+            <div class="el-table__status-copy" [hidden]="loading() || !showEmpty()">
+              <div class="el-table__status-slot">
+                <ng-content select="[elTableEmpty]" />
+              </div>
+              <span class="el-table__status-fallback">No rows.</span>
+            </div>
+          </td>
+        </tr>
+        @if (!showStatus()) {
+          @if (virtual() && virtualWindow().padStart > 0) {
+            <tr class="el-table__spacer" aria-hidden="true">
+              <td
+                [attr.colspan]="colSpan()"
+                [style.height.px]="virtualWindow().padStart"
+              ></td>
+            </tr>
+          }
+          @for (item of visibleRows(); track item.id) {
+            <tr
+              class="el-table__row"
+              [class.el-table__row--expanded]="canExpand() && isExpanded(item.id)"
+              [class.el-table__row--odd]="item.index % 2 === 1"
+            >
+              @if (canExpand()) {
+                <td class="el-table__expand-cell">
+                  <button
+                    type="button"
+                    class="el-table__expand"
+                    [attr.aria-expanded]="isExpanded(item.id)"
+                    [attr.aria-controls]="rowExpandId(item.id)"
+                    (click)="toggleExpand(item.id)"
+                  >
+                    <el-icon
+                      class="el-table__expand-icon"
+                      [class.el-table__expand-icon--open]="isExpanded(item.id)"
+                      name="chevron-down"
+                      size="sm"
+                    />
+                    <span class="el-table__sr-only">
+                      {{ isExpanded(item.id) ? 'Collapse row' : 'Expand row' }}
+                    </span>
+                  </button>
+                </td>
+              }
+              @for (column of columns(); track column.name()) {
+                <td
+                  class="el-table__cell"
+                  [style.width]="column.width() || null"
+                  [style.text-align]="column.align()"
+                >
+                  @if (column.cellTemplate(); as template) {
+                    <ng-container
+                      [ngTemplateOutlet]="template"
+                      [ngTemplateOutletContext]="{ $implicit: item.row }"
+                    />
+                  } @else {
+                    {{ cellText(item.row, column.name()) }}
+                  }
+                </td>
+              }
+            </tr>
+            @if (canExpand() && isExpanded(item.id)) {
+              <tr
+                class="el-table__row el-table__row--detail"
+                [id]="rowExpandId(item.id)"
+              >
+                <td class="el-table__cell el-table__detail" [attr.colspan]="colSpan()">
+                  @if (expandTemplate(); as template) {
+                    <ng-container
+                      [ngTemplateOutlet]="template"
+                      [ngTemplateOutletContext]="{ $implicit: item.row }"
+                    />
+                  }
+                </td>
+              </tr>
+            }
+          }
+          @if (virtual() && virtualWindow().padEnd > 0) {
+            <tr class="el-table__spacer" aria-hidden="true">
+              <td
+                [attr.colspan]="colSpan()"
+                [style.height.px]="virtualWindow().padEnd"
+              ></td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="el-table__footer">
+    <ng-content select="el-pagination, [elTableFooter]" />
+  </div>
+  <div class="el-table__defs">
+    <ng-content />
+  </div>
+</div>
