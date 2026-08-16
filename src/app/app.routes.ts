@@ -140,6 +140,18 @@ export const appRoutes: Route[] = [
           import('./docs/pages/accordion-doc').then((m) => m.AccordionDocPage),
       },
       {
+        path: 'components/table',
+        loadComponent: () =>
+          import('./docs/pages/table-doc').then((m) => m.TableDocPage),
+      },
+      {
+        path: 'components/pagination',
+        loadComponent: () =>
+          import('./docs/pages/pagination-doc').then(
+            (m) => m.PaginationDocPage,
+          ),
+      },
+      {
         path: 'components/segmented-button',
         loadComponent: () =>
           import('./docs/pages/segmented-button-doc').then(

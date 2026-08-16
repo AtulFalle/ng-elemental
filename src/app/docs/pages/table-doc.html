@@ -1,0 +1,206 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Table</h1>
+    <p class="docs-lead">
+      Data table that always renders from <code>data</code> plus
+      <code>el-table-column</code> children. Cells stringify
+      <code>row[name]</code> unless a column provides
+      <code>elTableCell</code>. You sort and page the array; the table
+      does not. Pair with
+      <a routerLink="/components/pagination">Pagination</a> in the footer.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add table</code>
+    (requires <code>icon</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-table-demo">
+        <el-table [data]="people" ariaLabel="People">
+          <el-table-column name="name" label="Name" sortable width="12rem" />
+          <el-table-column name="email" label="Email" />
+          <el-table-column name="status" label="Status">
+            <ng-template elTableCell let-user>
+              <el-chip>{{ user.status }}</el-chip>
+            </ng-template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Pass the visible rows in <code>[data]</code>. Declare columns with
+      <code>name</code> (the field key) and optional <code>label</code>.
+      Add <code>&lt;ng-template elTableCell let-row&gt;</code> only on
+      columns that need a widget. Header templates use
+      <code>elTableHeader</code>. Project
+      <code>&lt;el-pagination&gt;</code> as a child for the footer.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>String fallback</h3>
+    <p>
+      No cell templates. Each body cell is
+      <code>String(row[name])</code>. <code>null</code> and
+      <code>undefined</code> render as empty.
+    </p>
+    <app-preview>
+      <div class="docs-table-demo">
+        <el-table [data]="people" ariaLabel="Simple people">
+          <el-table-column name="name" label="Name" />
+          <el-table-column name="email" label="Email" />
+          <el-table-column name="role" label="Role" />
+        </el-table>
+      </div>
+    </app-preview>
+
+    <h3>Sort (you reorder data)</h3>
+    <p>
+      Bind <code>sort</code>. The table only updates the model
+      (none → asc → desc). Slice or sort <code>data</code> yourself —
+      including for a server.
+    </p>
+    <app-preview>
+      <div class="docs-table-demo">
+        <el-table
+          [data]="sortedPeople()"
+          [sort]="sort()"
+          (sortChange)="sort.set($event)"
+          ariaLabel="Sortable people"
+        >
+          <el-table-column name="name" label="Name" sortable>
+            <ng-template elTableHeader>
+              <el-icon name="user" size="sm" />
+              Name
+            </ng-template>
+          </el-table-column>
+          <el-table-column name="email" label="Email" sortable />
+          <el-table-column name="role" label="Role" />
+        </el-table>
+      </div>
+    </app-preview>
+
+    <h3>Expandable rows</h3>
+    <p>
+      One <code>elTableExpand</code> template for every row. Bind
+      <code>expanded</code>. Not supported together with
+      <code>virtual</code>.
+    </p>
+    <app-preview>
+      <div class="docs-table-demo">
+        <el-table
+          [data]="people"
+          [expanded]="expanded()"
+          (expandedChange)="expanded.set($event)"
+          ariaLabel="Expandable people"
+        >
+          <el-table-column name="name" label="Name" />
+          <el-table-column name="status" label="Status">
+            <ng-template elTableCell let-user>
+              <el-chip>{{ user.status }}</el-chip>
+            </ng-template>
+          </el-table-column>
+          <ng-template elTableExpand let-user>
+            {{ user.bio }}
+          </ng-template>
+        </el-table>
+      </div>
+    </app-preview>
+
+    <h3>Pagination footer</h3>
+    <p>
+      <code>ElPagination</code> owns <code>page</code> and
+      <code>pageSize</code>. Pass the already-sliced page as
+      <code>[data]</code>.
+    </p>
+    <app-preview>
+      <div class="docs-table-demo">
+        <el-table [data]="pagedPeople()" ariaLabel="Paged people">
+          <el-table-column name="name" label="Name" />
+          <el-table-column name="email" label="Email" />
+          <el-table-column name="role" label="Role" />
+          <el-pagination
+            [page]="page()"
+            (pageChange)="page.set($event)"
+            [pageSize]="pageSize()"
+            (pageSizeChange)="pageSize.set($event)"
+            [total]="allPaged.length"
+            showPageSize
+          />
+        </el-table>
+      </div>
+    </app-preview>
+
+    <h3>Empty and loading</h3>
+    <app-preview>
+      <div class="docs-table-demo docs-stack">
+        <el-table [data]="[]" ariaLabel="Empty table">
+          <el-table-column name="name" label="Name" />
+          <el-table-column name="email" label="Email" />
+          <p elTableEmpty>No people match this filter.</p>
+        </el-table>
+        <el-table [data]="[]" loading ariaLabel="Loading table">
+          <el-table-column name="name" label="Name" />
+          <el-table-column name="email" label="Email" />
+        </el-table>
+      </div>
+    </app-preview>
+
+    <h3>Row selection recipe</h3>
+    <p>
+      Put <code>ElCheckbox</code> in a cell template. The parent owns the
+      selected set — the table has no selection model.
+    </p>
+    <app-preview>
+      <div class="docs-table-demo">
+        <el-table [data]="people" ariaLabel="Selectable people">
+          <el-table-column name="select" label="" width="3rem">
+            <ng-template elTableCell let-user>
+              <el-checkbox
+                [checked]="isSelected(user.id)"
+                (checkedChange)="toggleSelected(user.id, $event)"
+              />
+            </ng-template>
+          </el-table-column>
+          <el-table-column name="name" label="Name" />
+          <el-table-column name="email" label="Email" />
+        </el-table>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>API</h2>
+    <h3>el-table</h3>
+    <app-props-table [props]="tableProps" />
+    <h3>el-table-column</h3>
+    <app-props-table [props]="columnProps" />
+  </section>
+
+  <section>
+    <h2>Theming</h2>
+    <p>
+      Uses generic color, radius, and density tokens. Override them on a
+      parent — do not add <code>--el-table-*</code> aliases. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+</article>

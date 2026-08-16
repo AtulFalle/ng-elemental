@@ -1,0 +1,224 @@
+:host(.el-table-host) {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-height: inherit;
+}
+
+:host(.el-table-host--virtual) {
+  min-height: 0;
+}
+
+.el-table {
+  --el-table-pad: 0.75rem 1rem;
+  --el-table-font: 0.875rem;
+  --el-table-viewport-max: 24rem;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--el-color-surface);
+  color: var(--el-color-on-surface);
+  font-family: var(--el-font-sans);
+  font-size: var(--el-table-font);
+
+  &__viewport {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__footer {
+    padding: var(--el-space-3) var(--el-space-4);
+    border-top: var(--el-border-width) solid var(--el-color-outline-variant);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__expand-cell {
+    box-sizing: border-box;
+    width: 2.75rem;
+    padding: var(--el-table-pad);
+    border-bottom: var(--el-border-width) solid var(--el-color-outline-variant);
+    background: var(--el-color-surface-container);
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  &__body &__expand-cell {
+    background: transparent;
+  }
+
+  &__cell {
+    box-sizing: border-box;
+    padding: var(--el-table-pad);
+    border-bottom: var(--el-border-width) solid var(--el-color-outline-variant);
+    vertical-align: middle;
+    text-align: start;
+  }
+
+  &__cell--head {
+    position: relative;
+    background: var(--el-color-surface-container);
+    color: var(--el-color-on-surface-variant);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  &--outlined {
+    border: var(--el-border-width) solid var(--el-color-outline-variant);
+    border-radius: var(--el-radius-md);
+  }
+
+  &--plain {
+    background: transparent;
+
+    .el-table__footer {
+      border-top: none;
+      padding-inline: 0;
+    }
+  }
+
+  &--sm {
+    --el-table-pad: 0.5rem 0.75rem;
+    --el-table-font: 0.8125rem;
+  }
+
+  &--md {
+    --el-table-pad: 0.75rem 1rem;
+    --el-table-font: 0.875rem;
+  }
+
+  &--lg {
+    --el-table-pad: 1rem 1.25rem;
+    --el-table-font: 1rem;
+  }
+
+  &--virtual &__viewport {
+    max-height: var(--el-table-viewport-max);
+    overflow: auto;
+  }
+
+  &--fixed &__table {
+    table-layout: fixed;
+  }
+
+  &--sticky &__cell--head,
+  &--sticky &__expand-cell:is(th) {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  &--striped &__row--odd &__cell {
+    background: var(--el-color-surface-container-low);
+  }
+
+  &--striped &__row--odd:hover &__cell {
+    background: var(--el-color-hover);
+  }
+
+  &__body &__row:hover &__cell,
+  &__body &__row:hover &__expand-cell {
+    background: var(--el-color-hover);
+  }
+}
+
+.el-table__caption {
+  caption-side: top;
+  padding: var(--el-table-pad);
+  text-align: start;
+  font-weight: 600;
+}
+
+.el-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--el-space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+}
+
+.el-table__sort-icon {
+  color: var(--el-color-on-surface-variant);
+}
+
+.el-table__expand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--el-space-1);
+  border: 0;
+  border-radius: var(--el-radius-xs);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.el-table__expand:hover {
+  background: var(--el-color-hover);
+}
+
+.el-table__expand-icon {
+  transition: transform 0.15s ease;
+}
+
+.el-table__expand-icon--open {
+  transform: rotate(180deg);
+}
+
+.el-table__detail {
+  background: var(--el-color-surface-container-low);
+  color: var(--el-color-on-surface-variant);
+}
+
+.el-table__row--status-hidden {
+  display: none;
+}
+
+.el-table__status {
+  text-align: center;
+  color: var(--el-color-on-surface-variant);
+}
+
+.el-table__status-slot:not(:empty) + .el-table__status-fallback {
+  display: none;
+}
+
+.el-table__defs {
+  display: none;
+}
+
+.el-table__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.el-table__spacer td {
+  padding: 0;
+  border: 0;
+  line-height: 0;
+}

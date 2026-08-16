@@ -118,6 +118,24 @@ export {
   type ElFileUploadSize,
 } from './lib/file-upload/file-upload';
 export {
+  ElTable,
+  ElTableColumn,
+  ElTableHeader,
+  ElTableCell,
+  ElTableExpand,
+  type ElTableAlign,
+  type ElTableAppearance,
+  type ElTableExpanded,
+  type ElTableExpandVariant,
+  type ElTableSize,
+  type ElTableSort,
+  type ElTableSortDirection,
+} from './lib/table/table';
+export {
+  ElPagination,
+  type ElPaginationSize,
+} from './lib/pagination/pagination';
+export {
   ElThemeService,
   provideElTheme,
   EL_THEME_OPTIONS,

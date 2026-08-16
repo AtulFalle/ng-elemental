@@ -83,6 +83,8 @@ export class MyComponent {}
 | `icon` | `el-icon` | `ElIcon` |
 | `tabs` | `el-tabs`, `el-tab` | `ElTabs`, `ElTab`, `ElTabContent`, `ElTabLabel` |
 | `accordion` | `el-accordion`, `el-accordion-item` | `ElAccordion`, `ElAccordionItem`, `ElAccordionTitle`, `ElAccordionSubtitle`, `ElAccordionContent` |
+| `table` | `el-table`, `el-table-column` | `ElTable`, `ElTableColumn`, `ElTableHeader`, `ElTableCell`, `ElTableExpand` |
+| `pagination` | `el-pagination` | `ElPagination` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |
 
 ## Requirements

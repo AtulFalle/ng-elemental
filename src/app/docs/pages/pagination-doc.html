@@ -1,0 +1,107 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Pagination</h1>
+    <p class="docs-lead">
+      Page window with prev/next, optional first/last, ellipsis, and an
+      optional page-size select. Use it under
+      <a routerLink="/components/table">Table</a> or anywhere you page a
+      list. It does not slice your data.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add pagination</code>
+    (requires <code>icon</code>, <code>button</code>, and
+    <code>select</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-pagination-demo">
+        <el-pagination
+          [page]="page()"
+          (pageChange)="page.set($event)"
+          [pageSize]="pageSize()"
+          (pageSizeChange)="pageSize.set($event)"
+          [total]="240"
+        />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Bind <code>page</code> (1-based) and pass <code>total</code>. When
+      the page changes, fetch or slice the visible window yourself. Set
+      <code>showPageSize</code> to offer a rows-per-page select —
+      changing it resets <code>page</code> to 1.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Many pages</h3>
+    <app-preview>
+      <div class="docs-pagination-demo">
+        <el-pagination
+          [page]="manyPage()"
+          (pageChange)="manyPage.set($event)"
+          [total]="1000"
+          [pageSize]="20"
+        />
+      </div>
+    </app-preview>
+
+    <h3>Page size</h3>
+    <app-preview>
+      <div class="docs-pagination-demo">
+        <el-pagination
+          [page]="page()"
+          (pageChange)="page.set($event)"
+          [pageSize]="pageSize()"
+          (pageSizeChange)="pageSize.set($event)"
+          [total]="480"
+          showPageSize
+        />
+      </div>
+    </app-preview>
+
+    <h3>Compact</h3>
+    <app-preview>
+      <div class="docs-pagination-demo">
+        <el-pagination
+          [page]="page()"
+          (pageChange)="page.set($event)"
+          [total]="40"
+          [pageSize]="10"
+          size="sm"
+          [showFirstLast]="false"
+        />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>API</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2>Theming</h2>
+    <p>
+      Uses generic color tokens through Button and Select. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+</article>

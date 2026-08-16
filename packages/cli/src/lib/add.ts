@@ -147,6 +147,21 @@ const COMPONENT_EXAMPLES: Record<
   PNG, JPG, or PDF up to 5 MB
 </el-file-upload>`,
   },
+  table: {
+    className: 'ElTable, ElTableColumn, ElTableCell',
+    usage: `<el-table [data]="users">
+  <el-table-column name="name" label="Name" sortable />
+  <el-table-column name="status" label="Status">
+    <ng-template elTableCell let-user>
+      <el-chip>{{ user.status }}</el-chip>
+    </ng-template>
+  </el-table-column>
+</el-table>`,
+  },
+  pagination: {
+    className: 'ElPagination',
+    usage: `<el-pagination [(page)]="page" [total]="100" [pageSize]="10" />`,
+  },
 
   tabs: {
     className: 'ElTabs, ElTab, ElTabContent',

@@ -1,0 +1,75 @@
+<div class="el-pagination__controls">
+  @if (showFirstLast()) {
+    <el-button
+      variant="ghost"
+      [size]="size()"
+      iconStart="angles-left"
+      [disabled]="disabled() || atStart()"
+      (click)="first()"
+    >
+      <span class="el-pagination__sr-only">First page</span>
+    </el-button>
+  }
+  <el-button
+    variant="ghost"
+    [size]="size()"
+    iconStart="chevron-left"
+    [disabled]="disabled() || atStart()"
+    (click)="prev()"
+  >
+    <span class="el-pagination__sr-only">Previous page</span>
+  </el-button>
+  @for (item of items(); track $index) {
+    @if (isEllipsis(item)) {
+      <span class="el-pagination__ellipsis" aria-hidden="true">…</span>
+    } @else {
+      <el-button
+        class="el-pagination__page"
+        [variant]="isCurrent(item) ? 'primary' : 'ghost'"
+        [size]="size()"
+        [disabled]="disabled()"
+        [attr.aria-current]="isCurrent(item) ? 'page' : null"
+        [attr.aria-label]="'Page ' + item"
+        (click)="goTo(item)"
+      >
+        {{ item }}
+      </el-button>
+    }
+  }
+  <el-button
+    variant="ghost"
+    [size]="size()"
+    iconStart="chevron-right"
+    [disabled]="disabled() || atEnd()"
+    (click)="next()"
+  >
+    <span class="el-pagination__sr-only">Next page</span>
+  </el-button>
+  @if (showFirstLast()) {
+    <el-button
+      variant="ghost"
+      [size]="size()"
+      iconStart="angles-right"
+      [disabled]="disabled() || atEnd()"
+      (click)="last()"
+    >
+      <span class="el-pagination__sr-only">Last page</span>
+    </el-button>
+  }
+</div>
+@if (showSizeSelect()) {
+  <div class="el-pagination__size">
+    <span class="el-pagination__size-label">Rows</span>
+    <el-select
+      [value]="pageSizeValue()"
+      [size]="size()"
+      [disabled]="disabled()"
+      ariaLabel="Rows per page"
+      (valueChange)="onPageSizeChange($event)"
+    >
+      @for (option of pageSizeOptions(); track option) {
+        <el-select-item [value]="'' + option">{{ option }}</el-select-item>
+      }
+    </el-select>
+  </div>
+}

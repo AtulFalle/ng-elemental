@@ -159,6 +159,32 @@ export const COMPONENT_REGISTRY = [
     ],
     requiredBasenames: ['file-upload', 'file-upload-utils'],
   },
+  {
+    name: 'table',
+    assetGlobs: [
+      'table.{ts,html,scss}',
+      'table-column.ts',
+      'table-header.ts',
+      'table-cell-def.ts',
+      'table-expand.ts',
+      'table-virtual.ts',
+      'table.token.ts',
+    ],
+    requiredBasenames: [
+      'table',
+      'table-column',
+      'table-header',
+      'table-cell-def',
+      'table-expand',
+      'table-virtual',
+      'table.token',
+    ],
+  },
+  {
+    name: 'pagination',
+    assetGlobs: ['pagination.{ts,html,scss}', 'pagination-utils.ts'],
+    requiredBasenames: ['pagination', 'pagination-utils'],
+  },
 
   {
     name: 'tabs',
