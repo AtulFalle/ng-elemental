@@ -141,6 +141,50 @@ const COMPONENT_EXAMPLES: Record<
   <div elCardFooter>…</div>
 </el-card>`,
   },
+  container: {
+    className: 'ElContainer',
+    usage: `<el-container size="lg">Page content</el-container>`,
+  },
+  stack: {
+    className: 'ElStack',
+    usage: `<el-stack gap="4">
+  <div>One</div>
+  <div>Two</div>
+</el-stack>`,
+  },
+  grid: {
+    className: 'ElGrid',
+    usage: `<el-grid [columns]="3" gap="4">
+  <div>One</div>
+  <div>Two</div>
+  <div>Three</div>
+</el-grid>`,
+  },
+  'aspect-ratio': {
+    className: 'ElAspectRatio',
+    usage: `<el-aspect-ratio ratio="16/9">
+  <img src="/cover.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover" />
+</el-aspect-ratio>`,
+  },
+  'scroll-area': {
+    className: 'ElScrollArea',
+    usage: `<el-scroll-area ariaLabel="Notes" style="height: 12rem">
+  Long content…
+</el-scroll-area>`,
+  },
+  separator: {
+    className: 'ElSeparator',
+    usage: `<el-separator />
+<el-separator orientation="vertical" />`,
+  },
+  resizable: {
+    className: 'ElResizable, ElResizablePanel, ElResizableHandle',
+    usage: `<el-resizable>
+  <el-resizable-panel [defaultSize]="30" [min]="15">A</el-resizable-panel>
+  <el-resizable-handle />
+  <el-resizable-panel [min]="20">B</el-resizable-panel>
+</el-resizable>`,
+  },
   attachment: {
     className:
       'ElAttachment, ElAttachmentMedia, ElAttachmentContent, ElAttachmentTitle, ElAttachmentDescription, ElAttachmentActions, ElAttachmentAction, ElAttachmentGroup',

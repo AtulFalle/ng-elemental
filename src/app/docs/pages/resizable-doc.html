@@ -1,0 +1,153 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Resizable</h1>
+    <p class="docs-lead">
+      Split panes with a draggable, keyboard-accessible handle. The group owns
+      sizes; panels expose min/max; the handle emits pointer and key deltas.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add resizable</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-resizable
+        style="width: 100%; height: 12rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
+      >
+        <el-resizable-panel [defaultSize]="32" [min]="15">
+          <div
+            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+          >
+            Sidebar
+          </div>
+        </el-resizable-panel>
+        <el-resizable-handle />
+        <el-resizable-panel [min]="20">
+          <div
+            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
+          >
+            Main
+          </div>
+        </el-resizable-panel>
+      </el-resizable>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Place a handle between two panels. Arrow keys nudge 2%; Home and End jump
+      to that split’s min and max. Sizes stay in percents — they are not
+      persisted.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+    <h3>Vertical</h3>
+    <app-preview>
+      <el-resizable
+        orientation="vertical"
+        style="width: 100%; height: 16rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
+      >
+        <el-resizable-panel [defaultSize]="40" [min]="20">
+          <div
+            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+          >
+            Top
+          </div>
+        </el-resizable-panel>
+        <el-resizable-handle />
+        <el-resizable-panel [min]="20">
+          <div
+            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
+          >
+            Bottom
+          </div>
+        </el-resizable-panel>
+      </el-resizable>
+    </app-preview>
+
+    <h3>Min / max</h3>
+    <p>The first pane cannot shrink below 25% or grow above 60%.</p>
+    <app-preview>
+      <el-resizable
+        style="width: 100%; height: 12rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
+      >
+        <el-resizable-panel [defaultSize]="40" [min]="25" [max]="60">
+          <div
+            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+          >
+            25–60%
+          </div>
+        </el-resizable-panel>
+        <el-resizable-handle />
+        <el-resizable-panel [min]="20">
+          <div
+            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
+          >
+            Rest
+          </div>
+        </el-resizable-panel>
+      </el-resizable>
+    </app-preview>
+
+    <h3>Custom handle</h3>
+    <p>Project into the handle to replace the default line.</p>
+    <app-preview>
+      <el-resizable
+        style="width: 100%; height: 12rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
+      >
+        <el-resizable-panel [defaultSize]="30" [min]="15">
+          <div
+            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+          >
+            A
+          </div>
+        </el-resizable-panel>
+        <el-resizable-handle ariaLabel="Resize panes">
+          <span
+            style="display: inline-block; width: 0.25rem; height: 1.5rem; border-radius: var(--el-radius-full); background: var(--el-color-outline)"
+          ></span>
+        </el-resizable-handle>
+        <el-resizable-panel [min]="20">
+          <div
+            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
+          >
+            B
+          </div>
+        </el-resizable-panel>
+      </el-resizable>
+    </app-preview>
+    <app-code-block [code]="handleSlotCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      The handle line uses <code>--el-color-outline-variant</code>. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>ElResizable</h3>
+    <app-props-table [props]="groupProps" />
+    <h3>ElResizablePanel</h3>
+    <app-props-table [props]="panelProps" />
+    <h3>ElResizableHandle</h3>
+    <app-props-table [props]="handleProps" />
+  </section>
+</article>

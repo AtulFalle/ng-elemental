@@ -109,6 +109,45 @@ export const appRoutes: Route[] = [
           import('./docs/pages/card-doc').then((m) => m.CardDocPage),
       },
       {
+        path: 'components/container',
+        loadComponent: () =>
+          import('./docs/pages/container-doc').then((m) => m.ContainerDocPage),
+      },
+      {
+        path: 'components/stack',
+        loadComponent: () =>
+          import('./docs/pages/stack-doc').then((m) => m.StackDocPage),
+      },
+      {
+        path: 'components/grid',
+        loadComponent: () =>
+          import('./docs/pages/grid-doc').then((m) => m.GridDocPage),
+      },
+      {
+        path: 'components/aspect-ratio',
+        loadComponent: () =>
+          import('./docs/pages/aspect-ratio-doc').then(
+            (m) => m.AspectRatioDocPage,
+          ),
+      },
+      {
+        path: 'components/scroll-area',
+        loadComponent: () =>
+          import('./docs/pages/scroll-area-doc').then(
+            (m) => m.ScrollAreaDocPage,
+          ),
+      },
+      {
+        path: 'components/separator',
+        loadComponent: () =>
+          import('./docs/pages/separator-doc').then((m) => m.SeparatorDocPage),
+      },
+      {
+        path: 'components/resizable',
+        loadComponent: () =>
+          import('./docs/pages/resizable-doc').then((m) => m.ResizableDocPage),
+      },
+      {
         path: 'components/list',
         loadComponent: () =>
           import('./docs/pages/list-doc').then((m) => m.ListDocPage),

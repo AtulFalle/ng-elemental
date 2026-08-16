@@ -106,7 +106,7 @@ Change `componentsDir` during `init` (`--path` or the interactive prompt) if you
 | `npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]` | Create config, prompt for the components path, and install theme tokens |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `carousel`, `avatar`, `card`, `list`, `tree`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `menu`, `menubar`, `popover`, `alert`, `toast`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `carousel`, `avatar`, `card`, `container`, `stack`, `grid`, `aspect-ratio`, `scroll-area`, `separator`, `resizable`, `list`, `tree`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `menu`, `menubar`, `popover`, `alert`, `toast`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -540,6 +540,119 @@ Presentational container with named slots. Not interactive — wire clicks on co
 | `elCardFooter` | Footer |
 
 Compose with `el-avatar` / `el-icon` / `el-button` in slots when needed (separate `add` packages).
+
+### Container (`el-container`)
+
+Centered max-width wrapper. Presentational — project any content.
+
+```html
+<el-container size="lg">Page content</el-container>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `sm` \| `md` \| `lg` \| `xl` \| `full` | `lg` | Max width (`40rem` / `48rem` / `64rem` / `80rem` / none) |
+| `padded` | `boolean` | `true` | Horizontal padding from `--el-space-4` |
+
+### Stack (`el-stack`)
+
+Flex row or column. Gap uses density tokens (`--el-space-*`).
+
+```html
+<el-stack gap="4">
+  <div>One</div>
+  <div>Two</div>
+</el-stack>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `direction` | `row` \| `column` | `column` | Flex direction |
+| `gap` | `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `8` | `4` | Token gap |
+| `align` | `start` \| `center` \| `end` \| `stretch` | `stretch` | `align-items` |
+| `justify` | `start` \| `center` \| `end` \| `between` | `start` | `justify-content` |
+| `wrap` | `boolean` | `false` | Allow wrapping |
+
+### Grid (`el-grid`)
+
+CSS grid. Set `minItemWidth` for responsive auto-fit; otherwise `columns` is used.
+
+```html
+<el-grid [columns]="3" gap="4">
+  <div>One</div>
+  <div>Two</div>
+  <div>Three</div>
+</el-grid>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `columns` | `number` | `1` | Column count when `minItemWidth` is unset |
+| `gap` | `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `8` | `4` | Token gap |
+| `minItemWidth` | `string` | — | When set, `repeat(auto-fit, minmax(…, 1fr))` |
+
+### Aspect Ratio (`el-aspect-ratio`)
+
+Locks a box to a CSS `aspect-ratio`. The default slot fills the box.
+
+```html
+<el-aspect-ratio ratio="16/9">
+  <img src="/cover.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover" />
+</el-aspect-ratio>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `ratio` | `string` | `16/9` | CSS `aspect-ratio` value |
+
+### Scroll Area (`el-scroll-area`)
+
+Native overflow with a styled scrollbar. Set a height (or width) on the host so it can scroll.
+
+```html
+<el-scroll-area ariaLabel="Notes" style="height: 12rem">
+  Long content…
+</el-scroll-area>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `orientation` | `vertical` \| `horizontal` \| `both` | `vertical` | Overflow axis |
+| `ariaLabel` | `string` | — | Accessible name for the region |
+
+### Separator (`el-separator`)
+
+Horizontal or vertical rule. Distinct from `el-menu-separator`.
+
+```html
+<el-separator />
+<el-separator orientation="vertical" />
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `orientation` | `horizontal` \| `vertical` | `horizontal` | Axis |
+| `decorative` | `boolean` | `true` | `aria-hidden`; set `false` for a meaningful separator |
+
+### Resizable (`el-resizable`)
+
+Split panes. The group owns sizes; drag or arrow-key the handle. Default slot on each panel; handle slot is optional for a custom grip.
+
+```html
+<el-resizable>
+  <el-resizable-panel [defaultSize]="30" [min]="15">A</el-resizable-panel>
+  <el-resizable-handle />
+  <el-resizable-panel [min]="20">B</el-resizable-panel>
+</el-resizable>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `orientation` (group) | `horizontal` \| `vertical` | `horizontal` | Split axis |
+| `defaultSize` (panel) | `number` | equal share | Initial percent |
+| `min` / `max` (panel) | `number` | `10` / `100` | Percent constraints |
+| `disabled` (handle) | `boolean` | `false` | Blocks pointer and keyboard |
+| `ariaLabel` (handle) | `string` | `Resize` | Accessible name |
 
 ### List (`el-list`)
 

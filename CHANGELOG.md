@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Layout primitives: `ElContainer`, `ElStack`, `ElGrid`, `ElAspectRatio`, `ElScrollArea`, `ElSeparator`, and `ElResizable` with draggable accessible handles (`ng-elemental add container|stack|grid|aspect-ratio|scroll-area|separator|resizable`)
 - `ElDialog` with header/content/footer slots, content scrolling, and `ElDialogService.open()` for custom components with `EL_DIALOG_DATA` (`ng-elemental add dialog`; requires `icon`)
 - `ElTree` and `ElTreeItem` with cascade checkboxes, node slots, virtual rows, lazy children, and load more (`ng-elemental add tree`; requires `icon`, `checkbox`, and `button`)
 - `ElCarousel` and `ElCarouselSlide` with prev/next, dots, optional loop, autoplay, peek, and drag (`ng-elemental add carousel`; requires `icon` and `button`)

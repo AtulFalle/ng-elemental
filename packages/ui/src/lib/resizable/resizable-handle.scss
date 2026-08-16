@@ -1,0 +1,66 @@
+:host {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  touch-action: none;
+}
+
+:host(.el-resizable-handle--horizontal) {
+  width: 0.75rem;
+  margin-inline: -0.25rem;
+  cursor: col-resize;
+}
+
+:host(.el-resizable-handle--vertical) {
+  height: 0.75rem;
+  margin-block: -0.25rem;
+  cursor: row-resize;
+}
+
+:host(.el-resizable-handle--disabled) {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+:host(.el-resizable-handle--dragging) {
+  user-select: none;
+}
+
+:host(:focus-visible) {
+  outline: var(--el-border-width-thick) solid var(--el-color-primary);
+  outline-offset: -0.125rem;
+}
+
+.el-resizable-handle__line {
+  background: var(--el-color-outline-variant);
+}
+
+:host(.el-resizable-handle--horizontal) .el-resizable-handle__line {
+  width: var(--el-border-width);
+  height: 100%;
+}
+
+:host(.el-resizable-handle--vertical) .el-resizable-handle__line {
+  width: 100%;
+  height: var(--el-border-width);
+}
+
+.el-resizable-handle__slot:empty {
+  display: none;
+}
+
+.el-resizable-handle__slot:not(:empty) {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+:host:has(.el-resizable-handle__slot:not(:empty)) .el-resizable-handle__line {
+  display: none;
+}

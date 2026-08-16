@@ -1,0 +1,59 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Scroll Area</h1>
+    <p class="docs-lead">
+      Native overflow with a styled scrollbar. Set a height or width on the host
+      so content can scroll. No JavaScript scrollbar.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add scroll-area</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-scroll-area
+        ariaLabel="Example notes"
+        style="height: 10rem; width: 100%; max-width: 20rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm); padding: var(--el-space-3)"
+      >
+        <p>Line 1</p>
+        <p>Line 2</p>
+        <p>Line 3</p>
+        <p>Line 4</p>
+        <p>Line 5</p>
+        <p>Line 6</p>
+        <p>Line 7</p>
+        <p>Line 8</p>
+        <p>Line 9</p>
+        <p>Line 10</p>
+      </el-scroll-area>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Thumb color is <code>--el-color-outline-variant</code>. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

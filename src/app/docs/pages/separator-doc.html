@@ -1,0 +1,65 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Separator</h1>
+    <p class="docs-lead">
+      Horizontal or vertical rule. Distinct from the menu-only
+      <code>el-menu-separator</code>.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add separator</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div style="width: 16rem">
+        <div>Above</div>
+        <el-separator style="margin-block: var(--el-space-3)" />
+        <div>Below</div>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Leave <code>decorative</code> on for visual dividers. Set
+      <code>[decorative]="false"</code> when the split is meaningful to AT.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+    <h3>Vertical</h3>
+    <app-preview>
+      <div style="display: flex; align-items: stretch; gap: var(--el-space-3); height: 2rem">
+        <span>Left</span>
+        <el-separator orientation="vertical" />
+        <span>Right</span>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Color is <code>--el-color-outline-variant</code>. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

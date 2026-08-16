@@ -1,0 +1,66 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Aspect Ratio</h1>
+    <p class="docs-lead">
+      Locks a box to a CSS <code>aspect-ratio</code>. The default slot fills the
+      box — size media with <code>width/height: 100%</code> and
+      <code>object-fit</code>.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add aspect-ratio</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-aspect-ratio ratio="16/9" style="max-width: 22rem">
+        <div
+          style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container); color: var(--el-color-on-surface-variant)"
+        >
+          16 / 9
+        </div>
+      </el-aspect-ratio>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+    <h3>Square</h3>
+    <app-preview>
+      <el-aspect-ratio ratio="1/1" style="max-width: 10rem">
+        <div
+          style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+        >
+          1 / 1
+        </div>
+      </el-aspect-ratio>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      The frame is uncolored — style projected content. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>
