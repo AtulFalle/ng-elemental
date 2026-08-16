@@ -99,7 +99,7 @@ jobs:
           body: |
             Automated release PR for `${{ steps.meta.outputs.tag }}`.
 
-            - Bumps `@ng-elemental/cli` to `${{ steps.meta.outputs.version }}`
+            - Bumps `@ng-elemental/cli` and `@ng-elemental/mcp` to `${{ steps.meta.outputs.version }}`
             - Finalizes `CHANGELOG.md`
 
             Merge this PR to publish to npm.

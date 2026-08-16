@@ -25,7 +25,9 @@
     "@angular/platform-browser": "~22.0.4",
     "@angular/router": "~22.0.4",
     "@fortawesome/fontawesome-free": "^6.7.2",
+    "@modelcontextprotocol/server": "^2.0.0",
     "rxjs": "~7.8.0",
+    "zod": "^4.4.3",
     "zone.js": "~0.16.0"
   },
   "devDependencies": {
@@ -53,6 +55,7 @@
     "@swc/helpers": "~0.5.18",
     "@types/node": "^22.0.0",
     "@typescript-eslint/utils": "^8.58.0",
+    "@vitest/browser-playwright": "4.1.10",
     "@vitest/coverage-v8": "~4.1.0",
     "angular-eslint": "^22.0.0",
     "chromatic": "^18.2.0",
@@ -61,6 +64,7 @@
     "eslint-config-prettier": "^10.0.0",
     "jsonc-eslint-parser": "^2.1.0",
     "nx": "23.1.1",
+    "playwright": "latest",
     "postcss-scss": "^4.0.9",
     "prettier": "~3.6.2",
     "storybook": "^10.5.0",
@@ -71,9 +75,7 @@
     "typescript-eslint": "^8.58.0",
     "verdaccio": "^6.3.2",
     "vite": "^8.0.0",
-    "vitest": "~4.1.0",
-    "@vitest/browser-playwright": "4.1.10",
-    "playwright": "latest"
+    "vitest": "~4.1.0"
   },
   "nx": {
     "includedScripts": []

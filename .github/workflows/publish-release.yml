@@ -60,23 +60,36 @@ jobs:
           VERSION: ${{ steps.meta.outputs.version }}
         run: |
           set -euo pipefail
-          PKG="$(node -p "require('./packages/cli/package.json').version")"
+          CLI="$(node -p "require('./packages/cli/package.json').version")"
+          MCP="$(node -p "require('./packages/mcp/package.json').version")"
 
-          if [ "$PKG" != "$VERSION" ]; then
-            echo "packages/cli/package.json is $PKG, expected $VERSION"
+          if [ "$CLI" != "$VERSION" ]; then
+            echo "packages/cli/package.json is $CLI, expected $VERSION"
+            exit 1
+          fi
+          if [ "$MCP" != "$VERSION" ]; then
+            echo "packages/mcp/package.json is $MCP, expected $VERSION"
             exit 1
           fi
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build CLI
-        run: npx nx build cli
+      - name: Build CLI and MCP
+        run: npx nx run-many -t build --projects=cli,mcp
 
       - name: Verify README in publish output
         run: |
           if [ ! -f dist/packages/cli/README.md ]; then
             echo "dist/packages/cli/README.md is missing. npm will not show a package README."
+            exit 1
+          fi
+          if [ ! -f dist/packages/mcp/README.md ]; then
+            echo "dist/packages/mcp/README.md is missing. npm will not show a package README."
+            exit 1
+          fi
+          if [ ! -f dist/packages/mcp/guidelines.md ]; then
+            echo "dist/packages/mcp/guidelines.md is missing."
             exit 1
           fi
 
@@ -98,6 +111,22 @@ jobs:
 
           npm publish --access public --provenance
           echo "skipped=false" >> "$GITHUB_OUTPUT"
+
+      - name: Publish @ng-elemental/mcp
+        working-directory: dist/packages/mcp
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.meta.outputs.version }}"
+          PUBLISHED="$(npm view @ng-elemental/mcp version 2>/dev/null || true)"
+
+          if [ "$VERSION" = "$PUBLISHED" ]; then
+            echo "Version $VERSION is already on npm. Skipping MCP publish."
+            exit 0
+          fi
+
+          npm publish --access public --provenance
 
       - name: Update release tag
         env:

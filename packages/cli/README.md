@@ -34,6 +34,15 @@ Default config:
 
 `init` also appends an `@use` of `theme/tokens` plus typography comments to `src/styles.scss` when that file exists. Load your brand typeface and set `--el-font-sans` / `--el-font-mono`.
 
+### `list`
+
+Prints the copy-paste catalog (name, title, kind). Use `--kind` to filter.
+
+```sh
+npx @ng-elemental/cli list
+npx @ng-elemental/cli list --kind directive
+```
+
 ### `add <component>`
 
 Copies component source files into `componentsDir`.
@@ -56,6 +65,17 @@ import { ElButton } from './ui/button/button';
 })
 export class MyComponent {}
 ```
+
+## Agents / MCP
+
+Coding agents should use `@ng-elemental/mcp` instead of guessing CLI flags:
+
+```sh
+npx @ng-elemental/mcp
+npx @ng-elemental/mcp init --client cursor
+```
+
+See [packages/mcp/README.md](../mcp/README.md) for Cursor, Claude Code, VS Code, and Codex config.
 
 ## Available components
 

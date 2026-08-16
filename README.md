@@ -104,6 +104,7 @@ Change `componentsDir` during `init` (`--path` or the interactive prompt) if you
 | Command | Description |
 | --- | --- |
 | `npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]` | Create config, prompt for the components path, and install theme tokens |
+| `npx @ng-elemental/cli list [--kind]` | Print the copy-paste catalog (name, title, kind) |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
 Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `carousel`, `avatar`, `card`, `container`, `stack`, `grid`, `aspect-ratio`, `scroll-area`, `separator`, `resizable`, `list`, `tree`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `menu`, `menubar`, `popover`, `dialog`, `sheet`, `drawer`, `alert`, `toast`, `snackbar`, `empty-state`, `segmented-button`.
@@ -1432,9 +1433,10 @@ Slots: `elEmptyStateMedia` (illustration), default content, `elEmptyStateActions
 | Package | Published | Purpose |
 | --- | --- | --- |
 | [`@ng-elemental/cli`](https://www.npmjs.com/package/@ng-elemental/cli) | Yes | CLI that copies components into your app |
+| [`@ng-elemental/mcp`](https://www.npmjs.com/package/@ng-elemental/mcp) | Yes | MCP server so agents can search and install those components |
 | `@ng-elemental/ui` | No | Internal component source in this repository |
 
-Install and use **`@ng-elemental/cli`** in your Angular project. See [packages/cli/README.md](packages/cli/README.md) for npm-focused documentation.
+Install and use **`@ng-elemental/cli`** in your Angular project. See [packages/cli/README.md](packages/cli/README.md) for npm-focused documentation. Agents should use **`@ng-elemental/mcp`** — see [packages/mcp/README.md](packages/mcp/README.md).
 
 ## Contributing
 

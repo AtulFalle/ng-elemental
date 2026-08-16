@@ -125,7 +125,49 @@ describe('initCommand', () => {
 
   it('does not throw when no stylesheet exists', async () => {
     tmp = await makeAngularApp();
-    await expect(initCommand({ cwd: tmp, yes: true })).resolves.toBeUndefined();
+    await expect(initCommand({ cwd: tmp, yes: true })).resolves.toMatchObject({
+      componentsDir: 'src/app/ui',
+      themeInstalled: true,
+    });
+  });
+
+  it('returns a structured result with quiet: true and writes no stdout', async () => {
+    tmp = await makeAngularApp();
+    const log = vi.spyOn(console, 'log').mockImplementation(() => undefined);
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    const result = await initCommand({ cwd: tmp, yes: true, quiet: true });
+
+    expect(result).toEqual({
+      componentsDir: 'src/app/ui',
+      createdConfig: true,
+      themeInstalled: true,
+      stylesPath: undefined,
+      stylesPatched: false,
+    });
+    expect(existsSync(join(tmp, 'src/app/ui/theme/tokens.scss'))).toBe(true);
+    expect(log).not.toHaveBeenCalled();
+    expect(warn).not.toHaveBeenCalled();
+
+    log.mockRestore();
+    warn.mockRestore();
+  });
+
+  it('skips theme quietly and still returns InitResult', async () => {
+    tmp = await makeAngularApp();
+    const log = vi.spyOn(console, 'log').mockImplementation(() => undefined);
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    const result = await initCommand({ cwd: tmp, yes: true, skipTheme: true, quiet: true });
+
+    expect(result.createdConfig).toBe(true);
+    expect(result.themeInstalled).toBe(false);
+    expect(result.stylesPatched).toBe(false);
+    expect(log).not.toHaveBeenCalled();
+    expect(warn).not.toHaveBeenCalled();
+
+    log.mockRestore();
+    warn.mockRestore();
   });
 });
 

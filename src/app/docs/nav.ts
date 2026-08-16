@@ -14,6 +14,7 @@ export const DOC_NAV: DocNavSection[] = [
     items: [
       { label: 'Introduction', path: '/' },
       { label: 'Installation', path: '/installation' },
+      { label: 'MCP server', path: '/mcp' },
     ],
   },
   {
