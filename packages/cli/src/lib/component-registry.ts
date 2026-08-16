@@ -107,6 +107,21 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['slider', 'slider-utils'],
   },
   {
+    name: 'carousel',
+    assetGlobs: [
+      'carousel.{ts,html,scss}',
+      'carousel-slide.{ts,html,scss}',
+      'carousel.token.ts',
+      'carousel-utils.ts',
+    ],
+    requiredBasenames: [
+      'carousel',
+      'carousel-slide',
+      'carousel.token',
+      'carousel-utils',
+    ],
+  },
+  {
     name: 'avatar',
     assetGlobs: ['avatar.{ts,html,scss}'],
     requiredBasenames: ['avatar'],
@@ -125,6 +140,25 @@ export const COMPONENT_REGISTRY = [
       'list-virtual.ts',
     ],
     requiredBasenames: ['list', 'list-item', 'list-item-def', 'list-virtual'],
+  },
+  {
+    name: 'tree',
+    assetGlobs: [
+      'tree.{ts,html,scss}',
+      'tree-item.{ts,html,scss}',
+      'tree-node-def.ts',
+      'tree.token.ts',
+      'tree-utils.ts',
+      'tree-virtual.ts',
+    ],
+    requiredBasenames: [
+      'tree',
+      'tree-item',
+      'tree-node-def',
+      'tree.token',
+      'tree-utils',
+      'tree-virtual',
+    ],
   },
   {
     name: 'infinite-scroll',

@@ -93,6 +93,11 @@ export {
   type ElSliderSize,
   type ElSliderThumb,
 } from './lib/slider/slider';
+export {
+  ElCarousel,
+  ElCarouselSlide,
+  type ElCarouselSize,
+} from './lib/carousel/carousel';
 export { ElAvatar, type ElAvatarSize } from './lib/avatar/avatar';
 export { ElCard, type ElCardAppearance, type ElCardSize } from './lib/card/card';
 export {
@@ -103,6 +108,17 @@ export {
   type ElListSize,
   type ElListItemContext,
 } from './lib/list/list';
+export {
+  ElTree,
+  ElTreeItem,
+  ElTreeNodeDef,
+  type ElTreeAppearance,
+  type ElTreeCheckState,
+  type ElTreeNode,
+  type ElTreeNodeContext,
+  type ElTreeSize,
+  type ElTreeVisibleRow,
+} from './lib/tree/tree';
 export {
   ElInfiniteScroll,
   type ElInfiniteScrollRoot,

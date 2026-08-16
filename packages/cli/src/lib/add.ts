@@ -79,6 +79,13 @@ const COMPONENT_EXAMPLES: Record<
     usage: `<el-slider [(value)]="volume" [min]="0" [max]="100" showValue />
 <el-slider range [(start)]="minPrice" [(end)]="maxPrice" [step]="5" showTicks showValue />`,
   },
+  carousel: {
+    className: 'ElCarousel, ElCarouselSlide',
+    usage: `<el-carousel [(index)]="i" loop ariaLabel="Screenshots">
+  <el-carousel-slide>One</el-carousel-slide>
+  <el-carousel-slide>Two</el-carousel-slide>
+</el-carousel>`,
+  },
   avatar: {
     className: 'ElAvatar',
     usage: `<el-avatar src="/avatar.jpg" alt="Jane Doe" />
@@ -95,6 +102,15 @@ const COMPONENT_EXAMPLES: Record<
     <span elListTrailing>09:12</span>
   </el-list-item>
 </el-list>`,
+  },
+  tree: {
+    className: 'ElTree, ElTreeItem, ElTreeNodeDef',
+    usage: `<el-tree [(expanded)]="open" ariaLabel="Files">
+  <el-tree-item value="docs" label="Documents">
+    <el-icon elTreeLeading name="folder" />
+    <el-tree-item value="resume" label="Resume.pdf" />
+  </el-tree-item>
+</el-tree>`,
   },
   'infinite-scroll': {
     className: 'ElInfiniteScroll',

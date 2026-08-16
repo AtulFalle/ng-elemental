@@ -1,0 +1,63 @@
+<div [class]="rootClass()">
+  <div class="el-tree-item__row">
+    @if (canExpand()) {
+      <button
+        type="button"
+        class="el-tree-item__chevron"
+        tabindex="-1"
+        [class.el-tree-item__chevron--expanded]="expanded()"
+        [class.el-tree-item__chevron--loading]="loading()"
+        [disabled]="isDisabled() || loading()"
+        [attr.aria-label]="expanded() ? 'Collapse' : 'Expand'"
+        (click)="onToggleExpand($event)"
+      >
+        <el-icon [name]="chevronName()" size="sm" />
+      </button>
+    } @else {
+      <span class="el-tree-item__chevron el-tree-item__chevron--leaf" aria-hidden="true"></span>
+    }
+
+    @if (showCheckbox()) {
+      <el-checkbox
+        class="el-tree-item__check"
+        [checked]="checked()"
+        [indeterminate]="indeterminate()"
+        [disabled]="isDisabled()"
+        (checkedChange)="onCheckChange($event)"
+      />
+    }
+
+    <span class="el-tree-item__leading">
+      <ng-content select="[elTreeLeading]" />
+      @if (showFallbackIcon()) {
+        <el-icon [name]="icon()" size="sm" />
+      }
+    </span>
+
+    <span class="el-tree-item__label">
+      @if (nodeTemplate(); as template) {
+        <ng-container
+          [ngTemplateOutlet]="template"
+          [ngTemplateOutletContext]="templateContext()"
+        />
+      } @else if (label()) {
+        {{ label() }}
+      } @else {
+        <ng-content />
+      }
+    </span>
+
+    <span class="el-tree-item__actions">
+      <ng-content select="[elTreeActions]" />
+    </span>
+  </div>
+
+  <div
+    class="el-tree-item__group"
+    role="group"
+    [attr.hidden]="expanded() ? null : true"
+    [attr.inert]="expanded() ? null : ''"
+  >
+    <ng-content select="el-tree-item" />
+  </div>
+</div>

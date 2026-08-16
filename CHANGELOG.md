@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `ElDialog` with header/content/footer slots, content scrolling, and `ElDialogService.open()` for custom components with `EL_DIALOG_DATA` (`ng-elemental add dialog`; requires `icon`)
+- `ElTree` and `ElTreeItem` with cascade checkboxes, node slots, virtual rows, lazy children, and load more (`ng-elemental add tree`; requires `icon`, `checkbox`, and `button`)
+- `ElCarousel` and `ElCarouselSlide` with prev/next, dots, optional loop, autoplay, peek, and drag (`ng-elemental add carousel`; requires `icon` and `button`)
 - `ElStepper` and `ElStep` with tab-like templates, linear mode, and `next()` / `previous()` (`ng-elemental add stepper`; requires `icon`)
 - `ElTable` and `ElTableColumn` with string cell fallback, optional header/cell/expand templates, sort, sticky header, and optional virtual rows (`ng-elemental add table`; requires `icon`)
 - `ElPagination` page window with ellipsis and optional page size (`ng-elemental add pagination`; requires `icon`, `button`, and `select`)

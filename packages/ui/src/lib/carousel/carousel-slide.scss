@@ -1,0 +1,15 @@
+:host(.el-carousel-slide-host) {
+  display: block;
+  box-sizing: border-box;
+  flex: 0 0 var(--el-carousel-slide-width, 100%);
+  width: var(--el-carousel-slide-width, 100%);
+  min-width: 0;
+  max-width: var(--el-carousel-slide-width, 100%);
+}
+
+.el-carousel-slide {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+}

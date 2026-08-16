@@ -94,6 +94,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/slider-doc').then((m) => m.SliderDocPage),
       },
       {
+        path: 'components/carousel',
+        loadComponent: () =>
+          import('./docs/pages/carousel-doc').then((m) => m.CarouselDocPage),
+      },
+      {
         path: 'components/avatar',
         loadComponent: () =>
           import('./docs/pages/avatar-doc').then((m) => m.AvatarDocPage),
@@ -107,6 +112,11 @@ export const appRoutes: Route[] = [
         path: 'components/list',
         loadComponent: () =>
           import('./docs/pages/list-doc').then((m) => m.ListDocPage),
+      },
+      {
+        path: 'components/tree',
+        loadComponent: () =>
+          import('./docs/pages/tree-doc').then((m) => m.TreeDocPage),
       },
       {
         path: 'components/infinite-scroll',
