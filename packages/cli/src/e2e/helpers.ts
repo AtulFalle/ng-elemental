@@ -19,8 +19,15 @@ export interface CliConsumerContext {
 
 export function localRegistryUrl(): string {
   const fromEnv = process.env['npm_config_registry'];
-  if (fromEnv && !fromEnv.includes('registry.npmjs.org')) {
-    return fromEnv;
+  if (fromEnv) {
+    try {
+      const { hostname } = new URL(fromEnv);
+      if (hostname !== 'registry.npmjs.org') {
+        return fromEnv;
+      }
+    } catch {
+      return fromEnv;
+    }
   }
   if (existsSync(registryUrlFile)) {
     return readFileSync(registryUrlFile, 'utf8').trim();
