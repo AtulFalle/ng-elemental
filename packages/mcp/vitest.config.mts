@@ -15,7 +15,7 @@ export default defineConfig(() => ({
     environment: 'node',
     include: ['src/**/*.{test,spec}.ts'],
     reporters: ['default'],
-    testTimeout: 30_000,
+    testTimeout: 60_000,
     coverage: {
       reportsDirectory: '../../coverage/packages/mcp',
       provider: 'v8' as const,

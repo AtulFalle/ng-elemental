@@ -57,7 +57,7 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "dependsOn": ["cli:build"]
+      "dependsOn": ["build", "cli:build"]
     },
     "nx-release-publish": {
       "options": {

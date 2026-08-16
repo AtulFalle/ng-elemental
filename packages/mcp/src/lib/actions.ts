@@ -140,12 +140,16 @@ function tryReadConfig(cwd: string): ElementalConfig | undefined {
 
 function collectRegistryDependencies(names: string[]): string[] {
   const extras = new Set<string>();
-  for (const name of names) {
+  const visit = (name: string): void => {
     for (const dep of getCatalogEntry(name).registryDependencies) {
-      if (!names.includes(dep)) {
+      if (!names.includes(dep) && !extras.has(dep)) {
         extras.add(dep);
+        visit(dep);
       }
     }
+  };
+  for (const name of names) {
+    visit(name);
   }
   return [...extras];
 }

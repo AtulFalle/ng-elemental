@@ -23,11 +23,9 @@ export function writeClientConfig(cwd: string, client: McpClient): string {
 }
 
 function writeJsonConfig(filePath: string, key: 'mcpServers' | 'servers'): string {
-  const existing = existsSync(filePath)
-    ? (JSON.parse(readFileSync(filePath, 'utf8')) as Record<string, unknown>)
-    : {};
+  const existing = readJsonObject(filePath);
   const group =
-    existing[key] && typeof existing[key] === 'object'
+    existing[key] && typeof existing[key] === 'object' && !Array.isArray(existing[key])
       ? (existing[key] as Record<string, unknown>)
       : {};
   group[SERVER_NAME] = {
@@ -38,6 +36,22 @@ function writeJsonConfig(filePath: string, key: 'mcpServers' | 'servers'): strin
   mkdirSync(dirname(filePath), { recursive: true });
   writeFileSync(filePath, `${JSON.stringify(existing, null, 2)}\n`);
   return filePath;
+}
+
+function readJsonObject(filePath: string): Record<string, unknown> {
+  if (!existsSync(filePath)) {
+    return {};
+  }
+  try {
+    const parsed = JSON.parse(readFileSync(filePath, 'utf8')) as unknown;
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      throw new Error('expected a JSON object');
+    }
+    return parsed as Record<string, unknown>;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Invalid MCP config at ${filePath}: ${message}`);
+  }
 }
 
 function writeCodexConfig(filePath: string): string {

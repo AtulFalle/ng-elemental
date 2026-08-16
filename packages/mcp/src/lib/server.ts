@@ -11,12 +11,13 @@ import {
 } from './actions';
 import { GET_GUIDELINES_DESCRIPTION, SERVER_INSTRUCTIONS } from './guidelines';
 import { initProject } from './init-project';
+import { mcpPackageVersion } from './package-info';
 
 const KIND = z.enum(['component', 'directive', 'service', 'theme']).optional();
 
 export function createNgElementalServer(): McpServer {
   const server = new McpServer(
-    { name: 'ng-elemental', version: packageVersion() },
+    { name: 'ng-elemental', version: mcpPackageVersion() },
     { instructions: SERVER_INSTRUCTIONS },
   );
 
@@ -132,6 +133,3 @@ function textResult(text: string): { content: { type: 'text'; text: string }[] }
   return { content: [{ type: 'text', text }] };
 }
 
-function packageVersion(): string {
-  return '0.0.8';
-}

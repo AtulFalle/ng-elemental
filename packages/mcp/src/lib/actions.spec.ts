@@ -111,4 +111,15 @@ describe('MCP init and add', () => {
     expect(existsSync(join(tmp, 'src/app/ui/button/button.ts'))).toBe(true);
     expect(existsSync(join(tmp, 'src/app/ui/icon/icon.ts'))).toBe(true);
   });
+
+  it('adds nested registry dependencies for compound widgets', async () => {
+    tmp = await makeAngularApp();
+    await initProject({ cwd: tmp, skipTheme: true });
+
+    addComponents({ cwd: tmp, names: ['menubar'] });
+    expect(existsSync(join(tmp, 'src/app/ui/menubar/menubar.ts'))).toBe(true);
+    expect(existsSync(join(tmp, 'src/app/ui/menu/menu.ts'))).toBe(true);
+    expect(existsSync(join(tmp, 'src/app/ui/icon/icon.ts'))).toBe(true);
+    expect(existsSync(join(tmp, 'src/app/ui/button/button.ts'))).toBe(true);
+  });
 });

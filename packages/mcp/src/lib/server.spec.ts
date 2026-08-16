@@ -1,11 +1,24 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { GET_GUIDELINES_DESCRIPTION, SERVER_INSTRUCTIONS } from './guidelines';
+import { mcpPackageVersion } from './package-info';
 import { createNgElementalServer } from './server';
+
+const pkg = JSON.parse(readFileSync(join(__dirname, '../../package.json'), 'utf8')) as {
+  version: string;
+};
 
 describe('MCP server', () => {
   it('registers catalog tools, guidelines, and the guidelines resource', () => {
     const server = createNgElementalServer();
-    expect(server).toBeTruthy();
     expect(server.isConnected()).toBe(false);
+    expect(mcpPackageVersion()).toBe(pkg.version);
+    expect(server.toolInputSchemaJson('get_guidelines')).toBeDefined();
+    expect(server.toolInputSchemaJson('search_components')).toBeDefined();
+    expect(server.toolInputSchemaJson('list_components')).toBeDefined();
+    expect(server.toolInputSchemaJson('get_component')).toBeDefined();
+    expect(server.toolInputSchemaJson('add_components')).toBeDefined();
+    expect(server.toolInputSchemaJson('init_project')).toBeDefined();
   });
 
   it('advertises short instructions that point agents at get_guidelines first', () => {

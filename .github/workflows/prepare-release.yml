@@ -60,13 +60,16 @@ jobs:
           VERSION: ${{ steps.meta.outputs.version }}
         run: |
           set -euo pipefail
-          PUBLISHED="$(npm view @ng-elemental/cli version 2>/dev/null || echo "0.0.0")"
-          HIGHEST="$(printf '%s\n%s\n' "$PUBLISHED" "$VERSION" | sort -V | tail -1)"
+          CLI_PUBLISHED="$(npm view @ng-elemental/cli version 2>/dev/null || echo "0.0.0")"
+          MCP_PUBLISHED="$(npm view @ng-elemental/mcp version 2>/dev/null || echo "0.0.0")"
 
-          if [ "$HIGHEST" != "$VERSION" ] || [ "$PUBLISHED" = "$VERSION" ]; then
-            echo "Version $VERSION must be greater than npm version $PUBLISHED"
-            exit 1
-          fi
+          for PUBLISHED in "$CLI_PUBLISHED" "$MCP_PUBLISHED"; do
+            HIGHEST="$(printf '%s\n%s\n' "$PUBLISHED" "$VERSION" | sort -V | tail -1)"
+            if [ "$HIGHEST" != "$VERSION" ] || [ "$PUBLISHED" = "$VERSION" ]; then
+              echo "Version $VERSION must be greater than npm @ng-elemental/cli $CLI_PUBLISHED and @ng-elemental/mcp $MCP_PUBLISHED"
+              exit 1
+            fi
+          done
 
           UNRELEASED="$(awk '
             /^## \[Unreleased\]/ { capture = 1; next }

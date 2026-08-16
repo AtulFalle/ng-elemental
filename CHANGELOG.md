@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- MCP server version is read from the published package.json instead of a hardcoded value
+- Release prepare/publish workflows validate and smoke-test both `@ng-elemental/cli` and `@ng-elemental/mcp`
+
 ### Added
 
 - `@ng-elemental/mcp` stdio server so agents can search, inspect, and install copy-paste components (`npx @ng-elemental/mcp`, `npx @ng-elemental/mcp init --client cursor|claude|vscode|codex`)

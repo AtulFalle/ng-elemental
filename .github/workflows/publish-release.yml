@@ -24,7 +24,7 @@ jobs:
       (github.event.pull_request.merged == true &&
        contains(github.event.pull_request.labels.*.name, 'area:release'))
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -62,6 +62,7 @@ jobs:
           set -euo pipefail
           CLI="$(node -p "require('./packages/cli/package.json').version")"
           MCP="$(node -p "require('./packages/mcp/package.json').version")"
+          CLI_DEP="$(node -p "require('./packages/mcp/package.json').dependencies['@ng-elemental/cli']")"
 
           if [ "$CLI" != "$VERSION" ]; then
             echo "packages/cli/package.json is $CLI, expected $VERSION"
@@ -71,6 +72,10 @@ jobs:
             echo "packages/mcp/package.json is $MCP, expected $VERSION"
             exit 1
           fi
+          if [ "$CLI_DEP" != "$VERSION" ]; then
+            echo "packages/mcp depends on @ng-elemental/cli $CLI_DEP, expected $VERSION"
+            exit 1
+          fi
 
       - name: Install dependencies
         run: npm ci
@@ -78,20 +83,43 @@ jobs:
       - name: Build CLI and MCP
         run: npx nx run-many -t build --projects=cli,mcp
 
-      - name: Verify README in publish output
+      - name: Verify publish output
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
         run: |
-          if [ ! -f dist/packages/cli/README.md ]; then
-            echo "dist/packages/cli/README.md is missing. npm will not show a package README."
-            exit 1
-          fi
-          if [ ! -f dist/packages/mcp/README.md ]; then
-            echo "dist/packages/mcp/README.md is missing. npm will not show a package README."
-            exit 1
-          fi
-          if [ ! -f dist/packages/mcp/guidelines.md ]; then
-            echo "dist/packages/mcp/guidelines.md is missing."
-            exit 1
-          fi
+          set -euo pipefail
+
+          test -f dist/packages/cli/bin.cjs
+          test -f dist/packages/cli/index.cjs
+          test -f dist/packages/cli/README.md
+          test -d dist/packages/cli/registry
+          test -f dist/packages/cli/registry/button/button.ts
+
+          test -f dist/packages/mcp/bin.cjs
+          test -f dist/packages/mcp/index.cjs
+          test -f dist/packages/mcp/README.md
+          test -f dist/packages/mcp/guidelines.md
+
+          CLI_NAME="$(node -p "require('./dist/packages/cli/package.json').name")"
+          CLI_VER="$(node -p "require('./dist/packages/cli/package.json').version")"
+          CLI_BIN="$(node -p "require('./dist/packages/cli/package.json').bin['ng-elemental']")"
+          MCP_NAME="$(node -p "require('./dist/packages/mcp/package.json').name")"
+          MCP_VER="$(node -p "require('./dist/packages/mcp/package.json').version")"
+          MCP_BIN="$(node -p "require('./dist/packages/mcp/package.json').bin['ng-elemental-mcp']")"
+          MCP_CLI_DEP="$(node -p "require('./dist/packages/mcp/package.json').dependencies['@ng-elemental/cli']")"
+
+          [ "$CLI_NAME" = "@ng-elemental/cli" ]
+          [ "$CLI_VER" = "$VERSION" ]
+          [ "$CLI_BIN" = "./bin.cjs" ]
+          [ "$MCP_NAME" = "@ng-elemental/mcp" ]
+          [ "$MCP_VER" = "$VERSION" ]
+          [ "$MCP_BIN" = "./bin.cjs" ]
+          [ "$MCP_CLI_DEP" = "$VERSION" ]
+
+          node dist/packages/cli/bin.cjs --help | grep -q "@ng-elemental/cli"
+
+      - name: Test packed CLI and MCP
+        run: npx nx test mcp
 
       - name: Publish @ng-elemental/cli
         id: publish

@@ -13,7 +13,6 @@
   ],
   "type": "commonjs",
   "main": "./index.cjs",
-  "types": "./index.d.ts",
   "bin": {
     "ng-elemental": "./bin.cjs"
   },

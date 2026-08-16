@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -41,5 +41,35 @@ describe('MCP client config writers', () => {
     expect(toml).toContain('[mcp_servers.ng-elemental]');
     expect(toml).toContain('npx');
     expect(existsSync(join(cwd, '.mcp.json'))).toBe(true);
+  });
+
+  it('merges into existing Cursor config without dropping other servers', async () => {
+    const cwd = await sandbox();
+    mkdirSync(join(cwd, '.cursor'), { recursive: true });
+    writeFileSync(
+      join(cwd, '.cursor/mcp.json'),
+      `${JSON.stringify({
+        mcpServers: { other: { command: 'npx', args: ['foo'] } },
+      })}\n`,
+    );
+
+    writeClientConfig(cwd, 'cursor');
+
+    const cursor = JSON.parse(readFileSync(join(cwd, '.cursor/mcp.json'), 'utf8')) as {
+      mcpServers: Record<string, { command: string; args: string[] }>;
+    };
+    expect(cursor.mcpServers.other).toEqual({ command: 'npx', args: ['foo'] });
+    expect(cursor.mcpServers['ng-elemental']).toEqual({
+      command: 'npx',
+      args: ['-y', '@ng-elemental/mcp'],
+    });
+  });
+
+  it('rejects invalid existing JSON config', async () => {
+    const cwd = await sandbox();
+    mkdirSync(join(cwd, '.cursor'), { recursive: true });
+    writeFileSync(join(cwd, '.cursor/mcp.json'), '[]\n');
+
+    expect(() => writeClientConfig(cwd, 'cursor')).toThrow(/Invalid MCP config/);
   });
 });
