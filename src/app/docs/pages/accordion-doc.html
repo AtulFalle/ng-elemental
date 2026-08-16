@@ -1,0 +1,238 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Accordion</h1>
+    <p class="docs-lead">
+      Stacked expandable sections. The group owns which panels are open.
+      Use <code>variant="single"</code> for one open panel, or
+      <code>variant="multiple"</code> to keep several open. Put custom
+      components in <code>ng-template</code> slots.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add accordion</code>
+    (requires <code>icon</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div class="docs-accordion-demo">
+        <el-accordion
+          variant="single"
+          [value]="singleOpen()"
+          (valueChange)="singleOpen.set($event)"
+          ariaLabel="Order details"
+        >
+          <el-accordion-item
+            value="shipping"
+            title="Shipping"
+            subtitle="2–5 business days"
+          >
+            <ng-template elAccordionContent>
+              <p>Ships from Pune. Express options are available at checkout.</p>
+            </ng-template>
+          </el-accordion-item>
+          <el-accordion-item
+            value="billing"
+            title="Billing"
+            subtitle="Invoices and payment methods"
+          >
+            <ng-template elAccordionContent>
+              <p>Card on file ending 4242. Billing contact is finance@example.com.</p>
+            </ng-template>
+          </el-accordion-item>
+          <el-accordion-item value="team" title="Team" subtitle="Members and roles">
+            <ng-template elAccordionContent>
+              <p>Three members. Invite more people from settings.</p>
+            </ng-template>
+          </el-accordion-item>
+        </el-accordion>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Import the accordion, item, and content directive. Put panel markup in
+      <code>&lt;ng-template elAccordionContent&gt;</code> so collapsed panels
+      are not created. Optional title and subtitle templates replace the
+      string headers with any HTML.       Header actions go in
+      <code>[elAccordionActions]</code>. They sit before the expand icon and
+      do not toggle the panel.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Single (one panel open)</h3>
+    <p>
+      Default variant. Opening another item closes the current one. Clicking
+      the open header collapses it, so every panel can be closed.
+    </p>
+    <app-preview>
+      <div class="docs-accordion-demo">
+        <el-accordion
+          variant="single"
+          [value]="singleOpen()"
+          (valueChange)="singleOpen.set($event)"
+          ariaLabel="Order details"
+        >
+          <el-accordion-item
+            value="shipping"
+            title="Shipping"
+            subtitle="2–5 business days"
+          >
+            <ng-template elAccordionContent>
+              <p>Ships from Pune.</p>
+            </ng-template>
+          </el-accordion-item>
+          <el-accordion-item
+            value="billing"
+            title="Billing"
+            subtitle="Invoices and payment methods"
+          >
+            <ng-template elAccordionContent>
+              <p>Card ending 4242.</p>
+            </ng-template>
+          </el-accordion-item>
+        </el-accordion>
+      </div>
+    </app-preview>
+
+    <h3>Multiple (several panels open)</h3>
+    <p>
+      Each header toggles only its own item. Bind
+      <code>value</code> as a <code>string[]</code>.
+    </p>
+    <app-preview>
+      <div class="docs-accordion-demo">
+        <el-accordion
+          variant="multiple"
+          [value]="multiOpen()"
+          (valueChange)="multiOpen.set($event)"
+          ariaLabel="FAQ"
+        >
+          <el-accordion-item value="payments" title="How do payments work?">
+            <ng-template elAccordionContent>
+              <p>We charge when the order ships. Several panels can stay open.</p>
+            </ng-template>
+          </el-accordion-item>
+          <el-accordion-item value="refunds" title="Can I get a refund?">
+            <ng-template elAccordionContent>
+              <p>Yes, within 30 days of delivery.</p>
+            </ng-template>
+          </el-accordion-item>
+          <el-accordion-item value="shipping" title="Where do you ship?">
+            <ng-template elAccordionContent>
+              <p>India and selected international destinations.</p>
+            </ng-template>
+          </el-accordion-item>
+        </el-accordion>
+      </div>
+    </app-preview>
+    <app-code-block [code]="multipleCode" language="html" />
+
+    <h3>Custom templates and header actions</h3>
+    <p>
+      Compose
+      <a routerLink="/components/icon">Icon</a>,
+      <a routerLink="/components/chip">Chip</a>, and
+      <a routerLink="/components/button">Button</a>
+      in the header. Actions sit before the expand chevron. Add those components
+      separately via the CLI. Clicks on
+      <code>elAccordionActions</code> do not expand or collapse the panel.
+    </p>
+    <app-preview>
+      <div class="docs-accordion-demo">
+        <el-accordion
+          variant="single"
+          [value]="templateOpen()"
+          (valueChange)="templateOpen.set($event)"
+          ariaLabel="Shipment"
+        >
+          <el-accordion-item value="order">
+            <ng-template elAccordionTitle>
+              <el-icon name="box" size="sm" />
+              Order #1284
+            </ng-template>
+            <ng-template elAccordionSubtitle>
+              <el-chip>In transit</el-chip>
+            </ng-template>
+            <div elAccordionActions>
+              <el-button variant="ghost" size="sm">Edit</el-button>
+            </div>
+            <ng-template elAccordionContent>
+              <p>Left the warehouse on 12 Aug. Expected Friday.</p>
+            </ng-template>
+          </el-accordion-item>
+          <el-accordion-item value="documents">
+            <ng-template elAccordionTitle>
+              <el-icon name="file-lines" size="sm" />
+              Documents
+            </ng-template>
+            <ng-template elAccordionSubtitle>Invoice and packing list</ng-template>
+            <div elAccordionActions>
+              <el-button variant="ghost" size="sm">Download</el-button>
+            </div>
+            <ng-template elAccordionContent>
+              <p>Available after the order ships.</p>
+            </ng-template>
+          </el-accordion-item>
+        </el-accordion>
+      </div>
+    </app-preview>
+    <app-code-block [code]="templateCode" language="html" />
+
+    <h3>Disabled item</h3>
+    <app-preview>
+      <div class="docs-accordion-demo">
+        <el-accordion
+          variant="single"
+          [value]="disabledOpen()"
+          (valueChange)="disabledOpen.set($event)"
+          ariaLabel="Account"
+        >
+          <el-accordion-item value="overview" title="Overview">
+            <ng-template elAccordionContent>
+              <p>Enabled panel.</p>
+            </ng-template>
+          </el-accordion-item>
+          <el-accordion-item value="billing" title="Billing" disabled>
+            <ng-template elAccordionContent>
+              <p>This panel cannot open.</p>
+            </ng-template>
+          </el-accordion-item>
+        </el-accordion>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-accordion</h3>
+    <app-props-table [props]="accordionProps" />
+    <h3>el-accordion-item</h3>
+    <app-props-table [props]="itemProps" />
+  </section>
+</article>

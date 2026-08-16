@@ -135,6 +135,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/tabs-doc').then((m) => m.TabsDocPage),
       },
       {
+        path: 'components/accordion',
+        loadComponent: () =>
+          import('./docs/pages/accordion-doc').then((m) => m.AccordionDocPage),
+      },
+      {
         path: 'components/segmented-button',
         loadComponent: () =>
           import('./docs/pages/segmented-button-doc').then(

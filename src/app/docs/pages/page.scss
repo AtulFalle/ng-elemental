@@ -153,3 +153,13 @@
 .docs-tabs-demo--narrow {
   max-width: 16rem;
 }
+
+.docs-accordion-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 36rem;
+  min-width: 0;
+  align-self: flex-start;
+}

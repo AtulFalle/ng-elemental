@@ -106,7 +106,7 @@ Change `componentsDir` during `init` (`--path` or the interactive prompt) if you
 | `npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]` | Create config, prompt for the components path, and install theme tokens |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `accordion`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -671,6 +671,43 @@ Dropbox-style dropzone + browse control. Owns `files` via `model` and auto-rende
 | `disabled` | `boolean` | `false` | Disables this tab |
 
 Put panel markup in `<ng-template elTabContent>`. Optional `<ng-template elTabLabel>` replaces the text header with any HTML. Requires `icon` (chevrons appear when the tab list overflows).
+
+### Accordion (`el-accordion`)
+
+Expandable sections. The group owns which panels are open. Requires `icon` (header chevron).
+
+```html
+<el-accordion variant="single" [(value)]="open" ariaLabel="Order details">
+  <el-accordion-item value="shipping" title="Shipping" subtitle="2–5 business days">
+    <div elAccordionActions>
+      <el-button variant="ghost" size="sm">Edit</el-button>
+    </div>
+    <ng-template elAccordionContent>
+      <p>Any HTML or components.</p>
+    </ng-template>
+  </el-accordion-item>
+</el-accordion>
+```
+
+**`el-accordion`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `single` \| `multiple` | `single` | `single`: one open panel. `multiple`: several can stay open |
+| `value` | `string` \| `string[]` | `''` | Open id(s) (two-way). `string` when single, `string[]` when multiple |
+| `disabled` | `boolean` | `false` | Disables every item |
+| `ariaLabel` | `string` | — | Accessible name for the group |
+
+**`el-accordion-item`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | (required) | Unique item id |
+| `title` | `string` | `''` | Header title; ignored when `elAccordionTitle` is set |
+| `subtitle` | `string` | `''` | Header subtitle; ignored when `elAccordionSubtitle` is set |
+| `disabled` | `boolean` | `false` | Disables this item |
+
+Put panel markup in `<ng-template elAccordionContent>` (lazy while collapsed). Optional `<ng-template elAccordionTitle>` / `elAccordionSubtitle` replace the text header. Header actions use `[elAccordionActions]` so they sit before the expand icon and do not toggle the panel.
 
 ### Segmented Button (`el-segmented-button`)
 

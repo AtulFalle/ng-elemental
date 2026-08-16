@@ -69,6 +69,15 @@ export {
   type ElSegmentedButtonVariant,
 } from './lib/segmented-button/segmented-button';
 export { ElTabs, ElTab, ElTabContent, ElTabLabel } from './lib/tabs/tabs';
+export {
+  ElAccordion,
+  ElAccordionItem,
+  ElAccordionTitle,
+  ElAccordionSubtitle,
+  ElAccordionContent,
+  type ElAccordionVariant,
+  type ElAccordionValue,
+} from './lib/accordion/accordion';
 export { ElProgress, type ElProgressSize } from './lib/progress/progress';
 export { ElProgressCircle } from './lib/progress/progress-circle';
 export {

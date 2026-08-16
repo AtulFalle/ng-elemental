@@ -171,6 +171,25 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['tabs', 'tab', 'tab-content', 'tab-label'],
   },
   {
+    name: 'accordion',
+    assetGlobs: [
+      'accordion.{ts,html,scss}',
+      'accordion-item.{ts,html,scss}',
+      'accordion-title.ts',
+      'accordion-subtitle.ts',
+      'accordion-content.ts',
+      'accordion.token.ts',
+    ],
+    requiredBasenames: [
+      'accordion',
+      'accordion-item',
+      'accordion-title',
+      'accordion-subtitle',
+      'accordion-content',
+      'accordion.token',
+    ],
+  },
+  {
     name: 'segmented-button',
     assetGlobs: [
       'segmented-button.{ts,html,scss}',

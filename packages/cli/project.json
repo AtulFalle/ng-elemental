@@ -246,6 +246,36 @@
             "output": "registry/tabs"
           },
           {
+            "glob": "accordion.{ts,html,scss}",
+            "input": "packages/ui/src/lib/accordion",
+            "output": "registry/accordion"
+          },
+          {
+            "glob": "accordion-item.{ts,html,scss}",
+            "input": "packages/ui/src/lib/accordion",
+            "output": "registry/accordion"
+          },
+          {
+            "glob": "accordion-title.ts",
+            "input": "packages/ui/src/lib/accordion",
+            "output": "registry/accordion"
+          },
+          {
+            "glob": "accordion-subtitle.ts",
+            "input": "packages/ui/src/lib/accordion",
+            "output": "registry/accordion"
+          },
+          {
+            "glob": "accordion-content.ts",
+            "input": "packages/ui/src/lib/accordion",
+            "output": "registry/accordion"
+          },
+          {
+            "glob": "accordion.token.ts",
+            "input": "packages/ui/src/lib/accordion",
+            "output": "registry/accordion"
+          },
+          {
             "glob": "segmented-button.{ts,html,scss}",
             "input": "packages/ui/src/lib/segmented-button",
             "output": "registry/segmented-button"

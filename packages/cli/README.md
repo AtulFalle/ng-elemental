@@ -82,6 +82,7 @@ export class MyComponent {}
 | `file-upload` | `el-file-upload` | `ElFileUpload` |
 | `icon` | `el-icon` | `ElIcon` |
 | `tabs` | `el-tabs`, `el-tab` | `ElTabs`, `ElTab`, `ElTabContent`, `ElTabLabel` |
+| `accordion` | `el-accordion`, `el-accordion-item` | `ElAccordion`, `ElAccordionItem`, `ElAccordionTitle`, `ElAccordionSubtitle`, `ElAccordionContent` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |
 
 ## Requirements
