@@ -304,21 +304,6 @@
             "glob": "tokens.scss",
             "input": "packages/ui/src/lib/theme",
             "output": "registry/theme"
-          },
-          {
-            "glob": "fonts.scss",
-            "input": "packages/ui/src/lib/theme",
-            "output": "registry/theme"
-          },
-          {
-            "glob": "geist-latin-wght-normal.woff2",
-            "input": "packages/ui/src/lib/theme",
-            "output": "registry/theme"
-          },
-          {
-            "glob": "geist-mono-latin-wght-normal.woff2",
-            "input": "packages/ui/src/lib/theme",
-            "output": "registry/theme"
           }
         ],
         "esbuildOptions": {

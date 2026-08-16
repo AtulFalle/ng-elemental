@@ -9,7 +9,8 @@
   </header>
 
   <div class="docs-cli-hint">
-    Add theme files to your project: <code>npx @ng-elemental/cli add theme</code>
+    Theme files are installed by <code>npx @ng-elemental/cli init</code>
+    (or later: <code>npx @ng-elemental/cli add theme</code>)
   </div>
 
   <p>
@@ -23,9 +24,10 @@
     <h2>Setup</h2>
     <p>
       The <code>theme</code> package copies <code>tokens.scss</code> and
-      optional <code>ElThemeService</code> into your components directory. Import
-      tokens once in your global styles so every component receives default
-      values:
+      optional <code>ElThemeService</code> into your components directory
+      during <code>init</code>. Import tokens once in your global styles so
+      every component receives default values. Point
+      <code>--el-font-sans</code> at your brand typeface:
     </p>
     <app-code-block [code]="addCode" language="shell" />
     <app-code-block [code]="importTokensCode" language="scss" />

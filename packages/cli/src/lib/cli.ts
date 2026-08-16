@@ -1,3 +1,4 @@
+import { parseArgs } from 'node:util';
 import { addCommand } from './add';
 import { initCommand } from './init';
 
@@ -13,9 +14,10 @@ export async function run(argv: string[]): Promise<void> {
   }
 
   if (command === 'init') {
-    initCommand({
+    const flags = parseInitArgv(rest);
+    await initCommand({
       cwd: process.cwd(),
-      yes: rest.includes('--yes'),
+      ...flags,
     });
     return;
   }
@@ -36,15 +38,42 @@ export async function run(argv: string[]): Promise<void> {
   throw new Error(`Unknown command "${command}". Use --help to see available commands.`);
 }
 
+export function parseInitArgv(args: string[]): {
+  yes: boolean;
+  path?: string;
+  skipTheme: boolean;
+  styles?: string;
+} {
+  const { values } = parseArgs({
+    args,
+    options: {
+      yes: { type: 'boolean', default: false },
+      path: { type: 'string' },
+      'skip-theme': { type: 'boolean', default: false },
+      styles: { type: 'string' },
+    },
+    strict: true,
+    allowPositionals: false,
+  });
+
+  return {
+    yes: Boolean(values.yes),
+    path: values.path,
+    skipTheme: Boolean(values['skip-theme']),
+    styles: values.styles,
+  };
+}
+
 function printUsage(): void {
   console.log(`ng-elemental — copy Angular components into your app
 
 Usage:
-  npx @ng-elemental/cli init [--yes]
+  npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]
   npx @ng-elemental/cli add <component> [--force]
 
 Commands:
-  init          Create elemental.json and the components directory
+  init          Create elemental.json, prompt for the components path, and install theme tokens
+  add theme             Copy design tokens (installed automatically by init)
   add button            Copy the Button component into your project
   add label             Copy the Label component into your project
   add form-error        Copy the Form Error component into your project

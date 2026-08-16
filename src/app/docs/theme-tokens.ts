@@ -154,12 +154,12 @@ export const DENSITY_TOKENS: TokenDefinition[] = [
   {
     name: '--el-font-sans',
     description:
-      'UI font stack. Geist Variable is bundled with theme; falls back to system-ui.',
+      'UI font stack. Defaults to inherit / system-ui. Set this to your brand typeface in global styles.',
   },
   {
     name: '--el-font-mono',
     description:
-      'Monospace font stack. Geist Mono Variable is bundled; falls back to system monospace.',
+      'Monospace font stack. Defaults to inherit / system monospace. Override after loading your code font.',
   },
 ];
 

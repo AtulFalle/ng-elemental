@@ -68,6 +68,7 @@ export function expectValidInstalledRegistry(installedRoot: string): void {
 
 export async function withCliConsumer(
   fn: (ctx: CliConsumerContext) => Promise<void>,
+  options?: { skipInit?: boolean; initArgs?: string[] },
 ): Promise<void> {
   const registry = localRegistryUrl();
   const tmp = await mkdtemp(join(tmpdir(), 'ng-elemental-e2e-'));
@@ -86,7 +87,9 @@ export async function withCliConsumer(
     expectValidInstalledRegistry(installedRoot);
 
     const runCli = (...args: string[]) => run(process.execPath, [cliBin, ...args], tmp);
-    runCli('init', '--yes');
+    if (!options?.skipInit) {
+      runCli('init', ...(options?.initArgs ?? ['--yes']));
+    }
 
     await fn({ tmp, cliBin, installedRoot, runCli });
   } finally {

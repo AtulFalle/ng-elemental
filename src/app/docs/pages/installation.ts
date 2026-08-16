@@ -10,12 +10,14 @@ import { CodeBlock } from '../ui/code-block';
   styleUrl: './page.scss',
 })
 export class InstallationPage {
-  protected readonly initCode = `npx @ng-elemental/cli init`;
+  protected readonly initCode = `npx @ng-elemental/cli init
+npx @ng-elemental/cli init --yes
+npx @ng-elemental/cli init --path libs/ui --yes
+npx @ng-elemental/cli init --skip-theme`;
 
   protected readonly themeAddCode = `npx @ng-elemental/cli add theme`;
 
-  protected readonly addComponentsCode = `npx @ng-elemental/cli add theme
-npx @ng-elemental/cli add button
+  protected readonly addComponentsCode = `npx @ng-elemental/cli add button
 npx @ng-elemental/cli add <component>`;
 
   protected readonly fontAwesomeCode = `npm install @fortawesome/fontawesome-free`;
@@ -28,7 +30,14 @@ npx @ng-elemental/cli add <component>`;
 
   protected readonly stylesCode = `@use './app/ui/theme/tokens';
 
-// Optional: override brand colors (edit the BRAND block in tokens.scss)
+// Typography: widgets use inherit / system fonts.
+// Load your brand typeface (Google Fonts, @fontsource, self-hosted), then:
+:root {
+  --el-font-sans: 'Inter', system-ui, sans-serif;
+  --el-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+// Optional: override brand colors (or edit the BRAND block in tokens.scss)
 :root {
   --el-color-primary: light-dark(#6750a4, #d0bcff);
   --el-color-on-primary: light-dark(#ffffff, #381e72);

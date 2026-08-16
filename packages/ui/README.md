@@ -14,13 +14,18 @@ See the [contributing guide](../../CONTRIBUTING.md) if you are working on compon
 
 ## Theming
 
-Design tokens and bundled Geist fonts live in `packages/ui/src/lib/theme/`. Import once in global styles:
+Design tokens live in `packages/ui/src/lib/theme/`. Import once in global styles:
 
 ```scss
 @use './path/to/theme/tokens';
+
+:root {
+  --el-font-sans: 'Inter', system-ui, sans-serif;
+  --el-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
 ```
 
-Geist ships with the theme (`fonts.scss` + woff2 files). System-ui fonts are used as fallback when bundled fonts are unavailable.
+Geist fonts are local to this repo (docs and Storybook only). They are **not** copied by the CLI. Consumers load their own typeface and set `--el-font-sans` / `--el-font-mono`.
 
 Customize colors by editing the BRAND block in `tokens.scss`. Dark mode is a mode toggle only:
 
@@ -40,7 +45,7 @@ export const appConfig = {
 
 Component stories live next to source (`*.stories.ts`). Storybook loads styles through a single global entry:
 
-- `.storybook/styles.scss` — shared UI tokens, bundled fonts, canvas defaults
+- `.storybook/styles.scss` — shared UI tokens, local Geist fonts, canvas defaults
 - `packages/ui/src/lib/theme/tokens.scss` — design tokens (`:root` CSS variables)
 - Each component — own `styleUrl` with BEM classes referencing generic tokens (`--el-color-primary`, `--el-radius-xs`, …). Unique sizes stay in the widget file.
 

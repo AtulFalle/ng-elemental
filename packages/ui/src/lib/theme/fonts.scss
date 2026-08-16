@@ -1,5 +1,5 @@
-// Bundled Geist Variable fonts (latin subset). Loaded automatically via tokens.scss.
-// System-ui fallbacks in tokens.scss apply when fonts fail to load.
+// Local-only Geist Variable fonts for NgElemental docs and Storybook.
+// Not copied by the CLI — consumers load their own typeface.
 
 @font-face {
   font-family: 'Geist Variable';

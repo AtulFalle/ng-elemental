@@ -1,5 +1,7 @@
 // NgElemental design tokens — Material 3 color roles + density.
-// Copy via `npx @ng-elemental/cli add theme`, then @use once in styles.scss.
+// Copied by `npx @ng-elemental/cli init` (or `add theme`), then @use once
+// in styles.scss. Typography is owned by the consumer — set --el-font-sans
+// / --el-font-mono after loading your brand typeface.
 //
 // Customization:
 //   1. Edit the BRAND section. Changing --el-color-primary updates buttons,
@@ -11,8 +13,6 @@
 //
 // Do not add widget aliases (--el-button-*, --el-chip-*). Unique sizes stay
 // in that widget's SCSS and copy only with that component.
-
-@use './fonts';
 
 :root {
   color-scheme: light;
@@ -99,12 +99,8 @@
   --el-icon-size-md: 1.125rem;
   --el-icon-size-lg: 1.25rem;
 
-  --el-font-sans:
-    'Geist Variable', Geist, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
-  --el-font-mono:
-    'Geist Mono Variable', 'Geist Mono', ui-monospace, 'Cascadia Code', 'Segoe UI Mono', Menlo,
-    Consolas, monospace;
+  --el-font-sans: inherit, ui-sans-serif, system-ui, sans-serif;
+  --el-font-mono: inherit, ui-monospace, monospace;
 }
 
 [data-el-theme='light'] {
