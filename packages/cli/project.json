@@ -165,6 +165,16 @@
             "output": "registry/list"
           },
           {
+            "glob": "list-item-def.ts",
+            "input": "packages/ui/src/lib/list",
+            "output": "registry/list"
+          },
+          {
+            "glob": "list-virtual.ts",
+            "input": "packages/ui/src/lib/list",
+            "output": "registry/list"
+          },
+          {
             "glob": "infinite-scroll.ts",
             "input": "packages/ui/src/lib/infinite-scroll",
             "output": "registry/infinite-scroll"
@@ -303,6 +313,81 @@
             "glob": "tooltip-bubble.{ts,html,scss}",
             "input": "packages/ui/src/lib/tooltip",
             "output": "registry/tooltip"
+          },
+          {
+            "glob": "menu.{ts,html,scss}",
+            "input": "packages/ui/src/lib/menu",
+            "output": "registry/menu"
+          },
+          {
+            "glob": "menu-trigger.ts",
+            "input": "packages/ui/src/lib/menu",
+            "output": "registry/menu"
+          },
+          {
+            "glob": "menu-panel.{ts,html,scss}",
+            "input": "packages/ui/src/lib/menu",
+            "output": "registry/menu"
+          },
+          {
+            "glob": "menu-item.{ts,html,scss}",
+            "input": "packages/ui/src/lib/menu",
+            "output": "registry/menu"
+          },
+          {
+            "glob": "menu-separator.ts",
+            "input": "packages/ui/src/lib/menu",
+            "output": "registry/menu"
+          },
+          {
+            "glob": "menu-label.ts",
+            "input": "packages/ui/src/lib/menu",
+            "output": "registry/menu"
+          },
+          {
+            "glob": "menu-position.ts",
+            "input": "packages/ui/src/lib/menu",
+            "output": "registry/menu"
+          },
+          {
+            "glob": "menu.token.ts",
+            "input": "packages/ui/src/lib/menu",
+            "output": "registry/menu"
+          },
+          {
+            "glob": "menubar.{ts,html,scss}",
+            "input": "packages/ui/src/lib/menubar",
+            "output": "registry/menubar"
+          },
+          {
+            "glob": "popover.{ts,html,scss}",
+            "input": "packages/ui/src/lib/popover",
+            "output": "registry/popover"
+          },
+          {
+            "glob": "popover-trigger.ts",
+            "input": "packages/ui/src/lib/popover",
+            "output": "registry/popover"
+          },
+          {
+            "glob": "popover-panel.{ts,html,scss}",
+            "input": "packages/ui/src/lib/popover",
+            "output": "registry/popover"
+          },
+          {
+            "glob": "popover-close.ts",
+            "input": "packages/ui/src/lib/popover",
+            "output": "registry/popover"
+          },
+          {
+            "glob": "popover-position.ts",
+            "input": "packages/ui/src/lib/popover",
+            "output": "registry/popover"
+          },
+          {
+            "glob": "popover.token.ts",
+            "input": "packages/ui/src/lib/popover",
+            "output": "registry/popover"
           },
           {
             "glob": "alert.{ts,html,scss}",

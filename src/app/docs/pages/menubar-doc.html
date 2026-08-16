@@ -1,0 +1,88 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Menubar</h1>
+    <p class="docs-lead">
+      Horizontal application menu bar. The bar owns which top-level
+      <a routerLink="/components/menu">Menu</a> is open. After one menu is
+      open, hovering another trigger switches to it.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project:
+    <code>npx @ng-elemental/cli add menu</code>
+    then
+    <code>npx @ng-elemental/cli add menubar</code>
+    (requires <code>icon</code> and <code>button</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div style="min-height: 12rem; width: 100%">
+        <el-menubar ariaLabel="Application">
+          <el-menu>
+            <el-button elMenuTrigger variant="ghost" size="sm">File</el-button>
+            <el-menu-panel>
+              <el-menu-item icon="file">New</el-menu-item>
+              <el-menu-item icon="folder-open">Open</el-menu-item>
+              <el-menu-separator />
+              <el-menu-item>Save</el-menu-item>
+            </el-menu-panel>
+          </el-menu>
+          <el-menu>
+            <el-button elMenuTrigger variant="ghost" size="sm">Edit</el-button>
+            <el-menu-panel>
+              <el-menu-item shortcut="Ctrl+Z">Undo</el-menu-item>
+              <el-menu-item shortcut="Ctrl+Y">Redo</el-menu-item>
+              <el-menu>
+                <el-menu-item elMenuTrigger>Find</el-menu-item>
+                <el-menu-panel>
+                  <el-menu-item>Find in file</el-menu-item>
+                  <el-menu-item>Find in project</el-menu-item>
+                </el-menu-panel>
+              </el-menu>
+            </el-menu-panel>
+          </el-menu>
+          <el-menu>
+            <el-button elMenuTrigger variant="ghost" size="sm">View</el-button>
+            <el-menu-panel>
+              <el-menu-item>Command palette</el-menu-item>
+              <el-menu-item>Appearance</el-menu-item>
+            </el-menu-panel>
+          </el-menu>
+        </el-menubar>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Project <code>el-menu</code> children into the bar. Arrow Left/Right move
+      between triggers. The menubar writes each menu’s open window; nested
+      submenus keep their own open state.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

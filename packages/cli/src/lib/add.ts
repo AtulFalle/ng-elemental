@@ -86,7 +86,7 @@ const COMPONENT_EXAMPLES: Record<
 <el-avatar icon="user" alt="Account" />`,
   },
   list: {
-    className: 'ElList, ElListItem',
+    className: 'ElList, ElListItem, ElListItemDef',
     usage: `<el-list ariaLabel="Inbox">
   <el-list-item>
     <el-avatar elListLeading initials="AL" alt="Ada Lovelace" />
@@ -179,6 +179,37 @@ const COMPONENT_EXAMPLES: Record<
   tooltip: {
     className: 'ElTooltip',
     usage: `<el-button elTooltip="Save file">Save</el-button>`,
+  },
+  menu: {
+    className: 'ElMenu, ElMenuPanel, ElMenuItem, ElMenuTrigger',
+    usage: `<el-menu>
+  <el-button elMenuTrigger>Actions</el-button>
+  <el-menu-panel>
+    <el-menu-item>Cut</el-menu-item>
+    <el-menu-item>Copy</el-menu-item>
+  </el-menu-panel>
+</el-menu>`,
+  },
+  menubar: {
+    className: 'ElMenubar',
+    usage: `<el-menubar ariaLabel="Application">
+  <el-menu>
+    <el-button elMenuTrigger variant="ghost" size="sm">File</el-button>
+    <el-menu-panel>
+      <el-menu-item>New</el-menu-item>
+    </el-menu-panel>
+  </el-menu>
+</el-menubar>`,
+  },
+  popover: {
+    className: 'ElPopover, ElPopoverPanel, ElPopoverTrigger',
+    usage: `<el-popover>
+  <el-button elPopoverTrigger>Details</el-button>
+  <el-popover-panel>
+    <span elPopoverTitle>Assignee</span>
+    Ada Lovelace
+  </el-popover-panel>
+</el-popover>`,
   },
   alert: {
     className: 'ElAlert',

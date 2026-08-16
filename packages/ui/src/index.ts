@@ -91,8 +91,10 @@ export { ElCard, type ElCardAppearance, type ElCardSize } from './lib/card/card'
 export {
   ElList,
   ElListItem,
+  ElListItemDef,
   type ElListAppearance,
   type ElListSize,
+  type ElListItemContext,
 } from './lib/list/list';
 export {
   ElInfiniteScroll,
@@ -147,6 +149,26 @@ export {
   ElTooltipBubble,
   type ElTooltipPosition,
 } from './lib/tooltip/tooltip';
+export {
+  ElMenu,
+  ElMenuTrigger,
+  ElMenuPanel,
+  ElMenuItem,
+  ElMenuSeparator,
+  ElMenuLabel,
+  type ElMenuTriggerKind,
+  type ElMenuItemType,
+  type ElMenuItemVariant,
+} from './lib/menu/menu';
+export { ElMenubar, type ElMenubarSize } from './lib/menubar/menubar';
+export {
+  ElPopover,
+  ElPopoverTrigger,
+  ElPopoverPanel,
+  ElPopoverClose,
+  type ElPopoverPosition,
+  type ElPopoverTriggerKind,
+} from './lib/popover/popover';
 export { ElAlert, type ElAlertColor } from './lib/alert/alert';
 export { ElToast, type ElToastColor } from './lib/toast/toast';
 export { ElToaster, type ElToasterPosition } from './lib/toast/toaster';

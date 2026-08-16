@@ -76,7 +76,7 @@ export class MyComponent {}
 | `slider` | `el-slider` | `ElSlider` |
 | `avatar` | `el-avatar` | `ElAvatar` |
 | `card` | `el-card` | `ElCard` |
-| `list` | `el-list`, `el-list-item` | `ElList`, `ElListItem` |
+| `list` | `el-list`, `el-list-item` | `ElList`, `ElListItem`, `ElListItemDef` |
 | `infinite-scroll` | `[elInfiniteScroll]` | `ElInfiniteScroll` |
 | `attachment` | `el-attachment` (+ parts) | `ElAttachment`, … |
 | `file-upload` | `el-file-upload` | `ElFileUpload` |
@@ -88,6 +88,9 @@ export class MyComponent {}
 | `skeleton` | `el-skeleton`, `[elSkeleton]` | `ElSkeleton`, `ElSkeletonDirective` |
 | `breadcrumb` | `el-breadcrumb`, `el-breadcrumb-item` | `ElBreadcrumb`, `ElBreadcrumbItem` |
 | `tooltip` | `[elTooltip]` | `ElTooltip` |
+| `menu` | `el-menu`, `el-menu-panel`, `el-menu-item` | `ElMenu`, `ElMenuPanel`, `ElMenuItem`, `ElMenuTrigger` |
+| `menubar` | `el-menubar` | `ElMenubar` |
+| `popover` | `el-popover`, `el-popover-panel` | `ElPopover`, `ElPopoverPanel`, `ElPopoverTrigger` |
 | `alert` | `el-alert` | `ElAlert` |
 | `toast` | `el-toast`, `el-toaster` | `ElToast`, `ElToaster`, `ElToastService` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |

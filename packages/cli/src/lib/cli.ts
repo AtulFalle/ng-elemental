@@ -99,6 +99,9 @@ Commands:
   add skeleton          Copy the Skeleton placeholders and host directive into your project
   add breadcrumb        Copy the Breadcrumb component into your project
   add tooltip           Copy the Tooltip directive into your project
+  add menu              Copy the Menu, panel, and item components into your project
+  add menubar           Copy the Menubar component into your project
+  add popover           Copy the Popover overlay into your project
   add alert             Copy the Alert banner component into your project
   add toast             Copy the Toast, Toaster, and toast service into your project
 `);

@@ -1,0 +1,125 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Popover</h1>
+    <p class="docs-lead">
+      Positioned overlay for arbitrary content — forms, cards, or extra
+      detail. Use
+      <a routerLink="/components/menu">Menu</a> for commands and nested items,
+      and
+      <a routerLink="/components/tooltip">Tooltip</a> for a short hover label.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add popover</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div style="min-height: 10rem">
+        <el-popover>
+          <el-button elPopoverTrigger variant="secondary">Details</el-button>
+          <el-popover-panel>
+            <span elPopoverTitle>Assignee</span>
+            Ada Lovelace
+            <div style="margin-top: 0.75rem">
+              <el-button elPopoverClose variant="ghost" size="sm">
+                Close
+              </el-button>
+            </div>
+          </el-popover-panel>
+        </el-popover>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      <code>el-popover</code> is a controller with no chrome. Mark the trigger
+      with <code>elPopoverTrigger</code> and project content into
+      <code>el-popover-panel</code>. Optional <code>elPopoverTitle</code> is a
+      slot, not a show/hide flag. <code>elPopoverClose</code> dismisses the
+      panel.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Positions</h3>
+    <app-preview>
+      <div class="docs-row" style="padding: 2rem 0">
+        <el-popover position="top">
+          <el-button elPopoverTrigger variant="secondary" size="sm">Top</el-button>
+          <el-popover-panel>
+            <span elPopoverTitle>Top</span>
+            Anchored above.
+          </el-popover-panel>
+        </el-popover>
+        <el-popover position="end">
+          <el-button elPopoverTrigger variant="secondary" size="sm">End</el-button>
+          <el-popover-panel>
+            <span elPopoverTitle>End</span>
+            Follows text direction.
+          </el-popover-panel>
+        </el-popover>
+      </div>
+    </app-preview>
+
+    <h3>Hover</h3>
+    <app-preview>
+      <div style="min-height: 8rem">
+        <el-popover trigger="hover" position="top">
+          <el-button elPopoverTrigger variant="ghost">Hover me</el-button>
+          <el-popover-panel>
+            <span elPopoverTitle>Hover card</span>
+            Rich content, not a tooltip.
+          </el-popover-panel>
+        </el-popover>
+      </div>
+    </app-preview>
+
+    <h3>Modal</h3>
+    <app-preview>
+      <div style="min-height: 8rem">
+        <el-popover modal>
+          <el-button elPopoverTrigger variant="secondary">
+            Modal popover
+          </el-button>
+          <el-popover-panel>
+            <span elPopoverTitle>Confirm</span>
+            Focus moves into the panel. Escape or the backdrop dismisses it.
+            <div style="margin-top: 0.75rem">
+              <el-button elPopoverClose variant="primary" size="sm">
+                Done
+              </el-button>
+            </div>
+          </el-popover-panel>
+        </el-popover>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

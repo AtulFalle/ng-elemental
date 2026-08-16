@@ -1,3 +1,35 @@
 <div [class]="rootClass()">
-  <ng-content />
+  @if (virtual()) {
+    @if (virtualWindow().padStart > 0) {
+      <div
+        class="el-list__spacer"
+        [style.height.px]="virtualWindow().padStart"
+        aria-hidden="true"
+      ></div>
+    }
+    @if (itemTemplate(); as template) {
+      @for (item of visibleItems(); track item.id) {
+        <ng-container
+          [ngTemplateOutlet]="template"
+          [ngTemplateOutletContext]="{
+            $implicit: item.row,
+            index: item.index,
+            last: item.last,
+          }"
+        />
+      }
+    }
+    @if (virtualWindow().padEnd > 0) {
+      <div
+        class="el-list__spacer"
+        [style.height.px]="virtualWindow().padEnd"
+        aria-hidden="true"
+      ></div>
+    }
+  } @else {
+    <ng-content />
+  }
+</div>
+<div class="el-list__defs">
+  <ng-content select="ng-template[elListItemDef]" />
 </div>

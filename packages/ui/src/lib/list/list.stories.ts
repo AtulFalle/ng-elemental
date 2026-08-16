@@ -4,7 +4,7 @@ import { ElAvatar } from '../avatar/avatar';
 import { ElButton } from '../button/button';
 import { ElChip } from '../chip/chip';
 import { ElIcon } from '../icon/icon';
-import { ElList } from './list';
+import { ElList, ElListItemDef } from './list';
 import { ElListItem } from './list-item';
 
 const LIST_IMPORTS = [
@@ -176,5 +176,44 @@ export const WithActions: Story = {
         </el-list-item>
       </el-list>
     `,
+  }),
+};
+
+@Component({
+  selector: 'el-list-virtual-story-host',
+  imports: [ElList, ElListItem, ElListItemDef, ElAvatar],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <el-list
+      virtual
+      [items]="people"
+      track="id"
+      [itemHeight]="56"
+      ariaLabel="Virtual people"
+      style="max-height: 16rem; max-width: 24rem"
+    >
+      <ng-template elListItemDef let-person>
+        <el-list-item interactive>
+          <el-avatar elListLeading [initials]="person.initials" [alt]="person.name" />
+          <span elListTitle>{{ person.name }}</span>
+          <span elListDescription>{{ person.role }}</span>
+        </el-list-item>
+      </ng-template>
+    </el-list>
+  `,
+})
+class ListVirtualStoryHost {
+  protected readonly people = Array.from({ length: 1000 }, (_, i) => ({
+    id: String(i + 1),
+    name: `Person ${i + 1}`,
+    initials: `P${(i % 99) + 1}`,
+    role: i % 2 === 0 ? 'Engineer' : 'Designer',
+  }));
+}
+
+export const Virtual: Story = {
+  render: () => ({
+    moduleMetadata: { imports: [ListVirtualStoryHost] },
+    template: `<el-list-virtual-story-host />`,
   }),
 };
