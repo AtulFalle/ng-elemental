@@ -1,0 +1,28 @@
+@if (open()) {
+  <div [class]="rootClass()">
+    <div class="el-snackbar__message">
+      @if (message()) {
+        {{ message() }}
+      }
+      <ng-content />
+    </div>
+    <div class="el-snackbar__actions">
+      @if (action()) {
+        <button type="button" class="el-snackbar__action" (click)="onAction()">
+          {{ action() }}
+        </button>
+      }
+      <ng-content select="[elSnackbarActions]" />
+    </div>
+    @if (dismissible()) {
+      <button
+        type="button"
+        class="el-snackbar__close"
+        aria-label="Dismiss"
+        (click)="close()"
+      >
+        <el-icon name="xmark" size="sm" />
+      </button>
+    }
+  </div>
+}

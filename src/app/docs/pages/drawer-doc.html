@@ -1,0 +1,115 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Drawer</h1>
+    <p class="docs-lead">
+      Full-height side panel with header, scrolling content, and footer slots.
+      Open it in the template with
+      <code>[(open)]</code>
+      or from
+      <code>ElDrawerService.open()</code>
+      with a custom component and injected data.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add drawer</code>
+    (requires <code>icon</code>; examples also need <code>button</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-button (click)="open.set(true)">Open drawer</el-button>
+      <el-drawer
+        [open]="open()"
+        (openChange)="open.set($event)"
+        title="Navigation"
+        side="left"
+        size="md"
+      >
+        <div elDrawerContent>
+          Full-height panel for navigation or account tools. Content scrolls.
+        </div>
+        <div elDrawerFooter>
+          <el-button elDrawerClose variant="ghost">Close</el-button>
+        </div>
+      </el-drawer>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Mark projected nodes with <code>elDrawerHeader</code>,
+      <code>elDrawerContent</code>, or <code>elDrawerFooter</code>. Empty slots
+      collapse. Use <code>elDrawerClose</code> on a button to dismiss. Focus is
+      trapped while open; Escape and the backdrop dismiss unless disabled.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Right side</h3>
+    <app-preview>
+      <el-button (click)="rightOpen.set(true)">Open from the right</el-button>
+      <el-drawer
+        [open]="rightOpen()"
+        (openChange)="rightOpen.set($event)"
+        title="Account"
+        side="right"
+        size="sm"
+      >
+        <div elDrawerContent>Profile and sign out.</div>
+        <div elDrawerFooter>
+          <el-button elDrawerClose variant="ghost">Close</el-button>
+        </div>
+      </el-drawer>
+    </app-preview>
+
+    <h3>Open with a service</h3>
+    <p>
+      No extra host in the app shell.
+      <code>open()</code>
+      mounts the drawer on
+      <code>document.body</code>
+      and injects
+      <code>EL_DRAWER_DATA</code>
+      plus
+      <code>ElDrawerRef</code>
+      into the custom component.
+    </p>
+    <app-preview>
+      <el-button (click)="openService()">Open with service</el-button>
+      @if (serviceResult(); as result) {
+        <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
+      }
+    </app-preview>
+    <app-code-block [code]="serviceCode" />
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. See
+      <a routerLink="/theming">Theming</a>
+      for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-drawer</h3>
+    <app-props-table [props]="drawerProps" />
+    <h3>ElDrawerService.open()</h3>
+    <app-props-table [props]="serviceProps" />
+  </section>
+</article>

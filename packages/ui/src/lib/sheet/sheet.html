@@ -1,0 +1,52 @@
+@if (open()) {
+  <div
+    class="el-sheet-backdrop"
+    [style.z-index]="zIndex()"
+    (pointerdown)="onBackdrop($event)"
+  ></div>
+  <div
+    #panel
+    class="el-sheet"
+    [class.el-sheet--sm]="size() === 'sm'"
+    [class.el-sheet--md]="size() === 'md'"
+    [class.el-sheet--lg]="size() === 'lg'"
+    [class.el-sheet--top]="side() === 'top'"
+    [class.el-sheet--right]="side() === 'right'"
+    [class.el-sheet--bottom]="side() === 'bottom'"
+    [class.el-sheet--left]="side() === 'left'"
+    [style.z-index]="panelZ()"
+    role="dialog"
+    aria-modal="true"
+    [id]="'el-sheet-panel-' + titleId"
+    [attr.aria-labelledby]="labelledBy()"
+    [attr.aria-label]="ariaLabel() || null"
+    [attr.aria-describedby]="ariaDescribedBy() || null"
+    tabindex="-1"
+    (keydown)="onPanelKeydown($event)"
+  >
+    <div class="el-sheet__header">
+      <div class="el-sheet__title" [id]="titleId">
+        <ng-content select="[elSheetHeader]" />
+        @if (title()) {
+          <span class="el-sheet__title-text">{{ title() }}</span>
+        }
+      </div>
+      @if (closable()) {
+        <button
+          type="button"
+          class="el-sheet__close"
+          aria-label="Close sheet"
+          (click)="close()"
+        >
+          <el-icon name="xmark" size="sm" />
+        </button>
+      }
+    </div>
+    <div class="el-sheet__content">
+      <ng-content select="[elSheetContent]" />
+    </div>
+    <div class="el-sheet__footer">
+      <ng-content select="[elSheetFooter]" />
+    </div>
+  </div>
+}

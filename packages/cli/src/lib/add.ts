@@ -293,6 +293,44 @@ this.dialog.open(EditUserDialog, { data: { userId: 1 }, title: 'Edit user' });`,
 <el-toaster />
 this.toast.show('Saved', { color: 'success' });`,
   },
+  'empty-state': {
+    className: 'ElEmptyState',
+    usage: `<el-empty-state icon="folder-open" title="No projects" description="Create one to get started.">
+  <div elEmptyStateActions>
+    <el-button>Create project</el-button>
+  </div>
+</el-empty-state>`,
+  },
+  snackbar: {
+    className: 'ElSnackbar, ElSnackbarService',
+    usage: `<el-snackbar [(open)]="open" message="File deleted" action="Undo" />
+<el-snackbar [(open)]="open" [duration]="0" message="3 selected">
+  <div elSnackbarActions>
+    <el-button variant="ghost" size="sm">Move</el-button>
+  </div>
+</el-snackbar>
+this.snackbar.open('File deleted', { action: 'Undo' });`,
+  },
+  sheet: {
+    className: 'ElSheet, ElSheetService',
+    usage: `<el-sheet [(open)]="open" title="Filters" side="bottom">
+  <div elSheetContent>…</div>
+  <div elSheetFooter>
+    <el-button elSheetClose variant="ghost">Cancel</el-button>
+  </div>
+</el-sheet>
+this.sheet.open(EditFilters, { data: { userId: 1 }, title: 'Filters' });`,
+  },
+  drawer: {
+    className: 'ElDrawer, ElDrawerService',
+    usage: `<el-drawer [(open)]="open" title="Navigation" side="left">
+  <div elDrawerContent>…</div>
+  <div elDrawerFooter>
+    <el-button elDrawerClose variant="ghost">Close</el-button>
+  </div>
+</el-drawer>
+this.drawer.open(WorkspaceDrawer, { data: { workspace: 'Acme' }, title: 'Workspace' });`,
+  },
 
   tabs: {
     className: 'ElTabs, ElTab, ElTabContent',
