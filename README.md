@@ -106,7 +106,7 @@ Change `componentsDir` during `init` (`--path` or the interactive prompt) if you
 | `npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]` | Create config, prompt for the components path, and install theme tokens |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `alert`, `toast`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -398,6 +398,7 @@ Material Design 3 chips for assist actions, filters, and suggestions.
 | --- | --- | --- | --- |
 | `type` | `assist` \| `filter` \| `suggestion` | `assist` | Chip category |
 | `appearance` | `outlined` \| `filled` \| `elevated` | `outlined` | Surface style for suggestion chips |
+| `color` | `neutral` \| `success` \| `error` \| `warning` \| `info` | `neutral` | Semantic tone; filled uses container tokens |
 | `iconStart` | `string` | `''` | Font Awesome start icon (filter chips show check when selected) |
 | `selected` | `boolean` | `false` | Selection state for filter chips (two-way bindable) |
 | `disabled` | `boolean` | `false` | Non-interactive state |
@@ -811,6 +812,125 @@ Page window. Does not slice data. Requires `icon`, `button`, and `select`.
 | --- | --- | --- | --- |
 | `value` | `string` | (required) | Unique segment value |
 | `disabled` | `boolean` | `false` | Disables this segment |
+
+### Skeleton (`el-skeleton`, `[elSkeleton]`)
+
+Loading placeholders. Use `<el-skeleton>` when you are laying out bars yourself. Put `[elSkeleton]` on a `div`, `input`, `button`, or any other host to cover that element with a matching skeleton — you do not build a separate placeholder tree.
+
+```html
+<div aria-busy="true">
+  <el-skeleton [lines]="3" />
+  <el-skeleton variant="circular" />
+  <el-skeleton variant="rectangular" height="8rem" />
+</div>
+
+<button [elSkeleton]="loading">Save</button>
+<input [elSkeleton]="loading" placeholder="Email" />
+<div [elSkeleton]="loading" style="height: 4rem; border-radius: 0.5rem">Card</div>
+```
+
+**`el-skeleton`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `text` \| `circular` \| `rectangular` | `text` | Placeholder shape |
+| `animation` | `boolean` | `true` | Shimmer animation |
+| `lines` | `number` | `1` | Text bars |
+| `width` | `string` | — | CSS width |
+| `height` | `string` | — | CSS height for circular/rectangular |
+
+**`[elSkeleton]`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `elSkeleton` | `boolean` | `false` | Covers the host while true |
+| `elSkeletonAnimation` | `boolean` | `true` | Shimmer on the cover |
+
+### Breadcrumb (`el-breadcrumb`, `el-breadcrumb-item`)
+
+Navigation trail. Requires `icon` for the chevron separator. Mark the current page with `current`.
+
+```html
+<el-breadcrumb ariaLabel="Breadcrumb">
+  <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+  <el-breadcrumb-item href="/docs">Components</el-breadcrumb-item>
+  <el-breadcrumb-item current>Chip</el-breadcrumb-item>
+</el-breadcrumb>
+```
+
+**`el-breadcrumb`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `ariaLabel` | `string` | `Breadcrumb` | Accessible name for the nav |
+
+**`el-breadcrumb-item`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `href` | `string` | — | Link target (ignored when current) |
+| `current` | `boolean` | `false` | Current page; sets `aria-current="page"` |
+
+### Tooltip (`[elTooltip]`)
+
+Hover/focus label with an arrow pointing at the host. The bubble is attached to `document.body` so overflow does not clip it.
+
+```html
+<el-button elTooltip="Save file">Save</el-button>
+<el-button elTooltip="More" elTooltipPosition="end">Open</el-button>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `elTooltip` | `string` | `''` | Label text |
+| `elTooltipPosition` | `top` \| `bottom` \| `start` \| `end` | `top` | Placement |
+| `elTooltipDisabled` | `boolean` | `false` | Prevents opening |
+| `elTooltipDelay` | `number` | `200` | Show delay in ms |
+| `elTooltipOpen` | `boolean` | `false` | Open state (two-way bindable) |
+
+### Alert (`el-alert`)
+
+Inline status banner. Parent owns visibility (`@if` + `dismissed`). Requires `icon`.
+
+```html
+@if (show()) {
+  <el-alert color="success" title="Saved" dismissible (dismissed)="show.set(false)">
+    Your changes were written.
+  </el-alert>
+}
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `color` | `neutral` \| `success` \| `error` \| `warning` \| `info` | `info` | Semantic tone |
+| `title` | `string` | `''` | Optional heading |
+| `icon` | `string` | default per color | Font Awesome name; `''` hides |
+| `dismissible` | `boolean` | `false` | Close button |
+
+| Output | Description |
+| --- | --- |
+| `dismissed` | Emitted when the close button is clicked |
+
+### Toast (`el-toast`, `el-toaster`)
+
+Overlay notifications. Place `<el-toaster />` once in the app shell and call `ElToastService.show()`. Requires `icon`. `el-toast` is presentational if you need a static snackbar.
+
+```html
+<el-toaster />
+```
+
+```ts
+this.toast.show('Saved', { color: 'success' });
+this.toast.show('Sticky', { duration: 0 });
+```
+
+| Input / option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `color` | `neutral` \| `success` \| `error` \| `warning` \| `info` | `neutral` | Semantic tone |
+| `title` | `string` | `''` | Optional heading |
+| `dismissible` | `boolean` | `true` | Close button |
+| `position` | `top-start` \| `top-end` \| `bottom-start` \| `bottom-end` | `bottom-end` | Toaster corner |
+| `duration` | `number` | `4000` | Auto-dismiss ms; `0` is sticky |
 
 ## Packages
 

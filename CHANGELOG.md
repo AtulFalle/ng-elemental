@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ElTable` and `ElTableColumn` with string cell fallback, optional header/cell/expand templates, sort, sticky header, and optional virtual rows (`ng-elemental add table`; requires `icon`)
 - `ElPagination` page window with ellipsis and optional page size (`ng-elemental add pagination`; requires `icon`, `button`, and `select`)
 - `ElAccordion` and `ElAccordionItem` with `variant="single"` or `variant="multiple"`, header title/subtitle templates, header actions, and lazy panel content (`ng-elemental add accordion`; requires `icon`)
+- Generic success, warning, and info color roles in `tokens.scss` (`--el-color-success`, `--el-color-warning`, `--el-color-info` and container/on variants)
+- `ElChip` `color` input (`neutral`, `success`, `error`, `warning`, `info`) for status chips
+- `ElSkeleton` text, circular, and rectangular loading placeholders, plus `[elSkeleton]` to cover any host (`ng-elemental add skeleton`)
+- `ElBreadcrumb` and `ElBreadcrumbItem` navigation trail (`ng-elemental add breadcrumb`; requires `icon`)
+- `ElTooltip` hover/focus directive with `ElTooltipBubble` and an arrow toward the trigger (`ng-elemental add tooltip`)
+- `ElAlert` inline status banner (`ng-elemental add alert`; requires `icon`)
+- `ElToast`, `ElToaster`, and `ElToastService` overlay notifications (`ng-elemental add toast`; requires `icon`)
 
 ## [0.0.8] - 2026-08-16
 

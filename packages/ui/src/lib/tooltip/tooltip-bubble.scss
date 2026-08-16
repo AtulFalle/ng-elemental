@@ -1,0 +1,53 @@
+:host(.el-tooltip-bubble) {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  max-width: 16rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--el-radius-xs);
+  background: var(--el-color-inverse-surface);
+  color: var(--el-color-inverse-on-surface);
+  font-family: var(--el-font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+  overflow: visible;
+  pointer-events: none;
+}
+
+:host(.el-tooltip-bubble--fixed) {
+  position: fixed;
+  z-index: 1000;
+}
+
+.el-tooltip-bubble__arrow {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--el-color-inverse-surface);
+  transform: rotate(45deg);
+}
+
+:host(.el-tooltip-bubble--top) .el-tooltip-bubble__arrow {
+  bottom: -0.25rem;
+  left: var(--el-tooltip-arrow, 50%);
+  margin-left: -0.25rem;
+}
+
+:host(.el-tooltip-bubble--bottom) .el-tooltip-bubble__arrow {
+  top: -0.25rem;
+  left: var(--el-tooltip-arrow, 50%);
+  margin-left: -0.25rem;
+}
+
+:host(.el-tooltip-bubble--start) .el-tooltip-bubble__arrow {
+  top: var(--el-tooltip-arrow, 50%);
+  right: -0.25rem;
+  margin-top: -0.25rem;
+}
+
+:host(.el-tooltip-bubble--end) .el-tooltip-bubble__arrow {
+  top: var(--el-tooltip-arrow, 50%);
+  left: -0.25rem;
+  margin-top: -0.25rem;
+}

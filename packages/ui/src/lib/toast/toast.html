@@ -1,0 +1,25 @@
+<div [class]="rootClass()">
+  @if (iconName()) {
+    <span class="el-toast__icon">
+      <el-icon [name]="iconName()!" size="sm" />
+    </span>
+  }
+  <div class="el-toast__body">
+    @if (title()) {
+      <div class="el-toast__title">{{ title() }}</div>
+    }
+    <div class="el-toast__message">
+      <ng-content />
+    </div>
+  </div>
+  @if (dismissible()) {
+    <button
+      type="button"
+      class="el-toast__close"
+      aria-label="Dismiss"
+      (click)="onDismiss()"
+    >
+      <el-icon name="xmark" size="sm" />
+    </button>
+  }
+</div>

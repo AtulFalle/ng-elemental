@@ -13,6 +13,10 @@ const meta: Meta<ElChip> = {
       control: 'select',
       options: ['outlined', 'filled', 'elevated'],
     },
+    color: {
+      control: 'select',
+      options: ['neutral', 'success', 'error', 'warning', 'info'],
+    },
     iconStart: { control: 'text' },
     selected: { control: 'boolean' },
     disabled: { control: 'boolean' },
@@ -21,6 +25,7 @@ const meta: Meta<ElChip> = {
   args: {
     type: 'assist',
     appearance: 'outlined',
+    color: 'neutral',
     iconStart: '',
     selected: false,
     disabled: false,
@@ -34,6 +39,7 @@ const meta: Meta<ElChip> = {
     template: `<el-chip
       [type]="type"
       [appearance]="appearance"
+      [color]="color"
       [iconStart]="iconStart"
       [(selected)]="selected"
       [disabled]="disabled"
@@ -92,6 +98,66 @@ export const SuggestionElevated: Story = {
 
 export const Disabled: Story = {
   args: { type: 'assist', disabled: true },
+};
+
+export const ColorSuccess: Story = {
+  args: { type: 'suggestion', appearance: 'filled', color: 'success' },
+  render: (args) => ({
+    props: args,
+    moduleMetadata: { imports: [ElChip] },
+    template: `<el-chip [type]="type" [appearance]="appearance" [color]="color">Active</el-chip>`,
+  }),
+};
+
+export const ColorError: Story = {
+  args: { type: 'suggestion', appearance: 'filled', color: 'error' },
+  render: (args) => ({
+    props: args,
+    moduleMetadata: { imports: [ElChip] },
+    template: `<el-chip [type]="type" [appearance]="appearance" [color]="color">Failed</el-chip>`,
+  }),
+};
+
+export const ColorWarning: Story = {
+  args: { type: 'suggestion', appearance: 'filled', color: 'warning' },
+  render: (args) => ({
+    props: args,
+    moduleMetadata: { imports: [ElChip] },
+    template: `<el-chip [type]="type" [appearance]="appearance" [color]="color">Pending</el-chip>`,
+  }),
+};
+
+export const ColorInfo: Story = {
+  args: { type: 'suggestion', appearance: 'filled', color: 'info' },
+  render: (args) => ({
+    props: args,
+    moduleMetadata: { imports: [ElChip] },
+    template: `<el-chip [type]="type" [appearance]="appearance" [color]="color">New</el-chip>`,
+  }),
+};
+
+export const ColorSet: Story = {
+  render: () => ({
+    moduleMetadata: { imports: [ElChip] },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+          <el-chip type="suggestion" appearance="outlined">Neutral</el-chip>
+          <el-chip type="suggestion" appearance="outlined" color="success">Success</el-chip>
+          <el-chip type="suggestion" appearance="outlined" color="error">Error</el-chip>
+          <el-chip type="suggestion" appearance="outlined" color="warning">Warning</el-chip>
+          <el-chip type="suggestion" appearance="outlined" color="info">Info</el-chip>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+          <el-chip type="suggestion" appearance="filled">Neutral</el-chip>
+          <el-chip type="suggestion" appearance="filled" color="success">Success</el-chip>
+          <el-chip type="suggestion" appearance="filled" color="error">Error</el-chip>
+          <el-chip type="suggestion" appearance="filled" color="warning">Warning</el-chip>
+          <el-chip type="suggestion" appearance="filled" color="info">Info</el-chip>
+        </div>
+      </div>
+    `,
+  }),
 };
 
 export const ChipSet: Story = {

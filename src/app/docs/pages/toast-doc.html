@@ -1,0 +1,77 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Toast</h1>
+    <p class="docs-lead">
+      Overlay notifications. Place <code>el-toaster</code> once in the app
+      shell, then call <code>ElToastService.show()</code>. Requires the icon
+      component.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
+    <code>npx @ng-elemental/cli add icon</code>, then
+    <code>npx @ng-elemental/cli add toast</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-toaster />
+      <div class="docs-row">
+        <el-button (click)="show('neutral')">Neutral</el-button>
+        <el-button (click)="show('success')">Success</el-button>
+        <el-button (click)="show('error')">Error</el-button>
+        <el-button (click)="show('warning')">Warning</el-button>
+        <el-button (click)="show('info')">Info</el-button>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      The service owns the toast list and timers. <code>el-toast</code> is
+      presentational only — use it directly when you need a static snackbar, or
+      let the toaster render the stack.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Presentational toast</h3>
+    <app-preview>
+      <div class="docs-stack">
+        <el-toast color="success" title="Saved">Your changes were written.</el-toast>
+        <el-toast color="error" title="Could not save">Check your connection.</el-toast>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Neutral toasts use inverse surface. Semantic colors use the matching
+      container roles. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <p>
+      Shared by <code>el-toast</code>, <code>el-toaster</code>, and
+      <code>ElToastService.show()</code>.
+    </p>
+    <app-props-table [props]="props" />
+  </section>
+</article>

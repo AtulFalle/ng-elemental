@@ -269,6 +269,61 @@
             "input": "packages/ui/src/lib/pagination",
             "output": "registry/pagination"
           },
+          {
+            "glob": "skeleton.{ts,html,scss}",
+            "input": "packages/ui/src/lib/skeleton",
+            "output": "registry/skeleton"
+          },
+          {
+            "glob": "skeleton-cover.{ts,scss}",
+            "input": "packages/ui/src/lib/skeleton",
+            "output": "registry/skeleton"
+          },
+          {
+            "glob": "skeleton-target.ts",
+            "input": "packages/ui/src/lib/skeleton",
+            "output": "registry/skeleton"
+          },
+          {
+            "glob": "breadcrumb.{ts,html,scss}",
+            "input": "packages/ui/src/lib/breadcrumb",
+            "output": "registry/breadcrumb"
+          },
+          {
+            "glob": "breadcrumb-item.{ts,html,scss}",
+            "input": "packages/ui/src/lib/breadcrumb",
+            "output": "registry/breadcrumb"
+          },
+          {
+            "glob": "tooltip.ts",
+            "input": "packages/ui/src/lib/tooltip",
+            "output": "registry/tooltip"
+          },
+          {
+            "glob": "tooltip-bubble.{ts,html,scss}",
+            "input": "packages/ui/src/lib/tooltip",
+            "output": "registry/tooltip"
+          },
+          {
+            "glob": "alert.{ts,html,scss}",
+            "input": "packages/ui/src/lib/alert",
+            "output": "registry/alert"
+          },
+          {
+            "glob": "toast.{ts,html,scss}",
+            "input": "packages/ui/src/lib/toast",
+            "output": "registry/toast"
+          },
+          {
+            "glob": "toaster.{ts,html,scss}",
+            "input": "packages/ui/src/lib/toast",
+            "output": "registry/toast"
+          },
+          {
+            "glob": "toast.service.ts",
+            "input": "packages/ui/src/lib/toast",
+            "output": "registry/toast"
+          },
 
           {
             "glob": "tabs.{ts,html,scss}",

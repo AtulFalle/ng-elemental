@@ -1,0 +1,95 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Breadcrumb</h1>
+    <p class="docs-lead">
+      Navigation trail for the current page. The last item hides its separator
+      automatically. Requires the icon component for the chevron.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
+    <code>npx @ng-elemental/cli add icon</code>, then
+    <code>npx @ng-elemental/cli add breadcrumb</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-breadcrumb ariaLabel="Breadcrumb">
+        <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+        <el-breadcrumb-item href="/components">Components</el-breadcrumb-item>
+        <el-breadcrumb-item current>Chip</el-breadcrumb-item>
+      </el-breadcrumb>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Use <code>href</code> for plain links. Omit it and project an
+      <code>a routerLink</code> when you need the Angular router. Mark the last
+      crumb with <code>current</code>.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Current page</h3>
+    <app-preview>
+      <el-breadcrumb>
+        <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+        <el-breadcrumb-item current>Overview</el-breadcrumb-item>
+      </el-breadcrumb>
+    </app-preview>
+
+    <h3>Custom link content</h3>
+    <app-preview>
+      <el-breadcrumb>
+        <el-breadcrumb-item>
+          <a href="/docs">Docs</a>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>
+      </el-breadcrumb>
+    </app-preview>
+
+    <h3>Long labels</h3>
+    <app-preview>
+      <div style="max-width: 22rem; width: 100%;">
+        <el-breadcrumb>
+          <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+          <el-breadcrumb-item href="/workspace">Product documentation</el-breadcrumb-item>
+          <el-breadcrumb-item current>
+            Quarterly planning notes for the North American regional strategy review
+          </el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+    </app-preview>
+    <p>
+      Long crumb labels truncate with an ellipsis instead of a horizontal scrollbar.
+    </p>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

@@ -11,6 +11,7 @@ import { ElIcon } from '../icon/icon';
 
 export type ElChipType = 'assist' | 'filter' | 'suggestion';
 export type ElChipAppearance = 'outlined' | 'filled' | 'elevated';
+export type ElChipColor = 'neutral' | 'success' | 'error' | 'warning' | 'info';
 
 @Component({
   selector: 'el-chip',
@@ -25,6 +26,7 @@ export type ElChipAppearance = 'outlined' | 'filled' | 'elevated';
 export class ElChip {
   readonly type = input<ElChipType>('assist');
   readonly appearance = input<ElChipAppearance>('outlined');
+  readonly color = input<ElChipColor>('neutral');
   /** Font Awesome icon name for the start icon (without `fa-` prefix). */
   readonly iconStart = input('');
   readonly selected = model(false);
@@ -65,6 +67,7 @@ export class ElChip {
     'el-chip--selected': this.isSelected(),
     'el-chip--disabled': this.disabled(),
     'el-chip--with-icon-start': !!this.startIconName(),
+    [`el-chip--${this.color()}`]: this.color() !== 'neutral',
   }));
 
   protected onChipClick(): void {

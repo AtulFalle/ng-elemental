@@ -1,0 +1,44 @@
+:host(.el-toaster) {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  width: min(24rem, calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+:host(.el-toaster--top-start) {
+  inset-block-start: var(--el-space-4);
+  inset-inline-start: var(--el-space-4);
+}
+
+:host(.el-toaster--top-end) {
+  inset-block-start: var(--el-space-4);
+  inset-inline-end: var(--el-space-4);
+}
+
+:host(.el-toaster--bottom-start) {
+  inset-block-end: var(--el-space-4);
+  inset-inline-start: var(--el-space-4);
+}
+
+:host(.el-toaster--bottom-end) {
+  inset-block-end: var(--el-space-4);
+  inset-inline-end: var(--el-space-4);
+}
+
+.el-toaster__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--el-space-2);
+  width: 100%;
+}
+
+:host(.el-toaster--top-start) .el-toaster__stack,
+:host(.el-toaster--top-end) .el-toaster__stack {
+  justify-content: flex-start;
+}
+
+:host(.el-toaster--bottom-start) .el-toaster__stack,
+:host(.el-toaster--bottom-end) .el-toaster__stack {
+  justify-content: flex-end;
+}
