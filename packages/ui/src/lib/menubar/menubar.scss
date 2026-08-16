@@ -1,0 +1,30 @@
+:host(.el-menubar-host) {
+  display: block;
+  min-width: 0;
+}
+
+.el-menubar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.125rem;
+  border: var(--el-border-width) solid var(--el-color-outline-variant);
+  border-radius: var(--el-radius-xs);
+  background: var(--el-color-surface);
+  font-family: var(--el-font-sans);
+
+  &--sm {
+    min-height: 2rem;
+  }
+
+  &--md {
+    min-height: 2.5rem;
+  }
+
+  &--lg {
+    min-height: 3rem;
+  }
+}

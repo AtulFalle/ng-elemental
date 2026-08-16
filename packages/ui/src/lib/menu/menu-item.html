@@ -1,0 +1,21 @@
+<div [class]="rootClass()">
+  @if (type() === 'checkbox' || type() === 'radio') {
+    <el-icon
+      class="el-menu-item__check"
+      [class.el-menu-item__check--on]="checked()"
+      name="check"
+      size="sm"
+    />
+  } @else if (icon()) {
+    <el-icon class="el-menu-item__icon" [name]="icon()" size="sm" />
+  } @else {
+    <span class="el-menu-item__icon-slot"></span>
+  }
+  <span class="el-menu-item__label"><ng-content /></span>
+  @if (shortcut()) {
+    <kbd class="el-menu-item__shortcut">{{ shortcut() }}</kbd>
+  }
+  @if (isSubmenuTrigger()) {
+    <el-icon class="el-menu-item__chevron" name="chevron-right" size="sm" />
+  }
+</div>

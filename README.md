@@ -106,7 +106,7 @@ Change `componentsDir` during `init` (`--path` or the interactive prompt) if you
 | `npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]` | Create config, prompt for the components path, and install theme tokens |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `alert`, `toast`, `segmented-button`.
+Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `menu`, `menubar`, `popover`, `alert`, `toast`, `segmented-button`.
 
 Use `--force` to overwrite an existing component folder.
 
@@ -541,7 +541,14 @@ Stacked rows with optional leading media, title, description, and trailing meta.
 | `appearance` | `outlined` \| `plain` | `outlined` | Bordered surface or flush rows |
 | `size` | `sm` \| `md` \| `lg` | `md` | Density |
 | `divided` | `boolean` | `true` | Hairline separators |
+| `virtual` | `boolean` | `false` | Windowed rows from `[items]` (fixed `itemHeight`; set a max-height) |
+| `items` | `object[]` | `[]` | Data for virtual mode |
+| `track` | `string` | `id` | Identity property in virtual mode |
+| `itemHeight` | `number` | `56` | Fixed row height in pixels |
+| `overscan` | `number` | `5` | Extra rows above and below the viewport |
 | `ariaLabel` | `string` | — | Accessible name |
+
+Virtual lists use `<ng-template elListItemDef let-item>` instead of projected rows. Requires a bounded height on `el-list`.
 
 **`el-list-item`**
 
@@ -559,6 +566,95 @@ Stacked rows with optional leading media, title, description, and trailing meta.
 | `elListTrailing` | Meta, chip, or action |
 
 Unslotted content lands in the body. Optional compose with `avatar`, `icon`, `chip`, `button`.
+
+### Menu (`el-menu`)
+
+Command menu with nested panels. Requires `icon` (and usually `button` for the trigger). Use Popover for arbitrary content and Tooltip for short hover text.
+
+```html
+<el-menu ariaLabel="Actions">
+  <el-button elMenuTrigger variant="secondary">Actions</el-button>
+  <el-menu-panel>
+    <el-menu-item icon="scissors">Cut</el-menu-item>
+    <el-menu>
+      <el-menu-item elMenuTrigger>Share</el-menu-item>
+      <el-menu-panel>
+        <el-menu-item>Email</el-menu-item>
+      </el-menu-panel>
+    </el-menu>
+    <el-menu-separator />
+    <el-menu-item variant="danger">Delete</el-menu-item>
+  </el-menu-panel>
+</el-menu>
+```
+
+**`el-menu`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `false` | Open state (`model`) |
+| `trigger` | `click` \| `contextmenu` | `click` | Click toggle or pointer-anchored context menu |
+| `disabled` | `boolean` | `false` | Blocks opening |
+| `ariaLabel` | `string` | — | Accessible name |
+
+**`el-menu-item`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `type` | `item` \| `checkbox` \| `radio` | `item` | Command or parent-owned check |
+| `checked` | `boolean` | `false` | Parent-owned check |
+| `icon` | `string` | `''` | Leading Font Awesome name |
+| `shortcut` | `string` | `''` | Display-only hint |
+| `variant` | `default` \| `danger` | `default` | Danger uses error color |
+| `disabled` | `boolean` | `false` | Dim and block activation |
+
+Emits `selected`. Nested `el-menu` + `elMenuTrigger` on an item opens a submenu.
+
+### Menubar (`el-menubar`)
+
+Horizontal application bar that owns which top-level menu is open. Requires `menu`, `icon`, and `button`.
+
+```html
+<el-menubar ariaLabel="Application">
+  <el-menu>
+    <el-button elMenuTrigger variant="ghost" size="sm">File</el-button>
+    <el-menu-panel>
+      <el-menu-item>New</el-menu-item>
+    </el-menu-panel>
+  </el-menu>
+</el-menubar>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `sm` \| `md` \| `lg` | `md` | Bar density |
+| `ariaLabel` | `string` | — | Accessible name |
+
+### Popover (`el-popover`)
+
+Floating overlay for arbitrary content. Not a menu and not a tooltip.
+
+```html
+<el-popover>
+  <el-button elPopoverTrigger>Details</el-button>
+  <el-popover-panel>
+    <span elPopoverTitle>Assignee</span>
+    Ada Lovelace
+  </el-popover-panel>
+</el-popover>
+```
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `false` | Open state (`model`) |
+| `position` | `top` \| `bottom` \| `start` \| `end` | `bottom` | Preferred placement; overflow flips |
+| `trigger` | `click` \| `hover` | `click` | Click toggle or hover-card |
+| `modal` | `boolean` | `false` | Backdrop and focus into the panel |
+| `arrow` | `boolean` | `true` | Arrow toward the trigger |
+| `disabled` | `boolean` | `false` | Prevents opening |
+| `ariaLabel` | `string` | — | Name when there is no title slot |
+
+`elPopoverClose` on a control dismisses the panel.
 
 ### Infinite Scroll (`[elInfiniteScroll]`)
 

@@ -17,6 +17,8 @@ describe('add list e2e', () => {
       expect(listTs).toContain('divided');
       expect(listTs).toContain("ElListAppearance = 'outlined' | 'plain'");
       expect(listTs).toContain("export { ElListItem }");
+      expect(listTs).toContain('ElListItemDef');
+      expect(listTs).toContain('virtual');
       expect(listTs).toContain("role: 'list'");
       expect(listTs).toContain("'el-list': true");
 
@@ -34,6 +36,21 @@ describe('add list e2e', () => {
         'utf8',
       );
       expect(listHtml).toContain('<ng-content');
+      expect(listHtml).toContain('elListItemDef');
+      expect(listHtml).toContain('virtual()');
+
+      const itemDefTs = await readFile(
+        componentUiPath(tmp, 'list', 'list-item-def.ts'),
+        'utf8',
+      );
+      expect(itemDefTs).toContain('ng-template[elListItemDef]');
+      expect(itemDefTs).toContain('export class ElListItemDef');
+
+      const virtualTs = await readFile(
+        componentUiPath(tmp, 'list', 'list-virtual.ts'),
+        'utf8',
+      );
+      expect(virtualTs).toContain('listVirtualWindow');
 
       const itemHtml = await readFile(
         componentUiPath(tmp, 'list', 'list-item.html'),

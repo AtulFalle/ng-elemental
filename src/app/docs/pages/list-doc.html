@@ -5,7 +5,8 @@
       Vertical collection of rows with optional leading media, title,
       description, and trailing meta. Pair with
       <a routerLink="/components/infinite-scroll">Infinite Scroll</a>
-      for paginated feeds.
+      for paginated feeds. Pass <code>virtual</code> with
+      <code>[items]</code> and <code>elListItemDef</code> for long lists.
     </p>
   </header>
 
@@ -95,6 +96,35 @@
       </el-list>
     </app-preview>
     <app-code-block [code]="interactiveCode" language="html" />
+
+    <h3>Virtual</h3>
+    <p>
+      Set a max-height on <code>el-list</code>. Rows use a fixed
+      <code>itemHeight</code>. The parent still owns selection.
+    </p>
+    <app-preview>
+      <el-list
+        virtual
+        [items]="virtualPeople"
+        track="id"
+        [itemHeight]="56"
+        ariaLabel="Virtual people"
+        style="max-height: 16rem; max-width: 24rem; width: 100%"
+      >
+        <ng-template elListItemDef let-person>
+          <el-list-item interactive>
+            <el-avatar
+              elListLeading
+              [initials]="person.initials"
+              [alt]="person.name"
+            />
+            <span elListTitle>{{ person.name }}</span>
+            <span elListDescription>{{ person.role }}</span>
+          </el-list-item>
+        </ng-template>
+      </el-list>
+    </app-preview>
+    <app-code-block [code]="virtualCode" language="html" />
 
     <h3>Trailing actions</h3>
     <app-preview>

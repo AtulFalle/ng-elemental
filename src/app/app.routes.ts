@@ -169,6 +169,21 @@ export const appRoutes: Route[] = [
           import('./docs/pages/tooltip-doc').then((m) => m.TooltipDocPage),
       },
       {
+        path: 'components/menu',
+        loadComponent: () =>
+          import('./docs/pages/menu-doc').then((m) => m.MenuDocPage),
+      },
+      {
+        path: 'components/menubar',
+        loadComponent: () =>
+          import('./docs/pages/menubar-doc').then((m) => m.MenubarDocPage),
+      },
+      {
+        path: 'components/popover',
+        loadComponent: () =>
+          import('./docs/pages/popover-doc').then((m) => m.PopoverDocPage),
+      },
+      {
         path: 'components/alert',
         loadComponent: () =>
           import('./docs/pages/alert-doc').then((m) => m.AlertDocPage),

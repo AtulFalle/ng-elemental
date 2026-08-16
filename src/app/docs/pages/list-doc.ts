@@ -7,6 +7,7 @@ import {
   ElIcon,
   ElList,
   ElListItem,
+  ElListItemDef,
   type ElListSize,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
@@ -25,6 +26,7 @@ import { PropsTable } from '../ui/props-table';
     ElIcon,
     ElList,
     ElListItem,
+    ElListItemDef,
     CodeBlock,
     Preview,
     PropsTable,
@@ -40,6 +42,13 @@ export class ListDocPage {
     { id: 'grace', name: 'Grace Hopper', initials: 'GH', role: 'Rear Admiral' },
     { id: 'alan', name: 'Alan Turing', initials: 'AT', role: 'Computer scientist' },
   ];
+
+  protected readonly virtualPeople = Array.from({ length: 500 }, (_, i) => ({
+    id: String(i + 1),
+    name: `Person ${i + 1}`,
+    initials: `P${(i % 99) + 1}`,
+    role: i % 2 === 0 ? 'Engineer' : 'Designer',
+  }));
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add list
@@ -87,6 +96,21 @@ export class MyComponent {}`;
   }
 </el-list>`;
 
+  protected readonly virtualCode = `<el-list
+  virtual
+  [items]="people"
+  track="id"
+  [itemHeight]="56"
+  ariaLabel="People"
+  style="max-height: 16rem"
+>
+  <ng-template elListItemDef let-person>
+    <el-list-item interactive>
+      <span elListTitle>{{ person.name }}</span>
+    </el-list-item>
+  </ng-template>
+</el-list>`;
+
   protected readonly scopedTokensCode = `.inbox-panel {
   --el-color-primary: #059669;
   --el-color-on-primary: #ffffff;
@@ -116,6 +140,36 @@ export class MyComponent {}`;
       type: 'string',
       default: '—',
       description: 'Accessible name for the list.',
+    },
+    {
+      name: 'virtual',
+      type: 'boolean',
+      default: 'false',
+      description: 'Render a window of items from [items]. Requires a max-height on the host.',
+    },
+    {
+      name: 'items',
+      type: 'readonly object[]',
+      default: '[]',
+      description: 'Data for virtual mode.',
+    },
+    {
+      name: 'track',
+      type: 'string',
+      default: "'id'",
+      description: 'Property used as the row identity in virtual mode.',
+    },
+    {
+      name: 'itemHeight',
+      type: 'number',
+      default: '56',
+      description: 'Fixed row height in pixels for the virtual window.',
+    },
+    {
+      name: 'overscan',
+      type: 'number',
+      default: '5',
+      description: 'Extra rows rendered above and below the viewport.',
     },
   ];
 

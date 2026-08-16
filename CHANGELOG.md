@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ElTooltip` hover/focus directive with `ElTooltipBubble` and an arrow toward the trigger (`ng-elemental add tooltip`)
 - `ElAlert` inline status banner (`ng-elemental add alert`; requires `icon`)
 - `ElToast`, `ElToaster`, and `ElToastService` overlay notifications (`ng-elemental add toast`; requires `icon`)
+- `ElMenu`, `ElMenuPanel`, and `ElMenuItem` with nested submenus and a context-menu trigger (`ng-elemental add menu`; requires `icon`)
+- `ElMenubar` application menu bar (`ng-elemental add menubar`; requires `menu`, `icon`, and `button`)
+- `ElPopover` positioned overlay for arbitrary content (`ng-elemental add popover`)
+- `ElList` optional virtual window (`virtual`, `[items]`, `elListItemDef`)
 
 ## [0.0.8] - 2026-08-16
 

@@ -1,0 +1,13 @@
+@if (menu.isOpen()) {
+  <div
+    #panel
+    class="el-menu-panel"
+    role="menu"
+    [id]="menu.panelId"
+    [attr.aria-label]="menu.ariaLabel() || null"
+    [style.left.px]="left()"
+    [style.top.px]="top()"
+  >
+    <ng-content />
+  </div>
+}

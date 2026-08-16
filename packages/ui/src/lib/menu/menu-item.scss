@@ -1,0 +1,106 @@
+:host(.el-menu-item-host) {
+  display: block;
+  outline: none;
+}
+
+:host(.el-menu-item-host--disabled) {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.el-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: var(--el-radius-xs);
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: start;
+  cursor: pointer;
+
+  &--disabled {
+    color: var(--el-color-disabled);
+    cursor: not-allowed;
+  }
+
+  &--active {
+    background: var(--el-color-hover);
+  }
+
+  &--danger {
+    color: var(--el-color-error);
+  }
+
+  &--danger#{&}--active {
+    background: var(--el-color-error-container);
+    color: var(--el-color-on-error-container);
+  }
+
+  &__icon,
+  &__check,
+  &__icon-slot,
+  &__chevron {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &__check {
+    visibility: hidden;
+  }
+
+  &__check--on {
+    visibility: visible;
+  }
+
+  &__label {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__shortcut {
+    flex-shrink: 0;
+    padding: 0.0625rem 0.25rem;
+    border: var(--el-border-width) solid var(--el-color-outline-variant);
+    border-radius: var(--el-radius-xs);
+    background: var(--el-color-surface-container);
+    color: var(--el-color-on-surface-variant);
+    font-family: var(--el-font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  &__chevron {
+    margin-inline-start: auto;
+    color: var(--el-color-on-surface-variant);
+  }
+}
+
+:host(.el-menu-item-host:hover) .el-menu-item {
+  background: var(--el-color-hover);
+}
+
+:host(.el-menu-item-host--danger:hover) .el-menu-item {
+  background: var(--el-color-error-container);
+  color: var(--el-color-on-error-container);
+}
+
+:host(.el-menu-item-host:focus-visible) .el-menu-item {
+  outline: var(--el-border-width-thick) solid var(--el-color-primary);
+  outline-offset: -2px;
+}

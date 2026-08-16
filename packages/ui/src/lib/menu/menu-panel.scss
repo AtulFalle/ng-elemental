@@ -1,0 +1,20 @@
+:host(.el-menu-panel-host) {
+  display: contents;
+}
+
+.el-menu-panel {
+  position: fixed;
+  z-index: 1000;
+  box-sizing: border-box;
+  min-width: 10rem;
+  max-width: 18rem;
+  max-height: min(24rem, calc(100vh - 1rem));
+  overflow: auto;
+  padding: 0.25rem;
+  border: var(--el-border-width) solid var(--el-color-outline-variant);
+  border-radius: var(--el-radius-xs);
+  background: var(--el-color-surface);
+  color: var(--el-color-on-surface);
+  box-shadow: var(--el-shadow-3);
+  font-family: var(--el-font-sans);
+}

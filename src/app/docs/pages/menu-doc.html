@@ -1,0 +1,153 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Menu</h1>
+    <p class="docs-lead">
+      Command menu with a floating panel, nested submenus, and an optional
+      context-menu trigger. Use
+      <a routerLink="/components/menubar">Menubar</a> for a persistent
+      application bar, and
+      <a routerLink="/components/popover">Popover</a> for arbitrary content —
+      not commands. Short hover text stays on
+      <a routerLink="/components/tooltip">Tooltip</a>.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add menu</code>
+    (requires <code>icon</code> and usually <code>button</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div style="min-height: 12rem">
+        <el-menu ariaLabel="Actions">
+          <el-button elMenuTrigger variant="secondary">Actions</el-button>
+          <el-menu-panel>
+            <el-menu-item icon="scissors" shortcut="Ctrl+X">Cut</el-menu-item>
+            <el-menu-item icon="copy" shortcut="Ctrl+C">Copy</el-menu-item>
+            <el-menu>
+              <el-menu-item elMenuTrigger>Share</el-menu-item>
+              <el-menu-panel>
+                <el-menu-item icon="envelope">Email</el-menu-item>
+                <el-menu-item icon="link">Copy link</el-menu-item>
+              </el-menu-panel>
+            </el-menu>
+            <el-menu-separator />
+            <el-menu-item variant="danger" icon="trash">Delete</el-menu-item>
+          </el-menu-panel>
+        </el-menu>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      <code>el-menu</code> is a controller with no chrome. Project a trigger
+      with <code>elMenuTrigger</code> and items into <code>el-menu-panel</code>.
+      Nest another <code>el-menu</code> for a submenu. Escape, outside click,
+      and Tab close the tree. Checkbox and radio items emit
+      <code>selected</code>; the parent owns <code>checked</code>.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Checkbox and radio</h3>
+    <app-preview>
+      <div style="min-height: 12rem">
+        <el-menu ariaLabel="View">
+          <el-button elMenuTrigger variant="secondary">View</el-button>
+          <el-menu-panel>
+            <el-menu-label>Style</el-menu-label>
+            <el-menu-item
+              type="checkbox"
+              [checked]="bold()"
+              (selected)="bold.set(!bold())"
+            >
+              Bold
+            </el-menu-item>
+            <el-menu-item
+              type="checkbox"
+              [checked]="italic()"
+              (selected)="italic.set(!italic())"
+            >
+              Italic
+            </el-menu-item>
+            <el-menu-separator />
+            <el-menu-label>Align</el-menu-label>
+            <el-menu-item
+              type="radio"
+              [checked]="align() === 'start'"
+              (selected)="align.set('start')"
+            >
+              Start
+            </el-menu-item>
+            <el-menu-item
+              type="radio"
+              [checked]="align() === 'center'"
+              (selected)="align.set('center')"
+            >
+              Center
+            </el-menu-item>
+            <el-menu-item
+              type="radio"
+              [checked]="align() === 'end'"
+              (selected)="align.set('end')"
+            >
+              End
+            </el-menu-item>
+          </el-menu-panel>
+        </el-menu>
+      </div>
+    </app-preview>
+
+    <h3>Context menu</h3>
+    <app-preview>
+      <el-menu trigger="contextmenu" ariaLabel="Canvas">
+        <div
+          elMenuTrigger
+          style="display:flex;align-items:center;justify-content:center;min-height:8rem;width:100%;border:var(--el-border-width) dashed var(--el-color-outline);border-radius:var(--el-radius-md);color:var(--el-color-on-surface-variant)"
+        >
+          Right-click this area
+        </div>
+        <el-menu-panel>
+          <el-menu-item icon="scissors">Cut</el-menu-item>
+          <el-menu-item icon="copy">Copy</el-menu-item>
+          <el-menu-separator />
+          <el-menu-item variant="danger">Delete</el-menu-item>
+        </el-menu-panel>
+      </el-menu>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-menu</h3>
+    <app-props-table [props]="menuProps" />
+    <h3>el-menu-item</h3>
+    <app-props-table [props]="itemProps" />
+    <h3>Outputs</h3>
+    <app-props-table [props]="itemOutputs" />
+  </section>
+</article>

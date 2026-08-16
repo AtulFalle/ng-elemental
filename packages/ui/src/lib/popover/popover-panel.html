@@ -1,0 +1,34 @@
+@if (popover.modal() && popover.open()) {
+  <div class="el-popover-backdrop"></div>
+}
+@if (popover.open()) {
+  <div
+    #panel
+    class="el-popover-panel"
+    [class.el-popover-panel--arrow]="popover.arrow()"
+    [class.el-popover-panel--top]="resolved() === 'top'"
+    [class.el-popover-panel--bottom]="resolved() === 'bottom'"
+    [class.el-popover-panel--start]="resolved() === 'start'"
+    [class.el-popover-panel--end]="resolved() === 'end'"
+    role="dialog"
+    [id]="popover.panelId"
+    [attr.aria-modal]="popover.modal() || null"
+    [attr.aria-label]="popover.ariaLabel() || null"
+    [style.left.px]="left()"
+    [style.top.px]="top()"
+    [style.--el-popover-arrow]="arrowOffset()"
+    tabindex="-1"
+    (pointerenter)="onPanelEnter()"
+    (pointerleave)="onPanelLeave($event)"
+  >
+    <div class="el-popover-panel__title">
+      <ng-content select="[elPopoverTitle]" />
+    </div>
+    <div class="el-popover-panel__body">
+      <ng-content />
+    </div>
+    @if (popover.arrow()) {
+      <span class="el-popover-panel__arrow" aria-hidden="true"></span>
+    }
+  </div>
+}
