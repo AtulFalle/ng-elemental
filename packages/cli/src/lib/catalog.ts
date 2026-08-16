@@ -705,6 +705,76 @@ this.toast.show('Saved', { color: 'success' });`,
     category: 'components',
   },
   {
+    name: 'empty-state',
+    kind: 'component',
+    title: 'Empty State',
+    description: 'Placeholder with icon, copy, and action slots when a view has no data.',
+    keywords: ['empty', 'blank', 'placeholder', 'no results', 'zero state'],
+    selectors: ['el-empty-state'],
+    classNames: ['ElEmptyState'],
+    usage: `<el-empty-state icon="folder-open" title="No projects" description="Create a project to get started.">
+  <div elEmptyStateActions>
+    <el-button>Create project</el-button>
+  </div>
+</el-empty-state>`,
+    registryDependencies: ['icon'],
+    npmDependencies: [],
+    docsPath: '/components/empty-state',
+    category: 'components',
+  },
+  {
+    name: 'snackbar',
+    kind: 'component',
+    title: 'Snackbar',
+    description: 'Single action bar with optional projected bulk controls, or ElSnackbarService.open().',
+    keywords: ['snackbar', 'action bar', 'undo', 'bulk', 'service'],
+    selectors: ['el-snackbar'],
+    classNames: ['ElSnackbar', 'ElSnackbarService'],
+    usage: `<el-snackbar [(open)]="open" message="File deleted" action="Undo" (actionClick)="undo()" />
+this.snackbar.open('File deleted', { action: 'Undo', duration: 4000 });`,
+    registryDependencies: ['icon'],
+    npmDependencies: [],
+    docsPath: '/components/snackbar',
+    category: 'components',
+  },
+  {
+    name: 'sheet',
+    kind: 'component',
+    title: 'Sheet',
+    description: 'Edge panel with slots, or ElSheetService.open() for a custom component.',
+    keywords: ['sheet', 'bottom sheet', 'panel', 'overlay', 'service'],
+    selectors: ['el-sheet'],
+    classNames: ['ElSheet', 'ElSheetClose', 'ElSheetService'],
+    usage: `<el-sheet [(open)]="open" title="Filters" side="bottom" size="md">
+  <div elSheetContent>…</div>
+  <div elSheetFooter>
+    <el-button elSheetClose variant="ghost">Cancel</el-button>
+  </div>
+</el-sheet>
+this.sheet.open(EditFilters, { data: { userId: 1 }, title: 'Filters', side: 'bottom' });`,
+    registryDependencies: ['icon'],
+    npmDependencies: [],
+    docsPath: '/components/sheet',
+    category: 'components',
+  },
+  {
+    name: 'drawer',
+    kind: 'component',
+    title: 'Drawer',
+    description: 'Side panel with slots, focus trap, and ElDrawerService.open() for a custom component.',
+    keywords: ['drawer', 'sidebar', 'navigation', 'panel', 'overlay', 'service'],
+    selectors: ['el-drawer'],
+    classNames: ['ElDrawer', 'ElDrawerClose', 'ElDrawerService'],
+    usage: `<el-drawer [(open)]="open" title="Navigation" side="left" size="md">
+  <div elDrawerContent>…</div>
+</el-drawer>
+this.drawer.open(WorkspaceDrawer, { title: 'Navigation', side: 'left' });`,
+    registryDependencies: ['icon'],
+    npmDependencies: [],
+    docsPath: '/components/drawer',
+    category: 'components',
+  },
+  {
     name: 'tabs',
     kind: 'component',
     title: 'Tabs',

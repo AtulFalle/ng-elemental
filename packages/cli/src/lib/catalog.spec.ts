@@ -42,7 +42,8 @@ describe('component catalog', () => {
   it('maps intent keywords to the right components', () => {
     expect(searchCatalog('dropdown').map((entry) => entry.name)).toContain('select');
     expect(searchCatalog('modal').map((entry) => entry.name)).toContain('dialog');
-    expect(searchCatalog('snackbar').map((entry) => entry.name)).toContain('toast');
+    expect(searchCatalog('snackbar').map((entry) => entry.name)[0]).toBe('snackbar');
+    expect(searchCatalog('notification').map((entry) => entry.name)).toContain('toast');
     expect(searchCatalog('switch').map((entry) => entry.name)).toContain('slide-toggle');
   });
 
