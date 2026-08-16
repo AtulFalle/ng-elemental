@@ -11,9 +11,10 @@
     <h2>Before you begin</h2>
     <ul>
       <li>
-        <strong>Theme (required for typography &amp; tokens)</strong> — Geist
-        fonts are bundled with the theme package. Import <code>tokens.scss</code>
-        once; no extra font npm install.
+        <strong>Theme (installed by init)</strong> — Design tokens copy into
+        your components directory. Typography uses your app font; set
+        <code>--el-font-sans</code> and <code>--el-font-mono</code> in global
+        styles.
       </li>
       <li>
         <strong>Font Awesome (required for icons)</strong> — Only when using
@@ -27,44 +28,48 @@
   <section>
     <h2>1. Initialize the CLI</h2>
     <p>
-      Run <code>init</code> from your Angular project root. This creates
-      <code>elemental.json</code> and the default components directory.
+      Run <code>init</code> from your Angular project root. It asks where to
+      copy components (default <code>src/app/ui</code>) so Nx, Angular CLI, and
+      standalone layouts all work. Theme tokens install by default.
     </p>
     <app-code-block [code]="initCode" language="shell" />
     <p>
-      Use <code>--yes</code> to skip prompts. Use <code>add &lt;name&gt; --force</code>
-      to overwrite an existing component folder.
+      Use <code>--yes</code> to skip prompts. Use <code>--path</code> to set
+      the components directory without prompting. Use
+      <code>--skip-theme</code> if you will add theme later. Use
+      <code>add &lt;name&gt; --force</code> to overwrite an existing component
+      folder.
     </p>
   </section>
 
   <section>
     <h2>2. Configure output directory</h2>
     <p>
-      <code>elemental.json</code> controls where components are copied:
+      <code>elemental.json</code> records the path you chose:
     </p>
     <app-code-block [code]="configCode" language="json" />
     <p>
-      Change <code>componentsDir</code> before running <code>add</code> if you
-      prefer a different location.
+      Nx, <code>ng</code>, and standalone apps often keep UI source outside
+      <code>src/app/ui</code>. Set that path during <code>init</code> — later
+      <code>add</code> commands use the same folder.
     </p>
   </section>
 
   <section>
-    <h2>3. Add theme &amp; typography</h2>
+    <h2>3. Theme &amp; typography</h2>
     <p>
-      The theme package includes design tokens and bundled Geist fonts with
-      system-ui fallbacks. Add it and import <code>tokens.scss</code> once in
-      your global styles:
+      <code>init</code> copies tokens and, when it finds a global stylesheet,
+      appends an <code>@use</code> plus font comments. If you skipped theme,
+      add it later:
     </p>
     <app-code-block [code]="themeAddCode" language="shell" />
-    <p>Add <code>src/styles.scss</code> to your Angular styles configuration:</p>
+    <p>Ensure your Angular styles configuration includes a global stylesheet:</p>
     <app-code-block [code]="angularJsonNote" language="json" />
-    <p>Then load tokens (and optional overrides) in <code>src/styles.scss</code>:</p>
-    <app-code-block [code]="stylesCode" language="scss" />
     <p>
-      No separate font install is required — Geist ships with the theme. If font
-      files fail to load, components fall back to the system UI stack.
+      Tokens inherit the surrounding font. Load your brand typeface, then set
+      the CSS variables:
     </p>
+    <app-code-block [code]="stylesCode" language="scss" />
     <p>
       See <a routerLink="/theming">Theming</a> for editing BRAND colors, dark
       mode with <code>setMode</code>, and scoped overrides.
@@ -106,8 +111,8 @@
         </thead>
         <tbody>
           <tr>
-            <td><code>npx @ng-elemental/cli init [--yes]</code></td>
-            <td>Create config and components directory</td>
+            <td><code>npx @ng-elemental/cli init [--yes] [--path &lt;dir&gt;] [--skip-theme]</code></td>
+            <td>Create config, prompt for the components path, and install theme tokens</td>
           </tr>
           <tr>
             <td><code>npx @ng-elemental/cli add &lt;name&gt; [--force]</code></td>

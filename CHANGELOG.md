@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `init` prompts for the components directory (default `src/app/ui`) with `--path` for non-interactive and CI installs
+- `init` copies theme tokens by default and patches the global stylesheet with an `@use` plus typography comments
+
+### Changed
+
+- Theme no longer ships Geist font files. Consumers set `--el-font-sans` / `--el-font-mono` after loading their own typeface. Geist remains in this repo for docs and Storybook only.
+- `init --yes` skips prompts and still installs theme (`--skip-theme` to opt out)
+
 ## [0.0.7] - 2026-08-15
 
 ### Added

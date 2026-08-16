@@ -18,10 +18,16 @@ export class ThemeDocPage {
   protected readonly colorTokens = COLOR_TOKENS;
   protected readonly densityTokens = DENSITY_TOKENS;
 
-  protected readonly addCode = `npx @ng-elemental/cli add theme`;
+  protected readonly addCode = `npx @ng-elemental/cli init
+# or later: npx @ng-elemental/cli add theme`;
 
   protected readonly importTokensCode = `// src/styles.scss
-@use './app/ui/theme/tokens';`;
+@use './app/ui/theme/tokens';
+
+:root {
+  --el-font-sans: 'Inter', system-ui, sans-serif;
+  --el-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}`;
 
   protected readonly brandCode = `:root {
   --el-color-primary: light-dark(#6750a4, #d0bcff);

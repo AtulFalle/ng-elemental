@@ -21,14 +21,11 @@ From your Angular project:
 
 ```sh
 npx @ng-elemental/cli init
-npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add <component>
 ```
 
-Add `theme` first for design tokens, then copy only the components you need. See [CLI reference](#cli-reference) for available component names.
-
-`init` creates `elemental.json` and a components directory (default: `src/app/ui`).
+`init` asks where to copy components (default: `src/app/ui`) and installs theme tokens so widgets pick up color, spacing, and typography. Use `--yes` in CI, `--path <dir>` for Nx or custom layouts, and `--skip-theme` if you will add theme later.
 
 `add` copies the selected component into that directory:
 
@@ -60,7 +57,7 @@ export class App {}
 
 ## Theming
 
-Add `theme` to copy `tokens.scss` and optional `ElThemeService`. Import tokens once in global styles, then **edit the BRAND section** in `tokens.scss`:
+Add `theme` (included with `init`, or `npx @ng-elemental/cli add theme`) to copy `tokens.scss` and optional `ElThemeService`. Import tokens once in global styles, then **edit the BRAND section** in `tokens.scss`:
 
 ```scss
 @use './app/ui/theme/tokens';
@@ -77,13 +74,18 @@ Changing `--el-color-primary` updates buttons, chips, checkboxes, sliders, and o
 
 ## Typography
 
-Geist (UI) and Geist Mono (code) ship with the theme package — no separate font install. Import `tokens.scss` once and fonts load automatically. If bundled fonts are unavailable, components fall back to the system UI stack (`system-ui`, `Segoe UI`, `Roboto`, etc.).
+Widgets use `var(--el-font-sans)` and `var(--el-font-mono)`, which default to inherit / system fonts so they match the consumer app. Load your brand typeface (Google Fonts, `@fontsource`, or a self-hosted file) and point the tokens at it:
 
 ```scss
 @use './app/ui/theme/tokens';
+
+:root {
+  --el-font-sans: 'Inter', system-ui, sans-serif;
+  --el-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
 ```
 
-Override `--el-font-sans` or `--el-font-mono` on `:root` to use your own typeface.
+`init` appends this comment block to your global stylesheet when it finds one.
 
 ## Configuration
 
@@ -95,13 +97,13 @@ Override `--el-font-sans` or `--el-font-mono` on `:root` to use your own typefac
 }
 ```
 
-Change `componentsDir` before running `add` if you prefer a different location.
+Change `componentsDir` during `init` (`--path` or the interactive prompt) if you prefer a different location.
 
 ## CLI reference
 
 | Command | Description |
 | --- | --- |
-| `npx @ng-elemental/cli init [--yes]` | Create config and components directory |
+| `npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]` | Create config, prompt for the components path, and install theme tokens |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
 Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `avatar`, `card`, `list`, `infinite-scroll`, `tabs`, `segmented-button`.

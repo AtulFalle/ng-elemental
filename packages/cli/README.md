@@ -15,11 +15,13 @@ npx @ng-elemental/cli add button
 
 ### `init`
 
-Creates `elemental.json` and the components directory in the current Angular project.
+Creates `elemental.json`, asks where to copy components, and installs theme tokens.
 
 ```sh
 npx @ng-elemental/cli init
-npx @ng-elemental/cli init --yes   # non-interactive
+npx @ng-elemental/cli init --yes                 # non-interactive (default path, installs theme)
+npx @ng-elemental/cli init --path libs/ui --yes  # Nx / custom folder
+npx @ng-elemental/cli init --skip-theme          # tokens later via `add theme`
 ```
 
 Default config:
@@ -29,6 +31,8 @@ Default config:
   "componentsDir": "src/app/ui"
 }
 ```
+
+`init` also appends an `@use` of `theme/tokens` plus typography comments to `src/styles.scss` when that file exists. Load your brand typeface and set `--el-font-sans` / `--el-font-mono`.
 
 ### `add <component>`
 
@@ -83,7 +87,7 @@ export class MyComponent {}
 ## Requirements
 
 - Angular 22+
-- An existing Angular project (`@angular/core` in `package.json`, or `angular.json` / `project.json`)
+- An existing Angular project (`@angular/core` in package.json, or `angular.json` / `project.json`)
 
 ## Documentation
 

@@ -179,6 +179,7 @@ const COMPONENT_EXAMPLES: Record<
     className: 'ElThemeService',
     usage: `// styles.scss — @use './theme/tokens';
 // Open tokens.scss and edit the BRAND block (--el-color-primary, …)
+// Point --el-font-sans / --el-font-mono at your brand typeface
 // app.config.ts — provideElTheme({ mode: 'light' })`,
   },
 };
@@ -187,6 +188,11 @@ export interface AddOptions {
   cwd: string;
   name: string;
   force?: boolean;
+}
+
+export interface CopyRegistryOptions {
+  force?: boolean;
+  skipIfExists?: boolean;
 }
 
 export function addCommand(options: AddOptions): void {
@@ -198,21 +204,13 @@ export function addCommand(options: AddOptions): void {
   }
 
   const config = readConfig(cwd);
-  const destDir = join(cwd, config.componentsDir, name);
-  if (existsSync(destDir) && !force) {
-    throw new Error(
-      `${config.componentsDir}/${name} already exists. Use --force to overwrite.`,
+  if (name !== 'theme' && !existsSync(join(cwd, config.componentsDir, 'theme'))) {
+    console.warn(
+      'Warning: theme is not installed. Widgets will look unstyled. Run `npx @ng-elemental/cli add theme` or re-run init.',
     );
   }
 
-  const srcDir = getComponentRegistryDir(name);
-  if (!existsSync(srcDir)) {
-    throw new Error(
-      `Registry is missing component "${name}". Rebuild or reinstall @ng-elemental/cli.`,
-    );
-  }
-
-  copyComponentFiles(srcDir, destDir);
+  copyRegistryComponent(cwd, name, { force });
 
   const importPath = toAppImportPath(config.componentsDir, name);
   const example = COMPONENT_EXAMPLES[name as AvailableComponent];
@@ -225,6 +223,35 @@ export function addCommand(options: AddOptions): void {
   console.log('Then use:');
   console.log('');
   console.log(`  ${example.usage}`);
+}
+
+export function copyRegistryComponent(
+  cwd: string,
+  name: string,
+  options: CopyRegistryOptions = {},
+): boolean {
+  const config = readConfig(cwd);
+  const destDir = join(cwd, config.componentsDir, name);
+  if (existsSync(destDir)) {
+    if (options.skipIfExists) {
+      return false;
+    }
+    if (!options.force) {
+      throw new Error(
+        `${config.componentsDir}/${name} already exists. Use --force to overwrite.`,
+      );
+    }
+  }
+
+  const srcDir = getComponentRegistryDir(name);
+  if (!existsSync(srcDir)) {
+    throw new Error(
+      `Registry is missing component "${name}". Rebuild or reinstall @ng-elemental/cli.`,
+    );
+  }
+
+  copyComponentFiles(srcDir, destDir);
+  return true;
 }
 
 function copyComponentFiles(srcDir: string, destDir: string): void {
