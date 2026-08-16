@@ -185,6 +185,42 @@ export const COMPONENT_REGISTRY = [
     assetGlobs: ['pagination.{ts,html,scss}', 'pagination-utils.ts'],
     requiredBasenames: ['pagination', 'pagination-utils'],
   },
+  {
+    name: 'skeleton',
+    assetGlobs: [
+      'skeleton.{ts,html,scss}',
+      'skeleton-cover.{ts,scss}',
+      'skeleton-target.ts',
+    ],
+    requiredBasenames: ['skeleton', 'skeleton-cover', 'skeleton-target'],
+  },
+  {
+    name: 'breadcrumb',
+    assetGlobs: [
+      'breadcrumb.{ts,html,scss}',
+      'breadcrumb-item.{ts,html,scss}',
+    ],
+    requiredBasenames: ['breadcrumb', 'breadcrumb-item'],
+  },
+  {
+    name: 'tooltip',
+    assetGlobs: ['tooltip.ts', 'tooltip-bubble.{ts,html,scss}'],
+    requiredBasenames: ['tooltip', 'tooltip-bubble'],
+  },
+  {
+    name: 'alert',
+    assetGlobs: ['alert.{ts,html,scss}'],
+    requiredBasenames: ['alert'],
+  },
+  {
+    name: 'toast',
+    assetGlobs: [
+      'toast.{ts,html,scss}',
+      'toaster.{ts,html,scss}',
+      'toast.service.ts',
+    ],
+    requiredBasenames: ['toast', 'toaster', 'toast.service'],
+  },
 
   {
     name: 'tabs',

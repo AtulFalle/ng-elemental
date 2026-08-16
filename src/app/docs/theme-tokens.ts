@@ -41,6 +41,58 @@ export const COLOR_TOKENS: TokenDefinition[] = [
     description: 'Soft error surface (file-upload reject, attachment error).',
   },
   {
+    name: '--el-color-on-error-container',
+    description: 'Text on error-container surfaces.',
+  },
+  {
+    name: '--el-color-success',
+    description: 'Success and positive emphasis (chips, alerts, toasts).',
+  },
+  {
+    name: '--el-color-on-success',
+    description: 'Text on success fills.',
+  },
+  {
+    name: '--el-color-success-container',
+    description: 'Soft success surface.',
+  },
+  {
+    name: '--el-color-on-success-container',
+    description: 'Text on success-container surfaces.',
+  },
+  {
+    name: '--el-color-warning',
+    description: 'Warning and caution emphasis (chips, alerts, toasts).',
+  },
+  {
+    name: '--el-color-on-warning',
+    description: 'Text on warning fills.',
+  },
+  {
+    name: '--el-color-warning-container',
+    description: 'Soft warning surface.',
+  },
+  {
+    name: '--el-color-on-warning-container',
+    description: 'Text on warning-container surfaces.',
+  },
+  {
+    name: '--el-color-info',
+    description: 'Informational emphasis (chips, alerts, toasts).',
+  },
+  {
+    name: '--el-color-on-info',
+    description: 'Text on info fills.',
+  },
+  {
+    name: '--el-color-info-container',
+    description: 'Soft info surface.',
+  },
+  {
+    name: '--el-color-on-info-container',
+    description: 'Text on info-container surfaces.',
+  },
+  {
     name: '--el-color-surface',
     description: 'Default page and component background.',
   },

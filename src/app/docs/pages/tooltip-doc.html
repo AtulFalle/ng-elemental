@@ -1,0 +1,65 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Tooltip</h1>
+    <p class="docs-lead">
+      Attribute directive that shows a short inverted label on hover and focus.
+      An arrow on the bubble points at the host. The bubble is portaled to
+      <code>document.body</code> so it is not clipped by overflow.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add tooltip</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-button elTooltip="Save file" [elTooltipOpen]="true">Save</el-button>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Put <code>elTooltip</code> on any host. Disabled native buttons do not
+      fire mouse events — wrap them if the tip must still show.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Positions</h3>
+    <app-preview>
+      <div class="docs-row" style="padding: 3rem 1rem;">
+        <el-button elTooltip="Top" elTooltipPosition="top" [elTooltipOpen]="true">Top</el-button>
+        <el-button elTooltip="Bottom" elTooltipPosition="bottom">Bottom</el-button>
+        <el-button elTooltip="Start" elTooltipPosition="start">Start</el-button>
+        <el-button elTooltip="End" elTooltipPosition="end">End</el-button>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      The bubble uses <code>--el-color-inverse-surface</code> and
+      <code>--el-color-inverse-on-surface</code>. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

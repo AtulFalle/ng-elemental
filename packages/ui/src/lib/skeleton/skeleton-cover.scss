@@ -1,0 +1,47 @@
+:host(.el-skeleton-cover) {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  pointer-events: auto;
+  background: var(--el-color-surface-container-highest);
+}
+
+:host(.el-skeleton-cover--fixed) {
+  position: fixed;
+  inset: auto;
+  z-index: 1000;
+}
+
+:host(.el-skeleton-cover--animated) {
+  background: linear-gradient(
+    90deg,
+    var(--el-color-surface-container-highest) 0%,
+    color-mix(
+        in srgb,
+        var(--el-color-on-surface) 8%,
+        var(--el-color-surface-container-highest)
+      )
+      50%,
+    var(--el-color-surface-container-highest) 100%
+  );
+  background-size: 200% 100%;
+  animation: el-skeleton-cover-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes el-skeleton-cover-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host(.el-skeleton-cover--animated) {
+    animation: none;
+    background: var(--el-color-surface-container-highest);
+  }
+}

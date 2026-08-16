@@ -1,0 +1,10 @@
+<a
+  class="el-breadcrumb-item__link"
+  [attr.href]="isLink() ? href() : null"
+  [attr.aria-current]="current() ? 'page' : null"
+>
+  <ng-content />
+</a>
+<span class="el-breadcrumb-item__sep" aria-hidden="true">
+  <el-icon name="chevron-right" size="sm" />
+</span>

@@ -152,6 +152,33 @@ export const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'components/skeleton',
+        loadComponent: () =>
+          import('./docs/pages/skeleton-doc').then((m) => m.SkeletonDocPage),
+      },
+      {
+        path: 'components/breadcrumb',
+        loadComponent: () =>
+          import('./docs/pages/breadcrumb-doc').then(
+            (m) => m.BreadcrumbDocPage,
+          ),
+      },
+      {
+        path: 'components/tooltip',
+        loadComponent: () =>
+          import('./docs/pages/tooltip-doc').then((m) => m.TooltipDocPage),
+      },
+      {
+        path: 'components/alert',
+        loadComponent: () =>
+          import('./docs/pages/alert-doc').then((m) => m.AlertDocPage),
+      },
+      {
+        path: 'components/toast',
+        loadComponent: () =>
+          import('./docs/pages/toast-doc').then((m) => m.ToastDocPage),
+      },
+      {
         path: 'components/segmented-button',
         loadComponent: () =>
           import('./docs/pages/segmented-button-doc').then(

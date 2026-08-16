@@ -1,0 +1,8 @@
+<div [class]="rootClass()">
+  @for (line of lineIndexes(); track line) {
+    <span
+      class="el-skeleton__bar"
+      [class.el-skeleton__bar--last]="line === lineIndexes().length - 1"
+    ></span>
+  }
+</div>

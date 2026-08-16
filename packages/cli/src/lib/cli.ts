@@ -96,5 +96,10 @@ Commands:
   add file-upload       Copy the File Upload component into your project
   add table             Copy the Table component into your project
   add pagination        Copy the Pagination component into your project
+  add skeleton          Copy the Skeleton placeholders and host directive into your project
+  add breadcrumb        Copy the Breadcrumb component into your project
+  add tooltip           Copy the Tooltip directive into your project
+  add alert             Copy the Alert banner component into your project
+  add toast             Copy the Toast, Toaster, and toast service into your project
 `);
 }

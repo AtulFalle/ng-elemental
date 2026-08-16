@@ -1,0 +1,25 @@
+<div [class]="rootClass()">
+  @if (iconName()) {
+    <span class="el-alert__icon">
+      <el-icon [name]="iconName()!" />
+    </span>
+  }
+  <div class="el-alert__body">
+    @if (title()) {
+      <div class="el-alert__title">{{ title() }}</div>
+    }
+    <div class="el-alert__message">
+      <ng-content />
+    </div>
+  </div>
+  @if (dismissible()) {
+    <button
+      type="button"
+      class="el-alert__close"
+      aria-label="Dismiss"
+      (click)="onDismiss()"
+    >
+      <el-icon name="xmark" size="sm" />
+    </button>
+  }
+</div>

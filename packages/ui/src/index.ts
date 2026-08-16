@@ -36,6 +36,7 @@ export {
 export {
   ElChip,
   type ElChipAppearance,
+  type ElChipColor,
   type ElChipType,
 } from './lib/chip/chip';
 export {
@@ -135,6 +136,25 @@ export {
   ElPagination,
   type ElPaginationSize,
 } from './lib/pagination/pagination';
+export {
+  ElSkeleton,
+  ElSkeletonDirective,
+  type ElSkeletonVariant,
+} from './lib/skeleton/skeleton';
+export { ElBreadcrumb, ElBreadcrumbItem } from './lib/breadcrumb/breadcrumb';
+export {
+  ElTooltip,
+  ElTooltipBubble,
+  type ElTooltipPosition,
+} from './lib/tooltip/tooltip';
+export { ElAlert, type ElAlertColor } from './lib/alert/alert';
+export { ElToast, type ElToastColor } from './lib/toast/toast';
+export { ElToaster, type ElToasterPosition } from './lib/toast/toaster';
+export {
+  ElToastService,
+  type ElToastOptions,
+  type ElToastRecord,
+} from './lib/toast/toast.service';
 export {
   ElThemeService,
   provideElTheme,

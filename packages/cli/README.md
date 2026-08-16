@@ -85,6 +85,11 @@ export class MyComponent {}
 | `accordion` | `el-accordion`, `el-accordion-item` | `ElAccordion`, `ElAccordionItem`, `ElAccordionTitle`, `ElAccordionSubtitle`, `ElAccordionContent` |
 | `table` | `el-table`, `el-table-column` | `ElTable`, `ElTableColumn`, `ElTableHeader`, `ElTableCell`, `ElTableExpand` |
 | `pagination` | `el-pagination` | `ElPagination` |
+| `skeleton` | `el-skeleton`, `[elSkeleton]` | `ElSkeleton`, `ElSkeletonDirective` |
+| `breadcrumb` | `el-breadcrumb`, `el-breadcrumb-item` | `ElBreadcrumb`, `ElBreadcrumbItem` |
+| `tooltip` | `[elTooltip]` | `ElTooltip` |
+| `alert` | `el-alert` | `ElAlert` |
+| `toast` | `el-toast`, `el-toaster` | `ElToast`, `ElToaster`, `ElToastService` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |
 
 ## Requirements

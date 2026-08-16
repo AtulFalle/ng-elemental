@@ -1,0 +1,113 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Skeleton</h1>
+    <p class="docs-lead">
+      Presentational loading placeholders for text, avatars, and blocks, or a
+      directive that covers any host with a skeleton matching that element.
+      Mark the surrounding region with <code>aria-busy</code> —
+      <code>el-skeleton</code> itself is hidden from assistive tech.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add skeleton</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <div style="width: 16rem;">
+        <el-skeleton [lines]="3" />
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Place <code>el-skeleton</code> where content will land, or put
+      <code>[elSkeleton]</code> on the control itself. Set
+      <code>aria-busy="true"</code> on the loading region.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Text</h3>
+    <app-preview>
+      <div style="width: 16rem;">
+        <el-skeleton />
+      </div>
+    </app-preview>
+
+    <h3>Multiline</h3>
+    <app-preview>
+      <div style="width: 16rem;">
+        <el-skeleton [lines]="4" />
+      </div>
+    </app-preview>
+
+    <h3>Circular and rectangular</h3>
+    <app-preview>
+      <div class="docs-row" style="align-items: flex-start; width: 100%;">
+        <el-skeleton variant="circular" />
+        <el-skeleton variant="rectangular" height="6rem" style="flex: 1;" />
+      </div>
+    </app-preview>
+
+    <h3>Static</h3>
+    <app-preview>
+      <div style="width: 16rem;">
+        <el-skeleton [animation]="false" [lines]="3" />
+      </div>
+    </app-preview>
+
+    <h3>Profile card</h3>
+    <app-preview>
+      <div class="docs-row" style="align-items: flex-start; width: 100%; max-width: 20rem;">
+        <el-skeleton variant="circular" width="2.5rem" height="2.5rem" />
+        <div style="flex: 1; min-width: 0;">
+          <el-skeleton [lines]="2" />
+        </div>
+      </div>
+    </app-preview>
+
+    <h3>Cover a host</h3>
+    <p>
+      Bind <code>[elSkeleton]</code> on a button, input, or any other element.
+      The cover matches that host&rsquo;s box — no separate skeleton layout.
+    </p>
+    <app-preview>
+      <div class="docs-stack" style="max-width: 16rem;">
+        <el-button elSkeleton>Save changes</el-button>
+        <el-input elSkeleton placeholder="Email" />
+        <div elSkeleton style="height: 4rem; border-radius: 0.5rem; padding: 0.75rem;">
+          Card body
+        </div>
+      </div>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

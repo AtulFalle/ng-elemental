@@ -1,0 +1,12 @@
+<div class="el-toaster__stack">
+  @for (toast of toasts(); track toast.id) {
+    <el-toast
+      [color]="toast.color"
+      [title]="toast.title"
+      [dismissible]="toast.dismissible"
+      (dismissed)="onDismissed(toast.id)"
+    >
+      {{ toast.message }}
+    </el-toast>
+  }
+</div>

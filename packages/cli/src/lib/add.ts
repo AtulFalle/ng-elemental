@@ -162,6 +162,36 @@ const COMPONENT_EXAMPLES: Record<
     className: 'ElPagination',
     usage: `<el-pagination [(page)]="page" [total]="100" [pageSize]="10" />`,
   },
+  skeleton: {
+    className: 'ElSkeleton, ElSkeletonDirective',
+    usage: `<el-skeleton [lines]="3" />
+<button [elSkeleton]="loading">Save</button>
+<input [elSkeleton]="loading" />`,
+  },
+  breadcrumb: {
+    className: 'ElBreadcrumb, ElBreadcrumbItem',
+    usage: `<el-breadcrumb ariaLabel="Breadcrumb">
+  <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+  <el-breadcrumb-item href="/docs">Components</el-breadcrumb-item>
+  <el-breadcrumb-item current>Chip</el-breadcrumb-item>
+</el-breadcrumb>`,
+  },
+  tooltip: {
+    className: 'ElTooltip',
+    usage: `<el-button elTooltip="Save file">Save</el-button>`,
+  },
+  alert: {
+    className: 'ElAlert',
+    usage: `<el-alert color="success" title="Saved" dismissible (dismissed)="show.set(false)">
+  Your changes were written.
+</el-alert>`,
+  },
+  toast: {
+    className: 'ElToast, ElToastService',
+    usage: `import { ElToaster } from './ui/toast/toaster';
+<el-toaster />
+this.toast.show('Saved', { color: 'success' });`,
+  },
 
   tabs: {
     className: 'ElTabs, ElTab, ElTabContent',

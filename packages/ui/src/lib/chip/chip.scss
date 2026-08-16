@@ -88,6 +88,55 @@
     padding-inline-start: 0;
   }
 
+  &--success {
+    --el-chip-accent: var(--el-color-success);
+    --el-chip-accent-container: var(--el-color-success-container);
+    --el-chip-on-accent: var(--el-color-on-success-container);
+  }
+
+  &--error {
+    --el-chip-accent: var(--el-color-error);
+    --el-chip-accent-container: var(--el-color-error-container);
+    --el-chip-on-accent: var(--el-color-on-error-container);
+  }
+
+  &--warning {
+    --el-chip-accent: var(--el-color-warning);
+    --el-chip-accent-container: var(--el-color-warning-container);
+    --el-chip-on-accent: var(--el-color-on-warning-container);
+  }
+
+  &--info {
+    --el-chip-accent: var(--el-color-info);
+    --el-chip-accent-container: var(--el-color-info-container);
+    --el-chip-on-accent: var(--el-color-on-info-container);
+  }
+
+  &--success#{&}--outlined,
+  &--error#{&}--outlined,
+  &--warning#{&}--outlined,
+  &--info#{&}--outlined {
+    border-color: var(--el-chip-accent);
+    color: var(--el-chip-accent);
+  }
+
+  &--success#{&}--filled,
+  &--success#{&}--selected,
+  &--success#{&}--elevated,
+  &--error#{&}--filled,
+  &--error#{&}--selected,
+  &--error#{&}--elevated,
+  &--warning#{&}--filled,
+  &--warning#{&}--selected,
+  &--warning#{&}--elevated,
+  &--info#{&}--filled,
+  &--info#{&}--selected,
+  &--info#{&}--elevated {
+    border-color: transparent;
+    background: var(--el-chip-accent-container);
+    color: var(--el-chip-on-accent);
+  }
+
   &--outlined:not(.el-chip--disabled):hover {
     background: var(--el-color-hover);
   }
@@ -95,6 +144,21 @@
   &--filled:not(.el-chip--disabled):hover,
   &--selected:not(.el-chip--disabled):hover {
     background: color-mix(in srgb, var(--el-color-primary) 12%, transparent);
+  }
+
+  &--success#{&}--filled:not(.el-chip--disabled):hover,
+  &--success#{&}--selected:not(.el-chip--disabled):hover,
+  &--error#{&}--filled:not(.el-chip--disabled):hover,
+  &--error#{&}--selected:not(.el-chip--disabled):hover,
+  &--warning#{&}--filled:not(.el-chip--disabled):hover,
+  &--warning#{&}--selected:not(.el-chip--disabled):hover,
+  &--info#{&}--filled:not(.el-chip--disabled):hover,
+  &--info#{&}--selected:not(.el-chip--disabled):hover {
+    background: color-mix(
+      in srgb,
+      var(--el-chip-accent) 12%,
+      var(--el-chip-accent-container)
+    );
   }
 
   &--elevated:not(.el-chip--disabled):hover {

@@ -1,0 +1,96 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Alert</h1>
+    <p class="docs-lead">
+      Inline status banner. The parent owns visibility — wrap in
+      <code>&#64;if</code> and handle <code>dismissed</code>. Requires the icon
+      component.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
+    <code>npx @ng-elemental/cli add icon</code>, then
+    <code>npx @ng-elemental/cli add alert</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-alert color="info" style="width: 100%;">
+        Something needs your attention.
+      </el-alert>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Do not hide the alert internally. Remove it from the template when
+      dismissed.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Colors</h3>
+    <app-preview>
+      <div class="docs-stack" style="width: 100%;">
+        <el-alert color="neutral">Neutral update.</el-alert>
+        <el-alert color="success">Saved successfully.</el-alert>
+        <el-alert color="error">Could not save changes.</el-alert>
+        <el-alert color="warning">This action cannot be undone.</el-alert>
+        <el-alert color="info">A newer version is available.</el-alert>
+      </div>
+    </app-preview>
+
+    <h3>With title</h3>
+    <app-preview>
+      <el-alert color="success" title="Saved" style="width: 100%;">
+        Your changes were written.
+      </el-alert>
+    </app-preview>
+
+    <h3>Dismissible</h3>
+    <app-preview>
+      @if (showBanner()) {
+        <el-alert
+          color="info"
+          title="New version"
+          dismissible
+          style="width: 100%;"
+          (dismissed)="showBanner.set(false)"
+        >
+          A newer version of the design system is available.
+        </el-alert>
+      }
+    </app-preview>
+
+    <h3>No icon</h3>
+    <app-preview>
+      <el-alert color="info" icon="" style="width: 100%;">Text only.</el-alert>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic success, warning, info, and error roles. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

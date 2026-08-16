@@ -1,0 +1,21 @@
+:host(.el-breadcrumb-host) {
+  display: block;
+  max-width: 100%;
+}
+
+.el-breadcrumb {
+  min-width: 0;
+}
+
+.el-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--el-font-sans);
+  font-size: 0.875rem;
+  line-height: 1.25;
+  color: var(--el-color-primary);
+}
