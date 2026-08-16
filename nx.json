@@ -102,13 +102,13 @@
     }
   ],
   "release": {
-    "projects": ["cli"],
+    "projects": ["cli", "mcp"],
     "projectsRelationship": "fixed",
     "releaseTag": {
       "pattern": "v{version}"
     },
     "version": {
-      "preVersionCommand": "npx nx run-many -t build --projects=cli"
+      "preVersionCommand": "npx nx run-many -t build --projects=cli,mcp"
     },
     "changelog": {
       "workspaceChangelog": true,

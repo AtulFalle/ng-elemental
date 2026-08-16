@@ -20,6 +20,8 @@ npx @ng-elemental/cli init --skip-theme`;
   protected readonly addComponentsCode = `npx @ng-elemental/cli add button
 npx @ng-elemental/cli add <component>`;
 
+  protected readonly mcpInitCode = `npx @ng-elemental/mcp init --client cursor`;
+
   protected readonly fontAwesomeCode = `npm install @fortawesome/fontawesome-free`;
 
   protected readonly fontAwesomeStylesCode = `@use './app/ui/icon/fontawesome';`;

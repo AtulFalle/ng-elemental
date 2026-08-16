@@ -19,7 +19,7 @@
       "options": {
         "outputPath": "dist/packages/cli",
         "main": "packages/cli/src/index.ts",
-        "outputFileName": "index.cjs",
+        "additionalEntryPoints": ["packages/cli/src/bin.ts"],
         "tsConfig": "packages/cli/tsconfig.lib.json",
         "platform": "node",
         "format": ["cjs"],

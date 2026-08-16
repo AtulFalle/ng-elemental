@@ -16,7 +16,8 @@
     "strict": true,
     "paths": {
       "@ng-elemental/ui": ["./packages/ui/src/index.ts"],
-      "@ng-elemental/cli": ["./packages/cli/src/index.ts"]
+      "@ng-elemental/cli": ["./packages/cli/src/index.ts"],
+      "@ng-elemental/mcp": ["./packages/mcp/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

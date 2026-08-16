@@ -2,6 +2,10 @@
   - changed-files:
       - any-glob-to-any-file: 'packages/cli/**'
 
+'area:mcp':
+  - changed-files:
+      - any-glob-to-any-file: 'packages/mcp/**'
+
 'area:ui':
   - changed-files:
       - any-glob-to-any-file: 'packages/ui/**'
@@ -35,7 +39,9 @@
   - changed-files:
       - any-glob-to-any-file:
           - 'CHANGELOG.md'
-          - '.github/workflows/release.yml'
+          - '.github/workflows/prepare-release.yml'
+          - '.github/workflows/publish-release.yml'
+          - '.github/scripts/**'
 
 'type:docs':
   - changed-files:

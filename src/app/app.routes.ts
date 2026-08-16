@@ -17,6 +17,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/installation').then((m) => m.InstallationPage),
       },
       {
+        path: 'mcp',
+        loadComponent: () =>
+          import('./docs/pages/mcp-doc').then((m) => m.McpDocPage),
+      },
+      {
         path: 'theming',
         loadComponent: () =>
           import('./docs/pages/theme-doc').then((m) => m.ThemeDocPage),

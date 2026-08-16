@@ -82,7 +82,7 @@ export async function withCliConsumer(
     );
 
     const installedRoot = join(tmp, 'node_modules/@ng-elemental/cli');
-    const cliBin = join(installedRoot, 'index.cjs');
+    const cliBin = join(installedRoot, 'bin.cjs');
     expect(existsSync(cliBin), `Installed CLI missing at ${cliBin}`).toBe(true);
     expectValidInstalledRegistry(installedRoot);
 

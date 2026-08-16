@@ -3,6 +3,7 @@
 
 **/README.md
 !packages/cli/README.md
+!packages/mcp/README.md
 CHANGELOG.md
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md

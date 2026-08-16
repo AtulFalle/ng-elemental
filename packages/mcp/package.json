@@ -1,26 +1,25 @@
 {
-  "name": "@ng-elemental/cli",
+  "name": "@ng-elemental/mcp",
   "version": "0.0.8",
   "license": "MIT",
-  "description": "Copy Angular UI component source into your project with the NgElemental CLI",
+  "description": "MCP server for searching, inspecting, and installing NgElemental Angular components",
   "keywords": [
     "angular",
+    "mcp",
+    "modelcontextprotocol",
     "ui",
-    "components",
-    "cli",
-    "copy-paste",
-    "scss"
+    "components"
   ],
   "type": "commonjs",
   "main": "./index.cjs",
   "bin": {
-    "ng-elemental": "./bin.cjs"
+    "ng-elemental-mcp": "./bin.cjs"
   },
   "files": [
     "index.cjs",
     "bin.cjs",
-    "README.md",
-    "registry"
+    "guidelines.md",
+    "README.md"
   ],
   "publishConfig": {
     "access": "public"
@@ -28,11 +27,15 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AtulFalle/ng-elemental.git",
-    "directory": "packages/cli"
+    "directory": "packages/mcp"
   },
   "homepage": "https://github.com/AtulFalle/ng-elemental#readme",
   "bugs": {
     "url": "https://github.com/AtulFalle/ng-elemental/issues"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "@ng-elemental/cli": "0.0.8",
+    "zod": "^4.4.3"
+  }
 }

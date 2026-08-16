@@ -14,7 +14,7 @@ describe('add button e2e', () => {
         dependencies?: Record<string, string>;
       };
       expect(installedPkg.name).toBe('@ng-elemental/cli');
-      expect(installedPkg.bin?.['ng-elemental']).toBe('./index.cjs');
+      expect(installedPkg.bin?.['ng-elemental']).toBe('./bin.cjs');
       expect(installedPkg.dependencies?.['@angular/core']).toBeUndefined();
 
       const config = JSON.parse(await readFile(join(tmp, 'elemental.json'), 'utf8')) as {

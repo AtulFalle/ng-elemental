@@ -1,0 +1,68 @@
+{
+  "name": "mcp",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/mcp/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "manifestRootsToUpdate": ["dist/{projectRoot}"],
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk"
+    }
+  },
+  "tags": ["scope:mcp", "type:lib", "platform:node", "publish:npm"],
+  "implicitDependencies": ["cli"],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/mcp",
+        "main": "packages/mcp/src/index.ts",
+        "additionalEntryPoints": ["packages/mcp/src/bin.ts"],
+        "tsConfig": "packages/mcp/tsconfig.lib.json",
+        "platform": "node",
+        "format": ["cjs"],
+        "external": [
+          "@ng-elemental/cli",
+          "@modelcontextprotocol/server",
+          "@modelcontextprotocol/server/stdio",
+          "zod"
+        ],
+        "assets": [
+          {
+            "glob": "package.json",
+            "input": "packages/mcp",
+            "output": "."
+          },
+          {
+            "glob": "README.md",
+            "input": "packages/mcp",
+            "output": "."
+          },
+          {
+            "glob": "guidelines.md",
+            "input": "packages/mcp/src/lib",
+            "output": "."
+          }
+        ],
+        "esbuildOptions": {
+          "banner": {
+            "js": "#!/usr/bin/env node"
+          }
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "dependsOn": ["build", "cli:build"]
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}

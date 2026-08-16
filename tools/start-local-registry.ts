@@ -1,5 +1,5 @@
 /**
- * Starts Verdaccio and publishes @ng-elemental/cli for e2e.
+ * Starts Verdaccio and publishes workspace release packages (cli and mcp) for e2e.
  * Used as Vitest globalSetup.
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -49,6 +49,8 @@ export default async (): Promise<void> => {
   const failed = Object.values(publishStatus).some((result) => result.code !== 0);
   if (failed) {
     globalThis.stopLocalRegistry?.();
-    throw new Error('Failed to publish @ng-elemental/cli to the local registry');
+    throw new Error(
+      'Failed to publish workspace release packages (cli and mcp) to the local registry',
+    );
   }
 };

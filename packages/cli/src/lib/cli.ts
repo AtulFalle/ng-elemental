@@ -1,5 +1,6 @@
 import { parseArgs } from 'node:util';
 import { addCommand } from './add';
+import { formatCatalogList, listCatalog, type ComponentKind } from './catalog';
 import { initCommand } from './init';
 
 export async function run(argv: string[]): Promise<void> {
@@ -35,6 +36,12 @@ export async function run(argv: string[]): Promise<void> {
     return;
   }
 
+  if (command === 'list') {
+    const flags = parseListArgv(rest);
+    console.log(formatCatalogList(listCatalog({ kind: flags.kind })));
+    return;
+  }
+
   throw new Error(`Unknown command "${command}". Use --help to see available commands.`);
 }
 
@@ -64,17 +71,43 @@ export function parseInitArgv(args: string[]): {
   };
 }
 
+const CATALOG_KINDS = ['component', 'directive', 'service', 'theme'] as const;
+
+export function parseListArgv(args: string[]): { kind?: ComponentKind } {
+  const { values } = parseArgs({
+    args,
+    options: {
+      kind: { type: 'string' },
+    },
+    strict: true,
+    allowPositionals: false,
+  });
+
+  const kind = values.kind;
+  if (kind !== undefined) {
+    if (!CATALOG_KINDS.includes(kind as ComponentKind)) {
+      throw new Error(`Unknown kind "${kind}". Use one of: ${CATALOG_KINDS.join(', ')}`);
+    }
+    return { kind: kind as ComponentKind };
+  }
+  return {};
+}
+
 function printUsage(): void {
   console.log(`ng-elemental — copy Angular components into your app
 
 Usage:
   npx @ng-elemental/cli init [--yes] [--path <dir>] [--skip-theme]
   npx @ng-elemental/cli add <component> [--force]
+  npx @ng-elemental/cli list [--kind component|directive|service|theme]
 
 Commands:
   init          Create elemental.json, prompt for the components path, and install theme tokens
+  list          List copy-paste components (optional --kind filter)
   add theme             Copy design tokens (installed automatically by init)
+  add icon              Copy the Icon component into your project
   add button            Copy the Button component into your project
+  add chip              Copy the Chip component into your project
   add label             Copy the Label component into your project
   add form-error        Copy the Form Error component into your project
   add input             Copy the Input component into your project

@@ -100,6 +100,19 @@
   </section>
 
   <section>
+    <h2>Agents (MCP)</h2>
+    <p>
+      Coding agents can search, inspect, and install the same components through
+      <code>@ng-elemental/mcp</code>. From the project root:
+    </p>
+    <app-code-block [code]="mcpInitCode" language="shell" />
+    <p>
+      See <a routerLink="/mcp">MCP server</a> for Cursor, Claude Code, VS Code,
+      and Codex config.
+    </p>
+  </section>
+
+  <section>
     <h2>CLI reference</h2>
     <div class="docs-props-table">
       <table>
@@ -115,12 +128,18 @@
             <td>Create config, prompt for the components path, and install theme tokens</td>
           </tr>
           <tr>
+            <td><code>npx @ng-elemental/cli list [--kind]</code></td>
+            <td>Print the copy-paste catalog (name, title, kind)</td>
+          </tr>
+          <tr>
             <td><code>npx @ng-elemental/cli add &lt;name&gt; [--force]</code></td>
             <td>Copy a component into your project</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p>Available components: <code>theme</code>, <code>icon</code>, <code>button</code>, <code>label</code>, <code>form-error</code>, <code>input</code>, <code>checkbox</code>, <code>slide-toggle</code>, <code>radio</code>, <code>select</code>, <code>datepicker</code>, <code>chip</code>, <code>progress</code>, <code>avatar</code>, <code>card</code>, <code>list</code>, <code>tree</code>, <code>carousel</code>, <code>infinite-scroll</code>, <code>attachment</code>, <code>file-upload</code>, <code>tabs</code>, <code>segmented-button</code>.</p>
+    <p>
+      Available components: <code>theme</code>, <code>icon</code>, <code>button</code>, <code>label</code>, <code>form-error</code>, <code>input</code>, <code>checkbox</code>, <code>slide-toggle</code>, <code>radio</code>, <code>select</code>, <code>datepicker</code>, <code>chip</code>, <code>progress</code>, <code>avatar</code>, <code>card</code>, <code>list</code>, <code>tree</code>, <code>carousel</code>, <code>infinite-scroll</code>, <code>attachment</code>, <code>file-upload</code>, <code>tabs</code>, <code>segmented-button</code>.
+    </p>
   </section>
 </article>

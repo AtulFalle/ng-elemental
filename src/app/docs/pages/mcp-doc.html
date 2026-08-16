@@ -1,0 +1,70 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>MCP server</h1>
+    <p class="docs-lead">
+      Give coding agents a live catalog of NgElemental widgets: search, inspect
+      usage, and copy source into the project through the CLI.
+    </p>
+  </header>
+
+  <section>
+    <h2>What it is for</h2>
+    <p>
+      NgElemental MCP is for El* components, directives, and services. Keep
+      Angular CLI MCP for workspace, docs, and builds. Agents should call
+      <code>get_guidelines</code> first, then search and add.
+    </p>
+  </section>
+
+  <section>
+    <h2>1. Write client config</h2>
+    <p>
+      From your Angular project root:
+    </p>
+    <app-code-block [code]="initCode" language="shell" />
+    <p>
+      That writes the matching MCP config for Cursor
+      (<code>.cursor/mcp.json</code>), Claude Code (<code>.mcp.json</code>),
+      VS Code (<code>.vscode/mcp.json</code>), or Codex
+      (<code>.codex/config.toml</code>). Restart the client and enable the
+      server if prompted.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. Manual config</h2>
+    <h3>Cursor</h3>
+    <app-code-block [code]="cursorCode" language="json" />
+    <h3>Claude Code</h3>
+    <app-code-block [code]="claudeCode" language="json" />
+    <h3>VS Code</h3>
+    <app-code-block [code]="vscodeCode" language="json" />
+    <h3>Codex</h3>
+    <app-code-block [code]="codexCode" language="toml" />
+  </section>
+
+  <section>
+    <h2>Tools</h2>
+    <ul>
+      <li><code>get_guidelines</code> — design rules and how to wire a widget into a page</li>
+      <li><code>search_components</code> — find widgets by name or intent (<code>dropdown</code>, <code>modal</code>)</li>
+      <li><code>list_components</code> — catalog dump, optional <code>kind</code> filter</li>
+      <li><code>get_component</code> — usage, dependencies, import path, wire-in checklist</li>
+      <li><code>add_components</code> — copy source via <code>@ng-elemental/cli</code></li>
+      <li><code>init_project</code> — create <code>elemental.json</code> and theme tokens</li>
+    </ul>
+    <p>
+      Resource <code>ng-elemental://guidelines</code> is the same guide as
+      <code>get_guidelines</code>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Next</h2>
+    <p>
+      Humans still use
+      <a routerLink="/installation"><code>npx @ng-elemental/cli</code></a>
+      for init and add. MCP is the agent entry for the same installer.
+    </p>
+  </section>
+</article>

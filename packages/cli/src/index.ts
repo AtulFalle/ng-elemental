@@ -1,11 +1,29 @@
-import { run } from './lib/cli';
-
-export { run };
-export { addCommand } from './lib/add';
-export { initCommand } from './lib/init';
-
-void run(process.argv.slice(2)).catch((error: unknown) => {
-  const message = error instanceof Error ? error.message : String(error);
-  console.error(message);
-  process.exitCode = 1;
-});
+export { run } from './lib/cli';
+export {
+  addCommand,
+  copyRegistryComponent,
+  toAppImportPath,
+  type AddResult,
+} from './lib/add';
+export { initCommand, type InitResult } from './lib/init';
+export {
+  COMPONENT_CATALOG,
+  formatCatalogList,
+  getCatalogEntry,
+  listCatalog,
+  searchCatalog,
+  type CatalogEntry,
+  type CatalogQuery,
+  type ComponentCategory,
+  type ComponentKind,
+} from './lib/catalog';
+export {
+  AVAILABLE_COMPONENTS,
+  type AvailableComponent,
+} from './lib/component-registry';
+export {
+  CONFIG_FILENAME,
+  DEFAULT_COMPONENTS_DIR,
+  readConfig,
+  type ElementalConfig,
+} from './lib/config';

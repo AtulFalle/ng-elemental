@@ -7,6 +7,10 @@
   color: '1D4ED8'
   description: CLI package (packages/cli)
 
+- name: area:mcp
+  color: '0F766E'
+  description: MCP package (packages/mcp)
+
 - name: area:ui
   color: '7C3AED'
   description: UI component source (packages/ui)

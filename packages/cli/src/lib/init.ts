@@ -18,10 +18,24 @@ export interface InitOptions {
   path?: string;
   skipTheme?: boolean;
   styles?: string;
+  quiet?: boolean;
 }
 
-export async function initCommand(options: InitOptions): Promise<void> {
-  const { cwd } = options;
+export interface InitResult {
+  componentsDir: string;
+  createdConfig: boolean;
+  themeInstalled: boolean;
+  stylesPath?: string;
+  stylesPatched: boolean;
+}
+
+export async function initCommand(options: InitOptions): Promise<InitResult> {
+  const { cwd, quiet } = options;
+  const log = (...args: unknown[]): void => {
+    if (!quiet) {
+      console.log(...args);
+    }
+  };
 
   if (!isAngularProject(cwd)) {
     throw new Error(
@@ -29,7 +43,7 @@ export async function initCommand(options: InitOptions): Promise<void> {
     );
   }
 
-  const interactive = isInteractive(options.yes);
+  const interactive = isInteractive(options.yes) && !quiet;
   const configPath = join(cwd, CONFIG_FILENAME);
   const existing = existsSync(configPath) ? readConfig(cwd) : undefined;
 
@@ -42,14 +56,15 @@ export async function initCommand(options: InitOptions): Promise<void> {
       interactive,
     ));
 
+  const createdConfig = !existing;
   if (!existing) {
     writeConfig(cwd, { componentsDir });
     ensureComponentsDir(cwd, componentsDir);
-    console.log(`Created ${CONFIG_FILENAME}`);
-    console.log(`Components directory: ${componentsDir}`);
+    log(`Created ${CONFIG_FILENAME}`);
+    log(`Components directory: ${componentsDir}`);
   } else {
     ensureComponentsDir(cwd, existing.componentsDir);
-    console.log(`${CONFIG_FILENAME} already exists. Components directory: ${existing.componentsDir}`);
+    log(`${CONFIG_FILENAME} already exists. Components directory: ${existing.componentsDir}`);
   }
 
   const installTheme = options.skipTheme
@@ -57,15 +72,20 @@ export async function initCommand(options: InitOptions): Promise<void> {
     : await promptYesNo('Install theme tokens now? (recommended)', true, interactive);
 
   if (!installTheme) {
-    console.log('Skipped theme. Run `npx @ng-elemental/cli add theme` later to copy tokens.');
-    return;
+    log('Skipped theme. Run `npx @ng-elemental/cli add theme` later to copy tokens.');
+    return {
+      componentsDir,
+      createdConfig,
+      themeInstalled: existsSync(join(cwd, componentsDir, 'theme')),
+      stylesPatched: false,
+    };
   }
 
   const copied = copyRegistryComponent(cwd, 'theme', { skipIfExists: true });
   if (copied) {
-    console.log(`Added theme to ${componentsDir}/theme`);
+    log(`Added theme to ${componentsDir}/theme`);
   } else {
-    console.log(`Theme already installed at ${componentsDir}/theme`);
+    log(`Theme already installed at ${componentsDir}/theme`);
   }
 
   const detected = options.styles ?? detectStylesPath(cwd);
@@ -73,28 +93,44 @@ export async function initCommand(options: InitOptions): Promise<void> {
     options.styles ??
     (detected ? await promptText('Global stylesheet to import tokens', detected, interactive) : undefined);
 
+  let stylesPatched = false;
   if (stylesPath && existsSync(join(cwd, stylesPath))) {
-    const patched = patchStylesFile(cwd, stylesPath, componentsDir);
-    if (patched) {
-      console.log(`Updated ${stylesPath} with theme tokens`);
+    stylesPatched = patchStylesFile(cwd, stylesPath, componentsDir);
+    if (stylesPatched) {
+      log(`Updated ${stylesPath} with theme tokens`);
     }
   } else {
-    printStylesSnippet(cwd, componentsDir);
+    printStylesSnippet(cwd, componentsDir, log);
   }
 
-  printThemeNextSteps(componentsDir);
+  printThemeNextSteps(componentsDir, log);
+
+  return {
+    componentsDir,
+    createdConfig,
+    themeInstalled: true,
+    stylesPath,
+    stylesPatched,
+  };
 }
 
-function printStylesSnippet(cwd: string, componentsDir: string): void {
+function printStylesSnippet(
+  cwd: string,
+  componentsDir: string,
+  log: (...args: unknown[]) => void,
+): void {
   const usePath = toTokensUsePath(join(cwd, 'src/styles.scss'), join(cwd, componentsDir));
-  console.log('No global stylesheet found. Add this to your styles file (for example src/styles.scss):');
-  console.log(buildStylesSnippet(usePath));
+  log('No global stylesheet found. Add this to your styles file (for example src/styles.scss):');
+  log(buildStylesSnippet(usePath));
 }
 
-function printThemeNextSteps(componentsDir: string): void {
-  console.log('');
-  console.log('Next steps:');
-  console.log(`  1. Edit the BRAND block in ${componentsDir}/theme/tokens.scss`);
-  console.log("  2. Optional dark mode: provideElTheme({ mode: 'light' }) in app.config.ts");
-  console.log('  3. Add components: npx @ng-elemental/cli add button');
+function printThemeNextSteps(
+  componentsDir: string,
+  log: (...args: unknown[]) => void,
+): void {
+  log('');
+  log('Next steps:');
+  log(`  1. Edit the BRAND block in ${componentsDir}/theme/tokens.scss`);
+  log("  2. Optional dark mode: provideElTheme({ mode: 'light' }) in app.config.ts");
+  log('  3. Add components: npx @ng-elemental/cli add button');
 }
