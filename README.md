@@ -656,6 +656,43 @@ Floating overlay for arbitrary content. Not a menu and not a tooltip.
 
 `elPopoverClose` on a control dismisses the panel.
 
+### Dialog (`el-dialog`)
+
+Modal overlay. Header and footer stay put; only content scrolls so the shell remains on screen. Requires `icon` (and usually `button`).
+
+```html
+<el-button (click)="open.set(true)">Edit</el-button>
+<el-dialog [(open)]="open" title="Edit profile" size="md">
+  <div elDialogContent>Any HTML or components.</div>
+  <div elDialogFooter>
+    <el-button elDialogClose variant="ghost">Cancel</el-button>
+    <el-button>Save</el-button>
+  </div>
+</el-dialog>
+```
+
+```ts
+const ref = this.dialog.open(EditUserDialog, {
+  data: { userId: 1 },
+  title: 'Edit user',
+});
+const saved = await ref.afterClosed;
+```
+
+**`el-dialog`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `false` | Open state (`model`) |
+| `title` | `string` | `''` | Header text when `elDialogHeader` is omitted |
+| `size` | `sm` \| `md` \| `lg` | `md` | Panel width |
+| `closable` | `boolean` | `true` | Header close button |
+| `closeOnBackdrop` | `boolean` | `true` | Dismiss on backdrop click |
+| `closeOnEscape` | `boolean` | `true` | Dismiss on Escape |
+| `ariaLabel` | `string` | — | Name when there is no title |
+
+`ElDialogService.open()` mounts the same shell on `document.body` and injects `EL_DIALOG_DATA` plus `ElDialogRef` into the custom component. `elDialogClose` dismisses (no result). Call `dialogRef.close(result)` to return a value.
+
 ### Infinite Scroll (`[elInfiniteScroll]`)
 
 Attribute directive for paginated feeds. The parent owns items, loading, and “no more pages”. Demo it with `el-list`.
@@ -768,6 +805,47 @@ Dropbox-style dropzone + browse control. Owns `files` via `model` and auto-rende
 | `disabled` | `boolean` | `false` | Disables this tab |
 
 Put panel markup in `<ng-template elTabContent>`. Optional `<ng-template elTabLabel>` replaces the text header with any HTML. Requires `icon` (chevrons appear when the tab list overflows).
+
+### Stepper (`el-stepper`)
+
+Tab-like steps that show one template at a time. Requires `icon`.
+
+```html
+<el-stepper [(value)]="step" ariaLabel="Onboarding">
+  <el-step value="account" label="Account">
+    <ng-template elStepContent>
+      <p>Account fields.</p>
+    </ng-template>
+  </el-step>
+  <el-step value="plan" label="Plan" completed>
+    <ng-template elStepContent>
+      <p>Plan fields.</p>
+    </ng-template>
+  </el-step>
+</el-stepper>
+```
+
+**`el-stepper`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `''` | Active step value (two-way bindable) |
+| `orientation` | `horizontal` \| `vertical` | `horizontal` | Indicator layout |
+| `linear` | `boolean` | `false` | Cannot skip more than one step ahead |
+| `disabled` | `boolean` | `false` | Disables every step |
+| `ariaLabel` | `string` | — | Accessible name for the step list |
+
+**`el-step`**
+
+| Input | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | (required) | Unique step value |
+| `label` | `string` | `''` | Label text; ignored when `elStepLabel` is set |
+| `description` | `string` | `''` | Optional supporting text |
+| `completed` | `boolean` | `false` | Check indicator (display only) |
+| `disabled` | `boolean` | `false` | Disables this step |
+
+Put panel markup in `<ng-template elStepContent>`. Call `next()` / `previous()` on the stepper from your own buttons (for example in a dialog footer).
 
 ### Accordion (`el-accordion`)
 

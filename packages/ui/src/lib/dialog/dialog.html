@@ -1,0 +1,48 @@
+@if (open()) {
+  <div
+    class="el-dialog-backdrop"
+    [style.z-index]="zIndex()"
+    (pointerdown)="onBackdrop($event)"
+  ></div>
+  <div
+    #panel
+    class="el-dialog"
+    [class.el-dialog--sm]="size() === 'sm'"
+    [class.el-dialog--md]="size() === 'md'"
+    [class.el-dialog--lg]="size() === 'lg'"
+    [style.z-index]="panelZ()"
+    role="dialog"
+    aria-modal="true"
+    [id]="'el-dialog-panel-' + titleId"
+    [attr.aria-labelledby]="labelledBy()"
+    [attr.aria-label]="ariaLabel() || null"
+    [attr.aria-describedby]="ariaDescribedBy() || null"
+    tabindex="-1"
+    (keydown)="onPanelKeydown($event)"
+  >
+    <div class="el-dialog__header">
+      <div class="el-dialog__title" [id]="titleId">
+        <ng-content select="[elDialogHeader]" />
+        @if (title()) {
+          <span class="el-dialog__title-text">{{ title() }}</span>
+        }
+      </div>
+      @if (closable()) {
+        <button
+          type="button"
+          class="el-dialog__close"
+          aria-label="Close dialog"
+          (click)="close()"
+        >
+          <el-icon name="xmark" size="sm" />
+        </button>
+      }
+    </div>
+    <div class="el-dialog__content">
+      <ng-content select="[elDialogContent]" />
+    </div>
+    <div class="el-dialog__footer">
+      <ng-content select="[elDialogFooter]" />
+    </div>
+  </div>
+}

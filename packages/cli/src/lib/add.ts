@@ -211,6 +211,16 @@ const COMPONENT_EXAMPLES: Record<
   </el-popover-panel>
 </el-popover>`,
   },
+  dialog: {
+    className: 'ElDialog, ElDialogService',
+    usage: `<el-dialog [(open)]="open" title="Edit profile">
+  <div elDialogContent>…</div>
+  <div elDialogFooter>
+    <el-button elDialogClose variant="ghost">Cancel</el-button>
+  </div>
+</el-dialog>
+this.dialog.open(EditUserDialog, { data: { userId: 1 }, title: 'Edit user' });`,
+  },
   alert: {
     className: 'ElAlert',
     usage: `<el-alert color="success" title="Saved" dismissible (dismissed)="show.set(false)">
@@ -227,17 +237,32 @@ this.toast.show('Saved', { color: 'success' });`,
   tabs: {
     className: 'ElTabs, ElTab, ElTabContent',
     usage: `<el-tabs [(value)]="selected" ariaLabel="Account">
-  <el-tab value="overview" label="Overview">
-    <ng-template elTabContent>
-      <p>Any HTML goes here.</p>
+      <el-tab value="overview" label="Overview">
+        <ng-template elTabContent>
+          <p>Any HTML goes here.</p>
+        </ng-template>
+      </el-tab>
+      <el-tab value="billing" label="Billing">
+        <ng-template elTabContent>
+          <p>Billing details.</p>
+        </ng-template>
+      </el-tab>
+    </el-tabs>`,
+  },
+  stepper: {
+    className: 'ElStepper, ElStep, ElStepContent',
+    usage: `<el-stepper [(value)]="step" ariaLabel="Onboarding">
+  <el-step value="account" label="Account">
+    <ng-template elStepContent>
+      <p>Account fields.</p>
     </ng-template>
-  </el-tab>
-  <el-tab value="billing" label="Billing">
-    <ng-template elTabContent>
-      <p>Billing details.</p>
+  </el-step>
+  <el-step value="plan" label="Plan">
+    <ng-template elStepContent>
+      <p>Plan fields.</p>
     </ng-template>
-  </el-tab>
-</el-tabs>`,
+  </el-step>
+</el-stepper>`,
   },
   accordion: {
     className: 'ElAccordion, ElAccordionItem, ElAccordionContent',

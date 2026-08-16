@@ -1,0 +1,235 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Stepper</h1>
+    <p class="docs-lead">
+      Tab-like step list that shows one
+      <code>ng-template</code>
+      at a time. Click any enabled step, or call
+      <code>next()</code>
+      /
+      <code>previous()</code>
+      from buttons you compose yourself.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add stepper</code>
+    (requires <code>icon</code>)
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-stepper
+        [value]="selected()"
+        (valueChange)="selected.set($event)"
+        ariaLabel="Onboarding"
+      >
+        <el-step value="account" label="Account" description="Name and email">
+          <ng-template elStepContent>
+            <p>Create the account used to sign in.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="plan" label="Plan" description="Billing period" completed>
+          <ng-template elStepContent>
+            <p>Choose a plan.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="review" label="Review">
+          <ng-template elStepContent>
+            <p>Review and finish.</p>
+          </ng-template>
+        </el-step>
+      </el-stepper>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>
+      Import the stepper, step, and content directive. Put panel markup in
+      <code>&lt;ng-template elStepContent&gt;</code>
+      so inactive steps are not created. Optional
+      <code>elStepLabel</code>
+      templates replace the text label.
+    </p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <h3>Vertical</h3>
+    <app-preview>
+      <el-stepper
+        [value]="vertical()"
+        (valueChange)="vertical.set($event)"
+        orientation="vertical"
+        ariaLabel="Onboarding"
+      >
+        <el-step value="account" label="Account" description="Name and email">
+          <ng-template elStepContent>
+            <p>Account details.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="plan" label="Plan">
+          <ng-template elStepContent>
+            <p>Plan selection.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="review" label="Review">
+          <ng-template elStepContent>
+            <p>Summary.</p>
+          </ng-template>
+        </el-step>
+      </el-stepper>
+    </app-preview>
+
+    <h3>Linear</h3>
+    <p>
+      With
+      <code>linear</code>, you can only move to the current step, previous
+      steps, or the next one. Clicking further ahead is ignored.
+    </p>
+    <app-preview>
+      <el-stepper
+        [value]="linear()"
+        (valueChange)="linear.set($event)"
+        linear
+        ariaLabel="Linear onboarding"
+      >
+        <el-step value="account" label="Account">
+          <ng-template elStepContent>
+            <p>Start here. Next is allowed; Review is not yet.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="plan" label="Plan">
+          <ng-template elStepContent>
+            <p>Plan is the next step.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="review" label="Review">
+          <ng-template elStepContent>
+            <p>Review unlocks after Plan.</p>
+          </ng-template>
+        </el-step>
+      </el-stepper>
+    </app-preview>
+
+    <h3>Custom labels</h3>
+    <app-preview>
+      <el-stepper
+        [value]="iconDemo()"
+        (valueChange)="iconDemo.set($event)"
+        ariaLabel="Checkout"
+      >
+        <el-step value="account">
+          <ng-template elStepLabel>
+            <el-icon name="user" size="sm" />
+            Account
+          </ng-template>
+          <ng-template elStepContent>
+            <p>Sign-in details.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="shipping">
+          <ng-template elStepLabel>
+            <el-icon name="truck" size="sm" />
+            Shipping
+          </ng-template>
+          <ng-template elStepContent>
+            <p>Delivery address.</p>
+          </ng-template>
+        </el-step>
+      </el-stepper>
+    </app-preview>
+
+    <h3>Inside a dialog</h3>
+    <p>
+      Compose with
+      <a routerLink="/components/dialog">Dialog</a>
+      for a wizard: stepper in the content slot, Back/Next in the footer.
+      Requires
+      <code>npx @ng-elemental/cli add dialog</code>
+      and
+      <code>button</code>.
+    </p>
+    <app-preview>
+      <el-button (click)="wizardOpen.set(true)">Open wizard</el-button>
+      <el-dialog
+        [open]="wizardOpen()"
+        (openChange)="wizardOpen.set($event)"
+        title="Workspace setup"
+        size="lg"
+      >
+        <div elDialogContent>
+          <el-stepper
+            #stepper
+            [value]="wizardStep()"
+            (valueChange)="wizardStep.set($event)"
+            ariaLabel="Workspace setup"
+          >
+            <el-step value="account" label="Account">
+              <ng-template elStepContent>
+                <p>Account details.</p>
+              </ng-template>
+            </el-step>
+            <el-step value="plan" label="Plan">
+              <ng-template elStepContent>
+                <p>Plan selection.</p>
+              </ng-template>
+            </el-step>
+            <el-step value="review" label="Review">
+              <ng-template elStepContent>
+                <p>Summary.</p>
+              </ng-template>
+            </el-step>
+          </el-stepper>
+        </div>
+        <div elDialogFooter>
+          <el-button
+            variant="ghost"
+            [disabled]="stepper.isFirst()"
+            (click)="stepper.previous()"
+          >
+            Back
+          </el-button>
+          @if (stepper.isLast()) {
+            <el-button (click)="wizardOpen.set(false)">Create</el-button>
+          } @else {
+            <el-button (click)="stepper.next()">Next</el-button>
+          }
+        </div>
+      </el-dialog>
+    </app-preview>
+    <app-code-block [code]="wizardCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code>
+      and edit the BRAND block, or override
+      <code>--el-color-primary</code>
+      on a wrapper. See
+      <a routerLink="/theming">Theming</a>
+      for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <h3>el-stepper</h3>
+    <app-props-table [props]="stepperProps" />
+    <h3>el-step</h3>
+    <app-props-table [props]="stepProps" />
+  </section>
+</article>

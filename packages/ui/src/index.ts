@@ -71,6 +71,13 @@ export {
 } from './lib/segmented-button/segmented-button';
 export { ElTabs, ElTab, ElTabContent, ElTabLabel } from './lib/tabs/tabs';
 export {
+  ElStepper,
+  ElStep,
+  ElStepContent,
+  ElStepLabel,
+  type ElStepperOrientation,
+} from './lib/stepper/stepper';
+export {
   ElAccordion,
   ElAccordionItem,
   ElAccordionTitle,
@@ -169,6 +176,17 @@ export {
   type ElPopoverPosition,
   type ElPopoverTriggerKind,
 } from './lib/popover/popover';
+export {
+  ElDialog,
+  ElDialogClose,
+  type ElDialogSize,
+} from './lib/dialog/dialog';
+export {
+  ElDialogService,
+  type ElDialogOpenOptions,
+} from './lib/dialog/dialog.service';
+export { ElDialogRef } from './lib/dialog/dialog-ref';
+export { EL_DIALOG, EL_DIALOG_DATA } from './lib/dialog/dialog.token';
 export { ElAlert, type ElAlertColor } from './lib/alert/alert';
 export { ElToast, type ElToastColor } from './lib/toast/toast';
 export { ElToaster, type ElToasterPosition } from './lib/toast/toaster';

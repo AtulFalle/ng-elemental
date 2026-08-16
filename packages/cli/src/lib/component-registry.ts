@@ -261,6 +261,25 @@ export const COMPONENT_REGISTRY = [
     ],
   },
   {
+    name: 'dialog',
+    assetGlobs: [
+      'dialog.{ts,html,scss}',
+      'dialog-close.ts',
+      'dialog.token.ts',
+      'dialog-ref.ts',
+      'dialog.service.ts',
+      'dialog-outlet.ts',
+    ],
+    requiredBasenames: [
+      'dialog',
+      'dialog-close',
+      'dialog.token',
+      'dialog-ref',
+      'dialog.service',
+      'dialog-outlet',
+    ],
+  },
+  {
     name: 'alert',
     assetGlobs: ['alert.{ts,html,scss}'],
     requiredBasenames: ['alert'],
@@ -284,6 +303,16 @@ export const COMPONENT_REGISTRY = [
       'tab-label.ts',
     ],
     requiredBasenames: ['tabs', 'tab', 'tab-content', 'tab-label'],
+  },
+  {
+    name: 'stepper',
+    assetGlobs: [
+      'stepper.{ts,html,scss}',
+      'step.{ts,html,scss}',
+      'step-content.ts',
+      'step-label.ts',
+    ],
+    requiredBasenames: ['stepper', 'step', 'step-content', 'step-label'],
   },
   {
     name: 'accordion',

@@ -135,6 +135,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/tabs-doc').then((m) => m.TabsDocPage),
       },
       {
+        path: 'components/stepper',
+        loadComponent: () =>
+          import('./docs/pages/stepper-doc').then((m) => m.StepperDocPage),
+      },
+      {
         path: 'components/accordion',
         loadComponent: () =>
           import('./docs/pages/accordion-doc').then((m) => m.AccordionDocPage),
@@ -182,6 +187,11 @@ export const appRoutes: Route[] = [
         path: 'components/popover',
         loadComponent: () =>
           import('./docs/pages/popover-doc').then((m) => m.PopoverDocPage),
+      },
+      {
+        path: 'components/dialog',
+        loadComponent: () =>
+          import('./docs/pages/dialog-doc').then((m) => m.DialogDocPage),
       },
       {
         path: 'components/alert',
