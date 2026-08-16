@@ -1,0 +1,78 @@
+<div
+  class="el-stepper__list"
+  role="tablist"
+  [attr.aria-label]="ariaLabel() || null"
+  [attr.aria-orientation]="orientation()"
+>
+  @for (step of steps(); track step.value(); let i = $index; let last = $last) {
+    <div
+      class="el-stepper__item"
+      [class.el-stepper__item--selected]="isSelected(step)"
+      [class.el-stepper__item--completed]="step.completed()"
+      [class.el-stepper__item--disabled]="!canSelectStep(step, i)"
+      [class.el-stepper__item--last]="last"
+    >
+      <button
+        #stepButton
+        type="button"
+        class="el-stepper__trigger"
+        [class.el-stepper__trigger--selected]="isSelected(step)"
+        role="tab"
+        [id]="stepId(i)"
+        [attr.aria-selected]="isSelected(step)"
+        [attr.aria-controls]="panelId(i)"
+        [attr.aria-disabled]="!canSelectStep(step, i) || null"
+        [disabled]="!canSelectStep(step, i)"
+        [attr.tabindex]="tabIndex(step, i)"
+        (click)="onStepClick(step, i)"
+        (keydown)="onStepListKeydown($event)"
+      >
+        <span
+          class="el-stepper__index"
+          [class.el-stepper__index--selected]="isSelected(step)"
+          [class.el-stepper__index--completed]="step.completed()"
+          aria-hidden="true"
+        >
+          @if (step.completed()) {
+            <el-icon name="check" size="sm" />
+          } @else {
+            {{ i + 1 }}
+          }
+        </span>
+        <span class="el-stepper__copy">
+          <span class="el-stepper__label">
+            @if (step.labelTemplate(); as template) {
+              <ng-container [ngTemplateOutlet]="template" />
+            } @else {
+              {{ step.label() || step.value() }}
+            }
+          </span>
+          @if (step.description()) {
+            <span class="el-stepper__description">{{ step.description() }}</span>
+          }
+        </span>
+      </button>
+      @if (!last) {
+        <span class="el-stepper__connector" aria-hidden="true"></span>
+      }
+    </div>
+  }
+</div>
+
+@if (activeStep(); as step) {
+  <div
+    class="el-stepper__panel"
+    role="tabpanel"
+    [id]="panelId(activeIndex())"
+    [attr.aria-labelledby]="stepId(activeIndex())"
+    tabindex="0"
+  >
+    @if (step.contentTemplate(); as template) {
+      <ng-container [ngTemplateOutlet]="template" />
+    }
+  </div>
+}
+
+<div class="el-stepper__defs">
+  <ng-content />
+</div>

@@ -390,6 +390,36 @@
             "output": "registry/popover"
           },
           {
+            "glob": "dialog.{ts,html,scss}",
+            "input": "packages/ui/src/lib/dialog",
+            "output": "registry/dialog"
+          },
+          {
+            "glob": "dialog-close.ts",
+            "input": "packages/ui/src/lib/dialog",
+            "output": "registry/dialog"
+          },
+          {
+            "glob": "dialog.token.ts",
+            "input": "packages/ui/src/lib/dialog",
+            "output": "registry/dialog"
+          },
+          {
+            "glob": "dialog-ref.ts",
+            "input": "packages/ui/src/lib/dialog",
+            "output": "registry/dialog"
+          },
+          {
+            "glob": "dialog.service.ts",
+            "input": "packages/ui/src/lib/dialog",
+            "output": "registry/dialog"
+          },
+          {
+            "glob": "dialog-outlet.ts",
+            "input": "packages/ui/src/lib/dialog",
+            "output": "registry/dialog"
+          },
+          {
             "glob": "alert.{ts,html,scss}",
             "input": "packages/ui/src/lib/alert",
             "output": "registry/alert"
@@ -429,6 +459,26 @@
             "glob": "tab-label.ts",
             "input": "packages/ui/src/lib/tabs",
             "output": "registry/tabs"
+          },
+          {
+            "glob": "stepper.{ts,html,scss}",
+            "input": "packages/ui/src/lib/stepper",
+            "output": "registry/stepper"
+          },
+          {
+            "glob": "step.{ts,html,scss}",
+            "input": "packages/ui/src/lib/stepper",
+            "output": "registry/stepper"
+          },
+          {
+            "glob": "step-content.ts",
+            "input": "packages/ui/src/lib/stepper",
+            "output": "registry/stepper"
+          },
+          {
+            "glob": "step-label.ts",
+            "input": "packages/ui/src/lib/stepper",
+            "output": "registry/stepper"
           },
           {
             "glob": "accordion.{ts,html,scss}",

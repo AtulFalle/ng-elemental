@@ -82,6 +82,7 @@ export class MyComponent {}
 | `file-upload` | `el-file-upload` | `ElFileUpload` |
 | `icon` | `el-icon` | `ElIcon` |
 | `tabs` | `el-tabs`, `el-tab` | `ElTabs`, `ElTab`, `ElTabContent`, `ElTabLabel` |
+| `stepper` | `el-stepper`, `el-step` | `ElStepper`, `ElStep`, `ElStepContent` |
 | `accordion` | `el-accordion`, `el-accordion-item` | `ElAccordion`, `ElAccordionItem`, `ElAccordionTitle`, `ElAccordionSubtitle`, `ElAccordionContent` |
 | `table` | `el-table`, `el-table-column` | `ElTable`, `ElTableColumn`, `ElTableHeader`, `ElTableCell`, `ElTableExpand` |
 | `pagination` | `el-pagination` | `ElPagination` |
@@ -91,6 +92,7 @@ export class MyComponent {}
 | `menu` | `el-menu`, `el-menu-panel`, `el-menu-item` | `ElMenu`, `ElMenuPanel`, `ElMenuItem`, `ElMenuTrigger` |
 | `menubar` | `el-menubar` | `ElMenubar` |
 | `popover` | `el-popover`, `el-popover-panel` | `ElPopover`, `ElPopoverPanel`, `ElPopoverTrigger` |
+| `dialog` | `el-dialog` | `ElDialog`, `ElDialogClose`, `ElDialogService` |
 | `alert` | `el-alert` | `ElAlert` |
 | `toast` | `el-toast`, `el-toaster` | `ElToast`, `ElToaster`, `ElToastService` |
 | `segmented-button` | `el-segmented-button`, `el-segmented-button-item` | `ElSegmentedButton`, `ElSegmentedButtonItem` |

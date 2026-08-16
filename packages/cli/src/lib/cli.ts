@@ -83,6 +83,7 @@ Commands:
   add radio             Copy the Radio component into your project
   add select            Copy the Select component into your project
   add tabs              Copy the Tabs component into your project
+  add stepper           Copy the Stepper component into your project
   add accordion         Copy the Accordion component into your project
   add segmented-button  Copy the Segmented Button component into your project
   add datepicker        Copy the Date Picker and Date Range Picker into your project
@@ -102,6 +103,7 @@ Commands:
   add menu              Copy the Menu, panel, and item components into your project
   add menubar           Copy the Menubar component into your project
   add popover           Copy the Popover overlay into your project
+  add dialog            Copy the Dialog overlay and dialog service into your project
   add alert             Copy the Alert banner component into your project
   add toast             Copy the Toast, Toaster, and toast service into your project
 `);
