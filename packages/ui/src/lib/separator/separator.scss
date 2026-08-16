@@ -1,0 +1,19 @@
+:host {
+  flex-shrink: 0;
+  border: 0;
+  background: var(--el-color-outline-variant);
+}
+
+:host(.el-separator--horizontal) {
+  display: block;
+  width: 100%;
+  height: var(--el-border-width);
+}
+
+:host(.el-separator--vertical) {
+  display: inline-block;
+  align-self: stretch;
+  width: var(--el-border-width);
+  height: auto;
+  min-height: 1em;
+}

@@ -77,6 +77,13 @@ export class MyComponent {}
 | `carousel` | `el-carousel`, `el-carousel-slide` | `ElCarousel`, `ElCarouselSlide` |
 | `avatar` | `el-avatar` | `ElAvatar` |
 | `card` | `el-card` | `ElCard` |
+| `container` | `el-container` | `ElContainer` |
+| `stack` | `el-stack` | `ElStack` |
+| `grid` | `el-grid` | `ElGrid` |
+| `aspect-ratio` | `el-aspect-ratio` | `ElAspectRatio` |
+| `scroll-area` | `el-scroll-area` | `ElScrollArea` |
+| `separator` | `el-separator` | `ElSeparator` |
+| `resizable` | `el-resizable`, `el-resizable-panel`, `el-resizable-handle` | `ElResizable`, `ElResizablePanel`, `ElResizableHandle` |
 | `list` | `el-list`, `el-list-item` | `ElList`, `ElListItem`, `ElListItemDef` |
 | `tree` | `el-tree`, `el-tree-item` | `ElTree`, `ElTreeItem`, `ElTreeNodeDef` |
 | `infinite-scroll` | `[elInfiniteScroll]` | `ElInfiniteScroll` |

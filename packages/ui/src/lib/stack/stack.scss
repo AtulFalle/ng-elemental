@@ -1,0 +1,47 @@
+:host {
+  display: flex;
+}
+
+:host(.el-stack--row) {
+  flex-direction: row;
+}
+
+:host(.el-stack--column) {
+  flex-direction: column;
+}
+
+:host(.el-stack--align-start) {
+  align-items: flex-start;
+}
+
+:host(.el-stack--align-center) {
+  align-items: center;
+}
+
+:host(.el-stack--align-end) {
+  align-items: flex-end;
+}
+
+:host(.el-stack--align-stretch) {
+  align-items: stretch;
+}
+
+:host(.el-stack--justify-start) {
+  justify-content: flex-start;
+}
+
+:host(.el-stack--justify-center) {
+  justify-content: center;
+}
+
+:host(.el-stack--justify-end) {
+  justify-content: flex-end;
+}
+
+:host(.el-stack--justify-between) {
+  justify-content: space-between;
+}
+
+:host(.el-stack--wrap) {
+  flex-wrap: wrap;
+}

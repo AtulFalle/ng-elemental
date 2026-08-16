@@ -175,6 +175,61 @@
             "output": "registry/card"
           },
           {
+            "glob": "container.{ts,html,scss}",
+            "input": "packages/ui/src/lib/container",
+            "output": "registry/container"
+          },
+          {
+            "glob": "stack.{ts,html,scss}",
+            "input": "packages/ui/src/lib/stack",
+            "output": "registry/stack"
+          },
+          {
+            "glob": "grid.{ts,html,scss}",
+            "input": "packages/ui/src/lib/grid",
+            "output": "registry/grid"
+          },
+          {
+            "glob": "aspect-ratio.{ts,html,scss}",
+            "input": "packages/ui/src/lib/aspect-ratio",
+            "output": "registry/aspect-ratio"
+          },
+          {
+            "glob": "scroll-area.{ts,html,scss}",
+            "input": "packages/ui/src/lib/scroll-area",
+            "output": "registry/scroll-area"
+          },
+          {
+            "glob": "separator.{ts,scss}",
+            "input": "packages/ui/src/lib/separator",
+            "output": "registry/separator"
+          },
+          {
+            "glob": "resizable.{ts,html,scss}",
+            "input": "packages/ui/src/lib/resizable",
+            "output": "registry/resizable"
+          },
+          {
+            "glob": "resizable-panel.{ts,html,scss}",
+            "input": "packages/ui/src/lib/resizable",
+            "output": "registry/resizable"
+          },
+          {
+            "glob": "resizable-handle.{ts,html,scss}",
+            "input": "packages/ui/src/lib/resizable",
+            "output": "registry/resizable"
+          },
+          {
+            "glob": "resizable.token.ts",
+            "input": "packages/ui/src/lib/resizable",
+            "output": "registry/resizable"
+          },
+          {
+            "glob": "resizable-utils.ts",
+            "input": "packages/ui/src/lib/resizable",
+            "output": "registry/resizable"
+          },
+          {
             "glob": "list.{ts,html,scss}",
             "input": "packages/ui/src/lib/list",
             "output": "registry/list"

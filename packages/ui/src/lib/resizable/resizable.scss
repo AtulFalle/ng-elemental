@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  width: 100%;
+  min-height: 12rem;
+  box-sizing: border-box;
+}
+
+:host(.el-resizable--horizontal) {
+  flex-direction: row;
+}
+
+:host(.el-resizable--vertical) {
+  flex-direction: column;
+}

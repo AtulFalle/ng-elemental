@@ -100,6 +100,32 @@ export {
 } from './lib/carousel/carousel';
 export { ElAvatar, type ElAvatarSize } from './lib/avatar/avatar';
 export { ElCard, type ElCardAppearance, type ElCardSize } from './lib/card/card';
+export { ElContainer, type ElContainerSize } from './lib/container/container';
+export {
+  ElStack,
+  type ElStackAlign,
+  type ElStackDirection,
+  type ElStackGap,
+  type ElStackJustify,
+} from './lib/stack/stack';
+export { ElGrid, type ElGridGap } from './lib/grid/grid';
+export { ElAspectRatio } from './lib/aspect-ratio/aspect-ratio';
+export {
+  ElScrollArea,
+  type ElScrollAreaOrientation,
+} from './lib/scroll-area/scroll-area';
+export {
+  ElSeparator,
+  type ElSeparatorOrientation,
+} from './lib/separator/separator';
+export {
+  ElResizable,
+  ElResizableHandle,
+  ElResizablePanel,
+  EL_RESIZABLE,
+  type ElResizableContext,
+  type ElResizableOrientation,
+} from './lib/resizable/resizable';
 export {
   ElList,
   ElListItem,

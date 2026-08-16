@@ -92,6 +92,13 @@ Commands:
   add carousel          Copy the Carousel component into your project
   add avatar            Copy the Avatar component into your project
   add card              Copy the Card component into your project
+  add container         Copy the Container layout component into your project
+  add stack             Copy the Stack layout component into your project
+  add grid              Copy the Grid layout component into your project
+  add aspect-ratio      Copy the Aspect Ratio layout component into your project
+  add scroll-area       Copy the Scroll Area layout component into your project
+  add separator         Copy the Separator layout component into your project
+  add resizable         Copy the Resizable panels into your project
   add list              Copy the List and List Item components into your project
   add tree              Copy the Tree component into your project
   add infinite-scroll   Copy the Infinite Scroll directive into your project

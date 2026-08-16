@@ -21,6 +21,18 @@ export const DOC_NAV: DocNavSection[] = [
     items: [{ label: 'Overview', path: '/theming' }],
   },
   {
+    title: 'Layout',
+    items: [
+      { label: 'Container', path: '/components/container' },
+      { label: 'Stack', path: '/components/stack' },
+      { label: 'Grid', path: '/components/grid' },
+      { label: 'Aspect Ratio', path: '/components/aspect-ratio' },
+      { label: 'Scroll Area', path: '/components/scroll-area' },
+      { label: 'Separator', path: '/components/separator' },
+      { label: 'Resizable', path: '/components/resizable' },
+    ],
+  },
+  {
     title: 'Components',
     items: [
       { label: 'Button', path: '/components/button' },

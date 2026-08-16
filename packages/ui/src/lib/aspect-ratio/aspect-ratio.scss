@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.el-aspect-ratio__slot {
+  position: absolute;
+  inset: 0;
+}

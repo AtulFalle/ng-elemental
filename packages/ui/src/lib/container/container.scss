@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-inline: auto;
+}
+
+:host(.el-container--sm) {
+  max-width: 40rem;
+}
+
+:host(.el-container--md) {
+  max-width: 48rem;
+}
+
+:host(.el-container--lg) {
+  max-width: 64rem;
+}
+
+:host(.el-container--xl) {
+  max-width: 80rem;
+}
+
+:host(.el-container--full) {
+  max-width: none;
+}
+
+:host(.el-container--padded) {
+  padding-inline: var(--el-space-4);
+}

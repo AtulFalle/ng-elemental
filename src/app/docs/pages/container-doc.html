@@ -1,0 +1,52 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <h1>Container</h1>
+    <p class="docs-lead">
+      Centered max-width wrapper. Project any content — the container is not
+      interactive.
+    </p>
+  </header>
+
+  <div class="docs-cli-hint">
+    Add to your project: <code>npx @ng-elemental/cli add container</code>
+  </div>
+
+  <section>
+    <h2>Preview</h2>
+    <app-preview>
+      <el-container size="sm" style="width: 100%">
+        <div
+          style="padding: 1rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+        >
+          Constrained to 40rem
+        </div>
+      </el-container>
+    </app-preview>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <app-code-block [code]="addCode" language="shell" />
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p>Sizes are hardcoded max-widths. Use <code>full</code> to drop the cap.</p>
+    <app-code-block [code]="importCode" />
+    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Styling &amp; tokens</h2>
+    <p>
+      Padding uses <code>--el-space-4</code>. See
+      <a routerLink="/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+</article>

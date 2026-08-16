@@ -132,6 +132,53 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['card'],
   },
   {
+    name: 'container',
+    assetGlobs: ['container.{ts,html,scss}'],
+    requiredBasenames: ['container'],
+  },
+  {
+    name: 'stack',
+    assetGlobs: ['stack.{ts,html,scss}'],
+    requiredBasenames: ['stack'],
+  },
+  {
+    name: 'grid',
+    assetGlobs: ['grid.{ts,html,scss}'],
+    requiredBasenames: ['grid'],
+  },
+  {
+    name: 'aspect-ratio',
+    assetGlobs: ['aspect-ratio.{ts,html,scss}'],
+    requiredBasenames: ['aspect-ratio'],
+  },
+  {
+    name: 'scroll-area',
+    assetGlobs: ['scroll-area.{ts,html,scss}'],
+    requiredBasenames: ['scroll-area'],
+  },
+  {
+    name: 'separator',
+    assetGlobs: ['separator.{ts,scss}'],
+    requiredBasenames: ['separator'],
+  },
+  {
+    name: 'resizable',
+    assetGlobs: [
+      'resizable.{ts,html,scss}',
+      'resizable-panel.{ts,html,scss}',
+      'resizable-handle.{ts,html,scss}',
+      'resizable.token.ts',
+      'resizable-utils.ts',
+    ],
+    requiredBasenames: [
+      'resizable',
+      'resizable-panel',
+      'resizable-handle',
+      'resizable.token',
+      'resizable-utils',
+    ],
+  },
+  {
     name: 'list',
     assetGlobs: [
       'list.{ts,html,scss}',

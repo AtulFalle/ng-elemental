@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--el-color-outline-variant) transparent;
+}
+
+:host(.el-scroll-area--vertical) {
+  overflow: hidden auto;
+}
+
+:host(.el-scroll-area--horizontal) {
+  overflow: auto hidden;
+}
+
+:host(.el-scroll-area--both) {
+  overflow: auto;
+}
+
+:host::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+:host::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:host::-webkit-scrollbar-thumb {
+  background: var(--el-color-outline-variant);
+  border-radius: var(--el-radius-full);
+}
