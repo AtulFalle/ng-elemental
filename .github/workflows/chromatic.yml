@@ -125,18 +125,20 @@ jobs:
       - name: Build Storybook
         run: npx nx run ng-elemental:build-storybook --configuration=ci
 
+      - name: Assert TurboSnap stats
+        run: test -f dist/storybook/ng-elemental/preview-stats.json
+
       - name: Review visual changes
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          storybookBuildDir: dist/storybook/ng-elemental
-          storybookBaseDir: .
-          storybookConfigDir: .storybook
-          configFile: chromatic.config.json
-          onlyChanged: true
-          zip: true
-          exitZeroOnChanges: false
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          npx chromatic
+          --storybook-build-dir dist/storybook/ng-elemental
+          --storybook-base-dir .
+          --storybook-config-dir .storybook
+          --only-changed
+          --zip
 
   chromatic-baseline:
     name: Chromatic Baseline
@@ -169,15 +171,14 @@ jobs:
         run: npx nx run ng-elemental:build-storybook --configuration=ci
 
       - name: Update visual baseline
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          storybookBuildDir: dist/storybook/ng-elemental
-          storybookBaseDir: .
-          storybookConfigDir: .storybook
-          configFile: chromatic.config.json
-          onlyChanged: false
-          zip: true
-          autoAcceptChanges: true
-          exitZeroOnChanges: true
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          npx chromatic
+          --storybook-build-dir dist/storybook/ng-elemental
+          --storybook-base-dir .
+          --storybook-config-dir .storybook
+          --zip
+          --auto-accept-changes
+          --exit-zero-on-changes
