@@ -72,6 +72,7 @@ Stories live next to the component (`*.stories.ts`) and **must not** ship in the
 For the exact file checklist, see [checklist.md](checklist.md).
 For API and style rules, see [conventions.md](conventions.md).
 **REQUIRED:** Before adding value / open / view / hover / draft state or a second instance of the same widget, follow `ng-elemental-review` (one owner per piece of state).
+**REQUIRED:** When polishing any existing `El*` widget (visual, interaction, a11y, responsive, API), follow `ng-elemental-polish`. The audit is the same for every component.
 
 ## Verify
 
