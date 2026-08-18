@@ -154,6 +154,40 @@
   max-width: 16rem;
 }
 
+.docs-example-panel {
+  margin-top: 1rem;
+  border: 1px solid var(--docs-border);
+  border-radius: 0.5rem;
+  background: var(--docs-surface);
+  overflow: hidden;
+}
+
+.docs-example-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--docs-border);
+  background: var(--docs-surface-muted);
+}
+
+.docs-example-panel__title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.docs-example-panel__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.docs-example-panel__body {
+  padding: 0.75rem;
+}
+
 .docs-accordion-demo {
   display: flex;
   flex-direction: column;

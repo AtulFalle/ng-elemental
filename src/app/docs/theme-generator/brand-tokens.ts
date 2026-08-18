@@ -16,7 +16,7 @@ export const BRAND_TOKEN_GROUPS: readonly BrandTokenGroup[] = [
   {
     label: 'Primary',
     tokens: [
-      { name: '--el-color-primary', label: 'primary', light: '#6750a4', dark: '#d0bcff' },
+      { name: '--el-color-primary', label: 'primary', light: '#5f479b', dark: '#d0bcff' },
       { name: '--el-color-on-primary', label: 'on-primary', light: '#ffffff', dark: '#381e72' },
       {
         name: '--el-color-primary-container',
@@ -157,7 +157,7 @@ export const BRAND_TOKEN_GROUPS: readonly BrandTokenGroup[] = [
         name: '--el-color-inverse-primary',
         label: 'inverse-primary',
         light: '#d0bcff',
-        dark: '#6750a4',
+        dark: '#5f479b',
       },
     ],
   },

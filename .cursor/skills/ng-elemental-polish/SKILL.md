@@ -41,7 +41,8 @@ Also follow `ng-elemental-component` (files, tokens, API) and `ng-elemental-revi
 3. Run the widget-scoped A11Y items in [a11y-checklist.md](a11y-checklist.md). Page-level items belong to the docs app, not the primitive.
 4. Check keyboard, name, role, and state against the mapped APG pattern. Prefer a native host (`button`, `a`, `input`, `table`, …) over `role="…"`.
 5. Confirm Storybook / docs cover every Visual and Content box that is not `N/A`.
-6. Stop if Critical a11y defects remain (no name, no focus indicator, inoperable keyboard, contrast fail, disabled not exposed).
+6. Add **one** Storybook `Interactions` story (not one story per case) that mounts the key states together and runs `play` with `step('…')` for pointer, keyboard (Enter/Space), disabled, loading/busy, and accessible name. Use the `play` context `userEvent`. Tag it `tags: ['!test']` (string literal — CSF cannot parse spread/variable tags) so Vitest does not auto-run it. Enable the Code panel (`parameters.docs.codePanel: true`) and axe in the Accessibility panel (do not set `a11y.manual` or `a11y.test: 'off'`).
+7. Stop if Critical a11y defects remain (no name, no focus indicator, inoperable keyboard, contrast fail, disabled not exposed).
 
 ## Output
 

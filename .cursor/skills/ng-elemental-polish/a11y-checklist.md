@@ -81,6 +81,7 @@ Skip-link is page-level (docs app). (2.4.1)
 
 - [ ] Normal text ≥ 4.5:1. (1.4.3)
 - [ ] Large text ≥ 3:1. (1.4.3)
+- [ ] Default brand fills used for small UI text (primary + on-primary) ≥ 7:1. Storybook runs `wcag2aaa` / `color-contrast-enhanced`. (1.4.6)
 - [ ] Icons ≥ 3:1. (1.4.11)
 - [ ] Input borders / tracks / thumbs ≥ 3:1 against adjacent colors. (1.4.11)
 - [ ] Text over images/video remains 4.5:1. (1.4.3)

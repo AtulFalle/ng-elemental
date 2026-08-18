@@ -32,6 +32,9 @@ const preview: Preview = {
       default: 'surface',
       values: [{ name: 'surface', value: 'var(--el-color-surface)' }],
     },
+    docs: {
+      codePanel: true,
+    },
     a11y: {
       options: {
         runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice', 'wcag2aaa'],
