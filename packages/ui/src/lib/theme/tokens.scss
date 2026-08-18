@@ -18,7 +18,9 @@
   color-scheme: light;
 
   // ── BRAND — edit these ───────────────────────────────────────────────────
-  --el-color-primary: light-dark(#6750a4, #d0bcff);
+  // Light primary is slightly darker than Material 3 Purple 40 so white
+  // on-primary text meets WCAG 2.2 AAA 7:1 (Storybook runs wcag2aaa).
+  --el-color-primary: light-dark(#5f479b, #d0bcff);
   --el-color-on-primary: light-dark(#fff, #381e72);
   --el-color-primary-container: light-dark(#eaddff, #4f378b);
   --el-color-on-primary-container: light-dark(#21005d, #eaddff);
@@ -66,7 +68,7 @@
 
   --el-color-inverse-surface: light-dark(#313033, #e6e1e5);
   --el-color-inverse-on-surface: light-dark(#f4eff4, #313033);
-  --el-color-inverse-primary: light-dark(#d0bcff, #6750a4);
+  --el-color-inverse-primary: light-dark(#d0bcff, #5f479b);
 
   // ── Derived ──────────────────────────────────────────────────────────────
   --el-color-primary-hover: color-mix(

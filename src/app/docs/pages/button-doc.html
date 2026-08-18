@@ -13,48 +13,207 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-button variant="primary">Save</el-button>
-      <el-button variant="secondary" size="sm">Cancel</el-button>
-      <el-button variant="ghost" disabled>Disabled</el-button>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
 
   <section>
     <h2>Usage</h2>
-    <p>Import the copied component and use the <code>el-button</code> selector:</p>
+    <p>Import <code>ElButton</code> and place the selector where actions are needed.</p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>With icons</h3>
-    <app-preview>
-      <el-button variant="primary" iconStart="plus">Add</el-button>
-      <el-button variant="secondary" iconEnd="arrow-right">Next</el-button>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Common actions</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-button variant="primary">Save</el-button>
+            <el-button variant="secondary">Cancel</el-button>
+            <el-button variant="ghost" disabled>Disabled</el-button>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Uses native button semantics with clear visual states and keyboard support.
+            Disabled remains semantic, and focus-visible stays clear for non-pointer navigation.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Variants</h3>
-    <app-preview>
-      <el-button variant="primary">Primary</el-button>
-      <el-button variant="secondary">Secondary</el-button>
-      <el-button variant="ghost">Ghost</el-button>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Icon-only button</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="iconPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="iconPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="iconPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (iconPanel() === 'preview') {
+          <app-preview>
+            <el-button variant="icon" size="sm" iconStart="gear" ariaLabel="Open settings" />
+            <el-button variant="icon" size="md" iconStart="ellipsis-vertical" ariaLabel="More actions" />
+            <el-button variant="icon" size="lg" iconStart="arrow-up-right-from-square" ariaLabel="Open in new tab" />
+          </app-preview>
+        } @else if (iconPanel() === 'code') {
+          <app-code-block [code]="iconOnlyCode" language="html" />
+        } @else {
+          <p>
+            Icon-only controls require an accessible name via <code>ariaLabel</code>.
+            The icon variant keeps a consistent square target so hit area and spacing remain predictable.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Sizes</h3>
-    <app-preview>
-      <el-button size="sm">Small</el-button>
-      <el-button size="md">Medium</el-button>
-      <el-button size="lg">Large</el-button>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Loading state</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="loadingPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="loadingPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="loadingPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (loadingPanel() === 'preview') {
+          <app-preview>
+            <el-button variant="primary" [loading]="true" loadingLabel="Saving">
+              Save changes
+            </el-button>
+            <el-button variant="icon" iconStart="rotate-right" ariaLabel="Refresh" [loading]="true" />
+          </app-preview>
+        } @else if (loadingPanel() === 'code') {
+          <app-code-block [code]="loadingCode" language="html" />
+        } @else {
+          <p>
+            Loading marks the action busy and prevents repeated activation while work is in progress.
+            This improves feedback for both visual users and assistive technology users.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Long labels</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="longLabelPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="longLabelPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="longLabelPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (longLabelPanel() === 'preview') {
+          <app-preview>
+            <div style="max-width: 17rem;">
+              <el-button variant="secondary">
+                Save shipping preferences and billing profile changes
+              </el-button>
+            </div>
+          </app-preview>
+        } @else if (longLabelPanel() === 'code') {
+          <app-code-block [code]="longLabelCode" language="html" />
+        } @else {
+          <p>
+            Long labels remain readable without overlap. The label behavior supports constrained widths
+            and preserves meaning at larger zoom levels.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Variants</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="variantPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="variantPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="variantPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (variantPanel() === 'preview') {
+          <app-preview>
+            <el-button variant="primary">Primary</el-button>
+            <el-button variant="secondary">Secondary</el-button>
+            <el-button variant="ghost">Ghost</el-button>
+            <el-button variant="icon" iconStart="bookmark" ariaLabel="Bookmark" />
+          </app-preview>
+        } @else if (variantPanel() === 'code') {
+          <app-code-block [code]="variantCode" language="html" />
+        } @else {
+          <p>
+            Variants communicate hierarchy without changing behavior. The icon variant is purpose-built
+            for single-icon actions and avoids uneven widths from text-button spacing.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Sizes</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sizePanel() === 'preview') {
+          <app-preview>
+            <el-button size="sm">Small</el-button>
+            <el-button size="md">Medium</el-button>
+            <el-button size="lg">Large</el-button>
+          </app-preview>
+        } @else if (sizePanel() === 'code') {
+          <app-code-block [code]="sizeCode" language="html" />
+        } @else {
+          <p>
+            Sizes keep spacing and readability consistent while preserving minimum touch target expectations
+            for interactive controls.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Button behavior prioritizes native semantics and WCAG 2.2 AA outcomes for keyboard, focus, motion,
+      contrast, and touch accessibility.
+    </p>
+    <ul>
+      <li>APG Button pattern with native Enter/Space activation.</li>
+      <li>Visible <code>:focus-visible</code> indication for keyboard navigation.</li>
+      <li>Distinct default, hover, active, disabled, and loading states.</li>
+      <li>Primary label contrast meets WCAG 2.2 AAA 7:1 against the default brand fill.</li>
+      <li>Accessible naming requirement for icon-only actions.</li>
+      <li>Reduced-motion support for non-essential animation.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/" target="_blank" rel="noreferrer">APG Button</a>,
+      <a href="https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" target="_blank" rel="noreferrer">APG Keyboard Interface</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>.
+    </p>
   </section>
 
   <section>

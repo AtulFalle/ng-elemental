@@ -30,7 +30,7 @@ export class ThemeDocPage {
 }`;
 
   protected readonly brandCode = `:root {
-  --el-color-primary: light-dark(#6750a4, #d0bcff);
+  --el-color-primary: light-dark(#5f479b, #d0bcff);
   --el-color-on-primary: light-dark(#fff, #381e72);
   --el-color-error: light-dark(#b3261e, #f2b8b5);
   --el-color-surface: light-dark(#fffbfe, #1c1b1f);

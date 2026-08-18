@@ -63,7 +63,7 @@ Add `theme` (included with `init`, or `npx @ng-elemental/cli add theme`) to copy
 @use './app/ui/theme/tokens';
 
 :root {
-  --el-color-primary: light-dark(#6750a4, #d0bcff);
+  --el-color-primary: light-dark(#5f479b, #d0bcff);
   --el-color-on-primary: light-dark(#ffffff, #381e72);
   --el-color-surface: light-dark(#fffbfe, #1c1b1f);
   --el-color-on-surface: light-dark(#1c1b1f, #e6e1e5);

@@ -41,7 +41,7 @@ npx @ng-elemental/cli add <component>`;
 
 // Optional: override brand colors (or edit the BRAND block in tokens.scss)
 :root {
-  --el-color-primary: light-dark(#6750a4, #d0bcff);
+  --el-color-primary: light-dark(#5f479b, #d0bcff);
   --el-color-on-primary: light-dark(#ffffff, #381e72);
 }
 
