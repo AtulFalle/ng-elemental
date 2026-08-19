@@ -1,0 +1,44 @@
+name: Component / UI improvement
+description: Suggest an improvement to an existing NgElemental component (API, behavior, styling, or accessibility)
+title: "[UI]: "
+labels:
+  - type:feature
+  - area:ui
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for improvements to existing components. For new components, use the **Feature request** template.
+
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Which NgElemental component needs improvement?
+      placeholder: e.g. el-dialog, el-select, el-button
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem or limitation?
+      description: Describe the current behavior and why it falls short.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+      description: Describe the change — API addition, visual tweak, behavior fix, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you thought about.
+    validations:
+      required: false

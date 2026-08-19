@@ -43,7 +43,7 @@ Also exposes resource `ng-elemental://guidelines`.
 Configure clients with the HTTP URL instead of the local `npx` command:
 
 ```sh
-npx @ng-elemental/mcp init --client cursor --url https://your-deployment.vercel.app/mcp
+npx @ng-elemental/mcp init --client cursor --url https://ng-elemental.vercel.app/mcp
 ```
 
 Or add manually to `.cursor/mcp.json`:
@@ -52,7 +52,7 @@ Or add manually to `.cursor/mcp.json`:
 {
   "mcpServers": {
     "ng-elemental": {
-      "url": "https://your-deployment.vercel.app/mcp"
+      "url": "https://ng-elemental.vercel.app/mcp"
     }
   }
 }

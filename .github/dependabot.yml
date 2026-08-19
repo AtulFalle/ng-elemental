@@ -1,0 +1,38 @@
+version: 2
+updates:
+  # npm dependencies
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      angular:
+        patterns:
+          - "@angular/*"
+          - "@angular-devkit/*"
+      nx:
+        patterns:
+          - "nx"
+          - "@nx/*"
+          - "@nrwl/*"
+      storybook:
+        patterns:
+          - "storybook"
+          - "@storybook/*"
+          - "chromatic"
+    ignore:
+      # Major Angular version bumps require intentional migration
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@angular-devkit/*"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5

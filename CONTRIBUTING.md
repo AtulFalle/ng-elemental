@@ -138,10 +138,59 @@ Set `CHROMATIC_PROJECT_TOKEN` as a repository secret so the Chromatic workflow c
 
 If Chromatic’s GitHub App also publishes builds, turn those automatic builds off so this workflow is the only publisher. Dual publishers duplicate snapshots and create extra diffs.
 
+## Accessibility expectations
+
+Every NgElemental UI component targets WCAG 2.1 AA compliance and the relevant ARIA APG authoring pattern. Before opening a PR that adds or modifies a component, verify each item below.
+
+### UI component checklist
+
+- [ ] **Semantic HTML** — use the element that carries the right meaning (`<button>`, `<input>`, `<nav>`, etc.) before reaching for a `<div>`.
+- [ ] **Keyboard navigation** — all interactive states are reachable and operable using keyboard alone (Tab, Shift+Tab, Enter, Space, arrow keys as appropriate per the ARIA APG pattern).
+- [ ] **Focus management** — visible focus indicator on every interactive element; focus is moved programmatically only when required (e.g. dialog open/close).
+- [ ] **Accessible names and labels** — every interactive element has a meaningful `aria-label`, associated `<label>`, or visible text content. Icon-only buttons must have `aria-label`.
+- [ ] **ARIA** — use ARIA roles and attributes only when native HTML semantics are insufficient. Do not add `role="button"` to a `<button>`.
+- [ ] **`aria-describedby` / `aria-errormessage`** — form controls with error states expose the error text to assistive tech.
+- [ ] **Disabled and loading states** — `disabled` attribute on native controls, `aria-busy="true"` on loading regions.
+- [ ] **Reduced motion** — animated components respect `@media (prefers-reduced-motion: reduce)`.
+- [ ] **Color contrast** — text and meaningful icons meet 4.5:1 (normal text) or 3:1 (large text / UI components) against their background.
+- [ ] **Responsive behavior** — component remains usable at 320 px viewport width.
+- [ ] **Storybook coverage** — at least one story per significant state (default, disabled, error, loading, empty).
+- [ ] **No outline: none** — do not suppress focus outlines without providing an equivalent `:focus-visible` style.
+
+## Storybook
+
+Stories live next to the component (`*.stories.ts`) and **must not** be registered in the CLI. They are for visual review and Chromatic only.
+
+Run Storybook locally:
+
+```sh
+npx nx storybook ng-elemental
+```
+
+Chromatic runs automatically on PRs that change `packages/ui`, `.storybook`, or `chromatic.config.json`. Review visual diffs in Chromatic and accept them before merging.
+
+## Linting and style
+
+```sh
+# All linting targets together
+npx nx run-many -t lint stylelint
+
+# Single project
+npx nx run ui:lint
+npx nx run ui:stylelint
+```
+
+Key rules enforced by ESLint and Stylelint:
+- `input()` / `output()` / `inject()` — no decorator equivalents
+- BEM selectors (`el-block`, `el-block__element`, `el-block--modifier`)
+- No hex colors outside `packages/ui/src/lib/theme/tokens.scss`
+- No `ngClass` / `ngStyle` — use `class` / `style` bindings
+- Angular native control flow (`@if`, `@for`, `@switch`) — no `*ngIf` / `*ngFor`
+
 ## Code of conduct
 
 This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md). By participating, you agree to uphold it.
 
 ## Questions
 
-Open a [GitHub Discussion or Issue](https://github.com/AtulFalle/ng-elemental/issues) if you are unsure whether a change fits the project scope.
+Open a [GitHub Discussion](https://github.com/AtulFalle/ng-elemental/discussions) if you are unsure whether a change fits the project scope, or a [GitHub Issue](https://github.com/AtulFalle/ng-elemental/issues) if you have found a bug.

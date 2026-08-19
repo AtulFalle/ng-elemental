@@ -29,6 +29,20 @@ You should receive a response within a reasonable timeframe. We will work with y
 This policy covers:
 
 - `@ng-elemental/cli` and its bundled component registry
-- The NgElemental GitHub repository
+- `@ng-elemental/mcp` and the deployed Vercel MCP server
+- The NgElemental GitHub repository and GitHub Actions workflows
 
-Component source copied into your application becomes part of your codebase — review and harden it as you would any first-party code.
+**Out of scope:**
+- Component source copied into your application — once copied, that code is yours and becomes part of your codebase. Review and harden it as you would any first-party code.
+- Third-party dependencies of NgElemental packages (report those to the upstream project).
+
+## What to include in a report
+
+- A description of the vulnerability and its potential impact
+- Affected package(s) and version(s)
+- Steps to reproduce or a proof-of-concept
+- Any suggested fix or mitigation, if available
+
+## Disclosure policy
+
+Please do not publicly disclose the vulnerability in a GitHub issue, discussion, social media post, or any other public channel before the maintainers have had a reasonable opportunity to address it. We will coordinate a disclosure timeline with you after the fix is ready.

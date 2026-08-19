@@ -8,9 +8,108 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Website](https://img.shields.io/badge/website-ng--elemental.vercel.app-blue)](https://ng-elemental.vercel.app)
 
-Copy-paste Angular UI components for your application. Run the CLI, and component source files land in your project — you own and customize the code.
+**Copy-paste Angular UI components — you receive the source, you own the code.**
 
-NgElemental is **not** a traditional npm UI library. Components are added as source (TypeScript, HTML, SCSS) so you can adapt styling, behavior, and structure without fighting a black-box dependency.
+Run the CLI, and component source files (TypeScript, HTML, SCSS) are written directly into your project. There is no runtime library to import, no version to pin, and no black-box dependency to fight. Adapt styling, behavior, and structure as freely as first-party code.
+
+> **Links:** [Website & Docs](https://ng-elemental.vercel.app) · [Component catalog](https://ng-elemental.vercel.app/docs) · [npm (CLI)](https://www.npmjs.com/package/@ng-elemental/cli) · [npm (MCP)](https://www.npmjs.com/package/@ng-elemental/mcp) · [GitHub](https://github.com/AtulFalle/ng-elemental)
+
+---
+
+## Contents
+
+- [Why NgElemental](#why-ngelemental)
+- [How it works](#how-it-works)
+- [Five-minute quick start](#five-minute-quick-start)
+- [Theming](#theming)
+- [Typography](#typography)
+- [Configuration](#configuration)
+- [CLI reference](#cli-reference)
+- [MCP / AI agent integration](#mcp--ai-agent-integration)
+- [Component catalog](#component-catalog)
+- [Component reference](#components)
+- [Packages](#packages)
+- [Contributing](#contributing)
+
+---
+
+## Why NgElemental
+
+Most Angular UI libraries ship compiled packages. You get styled components, but you cannot touch the internals without forking the library. When the design system wants pixel-perfect control, accessibility requirements are strict, or the widget simply does not fit the use case — you are out of options.
+
+NgElemental takes a different path: **components are source files, not a runtime dependency**. The CLI copies TypeScript, HTML, and SCSS into your project. From that point the code is yours. You modify it like any other first-party component, run your own lint and tests against it, and ship it without any NgElemental package in `node_modules`.
+
+## How it works
+
+```
+Developer machine
+│
+├── npx @ng-elemental/cli init       # writes elemental.json + tokens.scss
+└── npx @ng-elemental/cli add button # copies button.ts / button.html / button.scss
+                                     # into src/app/ui/button/
+```
+
+After `add`, import the component the same way you import any Angular component in your own code:
+
+```ts
+import { ElButton } from './ui/button/button';
+```
+
+The NgElemental CLI and MCP packages are dev-time tools. The copied source has no runtime coupling to them.
+
+**Compared to a traditional Angular component library:**
+
+| | Traditional library | NgElemental |
+| --- | --- | --- |
+| Runtime dependency | Yes — `node_modules` | No — source only |
+| Customization | Theme/API surface only | Full source access |
+| Breaking changes | Every major version | You control your copy |
+| Accessibility | Varies | WCAG 2.1 AA target, ARIA APG patterns |
+| Tailwind required | Sometimes | No — encapsulated SCSS |
+
+## Five-minute quick start
+
+**Prerequisites:** Angular 22+, Node.js 24+.
+
+```sh
+# 1. Create a new Angular project (skip if you already have one)
+npx @angular/cli@latest new my-app --routing --style=scss
+cd my-app
+
+# 2. Initialise NgElemental — writes elemental.json and installs theme tokens
+npx @ng-elemental/cli init
+
+# 3. Add a component
+npx @ng-elemental/cli add button
+
+# 4. Import and use it
+```
+
+Open `src/app/app.component.ts` and add `ElButton`:
+
+```ts
+import { Component } from '@angular/core';
+import { ElButton } from './ui/button/button';
+
+@Component({
+  selector: 'app-root',
+  imports: [ElButton],
+  template: `<el-button variant="primary">Save</el-button>`,
+})
+export class AppComponent {}
+```
+
+```sh
+# 5. Run the app
+ng serve
+```
+
+That is the full loop. Add more components with `npx @ng-elemental/cli add <name>`.
+
+`init` flags:
+- `--yes` — skip prompts (default path `src/app/ui`, installs theme)
+- `--path <dir>` — custom path, useful for Nx monorepos (e.g. `libs/ui`)
+- `--skip-theme` — install theme tokens separately later with `add theme`
 
 ## Requirements
 
@@ -21,31 +120,25 @@ Components use encapsulated SCSS with BEM-style class names and CSS design token
 
 ## Quick start
 
-From your Angular project:
+From any Angular 22+ project:
 
 ```sh
 npx @ng-elemental/cli init
 npx @ng-elemental/cli add button
-npx @ng-elemental/cli add <component>
 ```
 
-`init` asks where to copy components (default: `src/app/ui`) and installs theme tokens so widgets pick up color, spacing, and typography. Use `--yes` in CI, `--path <dir>` for Nx or custom layouts, and `--skip-theme` if you will add theme later.
+`init` asks where to copy components (default: `src/app/ui`) and installs theme tokens. Use `--yes` in CI, `--path <dir>` for Nx or custom layouts, and `--skip-theme` to add theme tokens later.
 
-`add` copies the selected component into that directory:
+`add` copies the selected component source into your project:
 
 ```
 src/app/ui/button/
   button.ts
   button.html
   button.scss
-
-src/app/ui/label/
-  label.ts
-  label.html
-  label.scss
 ```
 
-Import the component in a standalone Angular component:
+Import it like any first-party component:
 
 ```ts
 import { Component } from '@angular/core';
@@ -58,6 +151,8 @@ import { ElButton } from './ui/button/button';
 })
 export class App {}
 ```
+
+See the [five-minute quick start](#five-minute-quick-start) for the full developer journey from a fresh Angular project.
 
 ## Theming
 
@@ -111,9 +206,95 @@ Change `componentsDir` during `init` (`--path` or the interactive prompt) if you
 | `npx @ng-elemental/cli list [--kind]` | Print the copy-paste catalog (name, title, kind) |
 | `npx @ng-elemental/cli add <name> [--force]` | Copy a component into your project |
 
-Available components: `theme`, `icon`, `button`, `label`, `form-error`, `input`, `checkbox`, `slide-toggle`, `radio`, `select`, `datepicker`, `chip`, `progress`, `slider`, `carousel`, `avatar`, `card`, `container`, `stack`, `grid`, `aspect-ratio`, `scroll-area`, `separator`, `resizable`, `list`, `tree`, `infinite-scroll`, `tabs`, `accordion`, `table`, `pagination`, `skeleton`, `breadcrumb`, `tooltip`, `menu`, `menubar`, `popover`, `dialog`, `sheet`, `drawer`, `alert`, `toast`, `snackbar`, `empty-state`, `segmented-button`.
+Use `--force` with `add` to overwrite an existing component folder.
 
-Use `--force` to overwrite an existing component folder.
+See [packages/cli/README.md](packages/cli/README.md) for the full CLI reference.
+
+## MCP / AI agent integration
+
+NgElemental ships an [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server so AI coding agents — Cursor, Claude Code, VS Code Copilot, Codex, and compatible tools — can search, inspect, and install components without guessing CLI flags.
+
+```
+Human developer  →  website / docs / CLI
+AI coding agent  →  MCP server  →  NgElemental knowledge
+```
+
+### Configure locally (npx transport)
+
+```sh
+# Let the MCP CLI write the config for you:
+npx @ng-elemental/mcp init --client cursor
+```
+
+Supported clients: `cursor`, `claude`, `vscode`, `codex`.
+
+Or add manually to `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "ng-elemental": {
+      "command": "npx",
+      "args": ["-y", "@ng-elemental/mcp"]
+    }
+  }
+}
+```
+
+### Configure with the remote HTTP endpoint
+
+A production MCP server is deployed at `https://ng-elemental.vercel.app/mcp` on every NgElemental release. Use the HTTP URL to avoid local `npx` startup time:
+
+```json
+{
+  "mcpServers": {
+    "ng-elemental": {
+      "url": "https://ng-elemental.vercel.app/mcp"
+    }
+  }
+}
+```
+
+### MCP tools
+
+| Tool | What it does |
+| --- | --- |
+| `get_guidelines` | Design rules and page-integration playbook |
+| `search_components` | Find widgets by name or intent |
+| `list_components` | Full catalog dump |
+| `get_component` | Metadata, usage, and wire-in checklist |
+| `install_components` | Returns CLI commands for the agent to suggest to the user |
+| `get_component_source` | Full source (TS, HTML, SCSS) to understand the API |
+| `get_component_examples` | Storybook stories showing real usage patterns |
+| `init_project` | Creates `elemental.json` and theme tokens |
+
+The MCP server also exposes a resource `ng-elemental://guidelines`.
+
+NgElemental MCP sits beside Angular CLI MCP (`npx @angular/cli mcp`). Use Angular MCP for workspace and builds; use NgElemental MCP for `El*` widgets.
+
+See [packages/mcp/README.md](packages/mcp/README.md) for full MCP documentation.
+
+## Component catalog
+
+50+ accessible, production-quality Angular components distributed as source. Full API docs and live examples are on the [documentation website](https://ng-elemental.vercel.app/docs).
+
+**Form controls**
+`icon` · `button` · `label` · `form-error` · `input` · `checkbox` · `slide-toggle` · `radio` · `select` · `datepicker` · `segmented-button`
+
+**Data display**
+`chip` · `avatar` · `card` · `list` · `tree` · `table` · `progress` · `slider` · `carousel` · `skeleton` · `breadcrumb` · `attachment`
+
+**Layout**
+`container` · `stack` · `grid` · `aspect-ratio` · `scroll-area` · `separator` · `resizable`
+
+**Navigation & overlays**
+`tabs` · `stepper` · `accordion` · `menu` · `menubar` · `popover` · `dialog` · `sheet` · `drawer` · `tooltip`
+
+**Feedback**
+`alert` · `toast` · `snackbar` · `empty-state`
+
+**Utility**
+`theme` · `infinite-scroll` · `file-upload` · `pagination`
 
 ## Components
 
@@ -1444,9 +1625,12 @@ Install and use **`@ng-elemental/cli`** in your Angular project. See [packages/c
 
 ## Contributing
 
-Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
+Contributions are welcome — bug reports, documentation improvements, new components, accessibility fixes, and CLI/MCP enhancements all help.
 
-Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — development setup, project layout, adding components, PR guidelines
+- [ROADMAP.md](ROADMAP.md) — what the project is working toward
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [GitHub Discussions](https://github.com/AtulFalle/ng-elemental/discussions) — questions, ideas, show & tell
 
 ## Support NgElemental
 
