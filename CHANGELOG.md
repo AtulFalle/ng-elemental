@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-08-19
+
 ### Changed
 
 - `ElCard` fills grid cells so footers align, collapses footer padding when the body is omitted, stretches default media, truncates compact titles, and uses `--el-color-outline` for the outlined border
@@ -120,7 +122,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `ElLabel` form-oriented label component (`ng-elemental add label`)
 
-[Unreleased]: https://github.com/AtulFalle/ng-elemental/compare/v0.0.9...HEAD
+[Unreleased]: https://github.com/AtulFalle/ng-elemental/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/AtulFalle/ng-elemental/releases/tag/v1.0.0
 [0.0.9]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.9
 [0.0.8]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.8
 [0.0.7]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.7
