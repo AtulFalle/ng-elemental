@@ -1,6 +1,7 @@
 <button
   type="button"
   class="el-date-picker__trigger"
+  [attr.aria-controls]="open() ? panelId : null"
   [attr.aria-expanded]="open()"
   aria-haspopup="dialog"
   [attr.aria-label]="ariaLabel() || null"
@@ -24,8 +25,10 @@
 </button>
 
 <div
+  [id]="panelId"
   class="el-date-picker__panel"
   [class.el-date-picker__panel--open]="open()"
+  [attr.aria-hidden]="!open()"
   [attr.inert]="open() ? null : ''"
   role="dialog"
   [attr.aria-label]="ariaLabel() || placeholder()"

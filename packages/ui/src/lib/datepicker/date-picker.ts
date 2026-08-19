@@ -30,6 +30,8 @@ import {
   type ElHourCycle,
 } from './date';
 
+let nextDatePickerId = 0;
+
 export type {
   ElCalendarMode,
   ElDatePickerMode,
@@ -87,6 +89,7 @@ export class ElDatePicker {
   readonly error = input(false, { transform: booleanAttribute });
   readonly placeholder = input('Select date');
   readonly ariaLabel = input<string>();
+  protected readonly panelId = `el-date-picker-panel-${nextDatePickerId++}`;
 
   protected readonly open = signal(false);
   protected readonly section = signal('date');

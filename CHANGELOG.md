@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `ElCard` fills grid cells so footers align, collapses footer padding when the body is omitted, stretches default media, truncates compact titles, and uses `--el-color-outline` for the outlined border
+- `ElDialog` uses a native `<dialog>` with `showModal()`, names slot headers, restores focus on close, and makes the scrolling body keyboard-focusable
+
 ## [0.0.9] - 2026-08-16
 
 ### Fixed

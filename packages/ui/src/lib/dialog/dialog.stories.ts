@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElButton } from '../button/button';
 import { ElDialog } from './dialog';
 import { ElDialogClose } from './dialog-close';
@@ -67,9 +68,7 @@ export const CustomHeader: Story = {
     template: `
       <el-button (click)="open = true">Custom header</el-button>
       <el-dialog [open]="open" (openChange)="open = $event" size="sm">
-        <div elDialogHeader>
-          <span style="font-weight: 600">Discard draft?</span>
-        </div>
+        <div elDialogHeader>Discard draft?</div>
         <div elDialogContent>
           Unsaved paragraphs will be lost.
         </div>
@@ -98,4 +97,46 @@ export const Wizard: Story = {
     },
     template: `<el-dialog-wizard-story-host />`,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  play: async ({ canvas, userEvent, step }) => {
+    const trigger = canvas.getByRole('button', { name: 'Open dialog' });
+
+    await step('Pointer opens a named dialog', async () => {
+      await userEvent.click(trigger);
+      const dialog = await canvas.findByRole('dialog', { name: 'Edit profile' });
+      await expect(dialog).toBeVisible();
+      await expect(
+        canvas.getByRole('button', { name: 'Close' }),
+      ).toBeInTheDocument();
+    });
+
+    await step('Escape closes and restores focus', async () => {
+      await userEvent.keyboard('{Escape}');
+      await expect(
+        canvas.queryByRole('dialog', { name: 'Edit profile' }),
+      ).not.toBeInTheDocument();
+      await expect(trigger).toHaveFocus();
+    });
+
+    await step('Keyboard: Tab stays in the dialog', async () => {
+      trigger.focus();
+      await userEvent.keyboard('{Enter}');
+      const dialog = await canvas.findByRole('dialog', { name: 'Edit profile' });
+      await expect(dialog).toBeVisible();
+      await userEvent.tab();
+      await expect(dialog.contains(document.activeElement)).toBe(true);
+    });
+
+    await step('Close is named and dismisses', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Close' }));
+      await expect(
+        canvas.queryByRole('dialog', { name: 'Edit profile' }),
+      ).not.toBeInTheDocument();
+      await expect(trigger).toHaveFocus();
+    });
+  },
 };

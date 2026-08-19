@@ -512,7 +512,7 @@ Presentational container with named slots. Not interactive — wire clicks on co
 
 ```html
 <el-card appearance="outlined">
-  <img elCardMedia src="/cover.jpg" alt="" style="width: 100%; display: block" />
+  <img elCardMedia src="/cover.jpg" alt="" />
   <div elCardHeader>Title</div>
   <div elCardContent>Body</div>
   <div elCardFooter>Actions</div>
@@ -523,7 +523,7 @@ Presentational container with named slots. Not interactive — wire clicks on co
   <div elCardHeader>report.pdf</div>
   <div elCardContent>2.4 MB</div>
   <div elCardFooter>
-    <el-button variant="ghost" size="sm" iconStart="xmark" aria-label="Remove" />
+    <el-button variant="ghost" size="sm" iconStart="xmark" ariaLabel="Remove" />
   </div>
 </el-card>
 ```
@@ -850,7 +850,7 @@ Floating overlay for arbitrary content. Not a menu and not a tooltip.
 
 ### Dialog (`el-dialog`)
 
-Modal overlay. Header and footer stay put; only content scrolls so the shell remains on screen. Requires `icon` (and usually `button`).
+Modal overlay on a native `<dialog>` (`showModal()`). Header and footer stay put; only content scrolls so the shell remains on screen. Requires `icon` (and usually `button`).
 
 ```html
 <el-button (click)="open.set(true)">Edit</el-button>

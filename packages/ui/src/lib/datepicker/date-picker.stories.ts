@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElDatePicker } from './date-picker';
 
-const panelSpace = 'min-height: 32rem; width: 100%;;';
+const panelSpace = 'min-height: 32rem; width: 100%; max-width: 24rem;';
 
 const meta: Meta<ElDatePicker> = {
   title: 'Components/Date Picker',
@@ -108,5 +109,67 @@ export const Sizes: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
+  },
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    props: {
+      value: new Date(2026, 7, 14, 14, 30),
+    },
+    moduleMetadata: {
+      imports: [ElDatePicker],
+    },
+    template: `<div style="${panelSpace}">
+      <div style="display:flex; flex-direction:column; gap:0.75rem;">
+        <el-date-picker [(value)]="value" ariaLabel="Pickup date"></el-date-picker>
+        <el-date-picker
+          mode="time"
+          [minuteStep]="15"
+          [(value)]="value"
+          ariaLabel="Pickup time"
+        ></el-date-picker>
+        <el-date-picker disabled ariaLabel="Disabled picker"></el-date-picker>
+      </div>
+    </div>`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const dateTrigger = canvas.getByRole('button', { name: 'Pickup date' });
+    const timeTrigger = canvas.getByRole('button', { name: 'Pickup time' });
+    const disabledTrigger = canvas.getByRole('button', {
+      name: 'Disabled picker',
+    });
+
+    await step('Pointer opens and closes date panel', async () => {
+      await userEvent.click(dateTrigger);
+      await expect(canvas.getByRole('dialog', { name: 'Pickup date' })).toBeVisible();
+      await userEvent.keyboard('{Escape}');
+      await expect(
+        canvas.queryByRole('dialog', { name: 'Pickup date' }),
+      ).not.toBeInTheDocument();
+    });
+
+    await step('Keyboard opens with Enter and closes with Escape', async () => {
+      dateTrigger.focus();
+      await expect(dateTrigger).toHaveFocus();
+      await userEvent.keyboard('{Enter}');
+      await expect(canvas.getByRole('dialog', { name: 'Pickup date' })).toBeVisible();
+      await userEvent.keyboard('{Escape}');
+      await expect(
+        canvas.queryByRole('dialog', { name: 'Pickup date' }),
+      ).not.toBeInTheDocument();
+    });
+
+    await step('Time mode panel has a named dialog', async () => {
+      await userEvent.click(timeTrigger);
+      await expect(canvas.getByRole('dialog', { name: 'Pickup time' })).toBeVisible();
+      await userEvent.keyboard('{Escape}');
+    });
+
+    await step('Disabled picker stays non-interactive', async () => {
+      await expect(disabledTrigger).toBeDisabled();
+    });
   },
 };

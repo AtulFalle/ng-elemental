@@ -22,9 +22,6 @@ export { EL_DIALOG, EL_DIALOG_DATA } from './dialog.token';
 export { ElDialogClose } from './dialog-close';
 export { ElDialogRef } from './dialog-ref';
 
-const FOCUSABLE =
-  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
 let bodyLockCount = 0;
 let previousBodyOverflow = '';
 
@@ -61,14 +58,13 @@ function unlockBody(): void {
   providers: [{ provide: EL_DIALOG, useExisting: ElDialog }],
   host: {
     class: 'el-dialog-host',
-    '(document:keydown.escape)': 'onEscape($event)',
   },
 })
 export class ElDialog implements ElDialogContext {
   private static nextId = 0;
 
   private readonly destroyRef = inject(DestroyRef);
-  private readonly panelRef = viewChild<ElementRef<HTMLElement>>('panel');
+  private readonly panelRef = viewChild<ElementRef<HTMLDialogElement>>('panel');
 
   readonly open = model(false);
   readonly title = input('');
@@ -86,15 +82,9 @@ export class ElDialog implements ElDialogContext {
   private sessionActive = false;
   private restoreFocusEl: HTMLElement | null = null;
 
-  protected readonly labelledBy = computed(() => {
-    if (this.ariaLabel() || !this.title()) {
-      return null;
-    }
-
-    return this.titleId;
-  });
-
-  protected readonly panelZ = computed(() => this.zIndex() + 1);
+  protected readonly labelledBy = computed(() =>
+    this.ariaLabel() ? null : this.titleId,
+  );
 
   constructor() {
     this.destroyRef.onDestroy(() => this.endSession());
@@ -120,54 +110,38 @@ export class ElDialog implements ElDialogContext {
     this.open.set(false);
   }
 
-  protected onBackdrop(event: Event): void {
-    if (!this.closeOnBackdrop()) {
+  private readonly onBackdropClick = (event: MouseEvent): void => {
+    if (!this.closeOnBackdrop() || event.target !== event.currentTarget) {
       return;
     }
 
-    event.preventDefault();
+    const dialog = event.currentTarget;
+    if (!(dialog instanceof HTMLElement)) {
+      return;
+    }
+
+    const rect = dialog.getBoundingClientRect();
+    const inside =
+      event.clientX >= rect.left &&
+      event.clientX <= rect.right &&
+      event.clientY >= rect.top &&
+      event.clientY <= rect.bottom;
+    if (inside) {
+      return;
+    }
+
     this.close();
   }
 
-  protected onEscape(event: Event): void {
-    if (!this.open() || !this.closeOnEscape()) {
-      return;
+  protected onCancel(event: Event): void {
+    if (!this.closeOnEscape()) {
+      event.preventDefault();
     }
-
-    event.preventDefault();
-    this.close();
   }
 
-  protected onPanelKeydown(event: KeyboardEvent): void {
-    if (event.key !== 'Tab') {
-      return;
-    }
-
-    const panel = this.panelRef()?.nativeElement;
-    if (!panel) {
-      return;
-    }
-
-    const nodes = this.focusable(panel);
-    if (nodes.length === 0) {
-      event.preventDefault();
-      panel.focus();
-      return;
-    }
-
-    const first = nodes[0];
-    const last = nodes[nodes.length - 1];
-    const active = panel.ownerDocument.activeElement;
-
-    if (event.shiftKey && active === first) {
-      event.preventDefault();
-      last.focus();
-      return;
-    }
-
-    if (!event.shiftKey && active === last) {
-      event.preventDefault();
-      first.focus();
+  protected onNativeClose(): void {
+    if (this.open()) {
+      this.open.set(false);
     }
   }
 
@@ -177,10 +151,16 @@ export class ElDialog implements ElDialogContext {
     }
 
     this.sessionActive = true;
-    const active = typeof document === 'undefined' ? null : document.activeElement;
+    const active =
+      typeof document === 'undefined' ? null : document.activeElement;
     this.restoreFocusEl = active instanceof HTMLElement ? active : null;
     lockBody();
-    queueMicrotask(() => this.focusPanel());
+
+    const panel = this.panelRef()?.nativeElement;
+    if (panel && !panel.open) {
+      panel.addEventListener('click', this.onBackdropClick);
+      panel.showModal();
+    }
   }
 
   private endSession(): void {
@@ -189,25 +169,15 @@ export class ElDialog implements ElDialogContext {
     }
 
     this.sessionActive = false;
+    const panel = this.panelRef()?.nativeElement;
+    panel?.removeEventListener('click', this.onBackdropClick);
+    if (panel?.open) {
+      panel.close();
+    }
+
     unlockBody();
     const restore = this.restoreFocusEl;
     this.restoreFocusEl = null;
     queueMicrotask(() => restore?.focus());
-  }
-
-  private focusPanel(): void {
-    const panel = this.panelRef()?.nativeElement;
-    if (!panel) {
-      return;
-    }
-
-    const nodes = this.focusable(panel);
-    (nodes[0] ?? panel).focus();
-  }
-
-  private focusable(root: HTMLElement): HTMLElement[] {
-    return [...root.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
-      (el) => !el.hasAttribute('disabled') && el.tabIndex !== -1,
-    );
   }
 }
