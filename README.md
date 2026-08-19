@@ -2,6 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/@ng-elemental/cli.svg)](https://www.npmjs.com/package/@ng-elemental/cli)
 [![MCP](https://img.shields.io/npm/v/@ng-elemental/mcp.svg?label=%40ng-elemental%2Fmcp)](https://www.npmjs.com/package/@ng-elemental/mcp)
+[![CLI monthly downloads](https://img.shields.io/npm/dm/@ng-elemental/cli.svg?label=CLI%20downloads%2Fmo)](https://www.npmjs.com/package/@ng-elemental/cli)
+[![MCP monthly downloads](https://img.shields.io/npm/dm/@ng-elemental/mcp.svg?label=MCP%20downloads%2Fmo)](https://www.npmjs.com/package/@ng-elemental/mcp)
 [![CI](https://github.com/AtulFalle/ng-elemental/actions/workflows/ci.yml/badge.svg)](https://github.com/AtulFalle/ng-elemental/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Website](https://img.shields.io/badge/website-ng--elemental.vercel.app-blue)](https://ng-elemental.vercel.app)
