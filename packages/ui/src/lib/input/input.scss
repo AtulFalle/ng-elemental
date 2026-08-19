@@ -18,7 +18,8 @@
     align-items: center;
     box-sizing: border-box;
     width: 100%;
-    min-height: var(--el-input-min-height);
+    height: var(--el-input-min-height);
+    overflow: hidden;
     padding: var(--el-input-padding);
     border: var(--el-border-width) solid var(--el-color-outline-variant);
     border-radius: var(--el-radius-xs);
@@ -44,7 +45,9 @@
   &__suffix {
     display: inline-flex;
     flex-shrink: 0;
+    align-self: stretch;
     align-items: center;
+    overflow: hidden;
     color: var(--el-color-on-surface-variant);
   }
 
