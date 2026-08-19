@@ -2,32 +2,28 @@
   display: contents;
 }
 
-.el-dialog-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1100;
-  background: color-mix(in srgb, var(--el-color-on-surface) 32%, transparent);
-}
-
 .el-dialog {
-  position: fixed;
-  z-index: 1101;
-  display: flex;
-  flex-direction: column;
   box-sizing: border-box;
   width: 32rem;
   max-width: calc(100vw - 2rem);
-  height: fit-content;
+  height: min(max-content, calc(100dvh - 2rem));
   max-height: calc(100dvh - 2rem);
+  min-height: 0;
+  margin: auto;
+  padding: 0;
   overflow: hidden;
-  border: var(--el-border-width) solid var(--el-color-outline-variant);
+  overflow-wrap: anywhere;
+  border: var(--el-border-width) solid var(--el-color-outline);
   border-radius: var(--el-radius-md);
   background: var(--el-color-surface);
   color: var(--el-color-on-surface);
   box-shadow: var(--el-shadow-3);
   font-family: var(--el-font-sans);
-  inset: 0;
-  margin: auto;
+
+  &[open] {
+    display: flex;
+    flex-direction: column;
+  }
 
   &--sm {
     width: 24rem;
@@ -40,15 +36,19 @@
   &--lg {
     width: 42rem;
   }
-}
 
-.el-dialog:focus {
-  outline: none;
-}
+  &::backdrop {
+    background: color-mix(in srgb, var(--el-color-on-surface) 32%, transparent);
+  }
 
-.el-dialog:focus-visible {
-  outline: var(--el-border-width-thick) solid var(--el-color-primary);
-  outline-offset: 2px;
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
+    outline-offset: 2px;
+  }
 }
 
 .el-dialog__header {
@@ -65,6 +65,7 @@
   flex-direction: column;
   gap: var(--el-space-1);
   min-width: 0;
+  margin: 0;
   color: var(--el-color-on-surface);
   font-size: 1rem;
   font-weight: 600;
@@ -107,11 +108,22 @@
 .el-dialog__content {
   flex: 1 1 auto;
   min-height: 0;
+  max-height: calc(100dvh - 10rem);
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 0 var(--el-space-4);
   color: var(--el-color-on-surface-variant);
   font-size: 0.875rem;
   line-height: 1.5;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
+    outline-offset: -2px;
+  }
 }
 
 .el-dialog__footer {

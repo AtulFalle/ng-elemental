@@ -656,7 +656,7 @@ export const COMPONENT_CATALOG: readonly CatalogEntry[] = [
     name: 'dialog',
     kind: 'component',
     title: 'Dialog',
-    description: 'Modal overlay with slots, or ElDialogService.open() for a custom component.',
+    description: 'Native modal dialog with slots, or ElDialogService.open() for a custom component.',
     keywords: ['dialog', 'modal', 'overlay', 'popup', 'confirm', 'service'],
     selectors: ['el-dialog'],
     classNames: ['ElDialog', 'ElDialogClose', 'ElDialogService'],

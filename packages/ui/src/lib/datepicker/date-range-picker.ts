@@ -26,6 +26,8 @@ import {
   type ElDateRange,
 } from './date';
 
+let nextDateRangePickerId = 0;
+
 export type { ElDateRange } from './date';
 
 @Component({
@@ -58,6 +60,8 @@ export class ElDateRangePicker {
   readonly error = input(false, { transform: booleanAttribute });
   readonly placeholder = input('Select date range');
   readonly ariaLabel = input<string>();
+  protected readonly panelId =
+    `el-date-range-picker-panel-${nextDateRangePickerId++}`;
 
   protected readonly open = signal(false);
   protected readonly leftMonth = signal(startOfMonth(new Date()));

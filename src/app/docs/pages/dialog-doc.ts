@@ -71,16 +71,24 @@ export class DialogDocPage {
 
   protected readonly open = signal(false);
   protected readonly scrollOpen = signal(false);
+  protected readonly headerOpen = signal(false);
   protected readonly wizardOpen = signal(false);
   protected readonly wizardStep = signal('account');
   protected readonly serviceResult = signal<string | null>(null);
+
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly scrollPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly headerPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly servicePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly wizardPanel = signal<'preview' | 'code' | 'standards'>('preview');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add dialog`;
 
-  protected readonly importCode = `import { ElDialog, ElDialogClose } from './ui/dialog/dialog';
+  protected readonly importCode = `import { signal } from '@angular/core';
+import { ElDialog, ElDialogClose } from './ui/dialog/dialog';
 import { ElButton } from './ui/button/button';
 
 @Component({
@@ -97,14 +105,37 @@ import { ElButton } from './ui/button/button';
   \`,
 })
 export class MyComponent {
-  protected open = false;
+  protected readonly open = signal(false);
 }`;
 
-  protected readonly usageCode = `<el-dialog [(open)]="open" title="Edit profile" size="md">
-  <div elDialogContent>Any HTML or components.</div>
+  protected readonly usageCode = `<el-button (click)="open.set(true)">Open dialog</el-button>
+<el-dialog [(open)]="open" title="Edit profile" size="md">
+  <div elDialogContent>
+    Header and footer stay put. Long content scrolls inside the panel.
+  </div>
   <div elDialogFooter>
     <el-button elDialogClose variant="ghost">Cancel</el-button>
-    <el-button>Save</el-button>
+    <el-button (click)="open.set(false)">Save</el-button>
+  </div>
+</el-dialog>`;
+
+  protected readonly scrollCode = `<el-dialog [(open)]="open" title="Release notes" size="sm">
+  <div elDialogContent>
+    @for (n of paragraphs; track n) {
+      <p>Paragraph {{ n }} of a long body that should scroll.</p>
+    }
+  </div>
+  <div elDialogFooter>
+    <el-button elDialogClose variant="ghost">Close</el-button>
+  </div>
+</el-dialog>`;
+
+  protected readonly headerCode = `<el-dialog [(open)]="open" size="sm">
+  <div elDialogHeader>Discard draft?</div>
+  <div elDialogContent>Unsaved paragraphs will be lost.</div>
+  <div elDialogFooter>
+    <el-button elDialogClose variant="ghost">Keep editing</el-button>
+    <el-button (click)="open.set(false)">Discard</el-button>
   </div>
 </el-dialog>`;
 
@@ -156,7 +187,7 @@ export class EditUserDialog {
       type: 'string',
       default: "''",
       description:
-        'Header text when elDialogHeader is omitted. Sets aria-labelledby.',
+        'Header text when elDialogHeader is omitted. Names the dialog via the title heading.',
     },
     {
       name: 'size',
@@ -186,7 +217,7 @@ export class EditUserDialog {
       name: 'ariaLabel',
       type: 'string',
       default: 'undefined',
-      description: 'Accessible name when there is no title.',
+      description: 'Accessible name when there is no visible title.',
     },
   ];
 

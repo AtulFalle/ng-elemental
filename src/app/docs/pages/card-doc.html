@@ -3,35 +3,13 @@
     <h1>Card</h1>
     <p class="docs-lead">
       Presentational container with named slots for media, header, content, and
-      footer. Put whatever you need in each slot — including
-      <a routerLink="/components/avatar">Avatar</a> and buttons.
+      footer. The card itself is not a control — put buttons and links inside.
     </p>
   </header>
 
   <div class="docs-cli-hint">
     Add to your project: <code>npx @ng-elemental/cli add card</code>
   </div>
-
-  <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div style="display: grid; gap: 1.5rem; max-width: 22rem">
-        <el-card>
-          <div elCardHeader>
-            <strong>Outlined card</strong>
-          </div>
-          <div elCardContent>
-            Slot-based body. Empty slots collapse automatically.
-          </div>
-          <div elCardFooter>
-            <span style="font-size: 0.875rem; color: var(--el-color-on-surface-variant)"
-              >Footer meta</span
-            >
-          </div>
-        </el-card>
-      </div>
-    </app-preview>
-  </section>
 
   <section>
     <h2>Installation</h2>
@@ -43,120 +21,259 @@
     <p>
       Mark projected nodes with <code>elCardMedia</code>,
       <code>elCardHeader</code>, <code>elCardContent</code>, or
-      <code>elCardFooter</code>. The card itself is not interactive.
+      <code>elCardFooter</code>. Omit unused slots so they collapse.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Elevated</h3>
-    <app-preview>
-      <el-card appearance="elevated" style="max-width: 22rem">
-        <div elCardHeader>
-          <strong>Elevated card</strong>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Header, content, footer</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
         </div>
-        <div elCardContent>
-          Uses a soft shadow instead of a visible border.
-        </div>
-      </el-card>
-    </app-preview>
-
-    <h3>With media</h3>
-    <app-preview>
-      <el-card style="max-width: 22rem">
-        <img
-          elCardMedia
-          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=640&q=80"
-          alt=""
-          style="width: 100%; display: block"
-        />
-        <div elCardHeader>
-          <strong>Trail overlook</strong>
-        </div>
-        <div elCardContent>
-          Media sits flush at the top. Style the media element yourself (e.g.
-          <code>width: 100%</code>).
-        </div>
-      </el-card>
-    </app-preview>
-
-    <h3>With avatar</h3>
-    <app-preview>
-      <el-card appearance="elevated" style="max-width: 22rem">
-        <div
-          elCardHeader
-          style="display: flex; align-items: center; gap: 0.75rem"
-        >
-          <el-avatar initials="AL" alt="Ada Lovelace" />
-          <div>
-            <div style="font-weight: 600">Ada Lovelace</div>
-            <div style="font-size: 0.875rem; color: var(--el-color-on-surface-variant)">
-              Mathematician
-            </div>
-          </div>
-        </div>
-        <div elCardContent>
-          Compose <code>el-avatar</code> in the header when you need a people
-          card. Add avatar separately via the CLI.
-        </div>
-        <div elCardFooter>
-          <el-button size="sm" variant="secondary">Follow</el-button>
-        </div>
-      </el-card>
-    </app-preview>
-    <app-code-block [code]="avatarComposeCode" language="html" />
-
-    <h3>Compact (file list)</h3>
-    <p>
-      Use <code>size="compact"</code> for dense horizontal rows — leading media,
-      middle header/content, trailing footer actions.
-    </p>
-    <app-preview>
-      <div
-        style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 28rem"
-      >
-        <el-card size="compact">
-          <el-icon elCardMedia name="file-lines" />
-          <div
-            elCardHeader
-            style="font-weight: 600; color: var(--el-color-on-surface)"
-          >
-            report.pdf
-          </div>
-          <div elCardContent>2.4 MB</div>
-          <div elCardFooter>
-            <el-button
-              variant="ghost"
-              size="sm"
-              iconStart="xmark"
-              aria-label="Remove report.pdf"
-            />
-          </div>
-        </el-card>
-        <el-card size="compact">
-          <el-icon elCardMedia name="image" />
-          <div
-            elCardHeader
-            style="font-weight: 600; color: var(--el-color-on-surface)"
-          >
-            cover.png
-          </div>
-          <div elCardContent>840 KB</div>
-          <div elCardFooter>
-            <el-button
-              variant="ghost"
-              size="sm"
-              iconStart="xmark"
-              aria-label="Remove cover.png"
-            />
-          </div>
-        </el-card>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-card style="max-width: 22rem">
+              <div elCardHeader>Outlined card</div>
+              <div elCardContent>
+                Slot-based body. Omit unused slots — they collapse.
+              </div>
+              <div elCardFooter>
+                <el-button size="sm" variant="secondary">Cancel</el-button>
+                <el-button size="sm">Save</el-button>
+              </div>
+            </el-card>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Card is a layout shell, not a button. Actions stay on real
+            <code>el-button</code> controls in the footer so keyboard, name, and
+            focus stay on those controls.
+          </p>
+        }
       </div>
-    </app-preview>
-    <app-code-block [code]="compactCode" language="html" />
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Media</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="mediaPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="mediaPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="mediaPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (mediaPanel() === 'preview') {
+          <app-preview>
+            <el-card style="max-width: 22rem">
+              <img
+                elCardMedia
+                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=640&q=80"
+                alt=""
+              />
+              <div elCardHeader>Trail overlook</div>
+              <div elCardContent>Media sits flush at the top.</div>
+            </el-card>
+          </app-preview>
+        } @else if (mediaPanel() === 'code') {
+          <app-code-block [code]="mediaCode" language="html" />
+        } @else {
+          <p>
+            Images in the media slot fill the width. Empty <code>alt</code> is
+            correct when the header already names the image; otherwise provide a
+            text alternative.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Grid</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="gridPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="gridPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="gridPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (gridPanel() === 'preview') {
+          <app-preview>
+            <el-grid [columns]="3" gap="4" style="width: 100%">
+              <el-card>
+                <div elCardHeader>Short</div>
+                <div elCardContent>One line.</div>
+                <div elCardFooter>
+                  <el-button size="sm" variant="secondary">Open</el-button>
+                </div>
+              </el-card>
+              <el-card>
+                <div elCardHeader>A much longer title that wraps</div>
+                <div elCardContent>
+                  Longer body copy so the card grows. Footers stay at the bottom
+                  of the row.
+                </div>
+                <div elCardFooter>
+                  <el-button size="sm" variant="secondary">Open</el-button>
+                </div>
+              </el-card>
+              <el-card>
+                <div elCardHeader>Medium</div>
+                <div elCardContent>A couple of sentences of content.</div>
+                <div elCardFooter>
+                  <el-button size="sm" variant="secondary">Open</el-button>
+                </div>
+              </el-card>
+            </el-grid>
+          </app-preview>
+        } @else if (gridPanel() === 'code') {
+          <app-code-block [code]="gridCode" language="html" />
+        } @else {
+          <p>
+            Cards fill the grid cell so unequal copy still lines footers up.
+            Long titles wrap instead of overflowing the column.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">With avatar</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="avatarPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="avatarPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="avatarPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (avatarPanel() === 'preview') {
+          <app-preview>
+            <el-card appearance="elevated" style="max-width: 22rem">
+              <div
+                elCardHeader
+                style="display: flex; align-items: center; gap: 0.75rem"
+              >
+                <el-avatar initials="AL" alt="Ada Lovelace" />
+                <div>
+                  <div style="font-weight: 600">Ada Lovelace</div>
+                  <div
+                    style="font-size: 0.875rem; color: var(--el-color-on-surface-variant)"
+                  >
+                    Mathematician
+                  </div>
+                </div>
+              </div>
+              <div elCardContent>
+                Compose <code>el-avatar</code> in the header when you need a
+                people card.
+              </div>
+              <div elCardFooter>
+                <el-button size="sm" variant="secondary">Follow</el-button>
+              </div>
+            </el-card>
+          </app-preview>
+        } @else if (avatarPanel() === 'code') {
+          <app-code-block [code]="avatarComposeCode" language="html" />
+        } @else {
+          <p>
+            Avatar needs its own accessible name. Follow is a real button in the
+            footer, not a clickable card.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Compact</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="compactPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="compactPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="compactPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (compactPanel() === 'preview') {
+          <app-preview>
+            <div
+              style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%; max-width: 28rem"
+            >
+              <el-card size="compact">
+                <el-icon elCardMedia name="file-lines" />
+                <div elCardHeader>report.pdf</div>
+                <div elCardContent>2.4 MB</div>
+                <div elCardFooter>
+                  <el-button
+                    variant="ghost"
+                    size="sm"
+                    iconStart="xmark"
+                    ariaLabel="Remove report.pdf"
+                  />
+                </div>
+              </el-card>
+              <el-card size="compact">
+                <el-icon elCardMedia name="image" />
+                <div elCardHeader>
+                  quarterly-financial-summary-final-v12.png
+                </div>
+                <div elCardContent>840 KB</div>
+                <div elCardFooter>
+                  <el-button size="sm" variant="ghost">Replace</el-button>
+                  <el-button
+                    variant="ghost"
+                    size="sm"
+                    iconStart="xmark"
+                    ariaLabel="Remove quarterly-financial-summary-final-v12.png"
+                  />
+                </div>
+              </el-card>
+            </div>
+          </app-preview>
+        } @else if (compactPanel() === 'code') {
+          <app-code-block [code]="compactCode" language="html" />
+        } @else {
+          <p>
+            Compact rows truncate long names and keep trailing actions visible.
+            Icon-only remove controls need <code>ariaLabel</code>.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Card is a layout primitive. It does not take a widget role. Actions and
+      links belong in the slots, using native controls.
+    </p>
+    <ul>
+      <li>No <code>role</code> on the host — grouping comes from visible structure.</li>
+      <li>Whole-card click is avoided so footer buttons are not nested controls.</li>
+      <li>Omitted slots collapse; footer padding stays even when the body is empty.</li>
+      <li>Outlined border uses <code>--el-color-outline</code> for 3:1 against surface.</li>
+      <li>Long text wraps (default) or ellipsizes (compact) without overlapping actions.</li>
+      <li>Grid cells stretch so footers align across unequal copy.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/" target="_blank" rel="noreferrer">APG Landmarks</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.1.1, 1.4.4, 1.4.10, 1.4.11).
+    </p>
   </section>
 
   <section>

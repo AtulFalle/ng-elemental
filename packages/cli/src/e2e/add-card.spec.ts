@@ -34,6 +34,7 @@ describe('add card e2e', () => {
       );
       expect(cardScss).toContain('.el-card');
       expect(cardScss).toContain('--el-color-surface');
+      expect(cardScss).toContain('--el-color-outline');
       expect(cardScss).toContain('--el-shadow-1');
       expect(cardScss).toContain('--el-radius-md');
       expect(cardScss).toContain('&--outlined');
