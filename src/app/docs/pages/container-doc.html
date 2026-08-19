@@ -12,19 +12,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-container size="sm" style="width: 100%">
-        <div
-          style="padding: 1rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-        >
-          Constrained to 40rem
-        </div>
-      </el-container>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -33,7 +20,90 @@
     <h2>Usage</h2>
     <p>Sizes are hardcoded max-widths. Use <code>full</code> to drop the cap.</p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Small width</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="defaultPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="defaultPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="defaultPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (defaultPanel() === 'preview') {
+          <app-preview>
+            <el-container size="sm" style="width: 100%">
+              <div
+                style="padding: 1rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+              >
+                Constrained to 40rem
+              </div>
+            </el-container>
+          </app-preview>
+        } @else if (defaultPanel() === 'code') {
+          <app-code-block [code]="defaultCode" language="html" />
+        } @else {
+          <p>
+            Max-width keeps line length readable for body copy. Horizontal padding prevents
+            content from touching viewport edges on small screens.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Full bleed</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="fullPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="fullPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="fullPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (fullPanel() === 'preview') {
+          <app-preview>
+            <el-container size="full" [padded]="false" style="width: 100%">
+              <div
+                style="padding: 1rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+              >
+                Edge-to-edge content
+              </div>
+            </el-container>
+          </app-preview>
+        } @else if (fullPanel() === 'code') {
+          <app-code-block [code]="fullCode" language="html" />
+        } @else {
+          <p>
+            Full width is for hero bands and media rails. Disable padding only when the
+            child already handles inset spacing.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Container centers content and caps width. It is not a landmark or interactive region.
+    </p>
+    <ul>
+      <li>No <code>role</code> on the host — use landmarks on inner sections when needed.</li>
+      <li>Readable line length supports WCAG reflow at 200% zoom.</li>
+      <li>Padding uses density tokens for consistent gutters.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.4.8, 1.4.10).
+    </p>
   </section>
 
   <section>

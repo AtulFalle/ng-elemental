@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { ElPagination, type ElPaginationSize } from './pagination';
 
@@ -89,4 +90,36 @@ export const Compact: Story = {
       />
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [PaginationStoryHost] },
+    template: `<el-pagination-story-host [total]="120" showPageSize />`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const nav = canvas.getByRole('navigation', { name: 'Pagination' });
+    const pageTwo = canvas.getByRole('button', { name: 'Page 2' });
+    const next = canvas.getByRole('button', { name: 'Next page' });
+
+    await step('Navigation landmark and current page', async () => {
+      await expect(nav).toBeInTheDocument();
+      await expect(canvas.getByRole('button', { name: 'Page 1' })).toHaveAttribute(
+        'aria-current',
+        'page',
+      );
+    });
+
+    await step('Page buttons update current page', async () => {
+      await userEvent.click(pageTwo);
+      await expect(pageTwo).toHaveAttribute('aria-current', 'page');
+      await userEvent.click(next);
+      await expect(canvas.getByRole('button', { name: 'Page 3' })).toHaveAttribute(
+        'aria-current',
+        'page',
+      );
+    });
+  },
 };

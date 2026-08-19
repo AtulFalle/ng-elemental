@@ -68,6 +68,8 @@ export class ElSelect implements ElSelectContext {
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly error = input(false, { transform: booleanAttribute });
   readonly ariaLabel = input<string>();
+  readonly ariaLabelledby = input('');
+  readonly ariaDescribedby = input('');
 
   private readonly valueTemplate = contentChild(ElSelectValue);
   private readonly registered = signal<ElSelectable[]>([]);

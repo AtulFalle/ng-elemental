@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ElButton } from '../button/button';
 import { ElIcon } from '../icon/icon';
@@ -273,4 +274,50 @@ export const LazyLoad: Story = {
     moduleMetadata: { imports: [TreeLazyStoryHost] },
     template: `<el-tree-lazy-story-host />`,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [TreeCheckboxStoryHost, TREE_IMPORTS] },
+    template: `
+      <div style="display:grid;gap:1.5rem;max-width:24rem">
+        <el-tree-checkbox-story-host />
+        <el-tree ariaLabel="Keyboard tree" style="max-width:22rem">
+          <el-tree-item value="docs" label="Documents">
+            <el-icon elTreeLeading name="folder" />
+            <el-tree-item value="readme" label="README.md">
+              <el-icon elTreeLeading name="file" />
+            </el-tree-item>
+          </el-tree-item>
+        </el-tree>
+      </div>
+    `,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const tree = canvas.getByRole('tree', { name: 'Keyboard tree' });
+    const checkboxTree = canvas.getByRole('tree', { name: 'Selectable files' });
+    const documents = canvas.getAllByRole('treeitem', { name: /Documents/i })[0];
+
+    await step('Tree exposes treeitem roles and expands with keyboard', async () => {
+      documents.focus();
+      await expect(documents).toHaveFocus();
+      await userEvent.keyboard('{ArrowRight}');
+      await expect(documents).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    await step('Checkbox tree toggles with Space', async () => {
+      const resume = canvas.getByRole('treeitem', { name: /Resume\.pdf/i });
+      resume.focus();
+      await userEvent.keyboard(' ');
+      const checkbox = resume.querySelector('input[type="checkbox"]');
+      await expect(checkbox).toBeChecked();
+      await expect(checkboxTree).toHaveAttribute('aria-multiselectable', 'true');
+    });
+
+    await step('Tree region is labelled', async () => {
+      await expect(tree).toHaveAttribute('aria-label', 'Keyboard tree');
+    });
+  },
 };

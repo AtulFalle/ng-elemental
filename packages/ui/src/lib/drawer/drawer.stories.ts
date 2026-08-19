@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElButton } from '../button/button';
 import { ElDrawer } from './drawer';
 import { ElDrawerClose } from './drawer-close';
@@ -93,4 +94,39 @@ export const Service: Story = {
     },
     template: `<el-drawer-service-story-host />`,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [DrawerStoryHost] },
+    template: `<el-drawer-story-host title="Navigation" side="left" />`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const trigger = canvas.getByRole('button', { name: 'Open drawer' });
+
+    await step('Pointer opens named drawer', async () => {
+      await userEvent.click(trigger);
+      await expect(
+        canvas.getByRole('dialog', { name: 'Navigation' }),
+      ).toBeVisible();
+    });
+
+    await step('Escape closes and restores focus', async () => {
+      await userEvent.keyboard('{Escape}');
+      await expect(
+        canvas.queryByRole('dialog', { name: 'Navigation' }),
+      ).not.toBeInTheDocument();
+      await expect(trigger).toHaveFocus();
+    });
+
+    await step('Close button dismisses', async () => {
+      await userEvent.click(trigger);
+      await userEvent.click(canvas.getByRole('button', { name: 'Close' }));
+      await expect(
+        canvas.queryByRole('dialog', { name: 'Navigation' }),
+      ).not.toBeInTheDocument();
+    });
+  },
 };

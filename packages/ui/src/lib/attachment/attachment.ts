@@ -23,6 +23,8 @@ export type ElAttachmentOrientation = 'horizontal' | 'vertical';
   providers: [{ provide: EL_ATTACHMENT, useExisting: ElAttachment }],
   host: {
     class: 'el-attachment-host',
+    '[attr.aria-busy]':
+      "state() === 'uploading' || state() === 'processing' ? true : null",
   },
 })
 export class ElAttachment {

@@ -34,7 +34,7 @@
     border-color: var(--el-color-outline);
   }
 
-  &__field:focus-within {
+  &__field:has(.el-input__control:focus-visible) {
     border-color: var(--el-color-outline);
     outline: var(--el-border-width-thick) solid var(--el-color-primary);
     outline-offset: 2px;
@@ -106,27 +106,29 @@
   --el-input-font-size: 1rem;
 }
 
+/* stylelint-disable no-descending-specificity -- error and disabled hosts are mutually exclusive */
 :host(.el-input--error) .el-input__field {
   border-color: var(--el-color-error);
+
+  &:hover,
+  &:has(.el-input__control:focus-visible) {
+    border-color: var(--el-color-error);
+  }
+
+  &:has(.el-input__control:focus-visible) {
+    outline-color: var(--el-color-error);
+  }
 }
 
 :host(.el-input--disabled) .el-input__field {
   color: var(--el-color-disabled);
   cursor: not-allowed;
   opacity: 0.6;
-}
 
-:host(.el-input--error) .el-input__field:hover,
-:host(.el-input--error) .el-input__field:focus-within {
-  border-color: var(--el-color-error);
+  &:hover,
+  &:has(.el-input__control:focus-visible) {
+    border-color: var(--el-color-outline-variant);
+    outline: none;
+  }
 }
-
-:host(.el-input--error) .el-input__field:focus-within {
-  outline-color: var(--el-color-error);
-}
-
-:host(.el-input--disabled) .el-input__field:hover,
-:host(.el-input--disabled) .el-input__field:focus-within {
-  border-color: var(--el-color-outline-variant);
-  outline: none;
-}
+/* stylelint-enable no-descending-specificity */

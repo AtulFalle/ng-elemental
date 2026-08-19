@@ -19,40 +19,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div style="display: grid; gap: 0.75rem; max-width: 22rem">
-        <el-attachment state="done">
-          <el-attachment-media>
-            <el-icon name="file-lines" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>sales-dashboard.pdf</el-attachment-title>
-            <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
-          </el-attachment-content>
-          <el-attachment-actions>
-            <el-attachment-action ariaLabel="Remove sales-dashboard.pdf" />
-          </el-attachment-actions>
-        </el-attachment>
-        <el-attachment state="uploading">
-          <el-attachment-media>
-            <el-icon name="file-zipper" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>design-system.zip</el-attachment-title>
-            <el-attachment-description
-              >Uploading · 64%</el-attachment-description
-            >
-          </el-attachment-content>
-          <el-attachment-actions>
-            <el-attachment-action ariaLabel="Cancel upload" />
-          </el-attachment-actions>
-        </el-attachment>
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -70,163 +36,264 @@
   <section>
     <h2>Examples</h2>
 
-    <h3>States</h3>
-    <app-preview>
-      <div style="display: grid; gap: 0.75rem; max-width: 22rem">
-        <el-attachment state="idle">
-          <el-attachment-media>
-            <el-icon name="file-lines" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>selected-file.pdf</el-attachment-title>
-            <el-attachment-description
-              >Ready to upload</el-attachment-description
-            >
-          </el-attachment-content>
-        </el-attachment>
-        <el-attachment state="processing">
-          <el-attachment-media>
-            <el-icon name="file-lines" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>market-research.pdf</el-attachment-title>
-            <el-attachment-description
-              >Processing document</el-attachment-description
-            >
-          </el-attachment-content>
-        </el-attachment>
-        <el-attachment state="error">
-          <el-attachment-media>
-            <el-icon name="file-excel" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>financial-model.xlsx</el-attachment-title>
-            <el-attachment-description
-              >Upload failed. Try again.</el-attachment-description
-            >
-          </el-attachment-content>
-          <el-attachment-actions>
-            <el-attachment-action
-              ariaLabel="Retry financial-model.xlsx"
-              icon="rotate-right"
-            />
-          </el-attachment-actions>
-        </el-attachment>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Done and uploading</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div style="display: grid; gap: 0.75rem; max-width: 22rem">
+              <el-attachment state="done">
+                <el-attachment-media>
+                  <el-icon name="file-lines" />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>sales-dashboard.pdf</el-attachment-title>
+                  <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+                </el-attachment-content>
+                <el-attachment-actions>
+                  <el-attachment-action ariaLabel="Remove sales-dashboard.pdf" />
+                </el-attachment-actions>
+              </el-attachment>
+              <el-attachment state="uploading">
+                <el-attachment-media>
+                  <el-icon name="file-zipper" />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>design-system.zip</el-attachment-title>
+                  <el-attachment-description>Uploading · 64%</el-attachment-description>
+                </el-attachment-content>
+                <el-attachment-actions>
+                  <el-attachment-action ariaLabel="Cancel upload" />
+                </el-attachment-actions>
+              </el-attachment>
+            </div>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Filename and status live in visible text. Icon-only actions require
+            <code>ariaLabel</code>. Uploading and processing states expose
+            <code>aria-busy</code> on the attachment host.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Image (vertical)</h3>
-    <app-preview>
-      <el-attachment orientation="vertical" state="done" style="width: 14rem">
-        <el-attachment-media variant="image">
-          <img
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=320&q=80"
-            alt=""
-          />
-        </el-attachment-media>
-        <el-attachment-content>
-          <el-attachment-title>workspace.png</el-attachment-title>
-          <el-attachment-description>PNG · 820 KB</el-attachment-description>
-        </el-attachment-content>
-        <el-attachment-actions>
-          <el-attachment-action ariaLabel="Remove workspace.png" />
-        </el-attachment-actions>
-      </el-attachment>
-    </app-preview>
-    <app-code-block [code]="imageCode" language="html" />
-
-    <h3>Sizes</h3>
-    <app-preview>
-      <div style="display: grid; gap: 0.75rem; max-width: 22rem">
-        <el-attachment size="lg" state="done">
-          <el-attachment-media>
-            <el-icon name="file-lines" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>Large attachment</el-attachment-title>
-            <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
-          </el-attachment-content>
-        </el-attachment>
-        <el-attachment size="md" state="done">
-          <el-attachment-media>
-            <el-icon name="file-lines" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>Medium attachment</el-attachment-title>
-            <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
-          </el-attachment-content>
-        </el-attachment>
-        <el-attachment size="sm" state="done">
-          <el-attachment-media>
-            <el-icon name="file-lines" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>Small attachment</el-attachment-title>
-            <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
-          </el-attachment-content>
-        </el-attachment>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Lifecycle states</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="statesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="statesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="statesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (statesPanel() === 'preview') {
+          <app-preview>
+            <div style="display: grid; gap: 0.75rem; max-width: 22rem">
+              <el-attachment state="idle">
+                <el-attachment-media>
+                  <el-icon name="file-lines" />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>selected-file.pdf</el-attachment-title>
+                  <el-attachment-description>Ready to upload</el-attachment-description>
+                </el-attachment-content>
+              </el-attachment>
+              <el-attachment state="processing">
+                <el-attachment-media>
+                  <el-icon name="file-lines" />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>market-research.pdf</el-attachment-title>
+                  <el-attachment-description>Processing document</el-attachment-description>
+                </el-attachment-content>
+              </el-attachment>
+              <el-attachment state="error">
+                <el-attachment-media>
+                  <el-icon name="file-excel" />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>financial-model.xlsx</el-attachment-title>
+                  <el-attachment-description>Upload failed. Try again.</el-attachment-description>
+                </el-attachment-content>
+                <el-attachment-actions>
+                  <el-attachment-action
+                    ariaLabel="Retry financial-model.xlsx"
+                    icon="rotate-right"
+                  />
+                </el-attachment-actions>
+              </el-attachment>
+            </div>
+          </app-preview>
+        } @else if (statesPanel() === 'code') {
+          <app-code-block [code]="statesCode" language="html" />
+        } @else {
+          <p>
+            Error reasons belong in the description so status is not conveyed by
+            color alone. Retry and remove controls stay named buttons.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Group</h3>
-    <app-preview>
-      <el-attachment-group ariaLabel="Recent files" style="max-width: 36rem">
-        <el-attachment state="done" orientation="vertical">
-          <el-attachment-media variant="image">
-            <img
-              src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=320&q=80"
-              alt=""
-            />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>workspace.png</el-attachment-title>
-            <el-attachment-description>PNG · 820 KB</el-attachment-description>
-          </el-attachment-content>
-          <el-attachment-actions>
-            <el-attachment-action ariaLabel="Remove workspace.png" />
-          </el-attachment-actions>
-        </el-attachment>
-        <el-attachment state="done" orientation="vertical">
-          <el-attachment-media variant="image">
-            <img
-              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=320&q=80"
-              alt=""
-            />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>desk-reference.jpg</el-attachment-title>
-            <el-attachment-description>JPG · 1.1 MB</el-attachment-description>
-          </el-attachment-content>
-          <el-attachment-actions>
-            <el-attachment-action ariaLabel="Remove desk-reference.jpg" />
-          </el-attachment-actions>
-        </el-attachment>
-        <el-attachment state="done" orientation="vertical">
-          <el-attachment-media>
-            <el-icon name="file-lines" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>briefing-notes.pdf</el-attachment-title>
-            <el-attachment-description>PDF · 1.4 MB</el-attachment-description>
-          </el-attachment-content>
-          <el-attachment-actions>
-            <el-attachment-action ariaLabel="Remove briefing-notes.pdf" />
-          </el-attachment-actions>
-        </el-attachment>
-        <el-attachment state="done" orientation="vertical">
-          <el-attachment-media>
-            <el-icon name="file-code" />
-          </el-attachment-media>
-          <el-attachment-content>
-            <el-attachment-title>renderer.tsx</el-attachment-title>
-            <el-attachment-description>TSX · 12 KB</el-attachment-description>
-          </el-attachment-content>
-          <el-attachment-actions>
-            <el-attachment-action ariaLabel="Remove renderer.tsx" />
-          </el-attachment-actions>
-        </el-attachment>
-      </el-attachment-group>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Image (vertical)</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="imagePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="imagePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="imagePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (imagePanel() === 'preview') {
+          <app-preview>
+            <el-attachment orientation="vertical" state="done" style="width: 14rem">
+              <el-attachment-media variant="image">
+                <img
+                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=320&q=80"
+                  alt=""
+                />
+              </el-attachment-media>
+              <el-attachment-content>
+                <el-attachment-title>workspace.png</el-attachment-title>
+                <el-attachment-description>PNG · 820 KB</el-attachment-description>
+              </el-attachment-content>
+              <el-attachment-actions>
+                <el-attachment-action ariaLabel="Remove workspace.png" />
+              </el-attachment-actions>
+            </el-attachment>
+          </app-preview>
+        } @else if (imagePanel() === 'code') {
+          <app-code-block [code]="imageCode" language="html" />
+        } @else {
+          <p>
+            Decorative previews next to a visible filename use an empty
+            <code>alt</code>. The title provides the accessible name for the
+            attachment row.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Sizes</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sizesPanel() === 'preview') {
+          <app-preview>
+            <div style="display: grid; gap: 0.75rem; max-width: 22rem">
+              <el-attachment size="lg" state="done">
+                <el-attachment-media>
+                  <el-icon name="file-lines" />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>Large attachment</el-attachment-title>
+                  <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+                </el-attachment-content>
+              </el-attachment>
+              <el-attachment size="md" state="done">
+                <el-attachment-media>
+                  <el-icon name="file-lines" />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>Medium attachment</el-attachment-title>
+                  <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+                </el-attachment-content>
+              </el-attachment>
+              <el-attachment size="sm" state="done">
+                <el-attachment-media>
+                  <el-icon name="file-lines" />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>Small attachment</el-attachment-title>
+                  <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+                </el-attachment-content>
+              </el-attachment>
+            </div>
+          </app-preview>
+        } @else if (sizesPanel() === 'code') {
+          <app-code-block [code]="sizesCode" language="html" />
+        } @else {
+          <p>
+            Density scales touch targets and typography together. Action buttons
+            remain icon-only with explicit labels at every size.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Group</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="groupPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="groupPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="groupPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (groupPanel() === 'preview') {
+          <app-preview>
+            <el-attachment-group ariaLabel="Recent files" style="max-width: 36rem">
+              <el-attachment state="done" orientation="vertical">
+                <el-attachment-media variant="image">
+                  <img
+                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=320&q=80"
+                    alt=""
+                  />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>workspace.png</el-attachment-title>
+                  <el-attachment-description>PNG · 820 KB</el-attachment-description>
+                </el-attachment-content>
+                <el-attachment-actions>
+                  <el-attachment-action ariaLabel="Remove workspace.png" />
+                </el-attachment-actions>
+              </el-attachment>
+              <el-attachment state="done" orientation="vertical">
+                <el-attachment-media variant="image">
+                  <img
+                    src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=320&q=80"
+                    alt=""
+                  />
+                </el-attachment-media>
+                <el-attachment-content>
+                  <el-attachment-title>desk-reference.jpg</el-attachment-title>
+                  <el-attachment-description>JPG · 1.1 MB</el-attachment-description>
+                </el-attachment-content>
+                <el-attachment-actions>
+                  <el-attachment-action ariaLabel="Remove desk-reference.jpg" />
+                </el-attachment-actions>
+              </el-attachment>
+            </el-attachment-group>
+          </app-preview>
+        } @else if (groupPanel() === 'code') {
+          <app-code-block [code]="groupCode" language="html" />
+        } @else {
+          <p>
+            Groups use <code>role="group"</code> with a label so related
+            attachments are announced together without nesting interactive controls.
+          </p>
+        }
+      </div>
+    </article>
   </section>
 
   <section>

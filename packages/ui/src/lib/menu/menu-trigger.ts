@@ -8,6 +8,8 @@ import { EL_MENU, EL_MENUBAR } from './menu.token';
     '[attr.aria-expanded]': 'menu.isOpen()',
     '[attr.aria-controls]': 'menu.isOpen() ? menu.panelId : null',
     '[attr.aria-disabled]': 'menu.disabled() || null',
+    '[attr.tabindex]':
+      'menu.trigger() === "contextmenu" && !menu.isSubmenu() ? 0 : null',
     '(click)': 'onClick($event)',
     '(contextmenu)': 'onContextMenu($event)',
     '(keydown)': 'onKeydown($event)',
@@ -62,6 +64,17 @@ export class ElMenuTrigger {
     }
 
     if (
+      this.menu.trigger() === 'contextmenu' &&
+      !this.menu.isSubmenu() &&
+      (event.key === 'ContextMenu' ||
+        (event.key === 'F10' && event.shiftKey))
+    ) {
+      event.preventDefault();
+      this.openContextMenuAtHost();
+      return;
+    }
+
+    if (
       event.key === 'ArrowDown' ||
       event.key === 'Enter' ||
       event.key === ' '
@@ -72,12 +85,21 @@ export class ElMenuTrigger {
 
     if (event.key === 'ArrowUp' && !this.menu.isSubmenu()) {
       event.preventDefault();
-      this.menu.openPanel();
+      this.menu.openPanel('last');
     }
 
     if (event.key === 'ArrowRight' && this.menu.isSubmenu()) {
       event.preventDefault();
       this.menu.openPanel();
     }
+  }
+
+  private openContextMenuAtHost(): void {
+    const rect = this.host.nativeElement.getBoundingClientRect();
+    this.menu.setAnchorPoint({
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    });
+    this.menu.openPanel();
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   ElButton,
@@ -34,6 +34,9 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class MenubarDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
@@ -62,6 +65,13 @@ import { ElButton } from './ui/button/button';`;
       <el-menu-item>Undo</el-menu-item>
     </el-menu-panel>
   </el-menu>
+</el-menubar>`;
+
+  protected readonly sizesCode = `<el-menubar size="sm" ariaLabel="Compact">
+  <!-- el-menu children -->
+</el-menubar>
+<el-menubar size="lg" ariaLabel="Comfortable">
+  <!-- el-menu children -->
 </el-menubar>`;
 
   protected readonly scopedTokensCode = `.app-shell {

@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  ElButton,
   ElInfiniteScroll,
   ElList,
   ElListItem,
@@ -25,6 +26,7 @@ const TOTAL_ITEMS = 40;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElButton,
     ElInfiniteScroll,
     ElList,
     ElListItem,
@@ -37,6 +39,8 @@ const TOTAL_ITEMS = 40;
   styleUrl: './page.scss',
 })
 export class InfiniteScrollDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly items = signal<FeedItem[]>([]);
   protected readonly loading = signal(false);
   protected readonly complete = signal(false);

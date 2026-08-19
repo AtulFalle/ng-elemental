@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect, fn } from 'storybook/test';
 import { ElIcon } from '../icon/icon';
 import { ElSlideToggle } from './slide-toggle';
 
@@ -128,4 +129,41 @@ export const Sizes: Story = {
       </div>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  parameters: { docs: { codePanel: true } },
+  render: () => ({
+    props: { checked: false },
+    moduleMetadata: { imports: [ElSlideToggle] },
+    template: `<div style="display:flex;flex-direction:column;gap:0.75rem">
+      <el-slide-toggle [(checked)]="checked" inputId="st-active">Notifications</el-slide-toggle>
+      <el-slide-toggle inputId="st-disabled" disabled>Disabled</el-slide-toggle>
+    </div>`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const active = canvas.getByRole('switch', { name: 'Notifications' });
+    const disabled = canvas.getByRole('switch', { name: 'Disabled' });
+
+    await step('Pointer: toggle switch', async () => {
+      await userEvent.click(active);
+      await expect(active).toBeChecked();
+    });
+
+    await step('Keyboard: Space toggles', async () => {
+      active.focus();
+      await userEvent.keyboard(' ');
+      await expect(active).not.toBeChecked();
+    });
+
+    await step('Disabled does not toggle', async () => {
+      await expect(disabled).toBeDisabled();
+      const onClick = fn();
+      disabled.addEventListener('click', onClick);
+      await userEvent.click(disabled);
+      await expect(onClick).not.toHaveBeenCalled();
+    });
+  },
 };

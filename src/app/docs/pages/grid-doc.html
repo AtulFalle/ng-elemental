@@ -12,21 +12,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-grid [columns]="3" gap="3" style="width: 100%">
-        @for (item of ['One', 'Two', 'Three', 'Four', 'Five', 'Six']; track item) {
-          <div
-            style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-          >
-            {{ item }}
-          </div>
-        }
-      </el-grid>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -38,23 +23,95 @@
       breakpoint map.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
-    <h3>Auto-fit</h3>
-    <app-preview>
-      <el-grid minItemWidth="8rem" gap="3" style="width: 100%">
-        @for (item of ['A', 'B', 'C', 'D']; track item) {
-          <div
-            style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-          >
-            {{ item }}
-          </div>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Fixed columns</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="columnsPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="columnsPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="columnsPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (columnsPanel() === 'preview') {
+          <app-preview>
+            <el-grid [columns]="3" gap="3" style="width: 100%">
+              @for (item of columnItems; track item) {
+                <div
+                  style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+                >
+                  {{ item }}
+                </div>
+              }
+            </el-grid>
+          </app-preview>
+        } @else if (columnsPanel() === 'code') {
+          <app-code-block [code]="columnsCode" language="html" />
+        } @else {
+          <p>
+            Fixed columns suit dashboards with predictable tile counts. Reading order follows
+            DOM order left-to-right, top-to-bottom.
+          </p>
         }
-      </el-grid>
-    </app-preview>
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Auto-fit</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="autoFitPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="autoFitPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="autoFitPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (autoFitPanel() === 'preview') {
+          <app-preview>
+            <el-grid minItemWidth="8rem" gap="3" style="width: 100%">
+              @for (item of autoFitItems; track item) {
+                <div
+                  style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+                >
+                  {{ item }}
+                </div>
+              }
+            </el-grid>
+          </app-preview>
+        } @else if (autoFitPanel() === 'code') {
+          <app-code-block [code]="autoFitCode" language="html" />
+        } @else {
+          <p>
+            Auto-fit reflows tiles without JavaScript breakpoints. Tiles stay readable when
+            users zoom or narrow the viewport.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Grid is presentational layout. It does not define landmarks or interactive behavior.
+    </p>
+    <ul>
+      <li>No widget <code>role</code> — structure comes from child content.</li>
+      <li>DOM order defines screen-reader sequence.</li>
+      <li>Gap tokens replace brittle margin hacks between cells.</li>
+      <li>Cards and buttons inside cells keep their own semantics.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.4.10).
+    </p>
   </section>
 
   <section>

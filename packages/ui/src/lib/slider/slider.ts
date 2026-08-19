@@ -48,6 +48,10 @@ export class ElSlider {
   readonly size = input<ElSliderSize>('md');
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly error = input(false, { transform: booleanAttribute });
+  readonly ariaLabel = input('Value');
+  readonly ariaLabelStart = input('Minimum value');
+  readonly ariaLabelEnd = input('Maximum value');
+  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 
   private readonly railRef = viewChild<ElementRef<HTMLElement>>('rail');
 

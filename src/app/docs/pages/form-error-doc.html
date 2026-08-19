@@ -4,32 +4,12 @@
     <p class="docs-lead">
       Presentational validation message. Compose it with
       <code>el-label</code> and any control yourself — no wrapper coupling.
-      Validation logic stays in your app; this component only displays the
-      message.
     </p>
   </header>
 
   <div class="docs-cli-hint">
     Add to your project: <code>npx @ng-elemental/cli add form-error</code>
   </div>
-
-  <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div class="docs-stack" style="gap: 0.375rem; width: 100%;">
-        <el-label htmlFor="email-preview" required>Email</el-label>
-        <el-input
-          inputId="email-preview"
-          [(value)]="email"
-          [error]="emailInvalid()"
-          [attr.aria-describedby]="emailInvalid() ? 'email-preview-err' : null"
-        />
-        @if (emailInvalid()) {
-          <el-form-error id="email-preview-err">Email is required</el-form-error>
-        }
-      </div>
-    </app-preview>
-  </section>
 
   <section>
     <h2>Installation</h2>
@@ -40,11 +20,76 @@
     <h2>Usage</h2>
     <p>
       Pair label, control <code>[error]</code>, and
-      <code>el-form-error</code>. Wire <code>aria-describedby</code> when you
-      want the message announced with the control.
+      <code>el-form-error</code>. Wire <code>ariaDescribedby</code> on the
+      control when you want the message announced with the field.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Field with error</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="fieldPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="fieldPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="fieldPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (fieldPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack" style="gap: 0.375rem; width: 100%;">
+              <el-label htmlFor="email-preview" required>Email</el-label>
+              <el-input
+                inputId="email-preview"
+                [(value)]="email"
+                [error]="emailInvalid()"
+                ariaDescribedby="email-preview-err"
+              />
+              @if (emailInvalid()) {
+                <el-form-error id="email-preview-err">Email is required</el-form-error>
+              }
+            </div>
+          </app-preview>
+        } @else if (fieldPanel() === 'code') {
+          <app-code-block [code]="fieldCode" language="html" />
+        } @else {
+          <p>
+            Message uses <code>role="alert"</code>. Link it to the control with
+            matching ids on <code>ariaDescribedby</code> and
+            <code>el-form-error</code>.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Message only</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="messagePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="messagePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="messagePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (messagePanel() === 'preview') {
+          <app-preview>
+            <el-form-error>Something went wrong</el-form-error>
+          </app-preview>
+        } @else if (messagePanel() === 'code') {
+          <app-code-block [code]="messageCode" language="html" />
+        } @else {
+          <p>
+            Standalone messages still expose alert semantics for timely
+            announcement when inserted dynamically.
+          </p>
+        }
+      </div>
+    </article>
   </section>
 
   <section>
@@ -54,14 +99,6 @@
       <code>gap</code> on your form or field wrapper:
     </p>
     <app-code-block [code]="stackCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>Examples</h2>
-    <h3>Message only</h3>
-    <app-preview>
-      <el-form-error>Something went wrong</el-form-error>
-    </app-preview>
   </section>
 
   <section>

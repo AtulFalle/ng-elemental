@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElButton } from '../button/button';
 import { ElChip } from '../chip/chip';
 import { ElIcon } from '../icon/icon';
@@ -234,4 +235,65 @@ export const DisabledItem: Story = {
       </el-accordion>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    props: { open: 'shipping' },
+    moduleMetadata: { imports: ACCORDION_IMPORTS },
+    template: `
+      <el-accordion
+        variant="single"
+        [value]="open"
+        (valueChange)="open = $event"
+        ariaLabel="Order details"
+        style="max-width: 36rem"
+      >
+        <el-accordion-item
+          value="shipping"
+          title="Shipping"
+          subtitle="2–5 business days"
+        >
+          <ng-template elAccordionContent>
+            <p>Ships from Pune.</p>
+          </ng-template>
+        </el-accordion-item>
+        <el-accordion-item value="billing" title="Billing">
+          <ng-template elAccordionContent>
+            <p>Card ending 4242.</p>
+          </ng-template>
+        </el-accordion-item>
+        <el-accordion-item value="billing-locked" title="Billing locked" disabled>
+          <ng-template elAccordionContent>
+            <p>Cannot open.</p>
+          </ng-template>
+        </el-accordion-item>
+      </el-accordion>
+    `,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const shipping = canvas.getByRole('button', { name: /Shipping/i });
+    const billing = canvas.getByRole('button', { name: /^Billing$/i });
+
+    await step('Pointer: toggles panel', async () => {
+      await userEvent.click(billing);
+      await expect(billing).toHaveAttribute('aria-expanded', 'true');
+      await expect(canvas.getByText('Card ending 4242.')).toBeVisible();
+    });
+
+    await step('Keyboard: ArrowDown moves header focus', async () => {
+      shipping.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await expect(billing).toHaveFocus();
+    });
+
+    await step('Disabled header stays collapsed', async () => {
+      const locked = canvas.getByRole('button', { name: /Billing locked/i });
+      await expect(locked).toBeDisabled();
+      await userEvent.click(locked);
+      await expect(locked).toHaveAttribute('aria-expanded', 'false');
+    });
+  },
 };

@@ -8,7 +8,7 @@
         [class.el-tree-item__chevron--expanded]="expanded()"
         [class.el-tree-item__chevron--loading]="loading()"
         [disabled]="isDisabled() || loading()"
-        [attr.aria-label]="expanded() ? 'Collapse' : 'Expand'"
+        [attr.aria-label]="expandLabel()"
         (click)="onToggleExpand($event)"
       >
         <el-icon [name]="chevronName()" size="sm" />
@@ -24,7 +24,9 @@
         [indeterminate]="indeterminate()"
         [disabled]="isDisabled()"
         (checkedChange)="onCheckChange($event)"
-      />
+      >
+        <span class="el-tree-item__sr-only">{{ checkboxLabel() }}</span>
+      </el-checkbox>
     }
 
     <span class="el-tree-item__leading">

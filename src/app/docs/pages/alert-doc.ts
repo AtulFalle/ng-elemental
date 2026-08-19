@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElAlert } from '@ng-elemental/ui';
+import { ElAlert, ElButton } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
@@ -9,12 +9,16 @@ import { PropsTable } from '../ui/props-table';
 @Component({
   selector: 'app-alert-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElAlert, CodeBlock, Preview, PropsTable],
+  imports: [RouterLink, ElAlert, ElButton, CodeBlock, Preview, PropsTable],
   templateUrl: './alert-doc.html',
   styleUrl: './page.scss',
 })
 export class AlertDocPage {
   protected readonly showBanner = signal(true);
+
+  protected readonly colorsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly titlePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly dismissPanel = signal<'preview' | 'code' | 'standards'>('preview');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
@@ -34,9 +38,26 @@ npx @ng-elemental/cli add alert`;
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-alert color="info">Something needs your attention.</el-alert>
-<el-alert color="success" title="Saved">Your changes were written.</el-alert>
-<el-alert color="error" dismissible (dismissed)="onDismiss()">Could not save.</el-alert>`;
+  protected readonly colorsCode = `<el-alert color="neutral">Neutral update.</el-alert>
+<el-alert color="success">Saved successfully.</el-alert>
+<el-alert color="error">Could not save changes.</el-alert>
+<el-alert color="warning">This action cannot be undone.</el-alert>
+<el-alert color="info">A newer version is available.</el-alert>`;
+
+  protected readonly titleCode = `<el-alert color="success" title="Saved">
+  Your changes were written.
+</el-alert>`;
+
+  protected readonly dismissCode = `@if (show()) {
+  <el-alert
+    color="info"
+    title="New version"
+    dismissible
+    (dismissed)="show.set(false)"
+  >
+    A newer version of the design system is available.
+  </el-alert>
+}`;
 
   protected readonly scopedTokensCode = `.checkout-panel {
   --el-color-success-container: #c4eed0;

@@ -1,23 +1,5 @@
 :host(.el-list-item-host) {
-  display: block;
-  min-width: 0;
-}
-
-:host(.el-list-item-host:last-child) {
-  --el-list-item-border: none;
-}
-
-:host(.el-list-item-host--interactive) {
-  cursor: pointer;
-}
-
-:host(.el-list-item-host--disabled) {
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-:host(.el-list-item-host:focus-visible) {
-  outline: none;
+  display: contents;
 }
 
 .el-list-item {
@@ -27,6 +9,7 @@
   gap: var(--el-list-item-gap, 0.75rem);
   box-sizing: border-box;
   min-width: 0;
+  margin: 0;
   padding: var(--el-list-item-padding, 0.75rem 1rem);
   border-bottom: var(--el-list-item-border, none);
   background: transparent;
@@ -131,9 +114,22 @@
       display: none;
     }
   }
+
+  &:focus-visible {
+    outline: var(--el-border-width-thick) solid var(--el-color-primary);
+    outline-offset: -2px;
+  }
+
+  &:last-child {
+    --el-list-item-border: none;
+  }
 }
 
-:host(.el-list-item-host:focus-visible) .el-list-item {
-  outline: var(--el-border-width-thick) solid var(--el-color-primary);
-  outline-offset: -2px;
+:host(.el-list-item-host--interactive) .el-list-item {
+  cursor: pointer;
+}
+
+:host(.el-list-item-host--disabled) .el-list-item {
+  cursor: not-allowed;
+  pointer-events: none;
 }

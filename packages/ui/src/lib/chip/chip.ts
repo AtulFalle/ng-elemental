@@ -33,7 +33,9 @@ export class ElChip {
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly removable = input(false, { transform: booleanAttribute });
   readonly removeLabel = input('Remove');
+  readonly ariaLabel = input('');
 
+  readonly clicked = output<void>();
   readonly removed = output<void>();
 
   protected readonly isFilter = computed(() => this.type() === 'filter');
@@ -71,11 +73,16 @@ export class ElChip {
   }));
 
   protected onChipClick(): void {
-    if (this.disabled() || !this.isFilter()) {
+    if (this.disabled()) {
       return;
     }
 
-    this.selected.update((value) => !value);
+    if (this.isFilter()) {
+      this.selected.update((value) => !value);
+      return;
+    }
+
+    this.clicked.emit();
   }
 
   protected onRemoveClick(event: Event): void {

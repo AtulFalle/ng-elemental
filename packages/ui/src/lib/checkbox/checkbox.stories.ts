@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect, fn } from 'storybook/test';
 import { ElCheckbox } from './checkbox';
 
 const meta: Meta<ElCheckbox> = {
@@ -86,4 +87,47 @@ export const CheckboxList: Story = {
       </div>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  parameters: { docs: { codePanel: true } },
+  render: () => ({
+    props: { checked: false },
+    moduleMetadata: { imports: [ElCheckbox] },
+    template: `<div style="display:flex;flex-direction:column;gap:0.75rem">
+      <el-checkbox [(checked)]="checked" inputId="cb-active">Accept terms</el-checkbox>
+      <el-checkbox inputId="cb-disabled" disabled>Disabled</el-checkbox>
+      <el-checkbox inputId="cb-indeterminate" [indeterminate]="true">Select all</el-checkbox>
+    </div>`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const active = canvas.getByRole('checkbox', { name: 'Accept terms' });
+    const disabled = canvas.getByRole('checkbox', { name: 'Disabled' });
+    const indeterminate = canvas.getByRole('checkbox', { name: 'Select all' });
+
+    await step('Pointer: toggle checkbox', async () => {
+      await userEvent.click(active);
+      await expect(active).toBeChecked();
+    });
+
+    await step('Keyboard: Space toggles', async () => {
+      active.focus();
+      await userEvent.keyboard(' ');
+      await expect(active).not.toBeChecked();
+    });
+
+    await step('Disabled does not toggle', async () => {
+      await expect(disabled).toBeDisabled();
+      const onClick = fn();
+      disabled.addEventListener('click', onClick);
+      await userEvent.click(disabled);
+      await expect(onClick).not.toHaveBeenCalled();
+    });
+
+    await step('Indeterminate is exposed', async () => {
+      await expect(indeterminate).toHaveAttribute('aria-checked', 'mixed');
+    });
+  },
 };

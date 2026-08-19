@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElIcon } from '../icon/icon';
 import { ElTab } from './tab';
 import { ElTabContent } from './tab-content';
@@ -141,4 +142,38 @@ export const Overflow: Story = {
       </div>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [TabsStoryHost] },
+    template: `<el-tabs-story-host ariaLabel="Account" />`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const overview = canvas.getByRole('tab', { name: 'Overview' });
+    const billing = canvas.getByRole('tab', { name: 'Billing' });
+
+    await step('Pointer: selects tab', async () => {
+      await userEvent.click(billing);
+      await expect(billing).toHaveAttribute('aria-selected', 'true');
+      await expect(canvas.getByText('Invoices, payment methods')).toBeVisible();
+    });
+
+    await step('Keyboard: ArrowRight moves selection', async () => {
+      overview.focus();
+      await userEvent.keyboard('{ArrowRight}');
+      await expect(billing).toHaveAttribute('aria-selected', 'true');
+      await expect(billing).toHaveFocus();
+    });
+
+    await step('Home and End move across tabs', async () => {
+      billing.focus();
+      await userEvent.keyboard('{End}');
+      await expect(canvas.getByRole('tab', { name: 'Team' })).toHaveFocus();
+      await userEvent.keyboard('{Home}');
+      await expect(overview).toHaveFocus();
+    });
+  },
 };

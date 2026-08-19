@@ -14,15 +14,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div style="width: 16rem;">
-        <el-skeleton [lines]="3" />
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -35,65 +26,112 @@
       <code>aria-busy="true"</code> on the loading region.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Text</h3>
-    <app-preview>
-      <div style="width: 16rem;">
-        <el-skeleton />
-      </div>
-    </app-preview>
-
-    <h3>Multiline</h3>
-    <app-preview>
-      <div style="width: 16rem;">
-        <el-skeleton [lines]="4" />
-      </div>
-    </app-preview>
-
-    <h3>Circular and rectangular</h3>
-    <app-preview>
-      <div class="docs-row" style="align-items: flex-start; width: 100%;">
-        <el-skeleton variant="circular" />
-        <el-skeleton variant="rectangular" height="6rem" style="flex: 1;" />
-      </div>
-    </app-preview>
-
-    <h3>Static</h3>
-    <app-preview>
-      <div style="width: 16rem;">
-        <el-skeleton [animation]="false" [lines]="3" />
-      </div>
-    </app-preview>
-
-    <h3>Profile card</h3>
-    <app-preview>
-      <div class="docs-row" style="align-items: flex-start; width: 100%; max-width: 20rem;">
-        <el-skeleton variant="circular" width="2.5rem" height="2.5rem" />
-        <div style="flex: 1; min-width: 0;">
-          <el-skeleton [lines]="2" />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Multiline text</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="textPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="textPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="textPanel.set('standards')" />
         </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (textPanel() === 'preview') {
+          <app-preview>
+            <div aria-busy="true" aria-live="polite" style="width: 16rem">
+              <el-skeleton [lines]="4" />
+            </div>
+          </app-preview>
+        } @else if (textPanel() === 'code') {
+          <app-code-block [code]="textCode" language="html" />
+        } @else {
+          <p>
+            Skeleton bars are decorative — the parent marks the region busy so assistive
+            technology knows content is loading. Remove skeletons when data arrives.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Cover a host</h3>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Circular and rectangular</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="shapesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="shapesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="shapesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (shapesPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-row" style="align-items: flex-start; width: 100%">
+              <el-skeleton variant="circular" />
+              <el-skeleton variant="rectangular" height="6rem" style="flex: 1" />
+            </div>
+          </app-preview>
+        } @else if (shapesPanel() === 'code') {
+          <app-code-block [code]="shapesCode" language="html" />
+        } @else {
+          <p>
+            Shape variants mirror common content blocks. Animation honors
+            <code>prefers-reduced-motion</code> — set <code>[animation]="false"</code> for static placeholders.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Cover a host</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="hostPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="hostPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="hostPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (hostPanel() === 'preview') {
+          <app-preview>
+            <div aria-busy="true" class="docs-stack" style="max-width: 16rem">
+              <el-button elSkeleton>Save changes</el-button>
+              <el-input elSkeleton placeholder="Email" />
+            </div>
+          </app-preview>
+        } @else if (hostPanel() === 'code') {
+          <app-code-block [code]="hostCode" language="html" />
+        } @else {
+          <p>
+            The directive covers the host box without changing layout. Keep real controls
+            in the DOM and disable interaction while loading if they would otherwise activate.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
     <p>
-      Bind <code>[elSkeleton]</code> on a button, input, or any other element.
-      The cover matches that host&rsquo;s box — no separate skeleton layout.
+      Skeleton is presentational. Loading state belongs on the surrounding region.
     </p>
-    <app-preview>
-      <div class="docs-stack" style="max-width: 16rem;">
-        <el-button elSkeleton>Save changes</el-button>
-        <el-input elSkeleton placeholder="Email" />
-        <div elSkeleton style="height: 4rem; border-radius: 0.5rem; padding: 0.75rem;">
-          Card body
-        </div>
-      </div>
-    </app-preview>
+    <ul>
+      <li><code>el-skeleton</code> is hidden from assistive technology.</li>
+      <li>Parent uses <code>aria-busy="true"</code> and optional <code>aria-live="polite"</code>.</li>
+      <li>Shimmer animation respects <code>prefers-reduced-motion</code>.</li>
+      <li>Replace placeholders with real content — do not leave busy regions indefinitely.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (2.2.2, 4.1.3).
+    </p>
   </section>
 
   <section>

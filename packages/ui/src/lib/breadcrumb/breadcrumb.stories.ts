@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElBreadcrumb } from './breadcrumb';
 import { ElBreadcrumbItem } from './breadcrumb-item';
 
@@ -71,4 +72,31 @@ export const CustomLinkContent: Story = {
       </el-breadcrumb>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: {
+      imports: [ElBreadcrumb, ElBreadcrumbItem],
+    },
+    template: `
+      <el-breadcrumb ariaLabel="Site">
+        <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+        <el-breadcrumb-item href="/docs">Components</el-breadcrumb-item>
+        <el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>
+      </el-breadcrumb>
+    `,
+  }),
+  play: async ({ canvas, step }) => {
+    await step('Breadcrumb navigation exposes current page', async () => {
+      const nav = canvas.getByRole('navigation', { name: 'Site' });
+      await expect(nav).toBeInTheDocument();
+      await expect(canvas.getByRole('link', { name: 'Home' })).toBeInTheDocument();
+      await expect(
+        canvas.getByText('Breadcrumb', { selector: '[aria-current="page"]' }),
+      ).toBeInTheDocument();
+    });
+  },
 };

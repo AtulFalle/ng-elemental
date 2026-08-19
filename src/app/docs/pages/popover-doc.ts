@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   ElButton,
@@ -30,6 +30,11 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class PopoverDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly positionsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly hoverPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly modalPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add popover`;
@@ -54,6 +59,31 @@ import { ElButton } from './ui/button/button';
   \`,
 })
 export class MyComponent {}`;
+
+  protected readonly positionsCode = `<el-popover position="top">
+  <el-button elPopoverTrigger>Top</el-button>
+  <el-popover-panel>
+    <span elPopoverTitle>Top</span>
+    Anchored above.
+  </el-popover-panel>
+</el-popover>`;
+
+  protected readonly hoverCode = `<el-popover trigger="hover" position="top">
+  <el-button elPopoverTrigger>Hover me</el-button>
+  <el-popover-panel>
+    <span elPopoverTitle>Hover card</span>
+    Rich content, not a tooltip.
+  </el-popover-panel>
+</el-popover>`;
+
+  protected readonly modalCode = `<el-popover modal>
+  <el-button elPopoverTrigger>Modal popover</el-button>
+  <el-popover-panel>
+    <span elPopoverTitle>Confirm</span>
+    Focus moves into the panel.
+    <el-button elPopoverClose variant="primary" size="sm">Done</el-button>
+  </el-popover-panel>
+</el-popover>`;
 
   protected readonly usageCode = `<el-popover position="bottom">
   <el-button elPopoverTrigger>Details</el-button>

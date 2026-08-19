@@ -1,4 +1,4 @@
-<div [class]="rootClass()">
+<ul [class]="rootClass()" [attr.aria-label]="ariaLabel() || null">
   @if (virtual()) {
     @if (virtualWindow().padStart > 0) {
       <div
@@ -29,7 +29,7 @@
   } @else {
     <ng-content />
   }
-</div>
+</ul>
 <div class="el-list__defs">
   <ng-content select="ng-template[elListItemDef]" />
 </div>

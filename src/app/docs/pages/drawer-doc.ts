@@ -59,6 +59,10 @@ export class WorkspaceDrawer {
 export class DrawerDocPage {
   private readonly drawer = inject(ElDrawerService);
 
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly sidePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly servicePanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly open = signal(false);
   protected readonly rightOpen = signal(false);
   protected readonly serviceResult = signal<string | null>(null);
@@ -89,6 +93,13 @@ export class MyComponent {
 
   protected readonly usageCode = `<el-drawer [(open)]="open" title="Navigation" side="left" size="md">
   <div elDrawerContent>Any HTML or components.</div>
+  <div elDrawerFooter>
+    <el-button elDrawerClose variant="ghost">Close</el-button>
+  </div>
+</el-drawer>`;
+
+  protected readonly sideCode = `<el-drawer [(open)]="open" title="Account" side="right" size="sm">
+  <div elDrawerContent>Profile and sign out.</div>
   <div elDrawerFooter>
     <el-button elDrawerClose variant="ghost">Close</el-button>
   </div>

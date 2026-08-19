@@ -2,6 +2,7 @@
   <div
     #rail
     class="el-slider__rail"
+    [attr.aria-orientation]="orientation()"
     (pointerdown)="onRailPointerDown($event)"
     (pointermove)="onRailPointerMove($event)"
     (pointerup)="onRailPointerUp($event)"
@@ -35,7 +36,8 @@
         [attr.aria-valuemin]="bounds().min"
         [attr.aria-valuemax]="rangeEnd()"
         [attr.aria-valuenow]="rangeStart()"
-        [attr.aria-label]="'Minimum value'"
+        [attr.aria-label]="ariaLabelStart()"
+        [attr.aria-orientation]="orientation()"
         (keydown)="onThumbKeydown($event, 'start')"
         (pointerdown)="onThumbPointerDown($event, 'start')"
       >
@@ -52,7 +54,8 @@
         [attr.aria-valuemin]="rangeStart()"
         [attr.aria-valuemax]="bounds().max"
         [attr.aria-valuenow]="rangeEnd()"
-        [attr.aria-label]="'Maximum value'"
+        [attr.aria-label]="ariaLabelEnd()"
+        [attr.aria-orientation]="orientation()"
         (keydown)="onThumbKeydown($event, 'end')"
         (pointerdown)="onThumbPointerDown($event, 'end')"
       >
@@ -70,7 +73,8 @@
         [attr.aria-valuemin]="bounds().min"
         [attr.aria-valuemax]="bounds().max"
         [attr.aria-valuenow]="singleValue()"
-        [attr.aria-label]="'Value'"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-orientation]="orientation()"
         (keydown)="onThumbKeydown($event, 'value')"
         (pointerdown)="onThumbPointerDown($event, 'value')"
       >

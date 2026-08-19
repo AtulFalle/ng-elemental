@@ -15,39 +15,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div
-        elInfiniteScroll
-        [disabled]="loading()"
-        [complete]="complete()"
-        (loadMore)="onLoadMore()"
-        style="width: 100%; max-width: 28rem; max-height: 24rem; overflow: auto"
-      >
-        <el-list appearance="plain" ariaLabel="Notifications">
-          @for (item of items(); track item.id) {
-            <el-list-item>
-              <span elListTitle>{{ item.title }}</span>
-              <span elListDescription>{{ item.description }}</span>
-            </el-list-item>
-          }
-        </el-list>
-        @if (loading()) {
-          <div style="padding: 0.5rem 1rem 1rem">
-            <el-progress indeterminate size="sm" />
-          </div>
-        } @else if (complete()) {
-          <p
-            style="margin: 0; padding: 0.75rem 1rem 1rem; text-align: center; font-size: 0.75rem; color: var(--el-color-on-surface-variant)"
-          >
-            End of list
-          </p>
-        }
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -64,6 +31,76 @@
     </p>
     <app-code-block [code]="importCode" />
     <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Paginated feed</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div
+              elInfiniteScroll
+              [disabled]="loading()"
+              [complete]="complete()"
+              (loadMore)="onLoadMore()"
+              style="width: 100%; max-width: 28rem; max-height: 24rem; overflow: auto"
+            >
+              <el-list appearance="plain" ariaLabel="Notifications">
+                @for (item of items(); track item.id) {
+                  <el-list-item>
+                    <span elListTitle>{{ item.title }}</span>
+                    <span elListDescription>{{ item.description }}</span>
+                  </el-list-item>
+                }
+              </el-list>
+              @if (loading()) {
+                <div style="padding: 0.5rem 1rem 1rem">
+                  <el-progress indeterminate size="sm" />
+                </div>
+              } @else if (complete()) {
+                <p
+                  style="margin: 0; padding: 0.75rem 1rem 1rem; text-align: center; font-size: 0.75rem; color: var(--el-color-on-surface-variant)"
+                >
+                  End of list
+                </p>
+              }
+            </div>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            The sentinel fires <code>loadMore</code> when near the scroll bottom. Bind
+            <code>[disabled]</code> while fetching and show a progress indicator so users know
+            more content is loading.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>Loading state is visible — progress indicator while fetching the next page.</li>
+      <li><code>[complete]</code> stops further requests and shows an end-of-list message.</li>
+      <li>Scroll container has a max height and <code>overflow: auto</code> for keyboard scroll.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/WCAG21/Understanding/status-messages.html" target="_blank" rel="noreferrer">WCAG Status Messages</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

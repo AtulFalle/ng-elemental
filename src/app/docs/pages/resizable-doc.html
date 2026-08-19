@@ -12,31 +12,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-resizable
-        style="width: 100%; height: 12rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
-      >
-        <el-resizable-panel [defaultSize]="32" [min]="15">
-          <div
-            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
-          >
-            Sidebar
-          </div>
-        </el-resizable-panel>
-        <el-resizable-handle />
-        <el-resizable-panel [min]="20">
-          <div
-            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
-          >
-            Main
-          </div>
-        </el-resizable-panel>
-      </el-resizable>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -54,82 +29,199 @@
 
   <section>
     <h2>Examples</h2>
-    <h3>Vertical</h3>
-    <app-preview>
-      <el-resizable
-        orientation="vertical"
-        style="width: 100%; height: 16rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
-      >
-        <el-resizable-panel [defaultSize]="40" [min]="20">
-          <div
-            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
-          >
-            Top
-          </div>
-        </el-resizable-panel>
-        <el-resizable-handle />
-        <el-resizable-panel [min]="20">
-          <div
-            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
-          >
-            Bottom
-          </div>
-        </el-resizable-panel>
-      </el-resizable>
-    </app-preview>
 
-    <h3>Min / max</h3>
-    <p>The first pane cannot shrink below 25% or grow above 60%.</p>
-    <app-preview>
-      <el-resizable
-        style="width: 100%; height: 12rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
-      >
-        <el-resizable-panel [defaultSize]="40" [min]="25" [max]="60">
-          <div
-            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
-          >
-            25–60%
-          </div>
-        </el-resizable-panel>
-        <el-resizable-handle />
-        <el-resizable-panel [min]="20">
-          <div
-            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
-          >
-            Rest
-          </div>
-        </el-resizable-panel>
-      </el-resizable>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Horizontal split</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-resizable
+              style="width: 100%; height: 12rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
+            >
+              <el-resizable-panel [defaultSize]="32" [min]="15">
+                <div
+                  style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+                >
+                  Sidebar
+                </div>
+              </el-resizable-panel>
+              <el-resizable-handle />
+              <el-resizable-panel [min]="20">
+                <div
+                  style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
+                >
+                  Main
+                </div>
+              </el-resizable-panel>
+            </el-resizable>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="defaultCode" language="html" />
+        } @else {
+          <p>
+            The handle is a focusable separator with <code>role="separator"</code> and
+            <code>aria-orientation</code>. Arrow keys resize; Home and End jump to min/max.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Custom handle</h3>
-    <p>Project into the handle to replace the default line.</p>
-    <app-preview>
-      <el-resizable
-        style="width: 100%; height: 12rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
-      >
-        <el-resizable-panel [defaultSize]="30" [min]="15">
-          <div
-            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
-          >
-            A
-          </div>
-        </el-resizable-panel>
-        <el-resizable-handle ariaLabel="Resize panes">
-          <span
-            style="display: inline-block; width: 0.25rem; height: 1.5rem; border-radius: var(--el-radius-full); background: var(--el-color-outline)"
-          ></span>
-        </el-resizable-handle>
-        <el-resizable-panel [min]="20">
-          <div
-            style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
-          >
-            B
-          </div>
-        </el-resizable-panel>
-      </el-resizable>
-    </app-preview>
-    <app-code-block [code]="handleSlotCode" language="html" />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Vertical</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="verticalPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="verticalPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="verticalPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (verticalPanel() === 'preview') {
+          <app-preview>
+            <el-resizable
+              orientation="vertical"
+              style="width: 100%; height: 16rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
+            >
+              <el-resizable-panel [defaultSize]="40" [min]="20">
+                <div
+                  style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+                >
+                  Top
+                </div>
+              </el-resizable-panel>
+              <el-resizable-handle />
+              <el-resizable-panel [min]="20">
+                <div
+                  style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
+                >
+                  Bottom
+                </div>
+              </el-resizable-panel>
+            </el-resizable>
+          </app-preview>
+        } @else if (verticalPanel() === 'code') {
+          <app-code-block [code]="verticalCode" language="html" />
+        } @else {
+          <p>
+            Vertical orientation swaps the resize axis. Up/Down arrows nudge the split instead
+            of Left/Right.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Min / max</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="minMaxPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="minMaxPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="minMaxPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (minMaxPanel() === 'preview') {
+          <app-preview>
+            <p>The first pane cannot shrink below 25% or grow above 60%.</p>
+            <el-resizable
+              style="width: 100%; height: 12rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
+            >
+              <el-resizable-panel [defaultSize]="40" [min]="25" [max]="60">
+                <div
+                  style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+                >
+                  25–60%
+                </div>
+              </el-resizable-panel>
+              <el-resizable-handle />
+              <el-resizable-panel [min]="20">
+                <div
+                  style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
+                >
+                  Rest
+                </div>
+              </el-resizable-panel>
+            </el-resizable>
+          </app-preview>
+        } @else if (minMaxPanel() === 'code') {
+          <app-code-block [code]="minMaxCode" language="html" />
+        } @else {
+          <p>
+            Min and max clamp keyboard and pointer resizing so panes never collapse below a
+            usable size.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Custom handle</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="customHandlePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="customHandlePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="customHandlePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (customHandlePanel() === 'preview') {
+          <app-preview>
+            <p>Project into the handle to replace the default line.</p>
+            <el-resizable
+              style="width: 100%; height: 12rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm)"
+            >
+              <el-resizable-panel [defaultSize]="30" [min]="15">
+                <div
+                  style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+                >
+                  A
+                </div>
+              </el-resizable-panel>
+              <el-resizable-handle ariaLabel="Resize panes">
+                <span
+                  style="display: inline-block; width: 0.25rem; height: 1.5rem; border-radius: var(--el-radius-full); background: var(--el-color-outline)"
+                ></span>
+              </el-resizable-handle>
+              <el-resizable-panel [min]="20">
+                <div
+                  style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container-low)"
+                >
+                  B
+                </div>
+              </el-resizable-panel>
+            </el-resizable>
+          </app-preview>
+        } @else if (customHandlePanel() === 'code') {
+          <app-code-block [code]="handleSlotCode" language="html" />
+        } @else {
+          <p>
+            Custom handle visuals are decorative. Pass <code>ariaLabel</code> on the handle so
+            the separator keeps an accessible name.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>Handle uses <code>role="separator"</code> with <code>aria-orientation</code>.</li>
+      <li>Arrow keys nudge 2%; Home and End jump to min and max.</li>
+      <li>Pointer drag and keyboard resize share the same min/max constraints.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/" target="_blank" rel="noreferrer">APG Window Splitter</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

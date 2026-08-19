@@ -14,35 +14,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div class="docs-tabs-demo">
-        <el-tabs
-          [value]="selected()"
-          (valueChange)="selected.set($event)"
-          ariaLabel="Account"
-        >
-          <el-tab value="overview" label="Overview">
-            <ng-template elTabContent>
-              <p>Project overview, status, and recent activity.</p>
-            </ng-template>
-          </el-tab>
-          <el-tab value="billing" label="Billing">
-            <ng-template elTabContent>
-              <p>Invoices, payment methods, and billing contacts.</p>
-            </ng-template>
-          </el-tab>
-          <el-tab value="team" label="Team">
-            <ng-template elTabContent>
-              <p>Members, roles, and pending invitations.</p>
-            </ng-template>
-          </el-tab>
-        </el-tabs>
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -56,147 +27,244 @@
       contain any HTML (icons, badges, and so on).
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Custom labels</h3>
-    <p>
-      Compose
-      <a routerLink="/components/icon">Icon</a>
-      in <code>elTabLabel</code> when you need more than plain text. Add icon
-      separately via the CLI.
-    </p>
-    <app-preview>
-      <div class="docs-tabs-demo">
-        <el-tabs
-          [value]="iconDemo()"
-          (valueChange)="iconDemo.set($event)"
-          ariaLabel="Settings"
-        >
-          <el-tab value="profile">
-            <ng-template elTabLabel>
-              <el-icon name="user" size="sm" />
-              Profile
-            </ng-template>
-            <ng-template elTabContent>
-              <p>Name, email, and avatar settings.</p>
-            </ng-template>
-          </el-tab>
-          <el-tab value="security">
-            <ng-template elTabLabel>
-              <el-icon name="shield-halved" size="sm" />
-              Security
-            </ng-template>
-            <ng-template elTabContent>
-              <p>Password, sessions, and two-factor authentication.</p>
-            </ng-template>
-          </el-tab>
-        </el-tabs>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Account tabs</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-tabs-demo">
+              <el-tabs
+                [value]="selected()"
+                (valueChange)="selected.set($event)"
+                ariaLabel="Account"
+              >
+                <el-tab value="overview" label="Overview">
+                  <ng-template elTabContent>
+                    <p>Project overview, status, and recent activity.</p>
+                  </ng-template>
+                </el-tab>
+                <el-tab value="billing" label="Billing">
+                  <ng-template elTabContent>
+                    <p>Invoices, payment methods, and billing contacts.</p>
+                  </ng-template>
+                </el-tab>
+                <el-tab value="team" label="Team">
+                  <ng-template elTabContent>
+                    <p>Members, roles, and pending invitations.</p>
+                  </ng-template>
+                </el-tab>
+              </el-tabs>
+            </div>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Tabs follow the APG tabs pattern: roving tabindex on tab buttons, arrow-key navigation,
+            and <code>aria-selected</code> on the active tab.
+          </p>
+        }
       </div>
-    </app-preview>
-    <app-code-block [code]="labelTemplateCode" language="html" />
+    </article>
 
-    <h3>Disabled</h3>
-    <app-preview>
-      <div class="docs-tabs-demo">
-        <el-tabs value="overview" disabled ariaLabel="Disabled tabs">
-          <el-tab value="overview" label="Overview">
-            <ng-template elTabContent>
-              <p>Disabled group.</p>
-            </ng-template>
-          </el-tab>
-          <el-tab value="billing" label="Billing">
-            <ng-template elTabContent>
-              <p>Not shown.</p>
-            </ng-template>
-          </el-tab>
-        </el-tabs>
-        <el-tabs
-          [value]="disabledTabDemo()"
-          (valueChange)="disabledTabDemo.set($event)"
-          ariaLabel="Disabled tab"
-        >
-          <el-tab value="overview" label="Overview">
-            <ng-template elTabContent>
-              <p>Overview is available.</p>
-            </ng-template>
-          </el-tab>
-          <el-tab value="billing" label="Billing" disabled>
-            <ng-template elTabContent>
-              <p>Billing is locked.</p>
-            </ng-template>
-          </el-tab>
-          <el-tab value="team" label="Team">
-            <ng-template elTabContent>
-              <p>Team members.</p>
-            </ng-template>
-          </el-tab>
-        </el-tabs>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Custom labels</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="labelsPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="labelsPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="labelsPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (labelsPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-tabs-demo">
+              <el-tabs
+                [value]="iconDemo()"
+                (valueChange)="iconDemo.set($event)"
+                ariaLabel="Settings"
+              >
+                <el-tab value="profile">
+                  <ng-template elTabLabel>
+                    <el-icon name="user" size="sm" />
+                    Profile
+                  </ng-template>
+                  <ng-template elTabContent>
+                    <p>Name, email, and avatar settings.</p>
+                  </ng-template>
+                </el-tab>
+                <el-tab value="security">
+                  <ng-template elTabLabel>
+                    <el-icon name="shield-halved" size="sm" />
+                    Security
+                  </ng-template>
+                  <ng-template elTabContent>
+                    <p>Password, sessions, and two-factor authentication.</p>
+                  </ng-template>
+                </el-tab>
+              </el-tabs>
+            </div>
+          </app-preview>
+        } @else if (labelsPanel() === 'code') {
+          <app-code-block [code]="labelTemplateCode" language="html" />
+        } @else {
+          <p>
+            Custom labels can include icons and badges while the tab button keeps a single
+            accessible name from its visible text.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Overflow (responsive)</h3>
-    <p>
-      Extra tabs stay on one row. Chevrons appear when the list overflows —
-      they only scroll the strip, and they snap to the start or end so the
-      first and last tabs stay fully visible. Arrow keys, Home, and End still
-      move between enabled tabs.
-    </p>
-    <app-preview>
-      <div class="docs-tabs-demo docs-tabs-demo--narrow">
-        <el-tabs
-          [value]="overflowDemo()"
-          (valueChange)="overflowDemo.set($event)"
-          ariaLabel="Many sections"
-        >
-          <el-tab value="overview">
-            <ng-template elTabLabel>
-              <el-icon name="house" size="sm" />
-              Overview
-            </ng-template>
-            <ng-template elTabContent><p>Overview</p></ng-template>
-          </el-tab>
-          <el-tab value="usage">
-            <ng-template elTabLabel>
-              <el-icon name="chart-line" size="sm" />
-              Usage
-            </ng-template>
-            <ng-template elTabContent><p>Usage</p></ng-template>
-          </el-tab>
-          <el-tab value="members">
-            <ng-template elTabLabel>
-              <el-icon name="users" size="sm" />
-              Members
-            </ng-template>
-            <ng-template elTabContent><p>Members</p></ng-template>
-          </el-tab>
-          <el-tab value="integrations">
-            <ng-template elTabLabel>
-              <el-icon name="puzzle-piece" size="sm" />
-              Integrations
-            </ng-template>
-            <ng-template elTabContent><p>Integrations</p></ng-template>
-          </el-tab>
-          <el-tab value="history">
-            <ng-template elTabLabel>
-              <el-icon name="file-invoice" size="sm" />
-              Billing history
-            </ng-template>
-            <ng-template elTabContent><p>Billing history</p></ng-template>
-          </el-tab>
-          <el-tab value="audit">
-            <ng-template elTabLabel>
-              <el-icon name="clipboard-list" size="sm" />
-              Audit log
-            </ng-template>
-            <ng-template elTabContent><p>Audit log</p></ng-template>
-          </el-tab>
-        </el-tabs>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Disabled</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="disabledPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="disabledPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="disabledPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (disabledPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-tabs-demo">
+              <el-tabs value="overview" disabled ariaLabel="Disabled tabs">
+                <el-tab value="overview" label="Overview">
+                  <ng-template elTabContent><p>Disabled group.</p></ng-template>
+                </el-tab>
+                <el-tab value="billing" label="Billing">
+                  <ng-template elTabContent><p>Not shown.</p></ng-template>
+                </el-tab>
+              </el-tabs>
+              <el-tabs
+                [value]="disabledTabDemo()"
+                (valueChange)="disabledTabDemo.set($event)"
+                ariaLabel="Disabled tab"
+              >
+                <el-tab value="overview" label="Overview">
+                  <ng-template elTabContent><p>Overview is available.</p></ng-template>
+                </el-tab>
+                <el-tab value="billing" label="Billing" disabled>
+                  <ng-template elTabContent><p>Billing is locked.</p></ng-template>
+                </el-tab>
+                <el-tab value="team" label="Team">
+                  <ng-template elTabContent><p>Team members.</p></ng-template>
+                </el-tab>
+              </el-tabs>
+            </div>
+          </app-preview>
+        } @else if (disabledPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Disable the whole group or individual tabs. Disabled tabs are skipped by arrow-key
+            navigation and removed from the tab order.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Overflow</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="overflowPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="overflowPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="overflowPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (overflowPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-tabs-demo docs-tabs-demo--narrow">
+              <el-tabs
+                [value]="overflowDemo()"
+                (valueChange)="overflowDemo.set($event)"
+                ariaLabel="Many sections"
+              >
+                <el-tab value="overview">
+                  <ng-template elTabLabel>
+                    <el-icon name="house" size="sm" />
+                    Overview
+                  </ng-template>
+                  <ng-template elTabContent><p>Overview</p></ng-template>
+                </el-tab>
+                <el-tab value="usage">
+                  <ng-template elTabLabel>
+                    <el-icon name="chart-line" size="sm" />
+                    Usage
+                  </ng-template>
+                  <ng-template elTabContent><p>Usage</p></ng-template>
+                </el-tab>
+                <el-tab value="members">
+                  <ng-template elTabLabel>
+                    <el-icon name="users" size="sm" />
+                    Members
+                  </ng-template>
+                  <ng-template elTabContent><p>Members</p></ng-template>
+                </el-tab>
+                <el-tab value="integrations">
+                  <ng-template elTabLabel>
+                    <el-icon name="puzzle-piece" size="sm" />
+                    Integrations
+                  </ng-template>
+                  <ng-template elTabContent><p>Integrations</p></ng-template>
+                </el-tab>
+                <el-tab value="history">
+                  <ng-template elTabLabel>
+                    <el-icon name="file-invoice" size="sm" />
+                    Billing history
+                  </ng-template>
+                  <ng-template elTabContent><p>Billing history</p></ng-template>
+                </el-tab>
+                <el-tab value="audit">
+                  <ng-template elTabLabel>
+                    <el-icon name="clipboard-list" size="sm" />
+                    Audit log
+                  </ng-template>
+                  <ng-template elTabContent><p>Audit log</p></ng-template>
+                </el-tab>
+              </el-tabs>
+            </div>
+          </app-preview>
+        } @else if (overflowPanel() === 'code') {
+          <app-code-block [code]="overflowCode" language="html" />
+        } @else {
+          <p>
+            Chevrons scroll the tab strip when tabs overflow. Arrow keys, Home, and End still move
+            between enabled tabs and scroll the active tab into view.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>APG Tabs pattern with manual activation on click.</li>
+      <li>Roving tabindex and arrow-key navigation across enabled tabs.</li>
+      <li><code>ariaLabel</code> names the tablist when no visible label exists.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" target="_blank" rel="noreferrer">APG Tabs</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

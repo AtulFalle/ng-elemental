@@ -14,20 +14,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div style="display: flex; align-items: center; gap: 1rem">
-        <el-avatar
-          src="https://i.pravatar.cc/150?u=ng-elemental-docs"
-          alt="Example user"
-        />
-        <el-avatar initials="JD" alt="Jane Doe" />
-        <el-avatar alt="Account" />
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -39,25 +25,115 @@
       <code>npx @ng-elemental/cli add icon</code> for the icon fallback.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Sizes</h3>
-    <app-preview>
-      <div style="display: flex; align-items: center; gap: 1rem">
-        <el-avatar size="sm" initials="SM" alt="Small" />
-        <el-avatar size="md" initials="MD" alt="Medium" />
-        <el-avatar size="lg" initials="LG" alt="Large" />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Image, initials, and icon</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div style="display: flex; align-items: center; gap: 1rem">
+              <el-avatar
+                src="https://i.pravatar.cc/150?u=ng-elemental-docs"
+                alt="Example user"
+              />
+              <el-avatar initials="JD" alt="Jane Doe" />
+              <el-avatar alt="Account" />
+            </div>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="heroCode" language="html" />
+        } @else {
+          <p>
+            Every avatar needs an accessible name via <code>alt</code>. Images use native
+            <code>alt</code>; initials and icon fallbacks use <code>aria-label</code>.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Custom icon</h3>
-    <app-preview>
-      <el-avatar icon="star" alt="Starred" />
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Sizes</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sizesPanel() === 'preview') {
+          <app-preview>
+            <div style="display: flex; align-items: center; gap: 1rem">
+              <el-avatar size="sm" initials="SM" alt="Small" />
+              <el-avatar size="md" initials="MD" alt="Medium" />
+              <el-avatar size="lg" initials="LG" alt="Large" />
+            </div>
+          </app-preview>
+        } @else if (sizesPanel() === 'code') {
+          <app-code-block [code]="sizesCode" language="html" />
+        } @else {
+          <p>
+            Sizes scale the mark without changing naming. Failed image loads fall back to
+            initials or icon automatically.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Custom icon</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="iconPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="iconPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="iconPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (iconPanel() === 'preview') {
+          <app-preview>
+            <el-avatar icon="star" alt="Starred" />
+          </app-preview>
+        } @else if (iconPanel() === 'code') {
+          <app-code-block [code]="iconCode" language="html" />
+        } @else {
+          <p>
+            Custom icons still require <code>alt</code> text. The icon is decorative inside the
+            named avatar shell.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Avatar is presentational identity — not a button unless wrapped by one.
+    </p>
+    <ul>
+      <li>Images expose <code>alt</code>; fallbacks use <code>role="img"</code> and <code>aria-label</code>.</li>
+      <li>Broken images fall through to initials or icon without losing the name.</li>
+      <li>Initials contrast meets WCAG against the fallback fill.</li>
+      <li>Do not make the avatar itself clickable — wrap with a link or button when needed.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.1.1, 1.4.3).
+    </p>
   </section>
 
   <section>

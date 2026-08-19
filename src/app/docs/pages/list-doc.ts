@@ -35,6 +35,13 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class ListDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly plainPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly interactivePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly virtualPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly actionsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly selectedId = signal('ada');
   protected readonly sizes: ElListSize[] = ['lg', 'md', 'sm'];
   protected readonly people = [
@@ -72,6 +79,18 @@ npx @ng-elemental/cli add button`;
   \`,
 })
 export class MyComponent {}`;
+
+  protected readonly plainCode = `<el-list ariaLabel="Folders">
+  <el-list-item>Inbox</el-list-item>
+  <el-list-item>Starred</el-list-item>
+  <el-list-item disabled>Archive (unavailable)</el-list-item>
+</el-list>`;
+
+  protected readonly actionsCode = `<el-list-item>
+  <el-icon elListLeading name="file-lines" />
+  <span elListTitle>report.pdf</span>
+  <el-button elListTrailing variant="ghost" size="sm" iconStart="xmark" aria-label="Remove report.pdf" />
+</el-list-item>`;
 
   protected readonly usageCode = `<el-list appearance="outlined" size="md" divided ariaLabel="Inbox">
   <el-list-item>

@@ -13,13 +13,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-button elTooltip="Save file" [elTooltipOpen]="true">Save</el-button>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -31,21 +24,108 @@
       fire mouse events — wrap them if the tip must still show.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Positions</h3>
-    <app-preview>
-      <div class="docs-row" style="padding: 3rem 1rem;">
-        <el-button elTooltip="Top" elTooltipPosition="top" [elTooltipOpen]="true">Top</el-button>
-        <el-button elTooltip="Bottom" elTooltipPosition="bottom">Bottom</el-button>
-        <el-button elTooltip="Start" elTooltipPosition="start">Start</el-button>
-        <el-button elTooltip="End" elTooltipPosition="end">End</el-button>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Basic tooltip</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-button elTooltip="Save file" [elTooltipOpen]="true">Save</el-button>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Tooltips supplement the host name on hover and focus. Escape dismisses an open tip
+            without moving focus away from the control.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Positions</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="positionsPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="positionsPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="positionsPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (positionsPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-row" style="padding: 3rem 1rem;">
+              <el-button elTooltip="Top" elTooltipPosition="top" [elTooltipOpen]="true">Top</el-button>
+              <el-button elTooltip="Bottom" elTooltipPosition="bottom">Bottom</el-button>
+              <el-button elTooltip="Start" elTooltipPosition="start">Start</el-button>
+              <el-button elTooltip="End" elTooltipPosition="end">End</el-button>
+            </div>
+          </app-preview>
+        } @else if (positionsPanel() === 'code') {
+          <app-code-block [code]="positionsCode" language="html" />
+        } @else {
+          <p>
+            Placement prefers top, bottom, start, or end relative to the host. Start and end follow
+            text direction so tips stay readable in RTL layouts.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Disabled</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="disabledPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="disabledPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="disabledPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (disabledPanel() === 'preview') {
+          <app-preview>
+            <el-button elTooltip="Hidden tip" elTooltipDisabled>Disabled tip</el-button>
+          </app-preview>
+        } @else if (disabledPanel() === 'code') {
+          <app-code-block [code]="disabledCode" language="html" />
+        } @else {
+          <p>
+            Use <code>elTooltipDisabled</code> when a tip should not appear even though the host
+            remains focusable or hoverable.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Tooltips expose supplementary text through <code>aria-describedby</code> while the host
+      keeps its primary accessible name.
+    </p>
+    <ul>
+      <li>Opens on hover and keyboard focus; closes on blur, Escape, and pointer leave.</li>
+      <li>Empty or disabled tips never mount a bubble.</li>
+      <li>Portaled bubble avoids clipping from overflow ancestors.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/" target="_blank" rel="noreferrer">APG Tooltip</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

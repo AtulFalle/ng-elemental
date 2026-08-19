@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElIcon } from '../icon/icon';
 import { ElInput, ElInputPrefix, ElInputSuffix } from './input';
 
@@ -125,5 +126,47 @@ export const Mask: Story = {
     mask: '(000) 000-0000',
     placeholder: 'Phone',
     inputId: 'input-mask',
+  },
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  parameters: { docs: { codePanel: true } },
+  render: () => ({
+    props: { value: '', errorValue: 'Invalid', disabledValue: 'Cannot edit' },
+    moduleMetadata: { imports: [ElInput] },
+    template: `<div style="display:flex;flex-direction:column;gap:0.75rem;width:100%;max-width:20rem">
+      <el-input [(value)]="value" placeholder="Enter text" inputId="input-active" />
+      <el-input value="Cannot edit" disabled placeholder="Disabled" inputId="input-disabled" />
+      <el-input [(value)]="errorValue" error placeholder="Error" inputId="input-error" ariaDescribedby="input-error-msg" />
+      <span id="input-error-msg" style="font-size:0.75rem;color:var(--el-color-error)">Invalid value</span>
+    </div>`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const input = canvas.getByPlaceholderText('Enter text');
+    const disabled = canvas.getByPlaceholderText('Disabled');
+    const error = canvas.getByPlaceholderText('Error');
+
+    await step('Pointer: focus and type', async () => {
+      await userEvent.click(input);
+      await expect(input).toHaveFocus();
+      await userEvent.type(input, 'hello');
+      await expect(input).toHaveValue('hello');
+    });
+
+    await step('Keyboard: Tab moves focus', async () => {
+      await userEvent.tab();
+      await expect(disabled).toHaveFocus();
+    });
+
+    await step('Disabled is not editable', async () => {
+      await expect(disabled).toBeDisabled();
+    });
+
+    await step('Error exposes aria-invalid and describedby', async () => {
+      await expect(error).toHaveAttribute('aria-invalid', 'true');
+      await expect(error).toHaveAttribute('aria-describedby', 'input-error-msg');
+    });
   },
 };

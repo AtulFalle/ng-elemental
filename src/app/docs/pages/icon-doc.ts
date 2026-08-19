@@ -20,6 +20,11 @@ export class IconDocPage {
   protected readonly filterActive = signal(true);
   protected readonly tags = signal(['Angular', 'Design']);
 
+  protected readonly commonPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly buttonPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly chipPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly installCode = `npm install @fortawesome/fontawesome-free`;
 
   protected readonly stylesCode = `@use './app/ui/theme/tokens';
@@ -35,9 +40,14 @@ export class IconDocPage {
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-icon name="check" />
-<el-icon name="github" variant="brands" />
-<el-icon name="heart" variant="regular" size="lg" />`;
+  protected readonly commonCode = `<el-icon name="check" />
+<el-icon name="xmark" />
+<el-icon name="star" />
+<el-icon name="github" variant="brands" />`;
+
+  protected readonly sizesCode = `<el-icon name="star" size="sm" />
+<el-icon name="star" size="md" />
+<el-icon name="star" size="lg" />`;
 
   protected readonly buttonCode = `<el-button variant="primary" iconStart="plus">Add</el-button>
 <el-button variant="secondary" iconEnd="arrow-right">Next</el-button>`;

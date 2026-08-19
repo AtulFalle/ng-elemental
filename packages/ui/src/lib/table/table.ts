@@ -243,6 +243,17 @@ export class ElTable implements ElTableContext {
     return current.direction === 'asc' ? 'ascending' : 'descending';
   }
 
+  protected sortButtonLabel(name: string, headerText: string): string {
+    const sort = this.ariaSort(name);
+    if (sort === 'ascending') {
+      return `Sort by ${headerText}, currently ascending`;
+    }
+    if (sort === 'descending') {
+      return `Sort by ${headerText}, currently descending`;
+    }
+    return `Sort by ${headerText}`;
+  }
+
   protected rowExpandId(rowId: string): string {
     return `el-table-${this.uid}-expand-${rowId}`;
   }

@@ -17,28 +17,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-button (click)="open.set(true)">Open sheet</el-button>
-      <el-sheet
-        [open]="open()"
-        (openChange)="open.set($event)"
-        title="Filters"
-        side="bottom"
-        size="md"
-      >
-        <div elSheetContent>
-          Header and footer stay put. Long content scrolls inside the panel.
-        </div>
-        <div elSheetFooter>
-          <el-button elSheetClose variant="ghost">Cancel</el-button>
-          <el-button (click)="open.set(false)">Apply</el-button>
-        </div>
-      </el-sheet>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -51,48 +29,129 @@
       collapse. Use <code>elSheetClose</code> on a button to dismiss.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Left side</h3>
-    <app-preview>
-      <el-button (click)="sideOpen.set(true)">Open from the left</el-button>
-      <el-sheet
-        [open]="sideOpen()"
-        (openChange)="sideOpen.set($event)"
-        title="Details"
-        side="left"
-        size="sm"
-      >
-        <div elSheetContent>A left sheet uses width sizes instead of height.</div>
-        <div elSheetFooter>
-          <el-button elSheetClose variant="ghost">Close</el-button>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Bottom sheet</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
         </div>
-      </el-sheet>
-    </app-preview>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-button (click)="open.set(true)">Open sheet</el-button>
+            <el-sheet
+              [open]="open()"
+              (openChange)="open.set($event)"
+              title="Filters"
+              side="bottom"
+              size="md"
+            >
+              <div elSheetContent>
+                Header and footer stay put. Long content scrolls inside the panel.
+              </div>
+              <div elSheetFooter>
+                <el-button elSheetClose variant="ghost">Cancel</el-button>
+                <el-button (click)="open.set(false)">Apply</el-button>
+              </div>
+            </el-sheet>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Sheets trap focus while open, restore it on dismiss, and expose a named dialog role.
+            Escape and backdrop clicks dismiss unless disabled.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Open with a service</h3>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Left side</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sidePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sidePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sidePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sidePanel() === 'preview') {
+          <app-preview>
+            <el-button (click)="sideOpen.set(true)">Open from the left</el-button>
+            <el-sheet
+              [open]="sideOpen()"
+              (openChange)="sideOpen.set($event)"
+              title="Details"
+              side="left"
+              size="sm"
+            >
+              <div elSheetContent>A left sheet uses width sizes instead of height.</div>
+              <div elSheetFooter>
+                <el-button elSheetClose variant="ghost">Close</el-button>
+              </div>
+            </el-sheet>
+          </app-preview>
+        } @else if (sidePanel() === 'code') {
+          <app-code-block [code]="sideCode" language="html" />
+        } @else {
+          <p>
+            Side controls which viewport edge the panel attaches to. Size maps to width for
+            left/right sheets and max-height for top/bottom sheets.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Open with a service</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="servicePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="servicePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="servicePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (servicePanel() === 'preview') {
+          <app-preview>
+            <el-button (click)="openService()">Open with service</el-button>
+            @if (serviceResult(); as result) {
+              <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
+            }
+          </app-preview>
+        } @else if (servicePanel() === 'code') {
+          <app-code-block [code]="serviceCode" />
+        } @else {
+          <p>
+            Service-opened sheets mount on <code>document.body</code> and inject
+            <code>EL_SHEET_DATA</code> plus <code>ElSheetRef</code> into the custom component.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>Modal dialog semantics with focus trap and focus restore.</li>
+      <li>Named via title or <code>ariaLabel</code>.</li>
+      <li>Scrollable content region with fixed header and footer slots.</li>
+    </ul>
     <p>
-      No extra host in the app shell.
-      <code>open()</code>
-      mounts the sheet on
-      <code>document.body</code>
-      and injects
-      <code>EL_SHEET_DATA</code>
-      plus
-      <code>ElSheetRef</code>
-      into the custom component.
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" target="_blank" rel="noreferrer">APG Dialog Modal</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
     </p>
-    <app-preview>
-      <el-button (click)="openService()">Open with service</el-button>
-      @if (serviceResult(); as result) {
-        <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
-      }
-    </app-preview>
-    <app-code-block [code]="serviceCode" />
   </section>
 
   <section>

@@ -18,30 +18,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div style="min-height: 12rem">
-        <el-menu ariaLabel="Actions">
-          <el-button elMenuTrigger variant="secondary">Actions</el-button>
-          <el-menu-panel>
-            <el-menu-item icon="scissors" shortcut="Ctrl+X">Cut</el-menu-item>
-            <el-menu-item icon="copy" shortcut="Ctrl+C">Copy</el-menu-item>
-            <el-menu>
-              <el-menu-item elMenuTrigger>Share</el-menu-item>
-              <el-menu-panel>
-                <el-menu-item icon="envelope">Email</el-menu-item>
-                <el-menu-item icon="link">Copy link</el-menu-item>
-              </el-menu-panel>
-            </el-menu>
-            <el-menu-separator />
-            <el-menu-item variant="danger" icon="trash">Delete</el-menu-item>
-          </el-menu-panel>
-        </el-menu>
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -62,72 +38,169 @@
   <section>
     <h2>Examples</h2>
 
-    <h3>Checkbox and radio</h3>
-    <app-preview>
-      <div style="min-height: 12rem">
-        <el-menu ariaLabel="View">
-          <el-button elMenuTrigger variant="secondary">View</el-button>
-          <el-menu-panel>
-            <el-menu-label>Style</el-menu-label>
-            <el-menu-item
-              type="checkbox"
-              [checked]="bold()"
-              (selected)="bold.set(!bold())"
-            >
-              Bold
-            </el-menu-item>
-            <el-menu-item
-              type="checkbox"
-              [checked]="italic()"
-              (selected)="italic.set(!italic())"
-            >
-              Italic
-            </el-menu-item>
-            <el-menu-separator />
-            <el-menu-label>Align</el-menu-label>
-            <el-menu-item
-              type="radio"
-              [checked]="align() === 'start'"
-              (selected)="align.set('start')"
-            >
-              Start
-            </el-menu-item>
-            <el-menu-item
-              type="radio"
-              [checked]="align() === 'center'"
-              (selected)="align.set('center')"
-            >
-              Center
-            </el-menu-item>
-            <el-menu-item
-              type="radio"
-              [checked]="align() === 'end'"
-              (selected)="align.set('end')"
-            >
-              End
-            </el-menu-item>
-          </el-menu-panel>
-        </el-menu>
-      </div>
-    </app-preview>
-
-    <h3>Context menu</h3>
-    <app-preview>
-      <el-menu trigger="contextmenu" ariaLabel="Canvas">
-        <div
-          elMenuTrigger
-          style="display:flex;align-items:center;justify-content:center;min-height:8rem;width:100%;border:var(--el-border-width) dashed var(--el-color-outline);border-radius:var(--el-radius-md);color:var(--el-color-on-surface-variant)"
-        >
-          Right-click this area
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Actions menu</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
         </div>
-        <el-menu-panel>
-          <el-menu-item icon="scissors">Cut</el-menu-item>
-          <el-menu-item icon="copy">Copy</el-menu-item>
-          <el-menu-separator />
-          <el-menu-item variant="danger">Delete</el-menu-item>
-        </el-menu-panel>
-      </el-menu>
-    </app-preview>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div style="min-height: 12rem">
+              <el-menu ariaLabel="Actions">
+                <el-button elMenuTrigger variant="secondary">Actions</el-button>
+                <el-menu-panel>
+                  <el-menu-item icon="scissors" shortcut="Ctrl+X">Cut</el-menu-item>
+                  <el-menu-item icon="copy" shortcut="Ctrl+C">Copy</el-menu-item>
+                  <el-menu>
+                    <el-menu-item elMenuTrigger>Share</el-menu-item>
+                    <el-menu-panel>
+                      <el-menu-item icon="envelope">Email</el-menu-item>
+                      <el-menu-item icon="link">Copy link</el-menu-item>
+                    </el-menu-panel>
+                  </el-menu>
+                  <el-menu-separator />
+                  <el-menu-item variant="danger" icon="trash">Delete</el-menu-item>
+                </el-menu-panel>
+              </el-menu>
+            </div>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Follows the APG menu pattern with <code>role="menu"</code> and
+            <code>menuitem</code>. Arrow keys move between items; Escape closes the tree.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Checkbox and radio</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="checkboxRadioPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="checkboxRadioPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="checkboxRadioPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (checkboxRadioPanel() === 'preview') {
+          <app-preview>
+            <div style="min-height: 12rem">
+              <el-menu ariaLabel="View">
+                <el-button elMenuTrigger variant="secondary">View</el-button>
+                <el-menu-panel>
+                  <el-menu-label>Style</el-menu-label>
+                  <el-menu-item
+                    type="checkbox"
+                    [checked]="bold()"
+                    (selected)="bold.set(!bold())"
+                  >
+                    Bold
+                  </el-menu-item>
+                  <el-menu-item
+                    type="checkbox"
+                    [checked]="italic()"
+                    (selected)="italic.set(!italic())"
+                  >
+                    Italic
+                  </el-menu-item>
+                  <el-menu-separator />
+                  <el-menu-label>Align</el-menu-label>
+                  <el-menu-item
+                    type="radio"
+                    [checked]="align() === 'start'"
+                    (selected)="align.set('start')"
+                  >
+                    Start
+                  </el-menu-item>
+                  <el-menu-item
+                    type="radio"
+                    [checked]="align() === 'center'"
+                    (selected)="align.set('center')"
+                  >
+                    Center
+                  </el-menu-item>
+                  <el-menu-item
+                    type="radio"
+                    [checked]="align() === 'end'"
+                    (selected)="align.set('end')"
+                  >
+                    End
+                  </el-menu-item>
+                </el-menu-panel>
+              </el-menu>
+            </div>
+          </app-preview>
+        } @else if (checkboxRadioPanel() === 'code') {
+          <app-code-block [code]="checkboxRadioCode" language="html" />
+        } @else {
+          <p>
+            Checkbox and radio items use <code>menuitemcheckbox</code> and
+            <code>menuitemradio</code> roles. Checked state is parent-owned; items emit
+            <code>selected</code> on activate.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Context menu</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="contextPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="contextPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="contextPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (contextPanel() === 'preview') {
+          <app-preview>
+            <el-menu trigger="contextmenu" ariaLabel="Canvas">
+              <div
+                elMenuTrigger
+                style="display:flex;align-items:center;justify-content:center;min-height:8rem;width:100%;border:var(--el-border-width) dashed var(--el-color-outline);border-radius:var(--el-radius-md);color:var(--el-color-on-surface-variant)"
+              >
+                Right-click this area
+              </div>
+              <el-menu-panel>
+                <el-menu-item icon="scissors">Cut</el-menu-item>
+                <el-menu-item icon="copy">Copy</el-menu-item>
+                <el-menu-separator />
+                <el-menu-item variant="danger">Delete</el-menu-item>
+              </el-menu-panel>
+            </el-menu>
+          </app-preview>
+        } @else if (contextPanel() === 'code') {
+          <app-code-block [code]="contextCode" language="html" />
+        } @else {
+          <p>
+            Context menus open at the pointer on right-click. Focus moves into the panel on
+            open; Escape and outside click dismiss it.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>APG Menu with <code>role="menu"</code>, <code>menuitem</code>, and nested submenus.</li>
+      <li>Arrow keys, Home, End, and typeahead move between items.</li>
+      <li>Escape, outside click, and Tab close the menu tree.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/menu/" target="_blank" rel="noreferrer">APG Menu</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

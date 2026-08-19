@@ -20,18 +20,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-file-upload
-        style="max-width: 28rem; width: 100%"
-        [(files)]="singleFiles"
-      >
-        Drag and drop, or browse to select a file
-      </el-file-upload>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -39,37 +27,79 @@
   <section>
     <h2>Usage</h2>
     <p>
-      Bind
-      <code>files</code>
-      with
-      <code>[(files)]</code>
-      . Project hint text as content. Invalid files surface through
-      <code>el-form-error</code>
-      .
+      Bind <code>files</code> with <code>[(files)]</code>. Project hint text as
+      content. Invalid files surface through <code>el-form-error</code>.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Multiple with constraints</h3>
-    <app-preview>
-      <el-file-upload
-        style="max-width: 28rem; width: 100%"
-        [(files)]="multiFiles"
-        multiple
-        accept="image/*,.pdf"
-        [maxFiles]="5"
-        [maxSize]="5242880"
-        dropTitle="Drop images or PDFs"
-      >
-        PNG, JPG, or PDF — up to 5 files, 5 MB each
-      </el-file-upload>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Single file</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-file-upload style="max-width: 28rem; width: 100%" [(files)]="singleFiles">
+              Drag and drop, or browse to select a file
+            </el-file-upload>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="heroCode" language="html" />
+        } @else {
+          <p>
+            The dropzone exposes an accessible name via <code>dropTitle</code>.
+            The browse button associates with the hidden file input through
+            <code>aria-controls</code> and <code>aria-labelledby</code>.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Upload progress</h3>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Multiple with constraints</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="multiplePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="multiplePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="multiplePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (multiplePanel() === 'preview') {
+          <app-preview>
+            <el-file-upload
+              style="max-width: 28rem; width: 100%"
+              [(files)]="multiFiles"
+              multiple
+              accept="image/*,.pdf"
+              [maxFiles]="5"
+              [maxSize]="5242880"
+              dropTitle="Drop images or PDFs"
+            >
+              PNG, JPG, or PDF — up to 5 files, 5 MB each
+            </el-file-upload>
+          </app-preview>
+        } @else if (multiplePanel() === 'code') {
+          <app-code-block [code]="multipleCode" language="html" />
+        } @else {
+          <p>
+            Validation errors use <code>role="alert"</code> via
+            <code>el-form-error</code>. Drag-and-drop and keyboard activation
+            share the same file picker entry point.
+          </p>
+        }
+      </div>
+    </article>
+
     <p>
       File Upload only selects files. Wire
       <a routerLink="/components/progress">Progress</a>
@@ -77,7 +107,7 @@
       <a routerLink="/components/attachment">Attachment</a>
       when your app owns HTTP upload — see the Storybook
       <code>With Progress</code>
-      story under File Upload.
+      story.
     </p>
   </section>
 

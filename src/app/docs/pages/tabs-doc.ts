@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElIcon, ElTab, ElTabContent, ElTabLabel, ElTabs } from '@ng-elemental/ui';
+import { ElButton, ElIcon, ElTab, ElTabContent, ElTabLabel, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
@@ -11,6 +11,7 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElButton,
     ElIcon,
     ElTabs,
     ElTab,
@@ -24,6 +25,11 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class TabsDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly labelsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly disabledPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly overflowPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly selected = signal('overview');
   protected readonly iconDemo = signal('profile');
   protected readonly disabledTabDemo = signal('overview');
@@ -84,6 +90,12 @@ export class MyComponent {
     </ng-template>
   </el-tab>
 </el-tabs>`;
+
+  protected readonly overflowCode = `<div style="max-width: 16rem">
+  <el-tabs [(value)]="selected" ariaLabel="Many sections">
+    <!-- many el-tab children -->
+  </el-tabs>
+</div>`;
 
   protected readonly scopedTokensCode = `.settings-panel {
   --el-color-primary: #059669;

@@ -15,22 +15,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-empty-state
-        icon="folder-open"
-        title="No projects"
-        description="Create a project to get started."
-      >
-        <div elEmptyStateActions>
-          <el-button>Create project</el-button>
-          <el-button variant="ghost">Learn more</el-button>
-        </div>
-      </el-empty-state>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -43,34 +27,128 @@
       description. Empty slots collapse.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Icon only</h3>
-    <app-preview>
-      <el-empty-state
-        icon="inbox"
-        title="Inbox zero"
-        description="You are all caught up."
-      />
-    </app-preview>
-
-    <h3>Extra copy</h3>
-    <app-preview>
-      <el-empty-state
-        icon="magnifying-glass"
-        title="No results"
-        description="Try a different search term."
-      >
-        Filters are still applied.
-        <div elEmptyStateActions>
-          <el-button variant="secondary">Clear filters</el-button>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">With actions</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
         </div>
-      </el-empty-state>
-    </app-preview>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-empty-state
+              style="width: 100%;"
+              icon="folder-open"
+              title="No projects"
+              description="Create a project to get started."
+            >
+              <div elEmptyStateActions>
+                <el-button>Create project</el-button>
+                <el-button variant="ghost">Learn more</el-button>
+              </div>
+            </el-empty-state>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="heroCode" language="html" />
+        } @else {
+          <p>
+            Actions are real buttons in the actions slot — keyboard, focus, and naming stay on
+            those controls. The empty state itself is not interactive.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Icon only</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="iconPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="iconPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="iconPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (iconPanel() === 'preview') {
+          <app-preview>
+            <el-empty-state
+              style="width: 100%;"
+              icon="inbox"
+              title="Inbox zero"
+              description="You are all caught up."
+            />
+          </app-preview>
+        } @else if (iconPanel() === 'code') {
+          <app-code-block [code]="iconCode" language="html" />
+        } @else {
+          <p>
+            Title and description carry the message. The icon is decorative when text is present.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Extra copy</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="extraPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="extraPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="extraPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (extraPanel() === 'preview') {
+          <app-preview>
+            <el-empty-state
+              style="width: 100%;"
+              icon="magnifying-glass"
+              title="No results"
+              description="Try a different search term."
+            >
+              Filters are still applied.
+              <div elEmptyStateActions>
+                <el-button variant="secondary">Clear filters</el-button>
+              </div>
+            </el-empty-state>
+          </app-preview>
+        } @else if (extraPanel() === 'code') {
+          <app-code-block [code]="extraCode" language="html" />
+        } @else {
+          <p>
+            Default slot content sits between description and actions. Use it for secondary
+            context such as active filter summaries.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Empty state announces status without trapping focus.
+    </p>
+    <ul>
+      <li>Host uses <code>role="status"</code> for the empty summary.</li>
+      <li>Heading and description provide the accessible message.</li>
+      <li>Primary next step is a native button in the actions slot.</li>
+      <li>Omitted slots collapse — no empty action rows.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (2.4.6, 4.1.3).
+    </p>
   </section>
 
   <section>

@@ -13,18 +13,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div class="docs-row">
-        <el-icon name="check" />
-        <el-icon name="xmark" />
-        <el-icon name="star" />
-        <el-icon name="github" variant="brands" />
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Setup</h2>
     <p>
       Icons require Font Awesome 6. Theme tokens from
@@ -40,44 +28,155 @@
 
   <section>
     <h2>Usage</h2>
+    <p>Import <code>ElIcon</code> and pass a Font Awesome name. Default icons are decorative.</p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
-    <h2>Integration</h2>
+    <h2>Examples</h2>
 
-    <h3>Buttons</h3>
-    <app-preview>
-      <div class="docs-row">
-        <el-button variant="primary" iconStart="plus">Add</el-button>
-        <el-button variant="secondary" iconEnd="arrow-right">Next</el-button>
-      </div>
-    </app-preview>
-    <app-code-block [code]="buttonCode" language="html" />
-
-    <h3>Chips</h3>
-    <app-preview>
-      <div class="docs-row">
-        <el-chip type="assist" iconStart="key">Assist</el-chip>
-        <el-chip type="filter" [(selected)]="filterActive">Filter</el-chip>
-        @for (tag of tags(); track tag) {
-          <el-chip
-            type="suggestion"
-            appearance="filled"
-            [removable]="true"
-            (removed)="removeTag(tag)"
-          >
-            {{ tag }}
-          </el-chip>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Common icons</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="commonPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="commonPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="commonPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (commonPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-row">
+              <el-icon name="check" />
+              <el-icon name="xmark" />
+              <el-icon name="star" />
+              <el-icon name="github" variant="brands" />
+            </div>
+          </app-preview>
+        } @else if (commonPanel() === 'code') {
+          <app-code-block [code]="commonCode" language="html" />
+        } @else {
+          <p>
+            Standalone icons default to decorative when adjacent text carries meaning.
+            Set <code>[decorative]="false"</code> and a <code>label</code> when the icon alone conveys information.
+          </p>
         }
       </div>
-    </app-preview>
-    <app-code-block [code]="chipCode" language="html" />
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Sizes</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sizesPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-row">
+              <el-icon name="star" size="sm" />
+              <el-icon name="star" size="md" />
+              <el-icon name="star" size="lg" />
+            </div>
+          </app-preview>
+        } @else if (sizesPanel() === 'code') {
+          <app-code-block [code]="sizesCode" language="html" />
+        } @else {
+          <p>
+            Size tokens align icons with adjacent text and control hit areas when icons
+            sit inside buttons or chips.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Buttons</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="buttonPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="buttonPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="buttonPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (buttonPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-row">
+              <el-button variant="primary" iconStart="plus">Add</el-button>
+              <el-button variant="secondary" iconEnd="arrow-right">Next</el-button>
+            </div>
+          </app-preview>
+        } @else if (buttonPanel() === 'code') {
+          <app-code-block [code]="buttonCode" language="html" />
+        } @else {
+          <p>
+            Button labels provide the accessible name — decorative icons inside buttons stay
+            hidden from assistive technology.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Chips</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="chipPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="chipPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="chipPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (chipPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-row">
+              <el-chip type="assist" iconStart="key">Assist</el-chip>
+              <el-chip type="filter" [(selected)]="filterActive">Filter</el-chip>
+              @for (tag of tags(); track tag) {
+                <el-chip
+                  type="suggestion"
+                  appearance="filled"
+                  [removable]="true"
+                  (removed)="removeTag(tag)"
+                >
+                  {{ tag }}
+                </el-chip>
+              }
+            </div>
+          </app-preview>
+        } @else if (chipPanel() === 'code') {
+          <app-code-block [code]="chipCode" language="html" />
+        } @else {
+          <p>
+            Chip text is the name. Icons reinforce meaning visually but do not replace visible
+            or programmatic labels.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
     <p>
-      Button and chip components require the icon component when using
-      <code>iconStart</code> / <code>iconEnd</code> — run
-      <code>npx @ng-elemental/cli add icon</code> first.
+      Icons inherit naming from their parent control unless they stand alone.
+    </p>
+    <ul>
+      <li>Decorative default uses <code>aria-hidden="true"</code>.</li>
+      <li>Meaningful standalone icons need <code>[decorative]="false"</code> and <code>label</code>.</li>
+      <li>Do not use icons as the only error or status cue — pair with text.</li>
+      <li>Icon color inherits from context for sufficient contrast.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.1.1, 1.4.11).
     </p>
   </section>
 

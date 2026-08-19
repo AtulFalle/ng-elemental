@@ -3,6 +3,7 @@
     [class]="dropzoneClass()"
     role="button"
     tabindex="0"
+    [attr.aria-label]="dropTitle()"
     [attr.aria-disabled]="disabled() ? 'true' : null"
     (click)="openFilePicker()"
     (keydown.enter)="onDropzoneKeydown($event)"
@@ -18,11 +19,12 @@
       [size]="iconSize()"
     />
     <div class="el-file-upload__copy">
-      <p class="el-file-upload__title">{{ dropTitle() }}</p>
+      <p class="el-file-upload__title" [id]="dropzoneTitleId">{{ dropTitle() }}</p>
       <p class="el-file-upload__hint">
         <ng-content />
       </p>
     </div>
+    <label class="el-file-upload__browse-label" [for]="fileInputId">{{ browseLabel() }}</label>
     <el-button
       class="el-file-upload__browse"
       variant="secondary"
@@ -36,9 +38,12 @@
       #fileInput
       class="el-file-upload__input"
       type="file"
+      [id]="fileInputId"
       [attr.accept]="accept() || null"
       [attr.multiple]="multiple() ? '' : null"
+      [attr.aria-labelledby]="dropzoneTitleId"
       [disabled]="disabled()"
+      tabindex="-1"
       (change)="onFileInputChange($event)"
     />
   </div>

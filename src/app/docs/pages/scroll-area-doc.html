@@ -12,35 +12,80 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-scroll-area
-        ariaLabel="Example notes"
-        style="height: 10rem; width: 100%; max-width: 20rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm); padding: var(--el-space-3)"
-      >
-        <p>Line 1</p>
-        <p>Line 2</p>
-        <p>Line 3</p>
-        <p>Line 4</p>
-        <p>Line 5</p>
-        <p>Line 6</p>
-        <p>Line 7</p>
-        <p>Line 8</p>
-        <p>Line 9</p>
-        <p>Line 10</p>
-      </el-scroll-area>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
 
   <section>
     <h2>Usage</h2>
+    <p>
+      Give the host a fixed height or width and label the region with
+      <code>ariaLabel</code> when the scrollable content is not self-describing.
+    </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Vertical scroll</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="verticalPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="verticalPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="verticalPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (verticalPanel() === 'preview') {
+          <app-preview>
+            <el-scroll-area
+              ariaLabel="Example notes"
+              style="height: 10rem; width: 100%; max-width: 20rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm); padding: var(--el-space-3)"
+            >
+              <p>Line 1</p>
+              <p>Line 2</p>
+              <p>Line 3</p>
+              <p>Line 4</p>
+              <p>Line 5</p>
+              <p>Line 6</p>
+              <p>Line 7</p>
+              <p>Line 8</p>
+              <p>Line 9</p>
+              <p>Line 10</p>
+            </el-scroll-area>
+          </app-preview>
+        } @else if (verticalPanel() === 'code') {
+          <app-code-block [code]="verticalCode" language="html" />
+        } @else {
+          <p>
+            Native scrolling keeps platform scroll gestures and keyboard support.
+            Name the region when users cannot infer purpose from visible headings alone.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Scroll area is a labeled region with native overflow — not a custom scrollbar widget.
+    </p>
+    <ul>
+      <li><code>role="region"</code> with <code>aria-label</code> when needed.</li>
+      <li>Keyboard users can scroll with arrow keys and Page Up/Down inside the region.</li>
+      <li>No zoom blocking — content reflows inside the fixed frame.</li>
+      <li>Thumb color meets 3:1 against the track for visibility.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/" target="_blank" rel="noreferrer">APG Landmarks</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.4.10, 1.4.11).
+    </p>
   </section>
 
   <section>

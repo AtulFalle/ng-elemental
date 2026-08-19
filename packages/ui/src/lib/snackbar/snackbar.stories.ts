@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect, fn } from 'storybook/test';
 import {
   SnackbarBulkStoryHost,
   SnackbarServiceStoryHost,
@@ -85,4 +86,41 @@ export const BulkActions: Story = {
     },
     template: `<el-snackbar-bulk-story-host />`,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [SnackbarStoryHost] },
+    template: `<el-snackbar-story-host message="File deleted" action="Undo" [duration]="0" />`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const trigger = canvas.getByRole('button', { name: 'Show snackbar' });
+
+    await step('Pointer opens snackbar', async () => {
+      await userEvent.click(trigger);
+      await expect(canvas.getByText('File deleted')).toBeVisible();
+    });
+
+    const undo = canvas.getByRole('button', { name: 'Undo' });
+    const onUndo = fn();
+    undo.addEventListener('click', onUndo);
+
+    await step('Action is named and clickable', async () => {
+      await userEvent.click(undo);
+      await expect(onUndo).toHaveBeenCalledTimes(1);
+    });
+
+    await step('Keyboard opens snackbar again', async () => {
+      trigger.focus();
+      await userEvent.keyboard('{Enter}');
+      await expect(canvas.getByText('File deleted')).toBeVisible();
+    });
+
+    await step('Dismiss closes the bar', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Dismiss' }));
+      await expect(canvas.queryByText('File deleted')).not.toBeInTheDocument();
+    });
+  },
 };

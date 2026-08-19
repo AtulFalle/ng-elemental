@@ -45,18 +45,31 @@
   </div>
 
   @if (slideCount() > 1) {
-    <div class="el-carousel__dots" role="group" aria-label="Slides">
-      @for (slide of slides(); track $index) {
-        <button
-          type="button"
-          class="el-carousel__dot"
-          [class.el-carousel__dot--active]="$index === currentIndex()"
-          [attr.aria-label]="'Slide ' + ($index + 1)"
-          [attr.aria-current]="$index === currentIndex() ? true : null"
-          [disabled]="disabled()"
-          (click)="goTo($index)"
-        ></button>
+    <div class="el-carousel__footer">
+      @if (showAutoplayControl()) {
+        <el-button
+          class="el-carousel__pause"
+          variant="ghost"
+          [size]="size()"
+          [iconStart]="userPaused() ? 'play' : 'pause'"
+          [attr.aria-label]="userPaused() ? 'Resume autoplay' : 'Pause autoplay'"
+          [attr.aria-pressed]="userPaused()"
+          (click)="toggleAutoplayPause()"
+        />
       }
+      <div class="el-carousel__dots" role="group" aria-label="Slides">
+        @for (slide of slides(); track $index) {
+          <button
+            type="button"
+            class="el-carousel__dot"
+            [class.el-carousel__dot--active]="$index === currentIndex()"
+            [attr.aria-label]="'Slide ' + ($index + 1)"
+            [attr.aria-current]="$index === currentIndex() ? true : null"
+            [disabled]="disabled()"
+            (click)="goTo($index)"
+          ></button>
+        }
+      </div>
     </div>
   }
 </div>

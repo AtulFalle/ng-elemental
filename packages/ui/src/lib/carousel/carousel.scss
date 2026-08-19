@@ -62,6 +62,18 @@
     gap: var(--el-space-2);
   }
 
+  &__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--el-space-3);
+  }
+
+  &__pause {
+    flex: 0 0 auto;
+  }
+
   &__dot {
     box-sizing: border-box;
     width: 0.5rem;

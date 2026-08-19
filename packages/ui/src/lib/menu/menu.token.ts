@@ -48,7 +48,7 @@ export interface ElMenuContext {
   closeOtherSubmenus(except: ElMenuContext): void;
   setAnchorPoint(point: ElMenuAnchor | null): void;
   toggle(): void;
-  openPanel(): void;
+  openPanel(focus?: 'first' | 'last'): void;
   close(): void;
   closeTree(): void;
   focusTrigger(): void;

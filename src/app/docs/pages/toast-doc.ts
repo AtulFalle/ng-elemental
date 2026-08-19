@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   ElButton,
@@ -30,6 +30,9 @@ import { PropsTable } from '../ui/props-table';
 export class ToastDocPage {
   private readonly toast = inject(ElToastService);
 
+  protected readonly servicePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly presentationalPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
@@ -50,11 +53,14 @@ export class App {
   }
 }`;
 
-  protected readonly usageCode = `<el-toaster position="bottom-end" />
+  protected readonly serviceCode = `<el-toaster position="bottom-end" />
 
 this.toast.show('Saved to your library.');
 this.toast.show('Could not save', { color: 'error', title: 'Error' });
 this.toast.show('Sticky', { duration: 0 });`;
+
+  protected readonly presentationalCode = `<el-toast color="success" title="Saved">Your changes were written.</el-toast>
+<el-toast color="error" title="Could not save">Check your connection.</el-toast>`;
 
   protected readonly scopedTokensCode = `.checkout-panel {
   --el-color-inverse-surface: #111827;
@@ -98,6 +104,7 @@ this.toast.show('Sticky', { duration: 0 });`;
     this.toast.show(`This is a ${color} toast.`, {
       color,
       title: color === 'neutral' ? '' : color,
+      duration: 0,
     });
   }
 }

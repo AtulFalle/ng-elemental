@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  ElButton,
   ElCheckbox,
   ElChip,
   ElIcon,
@@ -58,6 +59,7 @@ const PEOPLE = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElButton,
     ElTable,
     ElTableColumn,
     ElTableHeader,
@@ -75,6 +77,14 @@ const PEOPLE = [
   styleUrl: './page.scss',
 })
 export class TableDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly stringPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly sortPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly expandPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly paginationPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly emptyPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly selectionPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly people = PEOPLE;
   protected readonly sort = signal<ElTableSort>(null);
   protected readonly expanded = signal<ElTableExpanded>('');
@@ -148,6 +158,45 @@ npx @ng-elemental/cli add pagination`;
 export class MyComponent {
   protected users = [{ id: '1', name: 'Ada', status: 'Active' }];
 }`;
+
+  protected readonly stringFallbackCode = `<el-table [data]="users" ariaLabel="People">
+  <el-table-column name="name" label="Name" />
+  <el-table-column name="email" label="Email" />
+  <el-table-column name="role" label="Role" />
+</el-table>`;
+
+  protected readonly sortCode = `<el-table [data]="sortedUsers" [(sort)]="sort" ariaLabel="Sortable people">
+  <el-table-column name="name" label="Name" sortable />
+  <el-table-column name="email" label="Email" sortable />
+</el-table>`;
+
+  protected readonly expandCode = `<el-table [data]="users" [(expanded)]="expanded" ariaLabel="Expandable people">
+  <el-table-column name="name" label="Name" />
+  <ng-template elTableExpand let-user>{{ user.bio }}</ng-template>
+</el-table>`;
+
+  protected readonly paginationFooterCode = `<el-table [data]="pagedUsers" ariaLabel="Paged people">
+  <el-table-column name="name" label="Name" />
+  <el-pagination [(page)]="page" [(pageSize)]="pageSize" [total]="total" showPageSize />
+</el-table>`;
+
+  protected readonly emptyLoadingCode = `<el-table [data]="[]" ariaLabel="Empty table">
+  <el-table-column name="name" label="Name" />
+  <p elTableEmpty>No results.</p>
+</el-table>
+
+<el-table [data]="[]" loading ariaLabel="Loading table">
+  <el-table-column name="name" label="Name" />
+</el-table>`;
+
+  protected readonly selectionCode = `<el-table [data]="users" ariaLabel="Selectable people">
+  <el-table-column name="select" label="" width="3rem">
+    <ng-template elTableCell let-user>
+      <el-checkbox [checked]="isSelected(user.id)" (checkedChange)="toggleSelected(user.id, $event)" />
+    </ng-template>
+  </el-table-column>
+  <el-table-column name="name" label="Name" />
+</el-table>`;
 
   protected readonly usageCode = `<el-table [data]="users">
   <el-table-column name="name" label="Name" sortable width="12rem" />

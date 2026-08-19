@@ -15,26 +15,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div style="min-height: 10rem">
-        <el-popover>
-          <el-button elPopoverTrigger variant="secondary">Details</el-button>
-          <el-popover-panel>
-            <span elPopoverTitle>Assignee</span>
-            Ada Lovelace
-            <div style="margin-top: 0.75rem">
-              <el-button elPopoverClose variant="ghost" size="sm">
-                Close
-              </el-button>
-            </div>
-          </el-popover-panel>
-        </el-popover>
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -55,58 +35,170 @@
   <section>
     <h2>Examples</h2>
 
-    <h3>Positions</h3>
-    <app-preview>
-      <div class="docs-row" style="padding: 2rem 0">
-        <el-popover position="top">
-          <el-button elPopoverTrigger variant="secondary" size="sm">Top</el-button>
-          <el-popover-panel>
-            <span elPopoverTitle>Top</span>
-            Anchored above.
-          </el-popover-panel>
-        </el-popover>
-        <el-popover position="end">
-          <el-button elPopoverTrigger variant="secondary" size="sm">End</el-button>
-          <el-popover-panel>
-            <span elPopoverTitle>End</span>
-            Follows text direction.
-          </el-popover-panel>
-        </el-popover>
-      </div>
-    </app-preview>
-
-    <h3>Hover</h3>
-    <app-preview>
-      <div style="min-height: 8rem">
-        <el-popover trigger="hover" position="top">
-          <el-button elPopoverTrigger variant="ghost">Hover me</el-button>
-          <el-popover-panel>
-            <span elPopoverTitle>Hover card</span>
-            Rich content, not a tooltip.
-          </el-popover-panel>
-        </el-popover>
-      </div>
-    </app-preview>
-
-    <h3>Modal</h3>
-    <app-preview>
-      <div style="min-height: 8rem">
-        <el-popover modal>
-          <el-button elPopoverTrigger variant="secondary">
-            Modal popover
-          </el-button>
-          <el-popover-panel>
-            <span elPopoverTitle>Confirm</span>
-            Focus moves into the panel. Escape or the backdrop dismisses it.
-            <div style="margin-top: 0.75rem">
-              <el-button elPopoverClose variant="primary" size="sm">
-                Done
-              </el-button>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Details popover</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div style="min-height: 10rem">
+              <el-popover>
+                <el-button elPopoverTrigger variant="secondary">Details</el-button>
+                <el-popover-panel>
+                  <span elPopoverTitle>Assignee</span>
+                  Ada Lovelace
+                  <div style="margin-top: 0.75rem">
+                    <el-button elPopoverClose variant="ghost" size="sm">
+                      Close
+                    </el-button>
+                  </div>
+                </el-popover-panel>
+              </el-popover>
             </div>
-          </el-popover-panel>
-        </el-popover>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            The trigger toggles the panel with <code>aria-expanded</code>. Use
+            <code>elPopoverTitle</code> or <code>ariaLabel</code> to name the dialog content.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Positions</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="positionsPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="positionsPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="positionsPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (positionsPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-row" style="padding: 2rem 0">
+              <el-popover position="top">
+                <el-button elPopoverTrigger variant="secondary" size="sm">Top</el-button>
+                <el-popover-panel>
+                  <span elPopoverTitle>Top</span>
+                  Anchored above.
+                </el-popover-panel>
+              </el-popover>
+              <el-popover position="end">
+                <el-button elPopoverTrigger variant="secondary" size="sm">End</el-button>
+                <el-popover-panel>
+                  <span elPopoverTitle>End</span>
+                  Follows text direction.
+                </el-popover-panel>
+              </el-popover>
+            </div>
+          </app-preview>
+        } @else if (positionsPanel() === 'code') {
+          <app-code-block [code]="positionsCode" language="html" />
+        } @else {
+          <p>
+            Start/end positions follow text direction. Overflow flips placement so the panel
+            stays in the viewport.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Hover</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="hoverPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="hoverPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="hoverPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (hoverPanel() === 'preview') {
+          <app-preview>
+            <div style="min-height: 8rem">
+              <el-popover trigger="hover" position="top">
+                <el-button elPopoverTrigger variant="ghost">Hover me</el-button>
+                <el-popover-panel>
+                  <span elPopoverTitle>Hover card</span>
+                  Rich content, not a tooltip.
+                </el-popover-panel>
+              </el-popover>
+            </div>
+          </app-preview>
+        } @else if (hoverPanel() === 'code') {
+          <app-code-block [code]="hoverCode" language="html" />
+        } @else {
+          <p>
+            Hover trigger opens on pointer enter with a delay. This is for rich content — use
+            Tooltip for short labels only.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Modal</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="modalPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="modalPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="modalPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (modalPanel() === 'preview') {
+          <app-preview>
+            <div style="min-height: 8rem">
+              <el-popover modal>
+                <el-button elPopoverTrigger variant="secondary">
+                  Modal popover
+                </el-button>
+                <el-popover-panel>
+                  <span elPopoverTitle>Confirm</span>
+                  Focus moves into the panel. Escape or the backdrop dismisses it.
+                  <div style="margin-top: 0.75rem">
+                    <el-button elPopoverClose variant="primary" size="sm">
+                      Done
+                    </el-button>
+                  </div>
+                </el-popover-panel>
+              </el-popover>
+            </div>
+          </app-preview>
+        } @else if (modalPanel() === 'code') {
+          <app-code-block [code]="modalCode" language="html" />
+        } @else {
+          <p>
+            Modal mode shows a backdrop and traps focus inside the panel. Escape and backdrop
+            click dismiss it — meeting dialog focus requirements for lightweight confirmations.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>Trigger exposes <code>aria-expanded</code>; panel is labelled via title or <code>ariaLabel</code>.</li>
+      <li>Modal mode traps focus and dismisses on Escape or backdrop click.</li>
+      <li>Hover trigger is for rich content — not a replacement for Tooltip.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" target="_blank" rel="noreferrer">APG Dialog Modal</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

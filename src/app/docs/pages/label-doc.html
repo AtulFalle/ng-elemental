@@ -12,17 +12,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-label htmlFor="email-preview" variant="default">Email</el-label>
-      <el-label htmlFor="hint-preview" variant="muted">Optional hint</el-label>
-      <el-label htmlFor="error-preview" variant="error" [required]="true">
-        Email
-      </el-label>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -31,24 +20,63 @@
     <h2>Usage</h2>
     <p>Import the copied component and associate it with a form control:</p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Variants</h3>
-    <app-preview>
-      <el-label variant="default">Default</el-label>
-      <el-label variant="muted">Muted</el-label>
-      <el-label variant="error">Error</el-label>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Variants</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="variantsPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="variantsPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="variantsPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (variantsPanel() === 'preview') {
+          <app-preview>
+            <el-label variant="default">Default</el-label>
+            <el-label variant="muted">Muted</el-label>
+            <el-label variant="error">Error</el-label>
+          </app-preview>
+        } @else if (variantsPanel() === 'code') {
+          <app-code-block [code]="variantsCode" language="html" />
+        } @else {
+          <p>
+            Uses a native <code>label</code> element. Associate controls with
+            <code>htmlFor</code> matching the control <code>id</code>.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Required &amp; disabled</h3>
-    <app-preview>
-      <el-label [required]="true">Required field</el-label>
-      <el-label [disabled]="true">Disabled label</el-label>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Required &amp; disabled</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="requiredPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="requiredPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="requiredPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (requiredPanel() === 'preview') {
+          <app-preview>
+            <el-label [required]="true">Required field</el-label>
+            <el-label [disabled]="true">Disabled label</el-label>
+          </app-preview>
+        } @else if (requiredPanel() === 'code') {
+          <app-code-block [code]="requiredCode" language="html" />
+        } @else {
+          <p>
+            Required asterisk is decorative (<code>aria-hidden</code>). Also set
+            <code>required</code> or <code>aria-required</code> on the control itself.
+          </p>
+        }
+      </div>
+    </article>
   </section>
 
   <section>

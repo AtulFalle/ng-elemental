@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElIcon } from '../icon/icon';
 import { ElStep } from './step';
 import { ElStepContent } from './step-content';
@@ -97,4 +98,31 @@ export const CustomLabels: Story = {
       </el-stepper>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: (args) => ({
+    props: args,
+    moduleMetadata: { imports: [StepperStoryHost] },
+    template: `<el-stepper-story-host />`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const group = canvas.getByRole('group', { name: 'Onboarding' });
+    const account = canvas.getByRole('button', { name: /Account/i });
+    const plan = canvas.getByRole('button', { name: /Plan/i });
+
+    await step('Wizard steps use group semantics with current step', async () => {
+      await expect(group).toBeInTheDocument();
+      await expect(account).toHaveAttribute('aria-current', 'step');
+    });
+
+    await step('Arrow keys move between steps on the group', async () => {
+      account.focus();
+      await userEvent.keyboard('{ArrowRight}');
+      await expect(plan).toHaveFocus();
+      await expect(plan).toHaveAttribute('aria-current', 'step');
+    });
+  },
 };

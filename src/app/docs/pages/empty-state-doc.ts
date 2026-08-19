@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ElButton, ElEmptyState } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
@@ -14,6 +14,10 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class EmptyStateDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly iconPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly extraPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
@@ -39,12 +43,31 @@ import { ElButton } from './ui/button/button';
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-empty-state icon="inbox" title="Inbox zero" description="You are all caught up." />
-<el-empty-state title="No results" description="Try a different search.">
-  <img elEmptyStateMedia src="empty.svg" alt="" />
+  protected readonly heroCode = `<el-empty-state
+  icon="folder-open"
+  title="No projects"
+  description="Create a project to get started."
+>
+  <div elEmptyStateActions>
+    <el-button>Create project</el-button>
+    <el-button variant="ghost">Learn more</el-button>
+  </div>
+</el-empty-state>`;
+
+  protected readonly iconCode = `<el-empty-state
+  icon="inbox"
+  title="Inbox zero"
+  description="You are all caught up."
+/>`;
+
+  protected readonly extraCode = `<el-empty-state
+  icon="magnifying-glass"
+  title="No results"
+  description="Try a different search term."
+>
   Filters are still applied.
   <div elEmptyStateActions>
-    <el-button>Clear filters</el-button>
+    <el-button variant="secondary">Clear filters</el-button>
   </div>
 </el-empty-state>`;
 

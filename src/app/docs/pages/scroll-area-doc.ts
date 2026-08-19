@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElScrollArea } from '@ng-elemental/ui';
+import { ElButton, ElScrollArea } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
@@ -9,11 +9,13 @@ import { PropsTable } from '../ui/props-table';
 @Component({
   selector: 'app-scroll-area-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElScrollArea, CodeBlock, Preview, PropsTable],
+  imports: [RouterLink, ElButton, ElScrollArea, CodeBlock, Preview, PropsTable],
   templateUrl: './scroll-area-doc.html',
   styleUrl: './page.scss',
 })
 export class ScrollAreaDocPage {
+  protected readonly verticalPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add scroll-area`;
 
@@ -29,8 +31,13 @@ npx @ng-elemental/cli add scroll-area`;
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-scroll-area orientation="horizontal" ariaLabel="Timeline">
-  Wide content…
+  protected readonly verticalCode = `<el-scroll-area
+  ariaLabel="Example notes"
+  style="height: 10rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm); padding: var(--el-space-3)"
+>
+  <p>Line 1</p>
+  <p>Line 2</p>
+  <!-- more lines -->
 </el-scroll-area>`;
 
   protected readonly scopedTokensCode = `.checkout-panel {

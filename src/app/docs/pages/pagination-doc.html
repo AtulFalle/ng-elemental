@@ -16,21 +16,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div class="docs-pagination-demo">
-        <el-pagination
-          [page]="page()"
-          (pageChange)="page.set($event)"
-          [pageSize]="pageSize()"
-          (pageSizeChange)="pageSize.set($event)"
-          [total]="240"
-        />
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -50,45 +35,140 @@
   <section>
     <h2>Examples</h2>
 
-    <h3>Many pages</h3>
-    <app-preview>
-      <div class="docs-pagination-demo">
-        <el-pagination
-          [page]="manyPage()"
-          (pageChange)="manyPage.set($event)"
-          [total]="1000"
-          [pageSize]="20"
-        />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Default paging</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="defaultPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="defaultPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="defaultPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (defaultPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-pagination-demo">
+              <el-pagination
+                [page]="page()"
+                (pageChange)="page.set($event)"
+                [pageSize]="pageSize()"
+                (pageSizeChange)="pageSize.set($event)"
+                [total]="240"
+              />
+            </div>
+          </app-preview>
+        } @else if (defaultPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Uses a named <code>navigation</code> landmark. The current page is
+            exposed with <code>aria-current="page"</code>. Icon-only first,
+            previous, next, and last controls include visually hidden text.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Page size</h3>
-    <app-preview>
-      <div class="docs-pagination-demo">
-        <el-pagination
-          [page]="page()"
-          (pageChange)="page.set($event)"
-          [pageSize]="pageSize()"
-          (pageSizeChange)="pageSize.set($event)"
-          [total]="480"
-          showPageSize
-        />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Many pages</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="manyPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="manyPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="manyPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (manyPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-pagination-demo">
+              <el-pagination
+                [page]="manyPage()"
+                (pageChange)="manyPage.set($event)"
+                [total]="1000"
+                [pageSize]="20"
+              />
+            </div>
+          </app-preview>
+        } @else if (manyPanel() === 'code') {
+          <app-code-block [code]="manyPagesCode" language="html" />
+        } @else {
+          <p>
+            Ellipsis placeholders are decorative and hidden from assistive
+            technology. Numbered page buttons include an explicit page label.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Compact</h3>
-    <app-preview>
-      <div class="docs-pagination-demo">
-        <el-pagination
-          [page]="page()"
-          (pageChange)="page.set($event)"
-          [total]="40"
-          [pageSize]="10"
-          size="sm"
-          [showFirstLast]="false"
-        />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Page size</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sizePanel() === 'preview') {
+          <app-preview>
+            <div class="docs-pagination-demo">
+              <el-pagination
+                [page]="page()"
+                (pageChange)="page.set($event)"
+                [pageSize]="pageSize()"
+                (pageSizeChange)="pageSize.set($event)"
+                [total]="480"
+                showPageSize
+              />
+            </div>
+          </app-preview>
+        } @else if (sizePanel() === 'code') {
+          <app-code-block [code]="pageSizeCode" language="html" />
+        } @else {
+          <p>
+            The rows-per-page select is labelled for screen readers. Changing
+            page size resets to page 1 so the current page never exceeds the
+            new total.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Compact</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="compactPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="compactPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="compactPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (compactPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-pagination-demo">
+              <el-pagination
+                [page]="page()"
+                (pageChange)="page.set($event)"
+                [total]="40"
+                [pageSize]="10"
+                size="sm"
+                [showFirstLast]="false"
+              />
+            </div>
+          </app-preview>
+        } @else if (compactPanel() === 'code') {
+          <app-code-block [code]="compactCode" language="html" />
+        } @else {
+          <p>
+            Compact density keeps the same keyboard model and disabled states
+            at the ends of the range.
+          </p>
+        }
+      </div>
+    </article>
   </section>
 
   <section>

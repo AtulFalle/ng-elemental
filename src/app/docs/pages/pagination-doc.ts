@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElPagination } from '@ng-elemental/ui';
+import { ElButton, ElPagination } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
@@ -9,7 +9,7 @@ import { PropsTable } from '../ui/props-table';
 @Component({
   selector: 'app-pagination-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElPagination, CodeBlock, Preview, PropsTable],
+  imports: [RouterLink, ElButton, ElPagination, CodeBlock, Preview, PropsTable],
   templateUrl: './pagination-doc.html',
   styleUrl: './page.scss',
 })
@@ -17,6 +17,11 @@ export class PaginationDocPage {
   protected readonly page = signal(1);
   protected readonly pageSize = signal(10);
   protected readonly manyPage = signal(12);
+
+  protected readonly defaultPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly manyPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly sizePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly compactPanel = signal<'preview' | 'code' | 'standards'>('preview');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
@@ -39,9 +44,28 @@ export class MyComponent {
   protected readonly usageCode = `<el-pagination
   [(page)]="page"
   [(pageSize)]="pageSize"
+  [total]="240"
+/>`;
+
+  protected readonly manyPagesCode = `<el-pagination
+  [(page)]="page"
   [total]="1000"
-  [pageSizeOptions]="[10, 20, 50]"
+  [pageSize]="20"
+/>`;
+
+  protected readonly pageSizeCode = `<el-pagination
+  [(page)]="page"
+  [(pageSize)]="pageSize"
+  [total]="480"
   showPageSize
+/>`;
+
+  protected readonly compactCode = `<el-pagination
+  [(page)]="page"
+  [total]="40"
+  [pageSize]="10"
+  size="sm"
+  [showFirstLast]="false"
 />`;
 
   protected readonly scopedTokensCode = `.settings-panel {

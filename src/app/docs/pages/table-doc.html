@@ -17,23 +17,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div class="docs-table-demo">
-        <el-table [data]="people" ariaLabel="People">
-          <el-table-column name="name" label="Name" sortable width="12rem" />
-          <el-table-column name="email" label="Email" />
-          <el-table-column name="status" label="Status">
-            <ng-template elTableCell let-user>
-              <el-chip>{{ user.status }}</el-chip>
-            </ng-template>
-          </el-table-column>
-        </el-table>
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -55,135 +38,270 @@
   <section>
     <h2>Examples</h2>
 
-    <h3>String fallback</h3>
-    <p>
-      No cell templates. Each body cell is
-      <code>String(row[name])</code>. <code>null</code> and
-      <code>undefined</code> render as empty.
-    </p>
-    <app-preview>
-      <div class="docs-table-demo">
-        <el-table [data]="people" ariaLabel="Simple people">
-          <el-table-column name="name" label="Name" />
-          <el-table-column name="email" label="Email" />
-          <el-table-column name="role" label="Role" />
-        </el-table>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Data table with custom cells</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-table-demo">
+              <el-table [data]="people" ariaLabel="People">
+                <el-table-column name="name" label="Name" sortable width="12rem" />
+                <el-table-column name="email" label="Email" />
+                <el-table-column name="status" label="Status">
+                  <ng-template elTableCell let-user>
+                    <el-chip>{{ user.status }}</el-chip>
+                  </ng-template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Uses a native <code>&lt;table&gt;</code> with column headers linked to cells via
+            <code>scope</code>. Pass <code>ariaLabel</code> or a visible <code>caption</code> so
+            the grid has an accessible name.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Sort (you reorder data)</h3>
-    <p>
-      Bind <code>sort</code>. The table only updates the model
-      (none → asc → desc). Slice or sort <code>data</code> yourself —
-      including for a server.
-    </p>
-    <app-preview>
-      <div class="docs-table-demo">
-        <el-table
-          [data]="sortedPeople()"
-          [sort]="sort()"
-          (sortChange)="sort.set($event)"
-          ariaLabel="Sortable people"
-        >
-          <el-table-column name="name" label="Name" sortable>
-            <ng-template elTableHeader>
-              <el-icon name="user" size="sm" />
-              Name
-            </ng-template>
-          </el-table-column>
-          <el-table-column name="email" label="Email" sortable />
-          <el-table-column name="role" label="Role" />
-        </el-table>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">String fallback</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="stringPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="stringPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="stringPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (stringPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-table-demo">
+              <el-table [data]="people" ariaLabel="Simple people">
+                <el-table-column name="name" label="Name" />
+                <el-table-column name="email" label="Email" />
+                <el-table-column name="role" label="Role" />
+              </el-table>
+            </div>
+          </app-preview>
+        } @else if (stringPanel() === 'code') {
+          <app-code-block [code]="stringFallbackCode" language="html" />
+        } @else {
+          <p>
+            No cell templates. Each body cell is <code>String(row[name])</code>.
+            <code>null</code> and <code>undefined</code> render as empty — screen readers
+            announce the column header for context.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Expandable rows</h3>
-    <p>
-      One <code>elTableExpand</code> template for every row. Bind
-      <code>expanded</code>. Not supported together with
-      <code>virtual</code>.
-    </p>
-    <app-preview>
-      <div class="docs-table-demo">
-        <el-table
-          [data]="people"
-          [expanded]="expanded()"
-          (expandedChange)="expanded.set($event)"
-          ariaLabel="Expandable people"
-        >
-          <el-table-column name="name" label="Name" />
-          <el-table-column name="status" label="Status">
-            <ng-template elTableCell let-user>
-              <el-chip>{{ user.status }}</el-chip>
-            </ng-template>
-          </el-table-column>
-          <ng-template elTableExpand let-user>
-            {{ user.bio }}
-          </ng-template>
-        </el-table>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Sort (you reorder data)</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sortPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sortPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sortPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sortPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-table-demo">
+              <el-table
+                [data]="sortedPeople()"
+                [sort]="sort()"
+                (sortChange)="sort.set($event)"
+                ariaLabel="Sortable people"
+              >
+                <el-table-column name="name" label="Name" sortable>
+                  <ng-template elTableHeader>
+                    <el-icon name="user" size="sm" />
+                    Name
+                  </ng-template>
+                </el-table-column>
+                <el-table-column name="email" label="Email" sortable />
+                <el-table-column name="role" label="Role" />
+              </el-table>
+            </div>
+          </app-preview>
+        } @else if (sortPanel() === 'code') {
+          <app-code-block [code]="sortCode" language="html" />
+        } @else {
+          <p>
+            Sort buttons expose <code>aria-sort</code> on the active column. The table only
+            updates the model — you reorder <code>data</code> so assistive tech sees the new
+            row order in the DOM.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Pagination footer</h3>
-    <p>
-      <code>ElPagination</code> owns <code>page</code> and
-      <code>pageSize</code>. Pass the already-sliced page as
-      <code>[data]</code>.
-    </p>
-    <app-preview>
-      <div class="docs-table-demo">
-        <el-table [data]="pagedPeople()" ariaLabel="Paged people">
-          <el-table-column name="name" label="Name" />
-          <el-table-column name="email" label="Email" />
-          <el-table-column name="role" label="Role" />
-          <el-pagination
-            [page]="page()"
-            (pageChange)="page.set($event)"
-            [pageSize]="pageSize()"
-            (pageSizeChange)="pageSize.set($event)"
-            [total]="allPaged.length"
-            showPageSize
-          />
-        </el-table>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Expandable rows</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="expandPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="expandPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="expandPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (expandPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-table-demo">
+              <el-table
+                [data]="people"
+                [expanded]="expanded()"
+                (expandedChange)="expanded.set($event)"
+                ariaLabel="Expandable people"
+              >
+                <el-table-column name="name" label="Name" />
+                <el-table-column name="status" label="Status">
+                  <ng-template elTableCell let-user>
+                    <el-chip>{{ user.status }}</el-chip>
+                  </ng-template>
+                </el-table-column>
+                <ng-template elTableExpand let-user>
+                  {{ user.bio }}
+                </ng-template>
+              </el-table>
+            </div>
+          </app-preview>
+        } @else if (expandPanel() === 'code') {
+          <app-code-block [code]="expandCode" language="html" />
+        } @else {
+          <p>
+            Expand toggles use <code>aria-expanded</code> and associate detail rows with their
+            parent via <code>aria-controls</code>. Not supported together with
+            <code>virtual</code>.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Empty and loading</h3>
-    <app-preview>
-      <div class="docs-table-demo docs-stack">
-        <el-table [data]="[]" ariaLabel="Empty table">
-          <el-table-column name="name" label="Name" />
-          <el-table-column name="email" label="Email" />
-          <p elTableEmpty>No people match this filter.</p>
-        </el-table>
-        <el-table [data]="[]" loading ariaLabel="Loading table">
-          <el-table-column name="name" label="Name" />
-          <el-table-column name="email" label="Email" />
-        </el-table>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Pagination footer</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="paginationPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="paginationPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="paginationPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (paginationPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-table-demo">
+              <el-table [data]="pagedPeople()" ariaLabel="Paged people">
+                <el-table-column name="name" label="Name" />
+                <el-table-column name="email" label="Email" />
+                <el-table-column name="role" label="Role" />
+                <el-pagination
+                  [page]="page()"
+                  (pageChange)="page.set($event)"
+                  [pageSize]="pageSize()"
+                  (pageSizeChange)="pageSize.set($event)"
+                  [total]="allPaged.length"
+                  showPageSize
+                />
+              </el-table>
+            </div>
+          </app-preview>
+        } @else if (paginationPanel() === 'code') {
+          <app-code-block [code]="paginationFooterCode" language="html" />
+        } @else {
+          <p>
+            Pagination lives in the table footer landmark. Pass the already-sliced page as
+            <code>[data]</code> so row counts match what pagination announces.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Row selection recipe</h3>
-    <p>
-      Put <code>ElCheckbox</code> in a cell template. The parent owns the
-      selected set — the table has no selection model.
-    </p>
-    <app-preview>
-      <div class="docs-table-demo">
-        <el-table [data]="people" ariaLabel="Selectable people">
-          <el-table-column name="select" label="" width="3rem">
-            <ng-template elTableCell let-user>
-              <el-checkbox
-                [checked]="isSelected(user.id)"
-                (checkedChange)="toggleSelected(user.id, $event)"
-              />
-            </ng-template>
-          </el-table-column>
-          <el-table-column name="name" label="Name" />
-          <el-table-column name="email" label="Email" />
-        </el-table>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Empty and loading</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="emptyPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="emptyPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="emptyPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (emptyPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-table-demo docs-stack">
+              <el-table [data]="[]" ariaLabel="Empty table">
+                <el-table-column name="name" label="Name" />
+                <el-table-column name="email" label="Email" />
+                <p elTableEmpty>No people match this filter.</p>
+              </el-table>
+              <el-table [data]="[]" loading ariaLabel="Loading table">
+                <el-table-column name="name" label="Name" />
+                <el-table-column name="email" label="Email" />
+              </el-table>
+            </div>
+          </app-preview>
+        } @else if (emptyPanel() === 'code') {
+          <app-code-block [code]="emptyLoadingCode" language="html" />
+        } @else {
+          <p>
+            Empty and loading slots replace the body so users are not left with a silent blank
+            grid. Loading exposes <code>aria-busy</code> on the table region.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Row selection recipe</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="selectionPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="selectionPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="selectionPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (selectionPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-table-demo">
+              <el-table [data]="people" ariaLabel="Selectable people">
+                <el-table-column name="select" label="" width="3rem">
+                  <ng-template elTableCell let-user>
+                    <el-checkbox
+                      [checked]="isSelected(user.id)"
+                      (checkedChange)="toggleSelected(user.id, $event)"
+                    />
+                  </ng-template>
+                </el-table-column>
+                <el-table-column name="name" label="Name" />
+                <el-table-column name="email" label="Email" />
+              </el-table>
+            </div>
+          </app-preview>
+        } @else if (selectionPanel() === 'code') {
+          <app-code-block [code]="selectionCode" language="html" />
+        } @else {
+          <p>
+            Selection is parent-owned — the table has no built-in model. Give the select column
+            an empty header or a visually hidden label so checkboxes are not orphaned.
+          </p>
+        }
+      </div>
+    </article>
   </section>
 
   <section>
@@ -192,6 +310,21 @@
     <app-props-table [props]="tableProps" />
     <h3>el-table-column</h3>
     <app-props-table [props]="columnProps" />
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>Native table semantics with <code>&lt;th scope="col"&gt;</code> headers.</li>
+      <li>Sort buttons expose <code>aria-sort</code>; expand toggles use <code>aria-expanded</code>.</li>
+      <li>Name the grid with <code>caption</code> or <code>ariaLabel</code>.</li>
+      <li>Empty and loading states replace body content — no silent blank tables.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank" rel="noreferrer">W3C Table Tutorial</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

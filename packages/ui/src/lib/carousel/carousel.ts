@@ -71,6 +71,7 @@ export class ElCarousel implements ElCarouselContext {
   protected readonly dragging = signal(false);
   private readonly hovered = signal(false);
   private readonly focusInside = signal(false);
+  protected readonly userPaused = signal(false);
   private readonly reduceMotion = signal(false);
   private resizeObserver: ResizeObserver | null = null;
   private watchedViewport: HTMLElement | null = null;
@@ -129,11 +130,16 @@ export class ElCarousel implements ElCarouselContext {
 
   protected readonly paused = computed(
     () =>
+      this.userPaused() ||
       this.hovered() ||
       this.focusInside() ||
       this.dragging() ||
       this.disabled() ||
       this.reduceMotion(),
+  );
+
+  protected readonly showAutoplayControl = computed(
+    () => this.autoplay() > 0 && this.slideCount() > 1 && !this.disabled(),
   );
 
   protected readonly rootClass = computed(() => ({
@@ -284,6 +290,10 @@ export class ElCarousel implements ElCarouselContext {
 
   protected onFocusInside(value: boolean): void {
     this.focusInside.set(value);
+  }
+
+  protected toggleAutoplayPause(): void {
+    this.userPaused.update((paused) => !paused);
   }
 
   private attachViewport(el: HTMLElement): void {

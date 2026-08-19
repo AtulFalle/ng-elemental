@@ -17,46 +17,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div style="min-height: 12rem; width: 100%">
-        <el-menubar ariaLabel="Application">
-          <el-menu>
-            <el-button elMenuTrigger variant="ghost" size="sm">File</el-button>
-            <el-menu-panel>
-              <el-menu-item icon="file">New</el-menu-item>
-              <el-menu-item icon="folder-open">Open</el-menu-item>
-              <el-menu-separator />
-              <el-menu-item>Save</el-menu-item>
-            </el-menu-panel>
-          </el-menu>
-          <el-menu>
-            <el-button elMenuTrigger variant="ghost" size="sm">Edit</el-button>
-            <el-menu-panel>
-              <el-menu-item shortcut="Ctrl+Z">Undo</el-menu-item>
-              <el-menu-item shortcut="Ctrl+Y">Redo</el-menu-item>
-              <el-menu>
-                <el-menu-item elMenuTrigger>Find</el-menu-item>
-                <el-menu-panel>
-                  <el-menu-item>Find in file</el-menu-item>
-                  <el-menu-item>Find in project</el-menu-item>
-                </el-menu-panel>
-              </el-menu>
-            </el-menu-panel>
-          </el-menu>
-          <el-menu>
-            <el-button elMenuTrigger variant="ghost" size="sm">View</el-button>
-            <el-menu-panel>
-              <el-menu-item>Command palette</el-menu-item>
-              <el-menu-item>Appearance</el-menu-item>
-            </el-menu-panel>
-          </el-menu>
-        </el-menubar>
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -69,7 +29,131 @@
       submenus keep their own open state.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Application menubar</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div style="min-height: 12rem; width: 100%">
+              <el-menubar ariaLabel="Application">
+                <el-menu>
+                  <el-button elMenuTrigger variant="ghost" size="sm">File</el-button>
+                  <el-menu-panel>
+                    <el-menu-item icon="file">New</el-menu-item>
+                    <el-menu-item icon="folder-open">Open</el-menu-item>
+                    <el-menu-separator />
+                    <el-menu-item>Save</el-menu-item>
+                  </el-menu-panel>
+                </el-menu>
+                <el-menu>
+                  <el-button elMenuTrigger variant="ghost" size="sm">Edit</el-button>
+                  <el-menu-panel>
+                    <el-menu-item shortcut="Ctrl+Z">Undo</el-menu-item>
+                    <el-menu-item shortcut="Ctrl+Y">Redo</el-menu-item>
+                    <el-menu>
+                      <el-menu-item elMenuTrigger>Find</el-menu-item>
+                      <el-menu-panel>
+                        <el-menu-item>Find in file</el-menu-item>
+                        <el-menu-item>Find in project</el-menu-item>
+                      </el-menu-panel>
+                    </el-menu>
+                  </el-menu-panel>
+                </el-menu>
+                <el-menu>
+                  <el-button elMenuTrigger variant="ghost" size="sm">View</el-button>
+                  <el-menu-panel>
+                    <el-menu-item>Command palette</el-menu-item>
+                    <el-menu-item>Appearance</el-menu-item>
+                  </el-menu-panel>
+                </el-menu>
+              </el-menubar>
+            </div>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Follows the APG menubar pattern: Arrow Down opens and focuses the first item, Arrow Up
+            opens and focuses the last item, and Arrow Left/Right move between top-level menus while
+            one is open.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Sizes</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sizesPanel() === 'preview') {
+          <app-preview>
+            <div style="display: grid; gap: 1rem; min-height: 8rem">
+              <el-menubar size="sm" ariaLabel="Small">
+                <el-menu>
+                  <el-button elMenuTrigger variant="ghost" size="sm">File</el-button>
+                  <el-menu-panel>
+                    <el-menu-item>New</el-menu-item>
+                  </el-menu-panel>
+                </el-menu>
+                <el-menu>
+                  <el-button elMenuTrigger variant="ghost" size="sm">Edit</el-button>
+                  <el-menu-panel>
+                    <el-menu-item>Undo</el-menu-item>
+                  </el-menu-panel>
+                </el-menu>
+              </el-menubar>
+              <el-menubar size="lg" ariaLabel="Large">
+                <el-menu>
+                  <el-button elMenuTrigger variant="ghost">File</el-button>
+                  <el-menu-panel>
+                    <el-menu-item>New</el-menu-item>
+                  </el-menu-panel>
+                </el-menu>
+              </el-menubar>
+            </div>
+          </app-preview>
+        } @else if (sizesPanel() === 'code') {
+          <app-code-block [code]="sizesCode" language="html" />
+        } @else {
+          <p>
+            Size adjusts bar density. Home and End jump to the first and last top-level menu
+            triggers while a menu is open.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>APG Menubar with <code>role="menubar"</code> and named via <code>ariaLabel</code>.</li>
+      <li>Arrow keys, Home, and End move between top-level triggers.</li>
+      <li>Hover switches menus once one menu is already open.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/menubar/" target="_blank" rel="noreferrer">APG Menubar</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

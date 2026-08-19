@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect, fn } from 'storybook/test';
 import { ElChip } from './chip';
 
 const meta: Meta<ElChip> = {
@@ -173,4 +174,55 @@ export const ChipSet: Story = {
       </div>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  parameters: { docs: { codePanel: true } },
+  render: () => ({
+    props: { filterOn: true },
+    moduleMetadata: { imports: [ElChip] },
+    template: `<div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center">
+      <el-chip type="assist" iconStart="key">Assist</el-chip>
+      <el-chip type="filter" [(selected)]="filterOn">Filter</el-chip>
+      <el-chip type="suggestion" appearance="filled" [removable]="true">Removable</el-chip>
+      <el-chip type="assist" disabled>Disabled</el-chip>
+    </div>`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const assist = canvas.getByRole('button', { name: 'Assist' });
+    const filter = canvas.getByRole('checkbox', { name: 'Filter' });
+    const disabled = canvas.getByRole('button', { name: 'Disabled' });
+
+    const onAssist = fn();
+    const onRemove = fn();
+    assist.addEventListener('click', onAssist);
+
+    await step('Assist chip is named and activates', async () => {
+      await userEvent.click(assist);
+      await expect(onAssist).toHaveBeenCalledTimes(1);
+    });
+
+    await step('Filter chip toggles aria-checked', async () => {
+      await expect(filter).toHaveAttribute('aria-checked', 'true');
+      await userEvent.click(filter);
+      await expect(filter).toHaveAttribute('aria-checked', 'false');
+    });
+
+    await step('Removable chip exposes remove control', async () => {
+      const remove = canvas.getByRole('button', { name: 'Remove' });
+      remove.addEventListener('click', onRemove);
+      await userEvent.click(remove);
+      await expect(onRemove).toHaveBeenCalledTimes(1);
+    });
+
+    await step('Disabled chip does not activate', async () => {
+      await expect(disabled).toBeDisabled();
+      const onDisabled = fn();
+      disabled.addEventListener('click', onDisabled);
+      await userEvent.click(disabled);
+      await expect(onDisabled).not.toHaveBeenCalled();
+    });
+  },
 };

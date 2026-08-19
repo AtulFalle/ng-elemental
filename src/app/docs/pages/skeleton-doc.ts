@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   ElButton,
@@ -16,9 +16,9 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElButton,
     ElSkeleton,
     ElSkeletonDirective,
-    ElButton,
     ElInput,
     CodeBlock,
     Preview,
@@ -28,6 +28,10 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class SkeletonDocPage {
+  protected readonly textPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly shapesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly hostPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add skeleton`;
 
@@ -44,15 +48,19 @@ npx @ng-elemental/cli add skeleton`;
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-skeleton />
-<el-skeleton [lines]="3" />
-<el-skeleton variant="circular" />
-<el-skeleton variant="rectangular" height="8rem" />
-<el-skeleton [animation]="false" [lines]="2" />
+  protected readonly textCode = `<div aria-busy="true" aria-live="polite" style="width: 16rem">
+  <el-skeleton [lines]="4" />
+</div>`;
 
-<button [elSkeleton]="loading">Save</button>
-<input [elSkeleton]="loading" placeholder="Email" />
-<div [elSkeleton]="loading" style="height: 4rem">Card</div>`;
+  protected readonly shapesCode = `<div class="docs-row" style="align-items: flex-start">
+  <el-skeleton variant="circular" />
+  <el-skeleton variant="rectangular" height="6rem" style="flex: 1" />
+</div>`;
+
+  protected readonly hostCode = `<div aria-busy="true" class="docs-stack" style="max-width: 16rem">
+  <el-button elSkeleton>Save changes</el-button>
+  <el-input elSkeleton placeholder="Email" />
+</div>`;
 
   protected readonly scopedTokensCode = `.checkout-panel {
   --el-color-surface-container-highest: #e5e7eb;

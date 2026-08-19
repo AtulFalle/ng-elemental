@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect, fn } from 'storybook/test';
 import { ElRadio, ElRadioGroup } from './radio-group';
 
 const meta: Meta<ElRadioGroup> = {
@@ -116,4 +117,49 @@ export const WithDisabledOption: Story = {
       </el-radio-group>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  parameters: { docs: { codePanel: true } },
+  render: () => ({
+    props: { value: 'option-1' },
+    moduleMetadata: { imports: [ElRadioGroup, ElRadio] },
+    template: `<div style="display:flex;flex-direction:column;gap:1rem">
+      <el-radio-group [(value)]="value" ariaLabel="Options">
+        <el-radio value="option-1" inputId="radio-int-1">Option 1</el-radio>
+        <el-radio value="option-2" inputId="radio-int-2">Option 2</el-radio>
+        <el-radio value="option-3" inputId="radio-int-3">Option 3</el-radio>
+      </el-radio-group>
+      <el-radio-group value="option-1" disabled ariaLabel="Disabled group">
+        <el-radio value="option-1" inputId="radio-dis-1">Disabled</el-radio>
+      </el-radio-group>
+    </div>`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const option1 = canvas.getByRole('radio', { name: 'Option 1' });
+    const option2 = canvas.getByRole('radio', { name: 'Option 2' });
+    const disabled = canvas.getByRole('radio', { name: 'Disabled' });
+
+    await step('Pointer: select option', async () => {
+      await userEvent.click(option2);
+      await expect(option2).toBeChecked();
+      await expect(option1).not.toBeChecked();
+    });
+
+    await step('Keyboard: Arrow keys move selection', async () => {
+      option1.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await expect(option2).toBeChecked();
+    });
+
+    await step('Disabled group is inert', async () => {
+      await expect(disabled).toBeDisabled();
+      const onClick = fn();
+      disabled.addEventListener('click', onClick);
+      await userEvent.click(disabled);
+      await expect(onClick).not.toHaveBeenCalled();
+    });
+  },
 };

@@ -59,6 +59,10 @@ export class EditFiltersSheet {
 export class SheetDocPage {
   private readonly sheet = inject(ElSheetService);
 
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly sidePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly servicePanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly open = signal(false);
   protected readonly sideOpen = signal(false);
   protected readonly serviceResult = signal<string | null>(null);
@@ -93,6 +97,13 @@ export class MyComponent {
   <div elSheetFooter>
     <el-button elSheetClose variant="ghost">Cancel</el-button>
     <el-button>Apply</el-button>
+  </div>
+</el-sheet>`;
+
+  protected readonly sideCode = `<el-sheet [(open)]="open" title="Details" side="left" size="sm">
+  <div elSheetContent>A left sheet uses width sizes instead of height.</div>
+  <div elSheetFooter>
+    <el-button elSheetClose variant="ghost">Close</el-button>
   </div>
 </el-sheet>`;
 

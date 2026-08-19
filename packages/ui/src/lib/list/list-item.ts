@@ -17,16 +17,10 @@ const NESTED_CONTROL =
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'el-list-item-host',
-    role: 'listitem',
+    '[style.display]': '"contents"',
     '[class.el-list-item-host--interactive]': 'interactive()',
     '[class.el-list-item-host--selected]': 'selected()',
     '[class.el-list-item-host--disabled]': 'disabled()',
-    '[attr.aria-disabled]': 'disabled() || null',
-    '[attr.aria-current]': 'selected() || null',
-    '[attr.tabindex]': 'hostTabIndex()',
-    '(click)': 'onHostClick($event)',
-    '(keydown.enter)': 'onHostActivate($event)',
-    '(keydown.space)': 'onHostActivate($event)',
   },
 })
 export class ElListItem {

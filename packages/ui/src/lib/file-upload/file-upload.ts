@@ -61,6 +61,8 @@ interface ElFileUploadItem {
   },
 })
 export class ElFileUpload {
+  private static nextId = 0;
+
   private readonly destroyRef = inject(DestroyRef);
   private readonly previewUrls = new Map<File, string>();
   private dragDepth = 0;
@@ -77,6 +79,9 @@ export class ElFileUpload {
 
   private readonly fileInput =
     viewChild<ElementRef<HTMLInputElement>>('fileInput');
+
+  protected readonly fileInputId = `el-file-upload-input-${ElFileUpload.nextId++}`;
+  protected readonly dropzoneTitleId = `el-file-upload-title-${ElFileUpload.nextId++}`;
 
   protected readonly dragActive = signal(false);
   protected readonly dragReject = signal(false);

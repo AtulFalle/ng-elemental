@@ -12,17 +12,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-radio-group [(value)]="contact" ariaLabel="Contact method">
-        <el-radio value="email" inputId="contact-email-preview">Email</el-radio>
-        <el-radio value="phone" inputId="contact-phone-preview">Phone</el-radio>
-        <el-radio value="mail" inputId="contact-mail-preview">Mail</el-radio>
-      </el-radio-group>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -34,69 +23,101 @@
       with two-way binding:
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Vertical group</h3>
-    <app-preview>
-      <el-radio-group
-        [(value)]="contact"
-        direction="vertical"
-        ariaLabel="Contact method"
-      >
-        <el-radio value="email" inputId="contact-email-v">Email</el-radio>
-        <el-radio value="phone" inputId="contact-phone-v">Phone</el-radio>
-        <el-radio value="mail" inputId="contact-mail-v">Mail</el-radio>
-      </el-radio-group>
-    </app-preview>
-
-    <h3>Horizontal group</h3>
-    <app-preview>
-      <el-radio-group
-        [(value)]="size"
-        direction="horizontal"
-        ariaLabel="Size"
-      >
-        <el-radio value="small" inputId="size-small">Small</el-radio>
-        <el-radio value="medium" inputId="size-medium">Medium</el-radio>
-        <el-radio value="large" inputId="size-large">Large</el-radio>
-      </el-radio-group>
-    </app-preview>
-
-    <h3>Label position</h3>
-    <app-preview>
-      <el-radio-group value="right" ariaLabel="Label position">
-        <el-radio value="right" inputId="radio-right" labelPosition="right">
-          Label on the right (default)
-        </el-radio>
-        <el-radio value="left" inputId="radio-left" labelPosition="left">
-          Label on the left
-        </el-radio>
-      </el-radio-group>
-    </app-preview>
-
-    <h3>States</h3>
-    <app-preview>
-      <div class="docs-stack">
-        <el-radio-group value="standard" ariaLabel="Shipping">
-          <el-radio value="standard" inputId="ship-standard">Standard</el-radio>
-          <el-radio value="express" inputId="ship-express">Express</el-radio>
-        </el-radio-group>
-        <el-radio-group value="option-1" [disabled]="true" ariaLabel="Disabled group">
-          <el-radio value="option-1" inputId="disabled-1">Disabled group</el-radio>
-          <el-radio value="option-2" inputId="disabled-2">Option 2</el-radio>
-        </el-radio-group>
-        <el-radio-group value="available" ariaLabel="With disabled option">
-          <el-radio value="available" inputId="opt-available">Available</el-radio>
-          <el-radio value="unavailable" inputId="opt-unavailable" [disabled]="true">
-            Unavailable
-          </el-radio>
-        </el-radio-group>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Vertical group</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-radio-group [(value)]="contact" direction="vertical" ariaLabel="Contact method">
+              <el-radio value="email" inputId="contact-email-preview">Email</el-radio>
+              <el-radio value="phone" inputId="contact-phone-preview">Phone</el-radio>
+              <el-radio value="mail" inputId="contact-mail-preview">Mail</el-radio>
+            </el-radio-group>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="heroCode" language="html" />
+        } @else {
+          <p>
+            Group exposes <code>role="radiogroup"</code> with
+            <code>ariaLabel</code>. Each option uses a native radio input.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Horizontal group</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="layoutPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="layoutPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="layoutPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (layoutPanel() === 'preview') {
+          <app-preview>
+            <el-radio-group [(value)]="size" direction="horizontal" ariaLabel="Size">
+              <el-radio value="small" inputId="size-small">Small</el-radio>
+              <el-radio value="medium" inputId="size-medium">Medium</el-radio>
+              <el-radio value="large" inputId="size-large">Large</el-radio>
+            </el-radio-group>
+          </app-preview>
+        } @else if (layoutPanel() === 'code') {
+          <app-code-block [code]="layoutCode" language="html" />
+        } @else {
+          <p>
+            Arrow keys move selection within the group per APG radio group
+            keyboard guidance.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">States</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="statesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="statesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="statesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (statesPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack">
+              <el-radio-group value="option-1" [disabled]="true" ariaLabel="Disabled group">
+                <el-radio value="option-1" inputId="disabled-1">Disabled group</el-radio>
+              </el-radio-group>
+              <el-radio-group value="available" ariaLabel="With disabled option">
+                <el-radio value="available" inputId="opt-available">Available</el-radio>
+                <el-radio value="unavailable" inputId="opt-unavailable" [disabled]="true">Unavailable</el-radio>
+              </el-radio-group>
+            </div>
+          </app-preview>
+        } @else if (statesPanel() === 'code') {
+          <app-code-block [code]="statesCode" language="html" />
+        } @else {
+          <p>
+            Disabled groups and options use native <code>disabled</code> so
+            assistive technology exposes the inactive state.
+          </p>
+        }
+      </div>
+    </article>
   </section>
 
   <section>
