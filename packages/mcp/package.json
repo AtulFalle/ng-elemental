@@ -19,7 +19,8 @@
     "index.cjs",
     "bin.cjs",
     "guidelines.md",
-    "README.md"
+    "README.md",
+    "ui-source"
   ],
   "publishConfig": {
     "access": "public"

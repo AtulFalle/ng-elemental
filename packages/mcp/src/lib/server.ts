@@ -1,8 +1,10 @@
 import { McpServer } from '@modelcontextprotocol/server';
 import { z } from 'zod';
 import {
-  addComponents,
   describeComponent,
+  getComponentExamples,
+  getComponentSource,
+  getInstallInstructions,
   guidelinesText,
   listComponents,
   resolveCwd,
@@ -78,18 +80,43 @@ export function createNgElementalServer(): McpServer {
   );
 
   server.registerTool(
-    'add_components',
+    'install_components',
     {
-      title: 'Add components',
+      title: 'Install components',
       description:
-        'Copy one or more NgElemental components into the current project via the CLI. Also copies missing registryDependencies. Requires elemental.json.',
+        'Get CLI commands the user should run to install one or more NgElemental components. Does NOT run the commands — present them to the user. Includes registry and npm dependencies.',
       inputSchema: z.object({
-        names: z.array(z.string()).min(1).describe('Catalog names to add'),
-        force: z.boolean().optional().describe('Overwrite existing copied files'),
+        names: z.array(z.string()).min(1).describe('Catalog names to install'),
         cwd: z.string().optional().describe('Project root. Defaults to process.cwd()'),
       }),
     },
-    ({ names, force, cwd }) => textResult(addComponents({ names, force, cwd: resolveCwd(cwd) })),
+    ({ names, cwd }) => textResult(getInstallInstructions(names, resolveCwd(cwd))),
+  );
+
+  server.registerTool(
+    'get_component_source',
+    {
+      title: 'Get component source',
+      description:
+        'Get the full source code (TypeScript, HTML, SCSS) of a component. Use this to understand the component API, inputs, outputs, and implementation details before using it.',
+      inputSchema: z.object({
+        name: z.string().describe('Catalog name such as button or dialog'),
+      }),
+    },
+    ({ name }) => textResult(getComponentSource(name)),
+  );
+
+  server.registerTool(
+    'get_component_examples',
+    {
+      title: 'Get component examples',
+      description:
+        'Get Storybook stories for a component showing real usage patterns, variants, and configurations. Helps the agent implement the component correctly.',
+      inputSchema: z.object({
+        name: z.string().describe('Catalog name such as button or dialog'),
+      }),
+    },
+    ({ name }) => textResult(getComponentExamples(name)),
   );
 
   server.registerTool(

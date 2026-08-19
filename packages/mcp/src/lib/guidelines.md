@@ -42,7 +42,7 @@ NgElemental is copy-paste source, not an npm UI import. Never `import { ElButton
 1. Ensure the project is initialized (`elemental.json`). If missing, call `init_project`.
 2. Theme must exist under `componentsDir/theme`. `init` installs it; otherwise add `theme`.
 3. Search (`search_components`) then inspect (`get_component`). Do not guess names.
-4. Install with `add_components`, including `registryDependencies` from the catalog (often `icon`).
+4. Install with `install_components` to get CLI commands for the user to run. This handles `registryDependencies` from the catalog (often `icon`).
 5. If the catalog lists `npmDependencies` (Font Awesome for icons), install that package and `@use` `fontawesome.scss` in global styles after tokens.
 6. Import from the copied path, not from a package name:
    `import { ElButton } from './ui/button/button';`

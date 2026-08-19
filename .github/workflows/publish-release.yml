@@ -99,6 +99,8 @@ jobs:
           test -f dist/packages/mcp/index.cjs
           test -f dist/packages/mcp/README.md
           test -f dist/packages/mcp/guidelines.md
+          test -d dist/packages/mcp/ui-source
+          test -f dist/packages/mcp/ui-source/button/button.ts
 
           CLI_NAME="$(node -p "require('./dist/packages/cli/package.json').name")"
           CLI_VER="$(node -p "require('./dist/packages/cli/package.json').version")"
