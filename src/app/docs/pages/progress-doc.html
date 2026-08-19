@@ -13,19 +13,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div class="docs-stack" style="gap: 1.5rem; width: 100%;">
-        <el-progress [value]="lineValue()" showValue />
-        <div style="display: flex; gap: 1.5rem; align-items: center">
-          <el-progress-circle [value]="circleValue()" showValue />
-          <el-progress-circle indeterminate />
-        </div>
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -38,48 +25,119 @@
       unknown. Both components share the same inputs.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Line sizes</h3>
-    <app-preview>
-      <div class="docs-stack" style="gap: 1rem; width: 100%;">
-        <el-progress size="sm" [value]="40" showValue />
-        <el-progress size="md" [value]="60" showValue />
-        <el-progress size="lg" [value]="80" showValue />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Line and circle</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack" style="gap: 1.5rem; width: 100%">
+              <el-progress [value]="42" showValue />
+              <div style="display: flex; gap: 1.5rem; align-items: center">
+                <el-progress-circle [value]="72" showValue />
+                <el-progress-circle indeterminate />
+              </div>
+            </div>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="heroCode" language="html" />
+        } @else {
+          <p>
+            Determinate bars expose <code>aria-valuenow</code>, <code>aria-valuemin</code>, and
+            <code>aria-valuemax</code>. Indeterminate mode omits a value and uses motion that
+            honors <code>prefers-reduced-motion</code>.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Line indeterminate</h3>
-    <app-preview>
-      <div style="width: 100%;">
-        <el-progress indeterminate />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Line sizes</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="lineSizesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="lineSizesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="lineSizesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (lineSizesPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack" style="gap: 1rem; width: 100%">
+              <el-progress size="sm" [value]="40" showValue />
+              <el-progress size="md" [value]="60" showValue />
+              <el-progress size="lg" [value]="80" showValue />
+            </div>
+          </app-preview>
+        } @else if (lineSizesPanel() === 'code') {
+          <app-code-block [code]="lineSizesCode" language="html" />
+        } @else {
+          <p>
+            Visible percent labels supplement the bar for users who need numeric feedback.
+            Track fill color is not the only cue when <code>showValue</code> is on.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Custom max</h3>
-    <app-preview>
-      <div style="width: 100%;">
-        <el-progress [value]="3" [max]="10" showValue />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Indeterminate</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="indeterminatePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="indeterminatePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="indeterminatePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (indeterminatePanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack" style="gap: 1rem; width: 100%">
+              <el-progress indeterminate />
+              <el-progress-circle indeterminate size="lg" />
+            </div>
+          </app-preview>
+        } @else if (indeterminatePanel() === 'code') {
+          <app-code-block [code]="indeterminateCode" language="html" />
+        } @else {
+          <p>
+            Use indeterminate progress only when duration is unknown. Pair with status text when
+            the operation name is not obvious from context.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
+  </section>
 
-    <h3>Circle sizes</h3>
-    <app-preview>
-      <div style="display: flex; gap: 1.5rem; align-items: center">
-        <el-progress-circle size="sm" [value]="40" showValue />
-        <el-progress-circle size="md" [value]="60" showValue />
-        <el-progress-circle size="lg" [value]="80" showValue />
-      </div>
-    </app-preview>
-
-    <h3>Circle indeterminate</h3>
-    <app-preview>
-      <el-progress-circle indeterminate size="lg" />
-    </app-preview>
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Progress uses the native <code>progressbar</code> role.
+    </p>
+    <ul>
+      <li>Determinate values map to <code>aria-valuenow</code> / <code>aria-valuemax</code>.</li>
+      <li>Indeterminate bars omit <code>aria-valuenow</code>.</li>
+      <li>Animation respects <code>prefers-reduced-motion</code>.</li>
+      <li>Fill and track meet 3:1 non-text contrast where applicable.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/progressbar/" target="_blank" rel="noreferrer">APG Progressbar</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.4.11, 2.2.2).
+    </p>
   </section>
 
   <section>

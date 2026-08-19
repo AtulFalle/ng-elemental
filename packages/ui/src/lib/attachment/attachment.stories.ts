@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect, fn } from 'storybook/test';
 import { ElIcon } from '../icon/icon';
 import { ElAttachment } from './attachment';
 import { ElAttachmentAction } from './attachment-action';
@@ -222,4 +223,57 @@ export const Group: Story = {
       </el-attachment-group>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: ATTACHMENT_IMPORTS },
+    template: `
+      <div style="display:grid;gap:0.75rem;max-width:22rem">
+        <el-attachment state="done">
+          <el-attachment-media>
+            <el-icon name="file-lines" />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>sales-dashboard.pdf</el-attachment-title>
+            <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+          </el-attachment-content>
+          <el-attachment-actions>
+            <el-attachment-action ariaLabel="Remove sales-dashboard.pdf" />
+          </el-attachment-actions>
+        </el-attachment>
+        <el-attachment state="uploading">
+          <el-attachment-media>
+            <el-icon name="file-zipper" />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>design-system.zip</el-attachment-title>
+            <el-attachment-description>Uploading · 64%</el-attachment-description>
+          </el-attachment-content>
+          <el-attachment-actions>
+            <el-attachment-action ariaLabel="Cancel upload" icon="xmark" />
+          </el-attachment-actions>
+        </el-attachment>
+      </div>
+    `,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const remove = canvas.getByRole('button', { name: 'Remove sales-dashboard.pdf' });
+    const cancel = canvas.getByRole('button', { name: 'Cancel upload' });
+    const uploading = canvas.getByText('design-system.zip').closest('el-attachment');
+
+    await step('Actions are named icon buttons', async () => {
+      const onRemove = fn();
+      remove.addEventListener('click', onRemove);
+      await userEvent.click(remove);
+      await expect(onRemove).toHaveBeenCalledTimes(1);
+    });
+
+    await step('Uploading attachment is busy', async () => {
+      await expect(uploading).toHaveAttribute('aria-busy', 'true');
+      await expect(cancel).toBeInTheDocument();
+    });
+  },
 };

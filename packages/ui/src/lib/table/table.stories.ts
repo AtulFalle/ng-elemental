@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -364,4 +365,40 @@ export const SelectionRecipe: Story = {
     moduleMetadata: { imports: [TableSelectStoryHost] },
     template: `<el-table-select-story-host />`,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [TableSortStoryHost, TableExpandStoryHost] },
+    template: `
+      <div style="display:grid;gap:1.5rem;max-width:36rem">
+        <el-table-sort-story-host />
+        <el-table-expand-story-host />
+      </div>
+    `,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const sortButton = canvas.getByRole('button', {
+      name: /Sort by Name/i,
+    });
+    const expandButton = canvas.getByRole('button', { name: /Expand row/i });
+
+    await step('Sort buttons expose accessible names', async () => {
+      await expect(sortButton).toHaveAttribute('aria-label', expect.stringContaining('Sort by Name'));
+      await userEvent.click(sortButton);
+      await expect(sortButton).toHaveAttribute(
+        'aria-label',
+        expect.stringContaining('ascending'),
+      );
+    });
+
+    await step('Expand row is named and toggles', async () => {
+      await userEvent.click(expandButton);
+      await expect(
+        canvas.getByRole('button', { name: /Collapse row/i }),
+      ).toBeInTheDocument();
+    });
+  },
 };

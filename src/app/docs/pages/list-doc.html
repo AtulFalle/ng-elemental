@@ -15,32 +15,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-list ariaLabel="Inbox" style="max-width: 24rem; width: 100%">
-        <el-list-item>
-          <el-avatar elListLeading initials="AL" alt="Ada Lovelace" />
-          <span elListTitle>Ada Lovelace</span>
-          <span elListDescription>Notes on the Analytical Engine</span>
-          <span elListTrailing>09:12</span>
-        </el-list-item>
-        <el-list-item>
-          <el-avatar elListLeading initials="GH" alt="Grace Hopper" />
-          <span elListTitle>Grace Hopper</span>
-          <span elListDescription>Compiler progress update</span>
-          <span elListTrailing>Yesterday</span>
-        </el-list-item>
-        <el-list-item>
-          <el-icon elListLeading name="file-lines" />
-          <span elListTitle>Quarterly report</span>
-          <span elListDescription>PDF · 2.4 MB</span>
-          <el-chip elListTrailing>Review</el-chip>
-        </el-list-item>
-      </el-list>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -61,116 +35,264 @@
   <section>
     <h2>Examples</h2>
 
-    <h3>Plain text rows</h3>
-    <app-preview>
-      <el-list ariaLabel="Folders" style="max-width: 20rem; width: 100%">
-        <el-list-item>Inbox</el-list-item>
-        <el-list-item>Starred</el-list-item>
-        <el-list-item>Sent</el-list-item>
-        <el-list-item disabled>Archive (unavailable)</el-list-item>
-      </el-list>
-    </app-preview>
-
-    <h3>Interactive selection</h3>
-    <p>
-      The parent owns which row is selected. Items emit
-      <code>activated</code>; they do not toggle themselves.
-    </p>
-    <app-preview>
-      <el-list ariaLabel="People" style="max-width: 24rem; width: 100%">
-        @for (person of people; track person.id) {
-          <el-list-item
-            interactive
-            [selected]="person.id === selectedId()"
-            (activated)="selectedId.set(person.id)"
-          >
-            <el-avatar
-              elListLeading
-              [initials]="person.initials"
-              [alt]="person.name"
-            />
-            <span elListTitle>{{ person.name }}</span>
-            <span elListDescription>{{ person.role }}</span>
-          </el-list-item>
-        }
-      </el-list>
-    </app-preview>
-    <app-code-block [code]="interactiveCode" language="html" />
-
-    <h3>Virtual</h3>
-    <p>
-      Set a max-height on <code>el-list</code>. Rows use a fixed
-      <code>itemHeight</code>. The parent still owns selection.
-    </p>
-    <app-preview>
-      <el-list
-        virtual
-        [items]="virtualPeople"
-        track="id"
-        [itemHeight]="56"
-        ariaLabel="Virtual people"
-        style="max-height: 16rem; max-width: 24rem; width: 100%"
-      >
-        <ng-template elListItemDef let-person>
-          <el-list-item interactive>
-            <el-avatar
-              elListLeading
-              [initials]="person.initials"
-              [alt]="person.name"
-            />
-            <span elListTitle>{{ person.name }}</span>
-            <span elListDescription>{{ person.role }}</span>
-          </el-list-item>
-        </ng-template>
-      </el-list>
-    </app-preview>
-    <app-code-block [code]="virtualCode" language="html" />
-
-    <h3>Trailing actions</h3>
-    <app-preview>
-      <el-list ariaLabel="Files" style="max-width: 28rem; width: 100%">
-        <el-list-item>
-          <el-icon elListLeading name="file-lines" />
-          <span elListTitle>report.pdf</span>
-          <span elListDescription>2.4 MB</span>
-          <el-button
-            elListTrailing
-            variant="ghost"
-            size="sm"
-            iconStart="xmark"
-            aria-label="Remove report.pdf"
-          />
-        </el-list-item>
-        <el-list-item>
-          <el-icon elListLeading name="image" />
-          <span elListTitle>cover.png</span>
-          <span elListDescription>840 KB</span>
-          <el-button
-            elListTrailing
-            variant="ghost"
-            size="sm"
-            iconStart="xmark"
-            aria-label="Remove cover.png"
-          />
-        </el-list-item>
-      </el-list>
-    </app-preview>
-
-    <h3>Sizes</h3>
-    <app-preview>
-      <div style="display: grid; gap: 1rem; width: 100%; max-width: 24rem">
-        @for (size of sizes; track size) {
-          <el-list [size]="size" [ariaLabel]="size + ' list'">
-            <el-list-item>
-              <el-icon elListLeading name="inbox" />
-              <span elListTitle>{{ size }} density</span>
-              <span elListDescription>Title, description, trailing meta</span>
-              <span elListTrailing>2</span>
-            </el-list-item>
-          </el-list>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Inbox list</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-list ariaLabel="Inbox" style="max-width: 24rem; width: 100%">
+              <el-list-item>
+                <el-avatar elListLeading initials="AL" alt="Ada Lovelace" />
+                <span elListTitle>Ada Lovelace</span>
+                <span elListDescription>Notes on the Analytical Engine</span>
+                <span elListTrailing>09:12</span>
+              </el-list-item>
+              <el-list-item>
+                <el-avatar elListLeading initials="GH" alt="Grace Hopper" />
+                <span elListTitle>Grace Hopper</span>
+                <span elListDescription>Compiler progress update</span>
+                <span elListTrailing>Yesterday</span>
+              </el-list-item>
+              <el-list-item>
+                <el-icon elListLeading name="file-lines" />
+                <span elListTitle>Quarterly report</span>
+                <span elListDescription>PDF · 2.4 MB</span>
+                <el-chip elListTrailing>Review</el-chip>
+              </el-list-item>
+            </el-list>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Uses a semantic list with named slots for title, description, and trailing meta.
+            Pass <code>ariaLabel</code> when the list purpose is not obvious from context.
+          </p>
         }
       </div>
-    </app-preview>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Plain text rows</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="plainPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="plainPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="plainPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (plainPanel() === 'preview') {
+          <app-preview>
+            <el-list ariaLabel="Folders" style="max-width: 20rem; width: 100%">
+              <el-list-item>Inbox</el-list-item>
+              <el-list-item>Starred</el-list-item>
+              <el-list-item>Sent</el-list-item>
+              <el-list-item disabled>Archive (unavailable)</el-list-item>
+            </el-list>
+          </app-preview>
+        } @else if (plainPanel() === 'code') {
+          <app-code-block [code]="plainCode" language="html" />
+        } @else {
+          <p>
+            Plain text rows work without slots. Disabled rows expose
+            <code>aria-disabled</code> and are skipped by keyboard activation.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Interactive selection</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="interactivePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="interactivePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="interactivePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (interactivePanel() === 'preview') {
+          <app-preview>
+            <el-list ariaLabel="People" style="max-width: 24rem; width: 100%">
+              @for (person of people; track person.id) {
+                <el-list-item
+                  interactive
+                  [selected]="person.id === selectedId()"
+                  (activated)="selectedId.set(person.id)"
+                >
+                  <el-avatar
+                    elListLeading
+                    [initials]="person.initials"
+                    [alt]="person.name"
+                  />
+                  <span elListTitle>{{ person.name }}</span>
+                  <span elListDescription>{{ person.role }}</span>
+                </el-list-item>
+              }
+            </el-list>
+          </app-preview>
+        } @else if (interactivePanel() === 'code') {
+          <app-code-block [code]="interactiveCode" language="html" />
+        } @else {
+          <p>
+            The parent owns which row is selected. Items emit <code>activated</code> on
+            click, Enter, or Space. Selected rows expose <code>aria-selected="true"</code>.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Virtual</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="virtualPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="virtualPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="virtualPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (virtualPanel() === 'preview') {
+          <app-preview>
+            <el-list
+              virtual
+              [items]="virtualPeople"
+              track="id"
+              [itemHeight]="56"
+              ariaLabel="Virtual people"
+              style="max-height: 16rem; max-width: 24rem; width: 100%"
+            >
+              <ng-template elListItemDef let-person>
+                <el-list-item interactive>
+                  <el-avatar
+                    elListLeading
+                    [initials]="person.initials"
+                    [alt]="person.name"
+                  />
+                  <span elListTitle>{{ person.name }}</span>
+                  <span elListDescription>{{ person.role }}</span>
+                </el-list-item>
+              </ng-template>
+            </el-list>
+          </app-preview>
+        } @else if (virtualPanel() === 'code') {
+          <app-code-block [code]="virtualCode" language="html" />
+        } @else {
+          <p>
+            Set a max-height on <code>el-list</code>. Rows use a fixed <code>itemHeight</code>.
+            Keyboard focus still moves through the rendered window.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Trailing actions</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="actionsPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="actionsPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="actionsPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (actionsPanel() === 'preview') {
+          <app-preview>
+            <el-list ariaLabel="Files" style="max-width: 28rem; width: 100%">
+              <el-list-item>
+                <el-icon elListLeading name="file-lines" />
+                <span elListTitle>report.pdf</span>
+                <span elListDescription>2.4 MB</span>
+                <el-button
+                  elListTrailing
+                  variant="ghost"
+                  size="sm"
+                  iconStart="xmark"
+                  aria-label="Remove report.pdf"
+                />
+              </el-list-item>
+              <el-list-item>
+                <el-icon elListLeading name="image" />
+                <span elListTitle>cover.png</span>
+                <span elListDescription>840 KB</span>
+                <el-button
+                  elListTrailing
+                  variant="ghost"
+                  size="sm"
+                  iconStart="xmark"
+                  aria-label="Remove cover.png"
+                />
+              </el-list-item>
+            </el-list>
+          </app-preview>
+        } @else if (actionsPanel() === 'code') {
+          <app-code-block [code]="actionsCode" language="html" />
+        } @else {
+          <p>
+            Trailing actions in <code>elListTrailing</code> do not activate the row. Each
+            icon button needs a descriptive <code>aria-label</code>.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Sizes</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sizesPanel() === 'preview') {
+          <app-preview>
+            <div style="display: grid; gap: 1rem; width: 100%; max-width: 24rem">
+              @for (size of sizes; track size) {
+                <el-list [size]="size" [ariaLabel]="size + ' list'">
+                  <el-list-item>
+                    <el-icon elListLeading name="inbox" />
+                    <span elListTitle>{{ size }} density</span>
+                    <span elListDescription>Title, description, trailing meta</span>
+                    <span elListTrailing>2</span>
+                  </el-list-item>
+                </el-list>
+              }
+            </div>
+          </app-preview>
+        } @else if (sizesPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Size adjusts padding and type scale. Interactive and selection behavior is unchanged
+            across densities.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>Semantic list structure with labelled title and description slots.</li>
+      <li>Interactive rows are focusable and activate on Enter or Space.</li>
+      <li>Selected rows expose <code>aria-selected</code>; disabled rows use <code>aria-disabled</code>.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" target="_blank" rel="noreferrer">APG Listbox (selection)</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

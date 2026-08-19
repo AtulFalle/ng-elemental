@@ -28,6 +28,7 @@ import { EL_RESIZABLE } from './resizable.token';
     '[attr.aria-valuenow]': 'valueNow()',
     '[attr.aria-valuemin]': 'valueMin()',
     '[attr.aria-valuemax]': 'valueMax()',
+    '[attr.aria-valuetext]': 'valueText()',
     '[attr.aria-label]': 'ariaLabel()',
     '[attr.aria-disabled]': 'disabled() ? true : null',
     '[attr.tabindex]': 'disabled() ? -1 : 0',
@@ -58,6 +59,10 @@ export class ElResizableHandle {
   );
   protected readonly valueMax = computed(() =>
     Math.round(this.group.valueMax(this)),
+  );
+
+  protected readonly valueText = computed(
+    () => `${this.valueNow()} percent`,
   );
 
   protected onPointerDown(event: PointerEvent): void {

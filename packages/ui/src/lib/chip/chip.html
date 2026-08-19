@@ -12,6 +12,7 @@
     [disabled]="disabled()"
     [attr.role]="isFilter() ? 'checkbox' : null"
     [attr.aria-checked]="isFilter() ? selected() : null"
+    [attr.aria-label]="ariaLabel() || null"
     (click)="onChipClick()"
   >
     @if (startIconName()) {

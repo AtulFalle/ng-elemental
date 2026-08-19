@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElGrid } from '@ng-elemental/ui';
+import { ElButton, ElGrid } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
@@ -9,11 +9,17 @@ import { PropsTable } from '../ui/props-table';
 @Component({
   selector: 'app-grid-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElGrid, CodeBlock, Preview, PropsTable],
+  imports: [RouterLink, ElButton, ElGrid, CodeBlock, Preview, PropsTable],
   templateUrl: './grid-doc.html',
   styleUrl: './page.scss',
 })
 export class GridDocPage {
+  protected readonly columnsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly autoFitPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
+  protected readonly columnItems = ['One', 'Two', 'Three', 'Four', 'Five', 'Six'];
+  protected readonly autoFitItems = ['A', 'B', 'C', 'D'];
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add grid`;
 
@@ -31,7 +37,13 @@ npx @ng-elemental/cli add grid`;
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-grid minItemWidth="12rem" gap="4">
+  protected readonly columnsCode = `<el-grid [columns]="3" gap="3">
+  <div>One</div>
+  <div>Two</div>
+  <div>Three</div>
+</el-grid>`;
+
+  protected readonly autoFitCode = `<el-grid minItemWidth="8rem" gap="3">
   <div>Responsive tile</div>
 </el-grid>`;
 

@@ -109,6 +109,18 @@ export class ElMenubar implements ElMenubarContext {
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
       this.moveTo(menus, (resolved - 1 + menus.length) % menus.length);
+      return;
+    }
+
+    if (event.key === 'Home') {
+      event.preventDefault();
+      this.moveTo(menus, 0);
+      return;
+    }
+
+    if (event.key === 'End') {
+      event.preventDefault();
+      this.moveTo(menus, menus.length - 1);
     }
   }
 

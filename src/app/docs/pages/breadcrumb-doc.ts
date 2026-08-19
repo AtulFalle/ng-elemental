@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElBreadcrumb, ElBreadcrumbItem } from '@ng-elemental/ui';
+import { ElBreadcrumb, ElBreadcrumbItem, ElButton } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
@@ -11,6 +11,7 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElButton,
     ElBreadcrumb,
     ElBreadcrumbItem,
     CodeBlock,
@@ -21,6 +22,11 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class BreadcrumbDocPage {
+  protected readonly defaultPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly currentPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly customPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly longPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add breadcrumb`;
@@ -42,11 +48,26 @@ export class MyComponent {}`;
   <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
   <el-breadcrumb-item href="/docs">Components</el-breadcrumb-item>
   <el-breadcrumb-item current>Chip</el-breadcrumb-item>
-</el-breadcrumb>
+</el-breadcrumb>`;
 
-<el-breadcrumb-item>
+  protected readonly currentPageCode = `<el-breadcrumb>
+  <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+  <el-breadcrumb-item current>Overview</el-breadcrumb-item>
+</el-breadcrumb>`;
+
+  protected readonly customLinkCode = `<el-breadcrumb-item>
   <a routerLink="/docs">Docs</a>
-</el-breadcrumb-item>`;
+</el-breadcrumb-item>
+<el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>`;
+
+  protected readonly longLabelCode = `<div style="max-width: 22rem;">
+  <el-breadcrumb>
+    <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+    <el-breadcrumb-item current>
+      Quarterly planning notes for the North American regional strategy review
+    </el-breadcrumb-item>
+  </el-breadcrumb>
+</div>`;
 
   protected readonly scopedTokensCode = `.checkout-panel {
   --el-color-on-surface: #111827;

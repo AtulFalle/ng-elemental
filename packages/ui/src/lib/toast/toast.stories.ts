@@ -1,5 +1,38 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+} from '@angular/core';
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
+import { ElButton } from '../button/button';
 import { ElToast } from './toast';
+import { ElToastService } from './toast.service';
+import { ElToaster } from './toaster';
+
+@Component({
+  selector: 'el-toast-interactions-host',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ElButton, ElToast, ElToaster],
+  template: `
+    <el-toaster />
+    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center">
+      <el-button (click)="show()">Show toast</el-button>
+      <el-toast color="success" title="Saved">Your changes were written.</el-toast>
+    </div>
+  `,
+})
+class ToastInteractionsHost {
+  private readonly toast = inject(ElToastService);
+
+  protected show(): void {
+    this.toast.show('Saved to your library.', {
+      color: 'success',
+      title: 'Saved',
+      duration: 0,
+    });
+  }
+}
 
 const meta: Meta<ElToast> = {
   title: 'Components/Toast',
@@ -58,4 +91,28 @@ export const Info: Story = {
 
 export const NoDismiss: Story = {
   args: { dismissible: false },
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [ToastInteractionsHost] },
+    template: `<el-toast-interactions-host />`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    await step('Presentational toast uses role status', async () => {
+      const status = canvas.getByRole('status');
+      await expect(status).toHaveTextContent('Saved');
+    });
+
+    await step('Service toast appears and dismisses', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Show toast' }));
+      const toast = await canvas.findByText('Saved to your library.');
+      await expect(toast).toBeVisible();
+      const dismissButtons = canvas.getAllByRole('button', { name: 'Dismiss' });
+      await userEvent.click(dismissButtons[dismissButtons.length - 1]);
+      await expect(canvas.queryByText('Saved to your library.')).not.toBeInTheDocument();
+    });
+  },
 };

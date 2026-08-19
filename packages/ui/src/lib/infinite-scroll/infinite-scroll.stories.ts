@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -105,3 +106,22 @@ export default meta;
 type Story = StoryObj;
 
 export const WithList: Story = {};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [InfiniteScrollStoryHost] },
+    template: `<el-infinite-scroll-story-host />`,
+  }),
+  play: async ({ canvas, step }) => {
+    await step('Host exposes busy while loading more', async () => {
+      const host = canvas
+        .getByRole('list', { name: 'Notifications' })
+        .closest('[elInfiniteScroll]') as HTMLElement;
+      host.scrollTop = host.scrollHeight;
+      await new Promise((resolve) => window.setTimeout(resolve, 750));
+      await expect(host).toHaveAttribute('aria-busy', 'true');
+    });
+  },
+};

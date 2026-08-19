@@ -20,6 +20,7 @@ export type ElInfiniteScrollRoot = 'host' | 'viewport';
   selector: '[elInfiniteScroll]',
   host: {
     class: 'el-infinite-scroll',
+    '[attr.aria-busy]': 'disabled() && !complete() ? true : null',
   },
 })
 export class ElInfiniteScroll {

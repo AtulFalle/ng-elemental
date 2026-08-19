@@ -1,8 +1,8 @@
 <div
   class="el-stepper__list"
-  role="tablist"
-  [attr.aria-label]="ariaLabel() || null"
-  [attr.aria-orientation]="orientation()"
+  role="group"
+  [attr.aria-label]="ariaLabel() || 'Steps'"
+  (keydown)="onStepListKeydown($event)"
 >
   @for (step of steps(); track step.value(); let i = $index; let last = $last) {
     <div
@@ -17,15 +17,12 @@
         type="button"
         class="el-stepper__trigger"
         [class.el-stepper__trigger--selected]="isSelected(step)"
-        role="tab"
         [id]="stepId(i)"
-        [attr.aria-selected]="isSelected(step)"
-        [attr.aria-controls]="panelId(i)"
+        [attr.aria-current]="isSelected(step) ? 'step' : null"
         [attr.aria-disabled]="!canSelectStep(step, i) || null"
         [disabled]="!canSelectStep(step, i)"
         [attr.tabindex]="tabIndex(step, i)"
         (click)="onStepClick(step, i)"
-        (keydown)="onStepListKeydown($event)"
       >
         <span
           class="el-stepper__index"
@@ -62,10 +59,9 @@
 @if (activeStep(); as step) {
   <div
     class="el-stepper__panel"
-    role="tabpanel"
+    role="region"
     [id]="panelId(activeIndex())"
     [attr.aria-labelledby]="stepId(activeIndex())"
-    tabindex="0"
   >
     @if (step.contentTemplate(); as template) {
       <ng-container [ngTemplateOutlet]="template" />

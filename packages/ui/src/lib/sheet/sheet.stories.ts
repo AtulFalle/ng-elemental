@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElButton } from '../button/button';
 import { ElSheet } from './sheet';
 import { ElSheetClose } from './sheet-close';
@@ -98,4 +99,37 @@ export const Service: Story = {
     },
     template: `<el-sheet-service-story-host />`,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [SheetStoryHost] },
+    template: `<el-sheet-story-host title="Filters" side="bottom" />`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const trigger = canvas.getByRole('button', { name: 'Open sheet' });
+
+    await step('Pointer opens named sheet', async () => {
+      await userEvent.click(trigger);
+      await expect(canvas.getByRole('dialog', { name: 'Filters' })).toBeVisible();
+    });
+
+    await step('Escape closes and restores focus', async () => {
+      await userEvent.keyboard('{Escape}');
+      await expect(
+        canvas.queryByRole('dialog', { name: 'Filters' }),
+      ).not.toBeInTheDocument();
+      await expect(trigger).toHaveFocus();
+    });
+
+    await step('Keyboard: Tab stays in the sheet', async () => {
+      await userEvent.click(trigger);
+      const sheet = await canvas.findByRole('dialog', { name: 'Filters' });
+      await userEvent.tab();
+      await expect(sheet.contains(document.activeElement)).toBe(true);
+      await userEvent.click(canvas.getByRole('button', { name: 'Close' }));
+    });
+  },
 };

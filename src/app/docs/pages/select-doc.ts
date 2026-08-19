@@ -3,9 +3,7 @@ import { RouterLink } from '@angular/router';
 import {
   ElButton,
   ElChip,
-  ElIcon,
   ElSelect,
-  ElSelectGroup,
   ElSelectItem,
   ElSelectValue,
 } from '@ng-elemental/ui';
@@ -21,9 +19,7 @@ import { PropsTable } from '../ui/props-table';
     RouterLink,
     ElButton,
     ElChip,
-    ElIcon,
     ElSelect,
-    ElSelectGroup,
     ElSelectItem,
     ElSelectValue,
     CodeBlock,
@@ -34,6 +30,10 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class SelectDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly multiplePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly chipsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly city = signal('pune');
   protected readonly cities = signal<string[]>(['pune']);
   protected readonly produce = signal('apple');
@@ -67,9 +67,14 @@ export class MyComponent {}`;
   protected readonly usageCode = `<el-select [(value)]="city" size="md" placeholder="Choose a city" ariaLabel="City">
   <el-select-item value="pune" label="Pune">Pune</el-select-item>
   <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
-</el-select>
+</el-select>`;
 
-<el-select multiple [(value)]="cities" placeholder="Choose cities" ariaLabel="Cities">
+  protected readonly heroCode = `<el-select [(value)]="city" size="md" placeholder="Choose a city" ariaLabel="City">
+  <el-select-item value="pune" label="Pune">Pune</el-select-item>
+  <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+</el-select>`;
+
+  protected readonly multipleExampleCode = `<el-select multiple [(value)]="cities" placeholder="Choose cities" ariaLabel="Cities">
   <el-select-item value="pune" label="Pune">Pune</el-select-item>
   <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
 </el-select>`;
@@ -136,7 +141,19 @@ export class MyComponent {}`;
       name: 'ariaLabel',
       type: 'string',
       default: 'undefined',
-      description: 'Accessible name for the combobox.',
+      description: 'Accessible name for the combobox when ariaLabelledby is not set.',
+    },
+    {
+      name: 'ariaLabelledby',
+      type: 'string',
+      default: "''",
+      description: 'Ids of visible label elements linked via aria-labelledby.',
+    },
+    {
+      name: 'ariaDescribedby',
+      type: 'string',
+      default: "''",
+      description: 'Ids of helper or error elements linked via aria-describedby.',
     },
   ];
 

@@ -18,6 +18,7 @@
     [style.top.px]="top()"
     [style.--el-popover-arrow]="arrowOffset()"
     tabindex="-1"
+    (keydown)="onPanelKeydown($event)"
     (pointerenter)="onPanelEnter()"
     (pointerleave)="onPanelLeave($event)"
   >

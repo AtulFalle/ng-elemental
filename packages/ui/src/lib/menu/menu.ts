@@ -315,7 +315,7 @@ export class ElMenu implements ElMenuContext, ElMenubarMenu {
     }
   }
 
-  openPanel(): void {
+  openPanel(focus: 'first' | 'last' = 'first'): void {
     if (this.disabled()) {
       return;
     }
@@ -326,9 +326,10 @@ export class ElMenu implements ElMenuContext, ElMenubarMenu {
       this.open.set(true);
     }
     const enabled = this.enabledItems();
-    const first = enabled[0];
-    this.activeItemId.set(first?.itemId ?? null);
-    queueMicrotask(() => first?.focus());
+    const target =
+      focus === 'last' ? enabled[enabled.length - 1] : enabled[0];
+    this.activeItemId.set(target?.itemId ?? null);
+    queueMicrotask(() => target?.focus());
   }
 
   private closePanel(): void {

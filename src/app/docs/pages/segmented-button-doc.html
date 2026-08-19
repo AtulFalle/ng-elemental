@@ -13,21 +13,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-segmented-button
-        [value]="view()"
-        (valueChange)="view.set($event)"
-        ariaLabel="View mode"
-      >
-        <el-segmented-button-item value="list">List</el-segmented-button-item>
-        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
-        <el-segmented-button-item value="board">Board</el-segmented-button-item>
-      </el-segmented-button>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -39,90 +24,103 @@
       <code>el-segmented-button-item</code>:
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Variants</h3>
-    <app-preview>
-      <el-segmented-button
-        variant="primary"
-        [value]="primaryDemo()"
-        (valueChange)="primaryDemo.set($event)"
-        ariaLabel="Primary"
-      >
-        <el-segmented-button-item value="list">List</el-segmented-button-item>
-        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
-      </el-segmented-button>
-      <el-segmented-button
-        variant="secondary"
-        [value]="secondaryDemo()"
-        (valueChange)="secondaryDemo.set($event)"
-        ariaLabel="Secondary"
-      >
-        <el-segmented-button-item value="list">List</el-segmented-button-item>
-        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
-      </el-segmented-button>
-      <el-segmented-button
-        variant="ghost"
-        [value]="ghostDemo()"
-        (valueChange)="ghostDemo.set($event)"
-        ariaLabel="Ghost"
-      >
-        <el-segmented-button-item value="list">List</el-segmented-button-item>
-        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
-      </el-segmented-button>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">View mode</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-segmented-button [value]="view()" (valueChange)="view.set($event)" ariaLabel="View mode">
+              <el-segmented-button-item value="list">List</el-segmented-button-item>
+              <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+              <el-segmented-button-item value="board">Board</el-segmented-button-item>
+            </el-segmented-button>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="heroCode" language="html" />
+        } @else {
+          <p>
+            Group uses <code>role="radiogroup"</code>; items use
+            <code>role="radio"</code> with <code>aria-checked</code>. Arrow keys
+            move selection.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Sizes</h3>
-    <app-preview>
-      <el-segmented-button
-        [value]="sizeDemo()"
-        (valueChange)="sizeDemo.set($event)"
-        size="sm"
-        ariaLabel="Small"
-      >
-        <el-segmented-button-item value="day">Day</el-segmented-button-item>
-        <el-segmented-button-item value="week">Week</el-segmented-button-item>
-      </el-segmented-button>
-      <el-segmented-button
-        [value]="sizeDemo()"
-        (valueChange)="sizeDemo.set($event)"
-        size="md"
-        ariaLabel="Medium"
-      >
-        <el-segmented-button-item value="day">Day</el-segmented-button-item>
-        <el-segmented-button-item value="week">Week</el-segmented-button-item>
-      </el-segmented-button>
-      <el-segmented-button
-        [value]="sizeDemo()"
-        (valueChange)="sizeDemo.set($event)"
-        size="lg"
-        ariaLabel="Large"
-      >
-        <el-segmented-button-item value="day">Day</el-segmented-button-item>
-        <el-segmented-button-item value="week">Week</el-segmented-button-item>
-      </el-segmented-button>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Variants</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="variantsPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="variantsPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="variantsPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (variantsPanel() === 'preview') {
+          <app-preview>
+            <el-segmented-button variant="primary" [value]="primaryDemo()" (valueChange)="primaryDemo.set($event)" ariaLabel="Primary">
+              <el-segmented-button-item value="list">List</el-segmented-button-item>
+              <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+            </el-segmented-button>
+          </app-preview>
+        } @else if (variantsPanel() === 'code') {
+          <app-code-block [code]="variantsCode" language="html" />
+        } @else {
+          <p>
+            Variants change appearance only; keyboard behavior and radiogroup
+            semantics stay the same.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Disabled</h3>
-    <app-preview>
-      <el-segmented-button value="list" [disabled]="true" ariaLabel="Disabled group">
-        <el-segmented-button-item value="list">List</el-segmented-button-item>
-        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
-      </el-segmented-button>
-      <el-segmented-button
-        [value]="disabledDemo()"
-        (valueChange)="disabledDemo.set($event)"
-        ariaLabel="Disabled item"
-      >
-        <el-segmented-button-item value="list">List</el-segmented-button-item>
-        <el-segmented-button-item value="grid" [disabled]="true">Grid</el-segmented-button-item>
-        <el-segmented-button-item value="board">Board</el-segmented-button-item>
-      </el-segmented-button>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Disabled</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="disabledPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="disabledPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="disabledPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (disabledPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack">
+              <el-segmented-button value="list" [disabled]="true" ariaLabel="Disabled group">
+                <el-segmented-button-item value="list">List</el-segmented-button-item>
+                <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+              </el-segmented-button>
+              <el-segmented-button [value]="disabledDemo()" (valueChange)="disabledDemo.set($event)" ariaLabel="Disabled item">
+                <el-segmented-button-item value="list">List</el-segmented-button-item>
+                <el-segmented-button-item value="grid" [disabled]="true">Grid</el-segmented-button-item>
+                <el-segmented-button-item value="board">Board</el-segmented-button-item>
+              </el-segmented-button>
+            </div>
+          </app-preview>
+        } @else if (disabledPanel() === 'code') {
+          <app-code-block [code]="disabledCode" language="html" />
+        } @else {
+          <p>
+            Disabled groups and items expose <code>aria-disabled</code> and remove
+            items from the tab order.
+          </p>
+        }
+      </div>
+    </article>
   </section>
 
   <section>

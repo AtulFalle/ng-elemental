@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  ElButton,
   ElCarousel,
   ElCarouselSlide,
 } from '@ng-elemental/ui';
@@ -14,6 +15,7 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElButton,
     ElCarousel,
     ElCarouselSlide,
     CodeBlock,
@@ -24,6 +26,12 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class CarouselDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly loopPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly autoplayPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly peekPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly manyPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly index = signal(0);
   protected readonly peekIndex = signal(0);
   protected readonly many = [1, 2, 3, 4, 5, 6];
@@ -46,6 +54,27 @@ npx @ng-elemental/cli add button`;
   \`,
 })
 export class MyComponent {}`;
+
+  protected readonly loopCode = `<el-carousel loop ariaLabel="Looping slides">
+  <el-carousel-slide>One</el-carousel-slide>
+  <el-carousel-slide>Two</el-carousel-slide>
+</el-carousel>`;
+
+  protected readonly autoplayCode = `<el-carousel loop [autoplay]="4000" ariaLabel="Autoplay slides">
+  <el-carousel-slide>One</el-carousel-slide>
+  <el-carousel-slide>Two</el-carousel-slide>
+</el-carousel>`;
+
+  protected readonly peekCode = `<el-carousel loop [peek]="24" [(index)]="i" ariaLabel="Peeking slides">
+  <el-carousel-slide>One</el-carousel-slide>
+  <el-carousel-slide>Two</el-carousel-slide>
+</el-carousel>`;
+
+  protected readonly manyCode = `<el-carousel loop ariaLabel="Many slides">
+  @for (n of slides; track n) {
+    <el-carousel-slide>{{ n }}</el-carousel-slide>
+  }
+</el-carousel>`;
 
   protected readonly usageCode = `<el-carousel [(index)]="i" loop [autoplay]="4000" [peek]="24" ariaLabel="Screenshots">
   <el-carousel-slide>

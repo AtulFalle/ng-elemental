@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  ElButton,
   ElSegmentedButton,
   ElSegmentedButtonItem,
 } from '@ng-elemental/ui';
@@ -14,6 +15,7 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElButton,
     ElSegmentedButton,
     ElSegmentedButtonItem,
     CodeBlock,
@@ -24,12 +26,12 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class SegmentedButtonDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly variantsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly disabledPanel = signal<'preview' | 'code' | 'standards'>('preview');
 
   protected readonly view = signal('list');
   protected readonly primaryDemo = signal('list');
-  protected readonly secondaryDemo = signal('list');
-  protected readonly ghostDemo = signal('list');
-  protected readonly sizeDemo = signal('day');
   protected readonly disabledDemo = signal('list');
 
   protected readonly addCode = `npx @ng-elemental/cli add segmented-button`;
@@ -48,14 +50,22 @@ export class SegmentedButtonDocPage {
     </el-segmented-button>
   \`,
 })
-export class MyComponent {
-  protected view = 'list';
-}`;
+export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-segmented-button [(value)]="view" variant="secondary" ariaLabel="View mode">
+  protected readonly heroCode = `<el-segmented-button [(value)]="view" ariaLabel="View mode">
   <el-segmented-button-item value="list">List</el-segmented-button-item>
   <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
   <el-segmented-button-item value="board">Board</el-segmented-button-item>
+</el-segmented-button>`;
+
+  protected readonly variantsCode = `<el-segmented-button variant="primary" [(value)]="view" ariaLabel="Primary">
+  <el-segmented-button-item value="list">List</el-segmented-button-item>
+  <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+</el-segmented-button>`;
+
+  protected readonly disabledCode = `<el-segmented-button value="list" [disabled]="true" ariaLabel="Disabled group">
+  <el-segmented-button-item value="list">List</el-segmented-button-item>
+  <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
 </el-segmented-button>`;
 
   protected readonly scopedTokensCode = `.checkout-panel {

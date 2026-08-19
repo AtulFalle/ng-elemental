@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElAvatar } from './avatar';
 
 const meta: Meta<ElAvatar> = {
@@ -68,4 +69,36 @@ export const Sizes: Story = {
       </div>
     `,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [ElAvatar] },
+    template: `<div style="display: flex; align-items: center; gap: 1rem">
+      <el-avatar
+        src="https://i.pravatar.cc/150?u=ng-elemental-interactions"
+        alt="Ada Lovelace"
+      />
+      <el-avatar initials="JD" alt="Jane Doe" />
+      <el-avatar icon="star" alt="Starred" />
+    </div>`,
+  }),
+  play: async ({ canvas, step }) => {
+    await step('Image exposes alt text', async () => {
+      const image = canvas.getByRole('img', { name: 'Ada Lovelace' });
+      await expect(image).toHaveAttribute('src');
+    });
+
+    await step('Initials fallback is named', async () => {
+      const initials = canvas.getByRole('img', { name: 'Jane Doe' });
+      await expect(initials).toHaveTextContent('JD');
+    });
+
+    await step('Icon fallback is named', async () => {
+      const icon = canvas.getByRole('img', { name: 'Starred' });
+      await expect(icon).toBeInTheDocument();
+    });
+  },
 };

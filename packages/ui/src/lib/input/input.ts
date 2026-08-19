@@ -112,6 +112,7 @@ export class ElInput {
   readonly name = input('');
   readonly autocomplete = input('');
   readonly ariaLabel = input<string>();
+  readonly ariaDescribedby = input('');
 
   private readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('input');
 

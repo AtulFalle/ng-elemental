@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ElButton, ElTooltip } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
@@ -14,6 +14,10 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class TooltipDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly positionsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly disabledPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add tooltip`;
@@ -32,6 +36,15 @@ export class MyComponent {}`;
   protected readonly usageCode = `<el-button elTooltip="Save file">Save</el-button>
 <el-button elTooltip="More" elTooltipPosition="end">Open</el-button>
 <el-button elTooltip="Hidden" elTooltipDisabled>Disabled tip</el-button>`;
+
+  protected readonly positionsCode = `<el-button elTooltip="Top" elTooltipPosition="top">Top</el-button>
+<el-button elTooltip="Bottom" elTooltipPosition="bottom">Bottom</el-button>
+<el-button elTooltip="Start" elTooltipPosition="start">Start</el-button>
+<el-button elTooltip="End" elTooltipPosition="end">End</el-button>`;
+
+  protected readonly disabledCode = `<el-button elTooltip="Hidden tip" elTooltipDisabled>
+  Disabled tip
+</el-button>`;
 
   protected readonly scopedTokensCode = `.checkout-panel {
   --el-color-inverse-surface: #111827;

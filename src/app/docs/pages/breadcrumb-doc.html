@@ -14,17 +14,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-breadcrumb ariaLabel="Breadcrumb">
-        <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
-        <el-breadcrumb-item href="/components">Components</el-breadcrumb-item>
-        <el-breadcrumb-item current>Chip</el-breadcrumb-item>
-      </el-breadcrumb>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -43,39 +32,126 @@
   <section>
     <h2>Examples</h2>
 
-    <h3>Current page</h3>
-    <app-preview>
-      <el-breadcrumb>
-        <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
-        <el-breadcrumb-item current>Overview</el-breadcrumb-item>
-      </el-breadcrumb>
-    </app-preview>
-
-    <h3>Custom link content</h3>
-    <app-preview>
-      <el-breadcrumb>
-        <el-breadcrumb-item>
-          <a href="/docs">Docs</a>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>
-      </el-breadcrumb>
-    </app-preview>
-
-    <h3>Long labels</h3>
-    <app-preview>
-      <div style="max-width: 22rem; width: 100%;">
-        <el-breadcrumb>
-          <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
-          <el-breadcrumb-item href="/workspace">Product documentation</el-breadcrumb-item>
-          <el-breadcrumb-item current>
-            Quarterly planning notes for the North American regional strategy review
-          </el-breadcrumb-item>
-        </el-breadcrumb>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Default trail</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="defaultPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="defaultPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="defaultPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (defaultPanel() === 'preview') {
+          <app-preview>
+            <el-breadcrumb ariaLabel="Breadcrumb">
+              <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+              <el-breadcrumb-item href="/components">Components</el-breadcrumb-item>
+              <el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>
+            </el-breadcrumb>
+          </app-preview>
+        } @else if (defaultPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Renders a labelled <code>nav</code> with an ordered list. The current
+            page uses <code>aria-current="page"</code>. Separators are decorative.
+          </p>
+        }
       </div>
-    </app-preview>
-    <p>
-      Long crumb labels truncate with an ellipsis instead of a horizontal scrollbar.
-    </p>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Current page only</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="currentPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="currentPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="currentPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (currentPanel() === 'preview') {
+          <app-preview>
+            <el-breadcrumb>
+              <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+              <el-breadcrumb-item current>Overview</el-breadcrumb-item>
+            </el-breadcrumb>
+          </app-preview>
+        } @else if (currentPanel() === 'code') {
+          <app-code-block [code]="currentPageCode" language="html" />
+        } @else {
+          <p>
+            Only the current crumb should omit a link target. Earlier crumbs
+            remain keyboard focusable links.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Custom link content</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="customPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="customPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="customPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (customPanel() === 'preview') {
+          <app-preview>
+            <el-breadcrumb>
+              <el-breadcrumb-item>
+                <a href="/docs">Docs</a>
+              </el-breadcrumb-item>
+              <el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>
+            </el-breadcrumb>
+          </app-preview>
+        } @else if (customPanel() === 'code') {
+          <app-code-block [code]="customLinkCode" language="html" />
+        } @else {
+          <p>
+            Project router links or other anchors when you need client-side
+            navigation. The link text becomes the accessible name.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Long labels</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="longPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="longPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="longPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (longPanel() === 'preview') {
+          <app-preview>
+            <div style="max-width: 22rem; width: 100%;">
+              <el-breadcrumb>
+                <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+                <el-breadcrumb-item href="/workspace">Product documentation</el-breadcrumb-item>
+                <el-breadcrumb-item current>
+                  Quarterly planning notes for the North American regional strategy review
+                </el-breadcrumb-item>
+              </el-breadcrumb>
+            </div>
+          </app-preview>
+        } @else if (longPanel() === 'code') {
+          <app-code-block [code]="longLabelCode" language="html" />
+        } @else {
+          <p>
+            Long crumb labels truncate with an ellipsis instead of introducing
+            horizontal scroll. Truncation does not remove the full name from
+            the accessibility tree.
+          </p>
+        }
+      </div>
+    </article>
   </section>
 
   <section>

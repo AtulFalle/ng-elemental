@@ -3,8 +3,7 @@
     <h1>Slide Toggle</h1>
     <p class="docs-lead">
       On/off switch with size variants, left/right inline text, and optional
-      track or thumb icon slots. Field label, error, and value accessors belong
-      to <code>el-form-error</code> — this control is the switch primitive.
+      track or thumb icon slots.
     </p>
   </header>
 
@@ -15,15 +14,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-slide-toggle [(checked)]="notifications" inputId="notifications-preview">
-        Notifications
-      </el-slide-toggle>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -31,70 +21,97 @@
   <section>
     <h2>Usage</h2>
     <p>
-      Project inline text as content and bind on/off state with two-way
-      binding. Track icons use <code>elSlideToggleTrackOnIcon</code> /
-      <code>elSlideToggleTrackOffIcon</code>. Thumb icons use
-      <code>elSlideToggleThumbOnIcon</code> /
-      <code>elSlideToggleThumbOffIcon</code>. The track gains horizontal padding
-      when any of those slots have content.
+      Project inline text as content and bind on/off state with two-way binding.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Sizes</h3>
-    <app-preview>
-      <div class="docs-stack">
-        <el-slide-toggle size="sm" [checked]="true" inputId="st-sm">Small</el-slide-toggle>
-        <el-slide-toggle size="md" [checked]="true" inputId="st-md">Medium</el-slide-toggle>
-        <el-slide-toggle size="lg" [checked]="true" inputId="st-lg">Large</el-slide-toggle>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Basic switch</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-slide-toggle [(checked)]="notifications" inputId="notifications-preview">
+              Notifications
+            </el-slide-toggle>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="heroCode" language="html" />
+        } @else {
+          <p>
+            Uses <code>role="switch"</code> with visible label text as the name.
+            Space toggles while focused.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Label position</h3>
-    <app-preview>
-      <div class="docs-stack">
-        <el-slide-toggle labelPosition="right" [checked]="true" inputId="st-right">
-          Label on the right (default)
-        </el-slide-toggle>
-        <el-slide-toggle labelPosition="left" [checked]="true" inputId="st-left">
-          Label on the left
-        </el-slide-toggle>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Track icons</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="iconsPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="iconsPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="iconsPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (iconsPanel() === 'preview') {
+          <app-preview>
+            <el-slide-toggle [(checked)]="wifi" inputId="st-wifi">
+              <el-icon elSlideToggleTrackOnIcon name="check" size="sm" />
+              <el-icon elSlideToggleTrackOffIcon name="xmark" size="sm" />
+              Wi-Fi
+            </el-slide-toggle>
+          </app-preview>
+        } @else if (iconsPanel() === 'code') {
+          <app-code-block [code]="iconsCode" language="html" />
+        } @else {
+          <p>
+            Decorative track icons are marked <code>aria-hidden</code> so the
+            inline label remains the accessible name.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Track icons</h3>
-    <app-preview>
-      <el-slide-toggle [(checked)]="wifi" inputId="st-wifi">
-        <el-icon elSlideToggleTrackOnIcon name="check" size="sm" />
-        <el-icon elSlideToggleTrackOffIcon name="xmark" size="sm" />
-        Wi-Fi
-      </el-slide-toggle>
-    </app-preview>
-
-    <h3>Thumb icons</h3>
-    <app-preview>
-      <el-slide-toggle [(checked)]="darkMode" inputId="st-thumb">
-        <el-icon elSlideToggleThumbOnIcon name="check" size="sm" />
-        <el-icon elSlideToggleThumbOffIcon name="xmark" size="sm" />
-        Dark mode
-      </el-slide-toggle>
-    </app-preview>
-
-    <h3>States</h3>
-    <app-preview>
-      <div class="docs-stack">
-        <el-slide-toggle [checked]="true" inputId="st-on">On</el-slide-toggle>
-        <el-slide-toggle [checked]="false" inputId="st-off">Off</el-slide-toggle>
-        <el-slide-toggle [disabled]="true" inputId="st-disabled">Disabled</el-slide-toggle>
-        <el-slide-toggle [disabled]="true" [checked]="true" inputId="st-disabled-on">
-          Disabled on
-        </el-slide-toggle>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">States</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="statesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="statesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="statesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (statesPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack">
+              <el-slide-toggle [checked]="true" inputId="st-on">On</el-slide-toggle>
+              <el-slide-toggle [disabled]="true" inputId="st-disabled">Disabled</el-slide-toggle>
+            </div>
+          </app-preview>
+        } @else if (statesPanel() === 'code') {
+          <app-code-block [code]="statesCode" language="html" />
+        } @else {
+          <p>
+            Disabled uses native <code>disabled</code> on the switch input.
+            Checked state is exposed to assistive technology.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
   </section>
 
   <section>

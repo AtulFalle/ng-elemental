@@ -154,6 +154,20 @@ export class ElTreeItem {
     this.loading() ? 'spinner' : 'chevron-right',
   );
 
+  protected readonly nodeLabel = computed(
+    () => this.label() || this.value(),
+  );
+
+  protected readonly expandLabel = computed(() =>
+    this.expanded()
+      ? `Collapse ${this.nodeLabel()}`
+      : `Expand ${this.nodeLabel()}`,
+  );
+
+  protected readonly checkboxLabel = computed(
+    () => `Select ${this.nodeLabel()}`,
+  );
+
   protected readonly rootClass = computed(() => ({
     'el-tree-item': true,
     [`el-tree-item--${this.tree.size()}`]: true,

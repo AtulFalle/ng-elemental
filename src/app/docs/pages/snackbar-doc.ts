@@ -26,6 +26,9 @@ export class SnackbarDocPage {
   protected readonly color = signal<ElSnackbarColor>('success');
   protected readonly bulkOpen = signal(false);
 
+  protected readonly defaultPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly bulkPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
@@ -50,14 +53,20 @@ export class MyComponent {
   }
 }`;
 
-  protected readonly usageCode = `<el-snackbar [(open)]="open" message="File deleted" action="Undo" />
-<el-snackbar [(open)]="open" [duration]="0" message="3 selected">
+  protected readonly defaultCode = `<el-button (click)="open.set(true)">Show snackbar</el-button>
+<el-snackbar
+  [open]="open()"
+  (openChange)="open.set($event)"
+  message="File deleted"
+  action="Undo"
+/>`;
+
+  protected readonly bulkCode = `<el-snackbar [open]="open()" message="3 selected" [duration]="0">
   <div elSnackbarActions>
     <el-button variant="ghost" size="sm">Move</el-button>
     <el-button variant="ghost" size="sm">Delete</el-button>
   </div>
-</el-snackbar>
-this.snackbar.open('File deleted', { action: 'Undo', duration: 4000 });`;
+</el-snackbar>`;
 
   protected readonly scopedTokensCode = `.checkout-panel {
   --el-color-inverse-surface: #322f35;

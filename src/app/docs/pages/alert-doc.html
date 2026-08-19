@@ -15,15 +15,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-alert color="info" style="width: 100%;">
-        Something needs your attention.
-      </el-alert>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -35,49 +26,123 @@
       dismissed.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Colors</h3>
-    <app-preview>
-      <div class="docs-stack" style="width: 100%;">
-        <el-alert color="neutral">Neutral update.</el-alert>
-        <el-alert color="success">Saved successfully.</el-alert>
-        <el-alert color="error">Could not save changes.</el-alert>
-        <el-alert color="warning">This action cannot be undone.</el-alert>
-        <el-alert color="info">A newer version is available.</el-alert>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Colors</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="colorsPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="colorsPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="colorsPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (colorsPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack" style="width: 100%">
+              <el-alert color="neutral">Neutral update.</el-alert>
+              <el-alert color="success">Saved successfully.</el-alert>
+              <el-alert color="error">Could not save changes.</el-alert>
+              <el-alert color="warning">This action cannot be undone.</el-alert>
+              <el-alert color="info">A newer version is available.</el-alert>
+            </div>
+          </app-preview>
+        } @else if (colorsPanel() === 'code') {
+          <app-code-block [code]="colorsCode" language="html" />
+        } @else {
+          <p>
+            Error and warning use <code>role="alert"</code> for urgent messages. Other tones use
+            <code>role="status"</code>. Color is paired with icon and text — never the only cue.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>With title</h3>
-    <app-preview>
-      <el-alert color="success" title="Saved" style="width: 100%;">
-        Your changes were written.
-      </el-alert>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">With title</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="titlePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="titlePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="titlePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (titlePanel() === 'preview') {
+          <app-preview>
+            <el-alert color="success" title="Saved" style="width: 100%">
+              Your changes were written.
+            </el-alert>
+          </app-preview>
+        } @else if (titlePanel() === 'code') {
+          <app-code-block [code]="titleCode" language="html" />
+        } @else {
+          <p>
+            Titles summarize the message for quick scanning. Body copy adds detail without
+            repeating the heading verbatim.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Dismissible</h3>
-    <app-preview>
-      @if (showBanner()) {
-        <el-alert
-          color="info"
-          title="New version"
-          dismissible
-          style="width: 100%;"
-          (dismissed)="showBanner.set(false)"
-        >
-          A newer version of the design system is available.
-        </el-alert>
-      }
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Dismissible</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="dismissPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="dismissPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="dismissPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (dismissPanel() === 'preview') {
+          <app-preview>
+            @if (showBanner()) {
+              <el-alert
+                color="info"
+                title="New version"
+                dismissible
+                style="width: 100%"
+                (dismissed)="showBanner.set(false)"
+              >
+                A newer version of the design system is available.
+              </el-alert>
+            }
+          </app-preview>
+        } @else if (dismissPanel() === 'code') {
+          <app-code-block [code]="dismissCode" language="html" />
+        } @else {
+          <p>
+            The close control is a native button named &ldquo;Dismiss&rdquo;. Parent removes the
+            alert from the DOM on <code>dismissed</code> — the component does not hide itself.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
 
-    <h3>No icon</h3>
-    <app-preview>
-      <el-alert color="info" icon="" style="width: 100%;">Text only.</el-alert>
-    </app-preview>
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Alert follows live-region semantics for inline feedback.
+    </p>
+    <ul>
+      <li>Error and warning use <code>role="alert"</code>; info and success use <code>role="status"</code>.</li>
+      <li>Dismiss button is keyboard operable with a visible focus indicator.</li>
+      <li>Semantic colors meet contrast on container backgrounds.</li>
+      <li>Parent owns visibility — no internal auto-dismiss timer.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/" target="_blank" rel="noreferrer">APG Alert</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.4.3, 4.1.3).
+    </p>
   </section>
 
   <section>

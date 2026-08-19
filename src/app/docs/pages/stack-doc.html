@@ -12,56 +12,115 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-stack gap="3" style="width: 16rem">
-        <div
-          style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-        >
-          One
-        </div>
-        <div
-          style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-        >
-          Two
-        </div>
-        <div
-          style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-        >
-          Three
-        </div>
-      </el-stack>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
 
   <section>
     <h2>Usage</h2>
+    <p>Import <code>ElStack</code> and project children. Set direction, gap, and alignment as needed.</p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
-    <h3>Row</h3>
-    <app-preview>
-      <el-stack direction="row" gap="3" align="center">
-        <div
-          style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-        >
-          One
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Column</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="columnPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="columnPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="columnPanel.set('standards')" />
         </div>
-        <div
-          style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-        >
-          Two
+      </header>
+      <div class="docs-example-panel__body">
+        @if (columnPanel() === 'preview') {
+          <app-preview>
+            <el-stack gap="3" style="width: 16rem">
+              <div
+                style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+              >
+                One
+              </div>
+              <div
+                style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+              >
+                Two
+              </div>
+              <div
+                style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+              >
+                Three
+              </div>
+            </el-stack>
+          </app-preview>
+        } @else if (columnPanel() === 'code') {
+          <app-code-block [code]="columnCode" language="html" />
+        } @else {
+          <p>
+            Column stacks preserve document order for screen readers. Gap tokens keep spacing
+            consistent at larger zoom levels without manual margins on every child.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Row</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="rowPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="rowPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="rowPanel.set('standards')" />
         </div>
-      </el-stack>
-    </app-preview>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (rowPanel() === 'preview') {
+          <app-preview>
+            <el-stack direction="row" gap="3" align="center">
+              <div
+                style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+              >
+                One
+              </div>
+              <div
+                style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+              >
+                Two
+              </div>
+            </el-stack>
+          </app-preview>
+        } @else if (rowPanel() === 'code') {
+          <app-code-block [code]="rowCode" language="html" />
+        } @else {
+          <p>
+            Row layout is for horizontal grouping only — not a toolbar or tablist. Put real
+            controls inside when actions are needed.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Stack is a layout primitive with no widget role. Spacing and alignment follow flexbox
+      semantics and survive 200% text zoom.
+    </p>
+    <ul>
+      <li>No <code>role</code> on the host — order comes from projected DOM.</li>
+      <li>Gap uses density tokens instead of ad-hoc margins.</li>
+      <li>Interactive controls inside the stack keep their native semantics.</li>
+      <li>Wrap is opt-in so long labels can reflow without overflow clipping.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.4.4, 1.4.10).
+    </p>
   </section>
 
   <section>

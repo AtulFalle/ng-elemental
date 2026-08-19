@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElRadio, ElRadioGroup } from '@ng-elemental/ui';
+import { ElButton, ElRadio, ElRadioGroup } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
@@ -9,11 +9,15 @@ import { PropsTable } from '../ui/props-table';
 @Component({
   selector: 'app-radio-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElRadio, ElRadioGroup, CodeBlock, Preview, PropsTable],
+  imports: [RouterLink, ElButton, ElRadio, ElRadioGroup, CodeBlock, Preview, PropsTable],
   templateUrl: './radio-doc.html',
   styleUrl: './page.scss',
 })
 export class RadioDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly layoutPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly statesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly contact = signal('email');
   protected readonly size = signal('medium');
 
@@ -32,14 +36,19 @@ export class RadioDocPage {
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-radio-group [(value)]="contact" direction="vertical" ariaLabel="Contact method">
+  protected readonly heroCode = `<el-radio-group [(value)]="contact" ariaLabel="Contact method">
   <el-radio value="email" inputId="contact-email">Email</el-radio>
   <el-radio value="phone" inputId="contact-phone">Phone</el-radio>
-</el-radio-group>
+</el-radio-group>`;
 
-<el-radio labelPosition="left" value="option-a" inputId="option-a">
-  Label on the left
-</el-radio>`;
+  protected readonly layoutCode = `<el-radio-group direction="horizontal" ariaLabel="Size">
+  <el-radio value="small" inputId="size-small">Small</el-radio>
+  <el-radio value="medium" inputId="size-medium">Medium</el-radio>
+</el-radio-group>`;
+
+  protected readonly statesCode = `<el-radio-group [disabled]="true" ariaLabel="Disabled group">
+  <el-radio value="option-1" inputId="disabled-1">Disabled</el-radio>
+</el-radio-group>`;
 
   protected readonly scopedTokensCode = `.checkout-panel {
   --el-color-primary: #059669;

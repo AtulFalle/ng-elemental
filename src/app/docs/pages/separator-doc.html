@@ -12,17 +12,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div style="width: 16rem">
-        <div>Above</div>
-        <el-separator style="margin-block: var(--el-space-3)" />
-        <div>Below</div>
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -34,19 +23,88 @@
       <code>[decorative]="false"</code> when the split is meaningful to AT.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
-    <h3>Vertical</h3>
-    <app-preview>
-      <div style="display: flex; align-items: stretch; gap: var(--el-space-3); height: 2rem">
-        <span>Left</span>
-        <el-separator orientation="vertical" />
-        <span>Right</span>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Horizontal</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="horizontalPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="horizontalPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="horizontalPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (horizontalPanel() === 'preview') {
+          <app-preview>
+            <div style="width: 16rem">
+              <div>Above</div>
+              <el-separator style="margin-block: var(--el-space-3)" />
+              <div>Below</div>
+            </div>
+          </app-preview>
+        } @else if (horizontalPanel() === 'code') {
+          <app-code-block [code]="horizontalCode" language="html" />
+        } @else {
+          <p>
+            Decorative separators are hidden from assistive technology. Use them when
+            adjacent sections already have headings that explain the grouping.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Vertical</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="verticalPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="verticalPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="verticalPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (verticalPanel() === 'preview') {
+          <app-preview>
+            <div style="display: flex; align-items: stretch; gap: var(--el-space-3); height: 2rem">
+              <span>Left</span>
+              <el-separator orientation="vertical" />
+              <span>Right</span>
+            </div>
+          </app-preview>
+        } @else if (verticalPanel() === 'code') {
+          <app-code-block [code]="verticalCode" language="html" />
+        } @else {
+          <p>
+            Vertical rules need a flex row parent with explicit height. Set
+            <code>[decorative]="false"</code> when the divider conveys structure, not just color.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Separator follows the APG separator pattern when not decorative.
+    </p>
+    <ul>
+      <li>Decorative default uses <code>aria-hidden="true"</code>.</li>
+      <li>Semantic splits expose <code>role="separator"</code> and <code>aria-orientation</code>.</li>
+      <li>Color alone is not the only cue — adjacent labels carry meaning.</li>
+      <li>Border color meets 3:1 against the surface.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/separator/" target="_blank" rel="noreferrer">APG Separator</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.4.11).
+    </p>
   </section>
 
   <section>

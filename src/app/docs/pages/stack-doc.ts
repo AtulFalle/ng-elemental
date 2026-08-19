@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElStack } from '@ng-elemental/ui';
+import { ElButton, ElStack } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
@@ -9,11 +9,14 @@ import { PropsTable } from '../ui/props-table';
 @Component({
   selector: 'app-stack-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElStack, CodeBlock, Preview, PropsTable],
+  imports: [RouterLink, ElButton, ElStack, CodeBlock, Preview, PropsTable],
   templateUrl: './stack-doc.html',
   styleUrl: './page.scss',
 })
 export class StackDocPage {
+  protected readonly columnPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly rowPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add stack`;
 
@@ -30,7 +33,13 @@ npx @ng-elemental/cli add stack`;
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-stack direction="row" gap="3" align="center">
+  protected readonly columnCode = `<el-stack gap="3" style="width: 16rem">
+  <div>One</div>
+  <div>Two</div>
+  <div>Three</div>
+</el-stack>`;
+
+  protected readonly rowCode = `<el-stack direction="row" gap="3" align="center">
   <div>One</div>
   <div>Two</div>
 </el-stack>`;

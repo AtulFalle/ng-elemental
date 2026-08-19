@@ -13,6 +13,9 @@ import { EL_POPOVER } from './popover.token';
 import type { ElPopoverPosition } from './popover.token';
 import { popoverPanelPosition } from './popover-position';
 
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 @Component({
   selector: 'el-popover-panel',
   templateUrl: './popover-panel.html',
@@ -63,6 +66,45 @@ export class ElPopoverPanel {
 
   protected onPanelEnter(): void {
     this.popover.onHoverEnter();
+  }
+
+  protected onPanelKeydown(event: KeyboardEvent): void {
+    if (!this.popover.modal() || event.key !== 'Tab') {
+      return;
+    }
+
+    const panel = this.panelRef()?.nativeElement;
+    if (!panel) {
+      return;
+    }
+
+    const nodes = this.focusable(panel);
+    if (nodes.length === 0) {
+      event.preventDefault();
+      panel.focus();
+      return;
+    }
+
+    const first = nodes[0];
+    const last = nodes[nodes.length - 1];
+    const active = panel.ownerDocument.activeElement;
+
+    if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+      return;
+    }
+
+    if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  private focusable(root: HTMLElement): HTMLElement[] {
+    return [...root.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
+      (el) => !el.hasAttribute('disabled') && el.tabIndex !== -1,
+    );
   }
 
   private position(): void {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElChip } from '@ng-elemental/ui';
+import { ElButton, ElChip } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
 import { Preview } from '../ui/preview';
@@ -9,11 +9,15 @@ import { PropsTable } from '../ui/props-table';
 @Component({
   selector: 'app-chip-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElChip, CodeBlock, Preview, PropsTable],
+  imports: [RouterLink, ElButton, ElChip, CodeBlock, Preview, PropsTable],
   templateUrl: './chip-doc.html',
   styleUrl: './page.scss',
 })
 export class ChipDocPage {
+  protected readonly assistPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly filterPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly suggestionPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly filterActive = signal(true);
   protected readonly tags = signal(['Angular', 'Material', 'Design']);
 
@@ -31,15 +35,12 @@ npx @ng-elemental/cli add chip`;
 })
 export class MyComponent {}`;
 
-  protected readonly usageCode = `<el-chip type="assist" iconStart="key">Assist</el-chip>
+  protected readonly assistCode = `<el-chip type="assist" iconStart="key">Assist</el-chip>
+<el-chip type="assist" (clicked)="onAssist()">Action</el-chip>`;
 
-<el-chip type="filter" [(selected)]="active">Filter</el-chip>
+  protected readonly filterCode = `<el-chip type="filter" [(selected)]="active">Filter</el-chip>`;
 
-<el-chip type="suggestion" appearance="filled" iconStart="check">Selected look</el-chip>
-
-<el-chip type="suggestion" appearance="filled" color="success">Active</el-chip>
-
-<el-chip type="suggestion" appearance="filled" [removable]="true" (removed)="onRemove()">
+  protected readonly suggestionCode = `<el-chip type="suggestion" appearance="filled" [removable]="true" (removed)="onRemove()">
   Tag
 </el-chip>`;
 
@@ -66,8 +67,7 @@ export class MyComponent {}`;
       name: 'color',
       type: "'neutral' | 'success' | 'error' | 'warning' | 'info'",
       default: "'neutral'",
-      description:
-        'Semantic tone for status chips. Neutral keeps the default surface. Filled and selected states use container tokens; outlined uses the strong color.',
+      description: 'Semantic tone for status chips.',
     },
     {
       name: 'iconStart',
@@ -92,13 +92,25 @@ export class MyComponent {}`;
       name: 'removable',
       type: 'boolean',
       default: 'false',
-      description: 'Shows a Font Awesome close icon at the end.',
+      description: 'Shows a close button at the end.',
     },
     {
       name: 'removeLabel',
       type: 'string',
       default: "'Remove'",
       description: 'Accessible label for the close button.',
+    },
+    {
+      name: 'ariaLabel',
+      type: 'string',
+      default: "''",
+      description: 'Accessible name when visible label text is insufficient.',
+    },
+    {
+      name: 'clicked',
+      type: 'void',
+      default: '—',
+      description: 'Emitted when assist or suggestion chip body is activated.',
     },
     {
       name: 'removed',

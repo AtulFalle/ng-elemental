@@ -14,15 +14,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-checkbox [(checked)]="accepted" inputId="terms-preview">
-        Accept terms and conditions
-      </el-checkbox>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -31,46 +22,94 @@
     <h2>Usage</h2>
     <p>Project label text as content and bind checked state with two-way binding:</p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Checkbox list</h3>
-    <app-preview>
-      <div class="docs-stack">
-        <el-checkbox [(checked)]="notifications" inputId="cb-notifications">
-          Notifications
-        </el-checkbox>
-        <el-checkbox [(checked)]="marketing" inputId="cb-marketing">
-          Marketing emails
-        </el-checkbox>
-        <el-checkbox [indeterminate]="true" inputId="cb-select-all">
-          Select all
-        </el-checkbox>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Basic checkbox</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-checkbox [(checked)]="accepted" inputId="terms-preview">
+              Accept terms and conditions
+            </el-checkbox>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="heroCode" language="html" />
+        } @else {
+          <p>
+            Uses a native checkbox with visible label text as the accessible name.
+            Focus ring appears on keyboard focus via <code>:focus-visible</code>.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Label position</h3>
-    <app-preview>
-      <el-checkbox labelPosition="right" [checked]="true" inputId="cb-right">
-        Label on the right (default)
-      </el-checkbox>
-      <el-checkbox labelPosition="left" [checked]="true" inputId="cb-left">
-        Label on the left
-      </el-checkbox>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Checkbox list</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="listPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="listPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="listPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (listPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack">
+              <el-checkbox [(checked)]="notifications" inputId="cb-notifications">Notifications</el-checkbox>
+              <el-checkbox [(checked)]="marketing" inputId="cb-marketing">Marketing emails</el-checkbox>
+              <el-checkbox [indeterminate]="true" inputId="cb-select-all">Select all</el-checkbox>
+            </div>
+          </app-preview>
+        } @else if (listPanel() === 'code') {
+          <app-code-block [code]="listCode" language="html" />
+        } @else {
+          <p>
+            Indeterminate state exposes <code>aria-checked="mixed"</code> for
+            parent/select-all patterns.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>States</h3>
-    <app-preview>
-      <el-checkbox [checked]="true" inputId="cb-checked">Checked</el-checkbox>
-      <el-checkbox [disabled]="true" inputId="cb-disabled">Disabled</el-checkbox>
-      <el-checkbox [disabled]="true" [checked]="true" inputId="cb-disabled-checked">
-        Disabled checked
-      </el-checkbox>
-      <el-checkbox [error]="true" inputId="cb-error">Error</el-checkbox>
-    </app-preview>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">States</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="statesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="statesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="statesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (statesPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack">
+              <el-checkbox [checked]="true" inputId="cb-checked">Checked</el-checkbox>
+              <el-checkbox [disabled]="true" inputId="cb-disabled">Disabled</el-checkbox>
+              <el-checkbox [error]="true" inputId="cb-error">Error</el-checkbox>
+            </div>
+          </app-preview>
+        } @else if (statesPanel() === 'code') {
+          <app-code-block [code]="statesCode" language="html" />
+        } @else {
+          <p>
+            Disabled uses the native attribute. Error adds a border cue beyond color alone.
+          </p>
+        }
+      </div>
+    </article>
   </section>
 
   <section>

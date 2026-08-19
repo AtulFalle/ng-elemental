@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect, fn } from 'storybook/test';
 import { ElButton } from '../button/button';
 import { ElChip } from '../chip/chip';
 import { ElIcon } from '../icon/icon';
@@ -210,4 +211,54 @@ export const ChipsValue: Story = {
 
 export const Disabled: Story = {
   args: { disabled: true, value: 'pune' },
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  parameters: { docs: { codePanel: true } },
+  render: () => ({
+    props: { value: 'pune', disabledValue: 'mumbai' },
+    moduleMetadata: { imports: [ElSelect, ElSelectItem] },
+    template: `<div style="display:flex;flex-direction:column;gap:1rem;min-height:18rem;width:100%">
+      <el-select [(value)]="value" placeholder="Choose a city" ariaLabel="City">
+        <el-select-item value="pune" label="Pune">Pune</el-select-item>
+        <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+        <el-select-item value="delhi" label="Delhi">Delhi</el-select-item>
+      </el-select>
+      <el-select [(value)]="disabledValue" disabled placeholder="Disabled" ariaLabel="Disabled city">
+        <el-select-item value="pune" label="Pune">Pune</el-select-item>
+        <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+      </el-select>
+    </div>`,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const combobox = canvas.getByRole('combobox', { name: 'City' });
+    const disabled = canvas.getByRole('combobox', { name: 'Disabled city' });
+
+    await step('Pointer: open listbox', async () => {
+      await userEvent.click(combobox);
+      await expect(combobox).toHaveAttribute('aria-expanded', 'true');
+      await expect(canvas.getByRole('listbox')).toBeInTheDocument();
+    });
+
+    await step('Keyboard: Escape closes panel', async () => {
+      await userEvent.keyboard('{Escape}');
+      await expect(combobox).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    await step('Keyboard: ArrowDown opens panel', async () => {
+      combobox.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await expect(combobox).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    await step('Disabled combobox is not operable', async () => {
+      await expect(disabled).toBeDisabled();
+      const onClick = fn();
+      disabled.addEventListener('click', onClick);
+      await userEvent.click(disabled);
+      await expect(onClick).not.toHaveBeenCalled();
+    });
+  },
 };

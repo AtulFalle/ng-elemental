@@ -12,23 +12,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div class="docs-stack" style="gap: 2rem; width: 100%;">
-        <el-slider [(value)]="volume" showValue />
-        <el-slider
-          range
-          [(start)]="minPrice"
-          [(end)]="maxPrice"
-          [step]="5"
-          showTicks
-          showValue
-        />
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -38,60 +21,102 @@
     <p>
       Bind <code>[(value)]</code> for a single thumb. Set
       <code>range</code> and bind <code>[(start)]</code> /
-      <code>[(end)]</code> for a range. Values snap to
-      <code>step</code> and stay within <code>min</code>…<code>max</code>.
+      <code>[(end)]</code> for a range. Customize thumb names with
+      <code>ariaLabel</code> inputs.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Sizes</h3>
-    <app-preview>
-      <div class="docs-stack" style="gap: 1.5rem; width: 100%;; width: 100%;">
-        <el-slider size="sm" [value]="30" showValue />
-        <el-slider size="md" [value]="50" showValue />
-        <el-slider size="lg" [value]="70" showValue />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Single thumb</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-slider [(value)]="volume" showValue ariaLabel="Volume" />
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="heroCode" language="html" />
+        } @else {
+          <p>
+            Thumbs use <code>role="slider"</code> with localizable
+            <code>aria-label</code>, value min/max/now, and
+            <code>aria-orientation</code>.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Step and ticks</h3>
-    <app-preview>
-      <div style="width: 100%;; width: 100%;">
-        <el-slider
-          [(value)]="rating"
-          [min]="0"
-          [max]="10"
-          [step]="1"
-          showTicks
-          showValue
-        />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Range</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="rangePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="rangePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="rangePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (rangePanel() === 'preview') {
+          <app-preview>
+            <el-slider
+              range
+              [(start)]="minPrice"
+              [(end)]="maxPrice"
+              [step]="5"
+              showTicks
+              showValue
+              ariaLabelStart="Minimum price"
+              ariaLabelEnd="Maximum price"
+            />
+          </app-preview>
+        } @else if (rangePanel() === 'code') {
+          <app-code-block [code]="rangeCode" language="html" />
+        } @else {
+          <p>
+            Range mode exposes two independently named thumbs. Arrow keys, Home,
+            End, and Page Up/Down adjust values per APG slider guidance.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
 
-    <h3>Range</h3>
-    <app-preview>
-      <div style="width: 100%;; width: 100%;">
-        <el-slider
-          range
-          [(start)]="minPrice"
-          [(end)]="maxPrice"
-          [step]="5"
-          showTicks
-          showValue
-        />
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Disabled / error</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="statesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="statesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="statesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (statesPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-stack" style="gap: 1.5rem; width: 100%;">
+              <el-slider [value]="45" disabled showValue ariaLabel="Disabled" />
+              <el-slider [value]="20" error showValue ariaLabel="Amount" />
+            </div>
+          </app-preview>
+        } @else if (statesPanel() === 'code') {
+          <app-code-block [code]="statesCode" language="html" />
+        } @else {
+          <p>
+            Disabled thumbs use the native <code>disabled</code> attribute.
+            Error styling adds a non-color-only border cue on the thumb.
+          </p>
+        }
       </div>
-    </app-preview>
-
-    <h3>Disabled / error</h3>
-    <app-preview>
-      <div class="docs-stack" style="gap: 1.5rem; width: 100%;; width: 100%;">
-        <el-slider [value]="45" disabled showValue />
-        <el-slider [value]="20" error showValue />
-      </div>
-    </app-preview>
+    </article>
   </section>
 
   <section>

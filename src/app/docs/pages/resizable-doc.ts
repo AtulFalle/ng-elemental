@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  ElButton,
   ElResizable,
   ElResizableHandle,
   ElResizablePanel,
@@ -15,6 +16,7 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElButton,
     ElResizable,
     ElResizablePanel,
     ElResizableHandle,
@@ -26,6 +28,11 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class ResizableDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly verticalPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly minMaxPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly customHandlePanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add resizable`;
 
@@ -46,6 +53,20 @@ npx @ng-elemental/cli add resizable`;
   \`,
 })
 export class MyComponent {}`;
+
+  protected readonly defaultCode = `<el-resizable>
+  <el-resizable-panel [defaultSize]="32" [min]="15">Sidebar</el-resizable-panel>
+  <el-resizable-handle />
+  <el-resizable-panel [min]="20">Main</el-resizable-panel>
+</el-resizable>`;
+
+  protected readonly verticalCode = `<el-resizable orientation="vertical">
+  <el-resizable-panel [min]="20">Top</el-resizable-panel>
+  <el-resizable-handle />
+  <el-resizable-panel>Bottom</el-resizable-panel>
+</el-resizable>`;
+
+  protected readonly minMaxCode = `<el-resizable-panel [defaultSize]="40" [min]="25" [max]="60">A</el-resizable-panel>`;
 
   protected readonly usageCode = `<el-resizable orientation="vertical">
   <el-resizable-panel [min]="20">Top</el-resizable-panel>

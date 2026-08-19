@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ElAvatar } from '../avatar/avatar';
 import { ElButton } from '../button/button';
@@ -216,4 +217,37 @@ export const Virtual: Story = {
     moduleMetadata: { imports: [ListVirtualStoryHost] },
     template: `<el-list-virtual-story-host />`,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [ListInteractiveStoryHost, ElList, ElListItem] },
+    template: `
+      <div style="display:grid;gap:1.5rem;max-width:24rem">
+        <el-list-interactive-story-host />
+        <el-list ariaLabel="Native list semantics">
+          <el-list-item>Inbox</el-list-item>
+          <el-list-item>Starred</el-list-item>
+        </el-list>
+      </div>
+    `,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const list = canvas.getByRole('list', { name: 'People' });
+    const nativeList = canvas.getByRole('list', { name: 'Native list semantics' });
+    const grace = canvas.getByRole('listitem', { name: /Grace Hopper/i });
+
+    await step('List uses native ul/li semantics', async () => {
+      await expect(list.tagName).toBe('UL');
+      await expect(nativeList.querySelectorAll('li').length).toBe(2);
+    });
+
+    await step('Interactive item activates with Enter', async () => {
+      grace.focus();
+      await userEvent.keyboard('{Enter}');
+      await expect(grace).toHaveAttribute('aria-current', 'true');
+    });
+  },
 };

@@ -1,4 +1,12 @@
-<div [class]="rootClass()">
+<li
+  [class]="rootClass()"
+  [attr.aria-disabled]="disabled() || null"
+  [attr.aria-current]="selected() ? true : null"
+  [attr.tabindex]="hostTabIndex()"
+  (click)="onHostClick($event)"
+  (keydown.enter)="onHostActivate($event)"
+  (keydown.space)="onHostActivate($event)"
+>
   <div class="el-list-item__leading">
     <ng-content select="[elListLeading]" />
   </div>
@@ -14,4 +22,4 @@
   <div class="el-list-item__trailing">
     <ng-content select="[elListTrailing]" />
   </div>
-</div>
+</li>

@@ -21,12 +21,12 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElButton,
     ElAccordion,
     ElAccordionItem,
     ElAccordionTitle,
     ElAccordionSubtitle,
     ElAccordionContent,
-    ElButton,
     ElChip,
     ElIcon,
     CodeBlock,
@@ -37,6 +37,11 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class AccordionDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly multiplePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly templatesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly disabledPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly singleOpen = signal<ElAccordionValue>('shipping');
   protected readonly multiOpen = signal<ElAccordionValue>(['payments', 'refunds']);
   protected readonly templateOpen = signal<ElAccordionValue>('order');

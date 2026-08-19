@@ -32,6 +32,14 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class TreeDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly checkboxPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly actionsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly virtualPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly lazyPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly infinitePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly sizes: ElTreeSize[] = ['lg', 'md', 'sm'];
   protected readonly expanded = signal(['docs']);
   protected readonly checked = signal<string[]>([]);
@@ -105,6 +113,23 @@ export class MyComponent {}`;
       <el-icon elTreeLeading name="file" />
     </el-tree-item>
   </el-tree-item>
+</el-tree>`;
+
+  protected readonly checkboxCode = `<el-tree checkbox [(expanded)]="open" [(checked)]="checked" ariaLabel="Files">
+  <el-tree-item value="docs" label="Documents">
+    <el-tree-item value="resume" label="Resume.pdf" />
+  </el-tree-item>
+</el-tree>`;
+
+  protected readonly lazyCode = `<el-tree
+  [nodes]="nodes"
+  [loadingIds]="loading()"
+  [(expanded)]="open"
+  (loadChildren)="fetchChildren($event)"
+  (loadMore)="fetchMore($event)"
+  ariaLabel="Lazy folders"
+>
+  <ng-template elTreeNodeDef let-node>{{ node.label }}</ng-template>
 </el-tree>`;
 
   protected readonly virtualCode = `<el-tree

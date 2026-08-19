@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -248,4 +249,46 @@ export const WithProgress: Story = {
     moduleMetadata: { imports: [FileUploadProgressStory] },
     template: `<el-file-upload-progress-story />`,
   }),
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  parameters: { docs: { codePanel: true } },
+  render: () => {
+    const files = signal<File[]>([]);
+    return {
+      props: { files },
+      moduleMetadata: { imports: [ElFileUpload] },
+      template: `
+        <el-file-upload
+          style="max-width: 28rem"
+          [(files)]="files"
+          dropTitle="Drop files here"
+        >
+          Drag and drop, or browse to select a file
+        </el-file-upload>
+      `,
+    };
+  },
+  play: async ({ canvas, userEvent, step }) => {
+    const dropzone = canvas.getByRole('button', { name: 'Drop files here' });
+    const browse = canvas.getByRole('button', { name: 'Browse files' });
+
+    await step('Dropzone is named and keyboard focusable', async () => {
+      await expect(dropzone).toHaveAttribute('aria-label', 'Drop files here');
+      dropzone.focus();
+      await expect(dropzone).toHaveFocus();
+    });
+
+    await step('Browse label associates with hidden file input', async () => {
+      const fileInput = canvas.getByLabelText('Browse files', { hidden: true });
+      await expect(fileInput).toHaveAttribute('type', 'file');
+      await expect(fileInput).toHaveAttribute('aria-labelledby');
+    });
+
+    await step('Pointer: browse button is clickable', async () => {
+      await userEvent.click(browse);
+    });
+  },
 };

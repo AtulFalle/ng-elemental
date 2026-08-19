@@ -29,10 +29,9 @@ export { ElListItemDef, type ElListItemContext } from './list-item-def';
   styleUrl: './list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'el-list-host',
     role: 'list',
+    class: 'el-list-host',
     '[class.el-list-host--virtual]': 'virtual()',
-    '[attr.aria-label]': 'ariaLabel() || null',
     '(scroll)': 'onHostScroll($event)',
   },
 })

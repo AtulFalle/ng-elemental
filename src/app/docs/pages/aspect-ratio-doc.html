@@ -13,41 +13,98 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-aspect-ratio ratio="16/9" style="max-width: 22rem">
-        <div
-          style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container); color: var(--el-color-on-surface-variant)"
-        >
-          16 / 9
-        </div>
-      </el-aspect-ratio>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
 
   <section>
     <h2>Usage</h2>
+    <p>Wrap media or placeholders that must keep a fixed proportion while the width changes.</p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
-    <h3>Square</h3>
-    <app-preview>
-      <el-aspect-ratio ratio="1/1" style="max-width: 10rem">
-        <div
-          style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
-        >
-          1 / 1
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">16 / 9</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="widePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="widePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="widePanel.set('standards')" />
         </div>
-      </el-aspect-ratio>
-    </app-preview>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (widePanel() === 'preview') {
+          <app-preview>
+            <el-aspect-ratio ratio="16/9" style="max-width: 22rem">
+              <div
+                style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container); color: var(--el-color-on-surface-variant)"
+              >
+                16 / 9
+              </div>
+            </el-aspect-ratio>
+          </app-preview>
+        } @else if (widePanel() === 'code') {
+          <app-code-block [code]="wideCode" language="html" />
+        } @else {
+          <p>
+            Video and cover art use 16:9 so layout does not shift while media loads. Provide
+            meaningful <code>alt</code> text on images inside the frame.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Square</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="squarePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="squarePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="squarePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (squarePanel() === 'preview') {
+          <app-preview>
+            <el-aspect-ratio ratio="1/1" style="max-width: 10rem">
+              <div
+                style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--el-color-surface-container)"
+              >
+                1 / 1
+              </div>
+            </el-aspect-ratio>
+          </app-preview>
+        } @else if (squarePanel() === 'code') {
+          <app-code-block [code]="squareCode" language="html" />
+        } @else {
+          <p>
+            Square frames suit thumbnails and avatars. The ratio box reserves space so
+            surrounding content does not jump when assets arrive.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Aspect ratio is a sizing wrapper only. Accessibility comes from projected content.
+    </p>
+    <ul>
+      <li>No widget <code>role</code> on the host.</li>
+      <li>Images need appropriate <code>alt</code> — empty alt only when decorative.</li>
+      <li>Reserved space reduces cumulative layout shift during load.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (1.1.1, 1.4.10).
+    </p>
   </section>
 
   <section>

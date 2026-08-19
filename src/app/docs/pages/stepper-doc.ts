@@ -34,6 +34,12 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class StepperDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly verticalPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly linearPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly customLabelsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly dialogPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly selected = signal('account');
   protected readonly vertical = signal('account');
   protected readonly linear = signal('account');
@@ -71,6 +77,26 @@ npx @ng-elemental/cli add stepper`;
 export class MyComponent {
   protected step = 'account';
 }`;
+
+  protected readonly verticalCode = `<el-stepper [(value)]="step" orientation="vertical" ariaLabel="Onboarding">
+  <el-step value="account" label="Account">
+    <ng-template elStepContent>Account fields.</ng-template>
+  </el-step>
+</el-stepper>`;
+
+  protected readonly linearCode = `<el-stepper [(value)]="step" linear ariaLabel="Linear onboarding">
+  <el-step value="account" label="Account">
+    <ng-template elStepContent>Start here.</ng-template>
+  </el-step>
+</el-stepper>`;
+
+  protected readonly customLabelsCode = `<el-step value="account">
+  <ng-template elStepLabel>
+    <el-icon name="user" size="sm" />
+    Account
+  </ng-template>
+  <ng-template elStepContent>Sign-in details.</ng-template>
+</el-step>`;
 
   protected readonly usageCode = `<el-stepper [(value)]="step" ariaLabel="Onboarding">
   <el-step value="account" label="Account">

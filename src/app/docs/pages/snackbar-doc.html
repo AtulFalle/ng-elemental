@@ -20,19 +20,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-button (click)="open.set(true)">Show snackbar</el-button>
-      <el-snackbar
-        [open]="open()"
-        (openChange)="open.set($event)"
-        message="File deleted"
-        action="Undo"
-      />
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -48,59 +35,104 @@
       you open again.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Colors</h3>
-    <app-preview>
-      <div class="docs-row">
-        <el-button (click)="showColor('success')">Success</el-button>
-        <el-button (click)="showColor('error')">Error</el-button>
-        <el-button (click)="showColor('warning')">Warning</el-button>
-        <el-button (click)="showColor('info')">Info</el-button>
-      </div>
-      <el-snackbar
-        [open]="colorOpen()"
-        (openChange)="colorOpen.set($event)"
-        [color]="color()"
-        [message]="color() === 'error' ? 'Could not save' : 'Saved'"
-      />
-    </app-preview>
-
-    <h3>Open with a service</h3>
-    <app-preview>
-      <el-button (click)="showService()">Open with service</el-button>
-    </app-preview>
-
-    <h3>Bulk actions</h3>
-    <p>
-      Project buttons with <code>elSnackbarActions</code>. The parent owns
-      visibility (for example, open while items are selected).
-    </p>
-    <app-preview>
-      <el-button (click)="bulkOpen.set(true)">Select 3 items</el-button>
-      <el-snackbar
-        [open]="bulkOpen()"
-        (openChange)="bulkOpen.set($event)"
-        message="3 selected"
-        [duration]="0"
-      >
-        <div elSnackbarActions>
-          <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
-            Move
-          </el-button>
-          <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
-            Delete
-          </el-button>
-          <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
-            Share
-          </el-button>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Action and dismiss</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="defaultPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="defaultPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="defaultPanel.set('standards')" />
         </div>
-      </el-snackbar>
-    </app-preview>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (defaultPanel() === 'preview') {
+          <app-preview>
+            <el-button (click)="open.set(true)">Show snackbar</el-button>
+            <el-snackbar
+              [open]="open()"
+              (openChange)="open.set($event)"
+              message="File deleted"
+              action="Undo"
+            />
+          </app-preview>
+        } @else if (defaultPanel() === 'code') {
+          <app-code-block [code]="defaultCode" language="html" />
+        } @else {
+          <p>
+            Built-in actions are native buttons with visible labels. Error bars use
+            <code>role="alert"</code> and assertive live regions; others stay polite.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Bulk actions</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="bulkPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="bulkPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="bulkPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (bulkPanel() === 'preview') {
+          <app-preview>
+            <el-button (click)="bulkOpen.set(true)">Select 3 items</el-button>
+            <el-snackbar
+              [open]="bulkOpen()"
+              (openChange)="bulkOpen.set($event)"
+              message="3 selected"
+              [duration]="0"
+            >
+              <div elSnackbarActions>
+                <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
+                  Move
+                </el-button>
+                <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
+                  Delete
+                </el-button>
+                <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
+                  Share
+                </el-button>
+              </div>
+            </el-snackbar>
+          </app-preview>
+        } @else if (bulkPanel() === 'code') {
+          <app-code-block [code]="bulkCode" language="html" />
+        } @else {
+          <p>
+            Selection bars set <code>duration</code> to <code>0</code> so users can reach every
+            action. Parent owns <code>open</code> while items stay selected.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <p>
+      Snackbar is a transient bar — not a dialog — with optional undo.
+    </p>
+    <ul>
+      <li>Error uses <code>role="alert"</code> and <code>aria-live="assertive"</code>.</li>
+      <li>Other tones use <code>role="status"</code> and polite live regions.</li>
+      <li>Action and dismiss controls are keyboard reachable with visible focus.</li>
+      <li>Auto-dismiss timer clears when <code>duration</code> is zero.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/" target="_blank" rel="noreferrer">APG Alert</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>
+      (2.2.1, 4.1.3).
+    </p>
   </section>
 
   <section>

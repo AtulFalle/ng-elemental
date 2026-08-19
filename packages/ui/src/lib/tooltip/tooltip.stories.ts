@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { ElButton } from '../button/button';
 import { ElTooltip } from './tooltip';
 
@@ -69,4 +70,51 @@ export const Disabled: Story = {
 
 export const OnButton: Story = {
   args: { elTooltipOpen: false, elTooltipDelay: 200 },
+};
+
+export const Interactions: Story = {
+  name: 'Interactions',
+  tags: ['!test'],
+  render: () => ({
+    moduleMetadata: { imports: [ElTooltip, ElButton] },
+    template: `
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;padding:4rem">
+        <el-button elTooltip="Save file">Save</el-button>
+        <el-button elTooltip="Hidden tip" elTooltipDisabled>Disabled tip</el-button>
+        <el-button
+          variant="icon"
+          iconStart="gear"
+          ariaLabel="Settings"
+          elTooltip="Open settings"
+        ></el-button>
+      </div>
+    `,
+  }),
+  play: async ({ canvas, userEvent, step }) => {
+    const save = canvas.getByRole('button', { name: 'Save' });
+    const disabled = canvas.getByRole('button', { name: 'Disabled tip' });
+    const icon = canvas.getByRole('button', { name: 'Settings' });
+
+    await step('Pointer: hover shows tooltip', async () => {
+      await userEvent.hover(save);
+      await expect(canvas.getByRole('tooltip')).toHaveTextContent('Save file');
+      await userEvent.unhover(save);
+    });
+
+    await step('Keyboard: focus shows tooltip', async () => {
+      save.focus();
+      await expect(canvas.getByRole('tooltip')).toHaveTextContent('Save file');
+      await userEvent.keyboard('{Escape}');
+    });
+
+    await step('Disabled tip does not open', async () => {
+      await userEvent.hover(disabled);
+      await expect(canvas.queryByRole('tooltip')).not.toBeInTheDocument();
+    });
+
+    await step('Icon-only host is named and tipped', async () => {
+      icon.focus();
+      await expect(canvas.getByRole('tooltip')).toHaveTextContent('Open settings');
+    });
+  },
 };

@@ -36,11 +36,17 @@ export class ElPopoverTrigger {
   }
 
   protected onActivate(event: Event): void {
-    if (this.popover.trigger() !== 'click') {
+    if (this.popover.disabled()) {
       return;
     }
     event.preventDefault();
-    this.popover.toggle();
+    if (this.popover.trigger() === 'click') {
+      this.popover.toggle();
+      return;
+    }
+    if (!this.popover.open()) {
+      this.popover.openPanel();
+    }
   }
 
   protected onLeave(event: PointerEvent): void {

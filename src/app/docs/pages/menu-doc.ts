@@ -34,6 +34,10 @@ import { PropsTable } from '../ui/props-table';
   styleUrl: './page.scss',
 })
 export class MenuDocPage {
+  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly checkboxRadioPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly contextPanel = signal<'preview' | 'code' | 'standards'>('preview');
+
   protected readonly bold = signal(true);
   protected readonly italic = signal(false);
   protected readonly align = signal('start');
@@ -63,6 +67,21 @@ import { ElButton } from './ui/button/button';
   \`,
 })
 export class MyComponent {}`;
+
+  protected readonly checkboxRadioCode = `<el-menu-item type="checkbox" [checked]="bold()" (selected)="bold.set(!bold())">
+  Bold
+</el-menu-item>
+<el-menu-item type="radio" [checked]="align() === 'start'" (selected)="align.set('start')">
+  Start
+</el-menu-item>`;
+
+  protected readonly contextCode = `<el-menu trigger="contextmenu" ariaLabel="Canvas">
+  <div elMenuTrigger>Right-click this area</div>
+  <el-menu-panel>
+    <el-menu-item icon="scissors">Cut</el-menu-item>
+    <el-menu-item variant="danger">Delete</el-menu-item>
+  </el-menu-panel>
+</el-menu>`;
 
   protected readonly usageCode = `<el-menu ariaLabel="Actions">
   <el-button elMenuTrigger variant="secondary">Actions</el-button>

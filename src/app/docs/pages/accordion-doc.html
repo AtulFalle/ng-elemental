@@ -15,44 +15,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <div class="docs-accordion-demo">
-        <el-accordion
-          variant="single"
-          [value]="singleOpen()"
-          (valueChange)="singleOpen.set($event)"
-          ariaLabel="Order details"
-        >
-          <el-accordion-item
-            value="shipping"
-            title="Shipping"
-            subtitle="2–5 business days"
-          >
-            <ng-template elAccordionContent>
-              <p>Ships from Pune. Express options are available at checkout.</p>
-            </ng-template>
-          </el-accordion-item>
-          <el-accordion-item
-            value="billing"
-            title="Billing"
-            subtitle="Invoices and payment methods"
-          >
-            <ng-template elAccordionContent>
-              <p>Card on file ending 4242. Billing contact is finance@example.com.</p>
-            </ng-template>
-          </el-accordion-item>
-          <el-accordion-item value="team" title="Team" subtitle="Members and roles">
-            <ng-template elAccordionContent>
-              <p>Three members. Invite more people from settings.</p>
-            </ng-template>
-          </el-accordion-item>
-        </el-accordion>
-      </div>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -63,158 +25,237 @@
       Import the accordion, item, and content directive. Put panel markup in
       <code>&lt;ng-template elAccordionContent&gt;</code> so collapsed panels
       are not created. Optional title and subtitle templates replace the
-      string headers with any HTML.       Header actions go in
+      string headers with any HTML. Header actions go in
       <code>[elAccordionActions]</code>. They sit before the expand icon and
       do not toggle the panel.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Single (one panel open)</h3>
-    <p>
-      Default variant. Opening another item closes the current one. Clicking
-      the open header collapses it, so every panel can be closed.
-    </p>
-    <app-preview>
-      <div class="docs-accordion-demo">
-        <el-accordion
-          variant="single"
-          [value]="singleOpen()"
-          (valueChange)="singleOpen.set($event)"
-          ariaLabel="Order details"
-        >
-          <el-accordion-item
-            value="shipping"
-            title="Shipping"
-            subtitle="2–5 business days"
-          >
-            <ng-template elAccordionContent>
-              <p>Ships from Pune.</p>
-            </ng-template>
-          </el-accordion-item>
-          <el-accordion-item
-            value="billing"
-            title="Billing"
-            subtitle="Invoices and payment methods"
-          >
-            <ng-template elAccordionContent>
-              <p>Card ending 4242.</p>
-            </ng-template>
-          </el-accordion-item>
-        </el-accordion>
-      </div>
-    </app-preview>
-
-    <h3>Multiple (several panels open)</h3>
-    <p>
-      Each header toggles only its own item. Bind
-      <code>value</code> as a <code>string[]</code>.
-    </p>
-    <app-preview>
-      <div class="docs-accordion-demo">
-        <el-accordion
-          variant="multiple"
-          [value]="multiOpen()"
-          (valueChange)="multiOpen.set($event)"
-          ariaLabel="FAQ"
-        >
-          <el-accordion-item value="payments" title="How do payments work?">
-            <ng-template elAccordionContent>
-              <p>We charge when the order ships. Several panels can stay open.</p>
-            </ng-template>
-          </el-accordion-item>
-          <el-accordion-item value="refunds" title="Can I get a refund?">
-            <ng-template elAccordionContent>
-              <p>Yes, within 30 days of delivery.</p>
-            </ng-template>
-          </el-accordion-item>
-          <el-accordion-item value="shipping" title="Where do you ship?">
-            <ng-template elAccordionContent>
-              <p>India and selected international destinations.</p>
-            </ng-template>
-          </el-accordion-item>
-        </el-accordion>
-      </div>
-    </app-preview>
-    <app-code-block [code]="multipleCode" language="html" />
-
-    <h3>Custom templates and header actions</h3>
-    <p>
-      Compose
-      <a routerLink="/components/icon">Icon</a>,
-      <a routerLink="/components/chip">Chip</a>, and
-      <a routerLink="/components/button">Button</a>
-      in the header. Actions sit before the expand chevron. Add those components
-      separately via the CLI. Clicks on
-      <code>elAccordionActions</code> do not expand or collapse the panel.
-    </p>
-    <app-preview>
-      <div class="docs-accordion-demo">
-        <el-accordion
-          variant="single"
-          [value]="templateOpen()"
-          (valueChange)="templateOpen.set($event)"
-          ariaLabel="Shipment"
-        >
-          <el-accordion-item value="order">
-            <ng-template elAccordionTitle>
-              <el-icon name="box" size="sm" />
-              Order #1284
-            </ng-template>
-            <ng-template elAccordionSubtitle>
-              <el-chip>In transit</el-chip>
-            </ng-template>
-            <div elAccordionActions>
-              <el-button variant="ghost" size="sm">Edit</el-button>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Single expansion</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-accordion-demo">
+              <el-accordion
+                variant="single"
+                [value]="singleOpen()"
+                (valueChange)="singleOpen.set($event)"
+                ariaLabel="Order details"
+              >
+                <el-accordion-item
+                  value="shipping"
+                  title="Shipping"
+                  subtitle="2–5 business days"
+                >
+                  <ng-template elAccordionContent>
+                    <p>Ships from Pune. Express options are available at checkout.</p>
+                  </ng-template>
+                </el-accordion-item>
+                <el-accordion-item
+                  value="billing"
+                  title="Billing"
+                  subtitle="Invoices and payment methods"
+                >
+                  <ng-template elAccordionContent>
+                    <p>Card on file ending 4242. Billing contact is finance@example.com.</p>
+                  </ng-template>
+                </el-accordion-item>
+                <el-accordion-item value="team" title="Team" subtitle="Members and roles">
+                  <ng-template elAccordionContent>
+                    <p>Three members. Invite more people from settings.</p>
+                  </ng-template>
+                </el-accordion-item>
+              </el-accordion>
             </div>
-            <ng-template elAccordionContent>
-              <p>Left the warehouse on 12 Aug. Expected Friday.</p>
-            </ng-template>
-          </el-accordion-item>
-          <el-accordion-item value="documents">
-            <ng-template elAccordionTitle>
-              <el-icon name="file-lines" size="sm" />
-              Documents
-            </ng-template>
-            <ng-template elAccordionSubtitle>Invoice and packing list</ng-template>
-            <div elAccordionActions>
-              <el-button variant="ghost" size="sm">Download</el-button>
-            </div>
-            <ng-template elAccordionContent>
-              <p>Available after the order ships.</p>
-            </ng-template>
-          </el-accordion-item>
-        </el-accordion>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Single variant keeps at most one panel open. Clicking the open header collapses it,
+            so every panel can close.
+          </p>
+        }
       </div>
-    </app-preview>
-    <app-code-block [code]="templateCode" language="html" />
+    </article>
 
-    <h3>Disabled item</h3>
-    <app-preview>
-      <div class="docs-accordion-demo">
-        <el-accordion
-          variant="single"
-          [value]="disabledOpen()"
-          (valueChange)="disabledOpen.set($event)"
-          ariaLabel="Account"
-        >
-          <el-accordion-item value="overview" title="Overview">
-            <ng-template elAccordionContent>
-              <p>Enabled panel.</p>
-            </ng-template>
-          </el-accordion-item>
-          <el-accordion-item value="billing" title="Billing" disabled>
-            <ng-template elAccordionContent>
-              <p>This panel cannot open.</p>
-            </ng-template>
-          </el-accordion-item>
-        </el-accordion>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Multiple expansion</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="multiplePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="multiplePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="multiplePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (multiplePanel() === 'preview') {
+          <app-preview>
+            <div class="docs-accordion-demo">
+              <el-accordion
+                variant="multiple"
+                [value]="multiOpen()"
+                (valueChange)="multiOpen.set($event)"
+                ariaLabel="FAQ"
+              >
+                <el-accordion-item value="payments" title="How do payments work?">
+                  <ng-template elAccordionContent>
+                    <p>We charge when the order ships. Several panels can stay open.</p>
+                  </ng-template>
+                </el-accordion-item>
+                <el-accordion-item value="refunds" title="Can I get a refund?">
+                  <ng-template elAccordionContent>
+                    <p>Yes, within 30 days of delivery.</p>
+                  </ng-template>
+                </el-accordion-item>
+                <el-accordion-item value="shipping" title="Where do you ship?">
+                  <ng-template elAccordionContent>
+                    <p>India and selected international destinations.</p>
+                  </ng-template>
+                </el-accordion-item>
+              </el-accordion>
+            </div>
+          </app-preview>
+        } @else if (multiplePanel() === 'code') {
+          <app-code-block [code]="multipleCode" language="html" />
+        } @else {
+          <p>
+            Multiple variant binds <code>value</code> as a <code>string[]</code>. Each header toggles
+            only its own panel.
+          </p>
+        }
       </div>
-    </app-preview>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Custom templates</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="templatesPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="templatesPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="templatesPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (templatesPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-accordion-demo">
+              <el-accordion
+                variant="single"
+                [value]="templateOpen()"
+                (valueChange)="templateOpen.set($event)"
+                ariaLabel="Shipment"
+              >
+                <el-accordion-item value="order">
+                  <ng-template elAccordionTitle>
+                    <el-icon name="box" size="sm" />
+                    Order #1284
+                  </ng-template>
+                  <ng-template elAccordionSubtitle>
+                    <el-chip>In transit</el-chip>
+                  </ng-template>
+                  <div elAccordionActions>
+                    <el-button variant="ghost" size="sm">Edit</el-button>
+                  </div>
+                  <ng-template elAccordionContent>
+                    <p>Left the warehouse on 12 Aug. Expected Friday.</p>
+                  </ng-template>
+                </el-accordion-item>
+                <el-accordion-item value="documents">
+                  <ng-template elAccordionTitle>
+                    <el-icon name="file-lines" size="sm" />
+                    Documents
+                  </ng-template>
+                  <ng-template elAccordionSubtitle>Invoice and packing list</ng-template>
+                  <div elAccordionActions>
+                    <el-button variant="ghost" size="sm">Download</el-button>
+                  </div>
+                  <ng-template elAccordionContent>
+                    <p>Available after the order ships.</p>
+                  </ng-template>
+                </el-accordion-item>
+              </el-accordion>
+            </div>
+          </app-preview>
+        } @else if (templatesPanel() === 'code') {
+          <app-code-block [code]="templateCode" language="html" />
+        } @else {
+          <p>
+            Header actions do not toggle the panel. They sit before the expand chevron so secondary
+            controls stay reachable without expanding the section.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Disabled item</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="disabledPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="disabledPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="disabledPanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (disabledPanel() === 'preview') {
+          <app-preview>
+            <div class="docs-accordion-demo">
+              <el-accordion
+                variant="single"
+                [value]="disabledOpen()"
+                (valueChange)="disabledOpen.set($event)"
+                ariaLabel="Account"
+              >
+                <el-accordion-item value="overview" title="Overview">
+                  <ng-template elAccordionContent>
+                    <p>Enabled panel.</p>
+                  </ng-template>
+                </el-accordion-item>
+                <el-accordion-item value="billing" title="Billing" disabled>
+                  <ng-template elAccordionContent>
+                    <p>This panel cannot open.</p>
+                  </ng-template>
+                </el-accordion-item>
+              </el-accordion>
+            </div>
+          </app-preview>
+        } @else if (disabledPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Disabled headers expose <code>aria-disabled</code>, stay out of arrow-key moves, and
+            cannot expand their panels.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>APG Accordion pattern with button headers and <code>aria-expanded</code>.</li>
+      <li>Arrow Up/Down, Home, and End move focus between headers.</li>
+      <li>Collapsed content is not mounted until expanded.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/" target="_blank" rel="noreferrer">APG Accordion</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+    </p>
   </section>
 
   <section>

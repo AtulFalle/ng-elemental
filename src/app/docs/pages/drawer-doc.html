@@ -17,27 +17,6 @@
   </div>
 
   <section>
-    <h2>Preview</h2>
-    <app-preview>
-      <el-button (click)="open.set(true)">Open drawer</el-button>
-      <el-drawer
-        [open]="open()"
-        (openChange)="open.set($event)"
-        title="Navigation"
-        side="left"
-        size="md"
-      >
-        <div elDrawerContent>
-          Full-height panel for navigation or account tools. Content scrolls.
-        </div>
-        <div elDrawerFooter>
-          <el-button elDrawerClose variant="ghost">Close</el-button>
-        </div>
-      </el-drawer>
-    </app-preview>
-  </section>
-
-  <section>
     <h2>Installation</h2>
     <app-code-block [code]="addCode" language="shell" />
   </section>
@@ -51,48 +30,128 @@
       trapped while open; Escape and the backdrop dismiss unless disabled.
     </p>
     <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
   </section>
 
   <section>
     <h2>Examples</h2>
 
-    <h3>Right side</h3>
-    <app-preview>
-      <el-button (click)="rightOpen.set(true)">Open from the right</el-button>
-      <el-drawer
-        [open]="rightOpen()"
-        (openChange)="rightOpen.set($event)"
-        title="Account"
-        side="right"
-        size="sm"
-      >
-        <div elDrawerContent>Profile and sign out.</div>
-        <div elDrawerFooter>
-          <el-button elDrawerClose variant="ghost">Close</el-button>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Left drawer</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
         </div>
-      </el-drawer>
-    </app-preview>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (heroPanel() === 'preview') {
+          <app-preview>
+            <el-button (click)="open.set(true)">Open drawer</el-button>
+            <el-drawer
+              [open]="open()"
+              (openChange)="open.set($event)"
+              title="Navigation"
+              side="left"
+              size="md"
+            >
+              <div elDrawerContent>
+                Full-height panel for navigation or account tools. Content scrolls.
+              </div>
+              <div elDrawerFooter>
+                <el-button elDrawerClose variant="ghost">Close</el-button>
+              </div>
+            </el-drawer>
+          </app-preview>
+        } @else if (heroPanel() === 'code') {
+          <app-code-block [code]="usageCode" language="html" />
+        } @else {
+          <p>
+            Drawers use modal dialog semantics with focus trap, scrollable content, and focus
+            restore on dismiss.
+          </p>
+        }
+      </div>
+    </article>
 
-    <h3>Open with a service</h3>
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Right side</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sidePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sidePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sidePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (sidePanel() === 'preview') {
+          <app-preview>
+            <el-button (click)="rightOpen.set(true)">Open from the right</el-button>
+            <el-drawer
+              [open]="rightOpen()"
+              (openChange)="rightOpen.set($event)"
+              title="Account"
+              side="right"
+              size="sm"
+            >
+              <div elDrawerContent>Profile and sign out.</div>
+              <div elDrawerFooter>
+                <el-button elDrawerClose variant="ghost">Close</el-button>
+              </div>
+            </el-drawer>
+          </app-preview>
+        } @else if (sidePanel() === 'code') {
+          <app-code-block [code]="sideCode" language="html" />
+        } @else {
+          <p>
+            Right-side drawers suit account panels and detail views that should not cover primary
+            navigation on the left.
+          </p>
+        }
+      </div>
+    </article>
+
+    <article class="docs-example-panel">
+      <header class="docs-example-panel__header">
+        <p class="docs-example-panel__title">Open with a service</p>
+        <div class="docs-example-panel__controls">
+          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="servicePanel.set('preview')" />
+          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="servicePanel.set('code')" />
+          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="servicePanel.set('standards')" />
+        </div>
+      </header>
+      <div class="docs-example-panel__body">
+        @if (servicePanel() === 'preview') {
+          <app-preview>
+            <el-button (click)="openService()">Open with service</el-button>
+            @if (serviceResult(); as result) {
+              <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
+            }
+          </app-preview>
+        } @else if (servicePanel() === 'code') {
+          <app-code-block [code]="serviceCode" />
+        } @else {
+          <p>
+            Service-opened drawers mount on <code>document.body</code> and inject
+            <code>EL_DRAWER_DATA</code> plus <code>ElDrawerRef</code> into the custom component.
+          </p>
+        }
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Standards and checks</h2>
+    <ul>
+      <li>Modal dialog with focus trap and focus restore.</li>
+      <li>Named via title or <code>ariaLabel</code>.</li>
+      <li>Full viewport height with scrollable content region.</li>
+    </ul>
     <p>
-      No extra host in the app shell.
-      <code>open()</code>
-      mounts the drawer on
-      <code>document.body</code>
-      and injects
-      <code>EL_DRAWER_DATA</code>
-      plus
-      <code>ElDrawerRef</code>
-      into the custom component.
+      References:
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" target="_blank" rel="noreferrer">APG Dialog Modal</a>,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
     </p>
-    <app-preview>
-      <el-button (click)="openService()">Open with service</el-button>
-      @if (serviceResult(); as result) {
-        <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
-      }
-    </app-preview>
-    <app-code-block [code]="serviceCode" />
   </section>
 
   <section>

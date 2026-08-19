@@ -30,6 +30,7 @@
                 <button
                   type="button"
                   class="el-table__sort"
+                  [attr.aria-label]="sortButtonLabel(column.name(), column.headerText())"
                   (click)="toggleSort(column.name())"
                 >
                   @if (column.headerTemplate(); as template) {
