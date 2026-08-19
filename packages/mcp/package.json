@@ -1,6 +1,6 @@
 {
   "name": "@ng-elemental/mcp",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "MCP server for searching, inspecting, and installing NgElemental Angular components",
   "keywords": [
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/server": "^2.0.0",
-    "@ng-elemental/cli": "0.0.9",
+    "@ng-elemental/cli": "1.0.0",
     "zod": "^4.4.3"
   }
 }
