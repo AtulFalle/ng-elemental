@@ -1,12 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npx nx run ng-elemental:build:production",
+  "outputDirectory": "dist/ng-elemental/browser",
   "functions": {
     "api/mcp.ts": {
       "maxDuration": 30
     }
   },
   "rewrites": [
-    { "source": "/mcp", "destination": "/api/mcp" }
+    { "source": "/mcp", "destination": "/api/mcp" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
