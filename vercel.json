@@ -1,5 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "github": {
+    "enabled": false,
+    "silent": true
+  },
   "functions": {
     "api/mcp.ts": {
       "maxDuration": 30
