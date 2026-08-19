@@ -29,6 +29,7 @@ export { ElListItemDef, type ElListItemContext } from './list-item-def';
   styleUrl: './list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    role: 'list',
     class: 'el-list-host',
     '[class.el-list-host--virtual]': 'virtual()',
     '(scroll)': 'onHostScroll($event)',
