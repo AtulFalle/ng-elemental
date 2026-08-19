@@ -1,17 +1,14 @@
 import {
-  addCommand,
-  copyRegistryComponent,
   getCatalogEntry,
   listCatalog,
   readConfig,
   searchCatalog,
   toAppImportPath,
-  type AddResult,
   type CatalogEntry,
   type ComponentKind,
   type ElementalConfig,
 } from '@ng-elemental/cli';
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { loadGuidelines } from './guidelines';
 
@@ -79,51 +76,108 @@ export function describeComponent(name: string, cwd: string): string {
   return `${JSON.stringify(payload, null, 2)}\n\n${formatWireIn(entry, importPath)}`;
 }
 
-export function addComponents(options: {
-  names: string[];
-  force?: boolean;
-  cwd: string;
-}): string {
-  const { names, force, cwd } = options;
+export function getInstallInstructions(names: string[], cwd: string): string {
   if (names.length === 0) {
     throw new Error('Provide at least one component name.');
   }
 
-  const config = readConfig(cwd);
-  const extras = collectRegistryDependencies(names);
-  for (const dep of extras) {
-    if (!existsSync(join(cwd, config.componentsDir, dep))) {
-      copyRegistryComponent(cwd, dep, { skipIfExists: true });
+  const config = tryReadConfig(cwd);
+  const allDeps = collectRegistryDependencies(names);
+  const npmDeps = new Set<string>();
+
+  for (const name of [...names, ...allDeps]) {
+    const entry = getCatalogEntry(name);
+    for (const dep of entry.npmDependencies) {
+      npmDeps.add(dep);
     }
   }
 
-  const results: AddResult[] = [];
-  for (const name of names) {
-    results.push(addCommand({ cwd, name, force, quiet: true }));
+  const lines: string[] = [
+    '## Installation Commands',
+    '',
+    'Ask the user to run the following commands in their terminal:',
+    '',
+  ];
+
+  if (!config) {
+    lines.push('```bash', '# Initialize NgElemental (creates elemental.json)', 'npx @ng-elemental/cli init', '```', '');
   }
 
-  return results
-    .map((result) => {
-      const entry = getCatalogEntry(result.name);
-      return [
-        JSON.stringify(
-          {
-            name: result.name,
-            destDir: result.destDir,
-            importPath: result.importPath,
-            classNames: result.classNames,
-            files: result.files,
-            warnings: result.warnings,
-            alsoAdd: [...entry.registryDependencies],
-            npmDependencies: [...entry.npmDependencies],
-          },
-          null,
-          2,
-        ),
-        formatWireIn(entry, result.importPath),
-      ].join('\n\n');
-    })
-    .join('\n\n---\n\n');
+  lines.push('```bash', `# Add component${names.length > 1 ? 's' : ''}`, `npx @ng-elemental/cli add ${names.join(' ')}`, '```');
+
+  if (npmDeps.size > 0) {
+    lines.push('', '```bash', '# Install required npm dependencies', `npm install ${[...npmDeps].join(' ')}`, '```');
+  }
+
+  lines.push('', '## After installation', '');
+  for (const name of names) {
+    const entry = getCatalogEntry(name);
+    const importPath = toAppImportPath(config?.componentsDir ?? 'src/app/ui', entry.name);
+    lines.push(formatWireIn(entry, importPath), '');
+  }
+
+  lines.push('> **Important**: Do NOT copy-paste component source files manually. Always use the CLI to ensure dependencies and configuration are handled correctly.');
+
+  return lines.join('\n');
+}
+
+function resolveUiSourceDir(name: string): string | null {
+  const candidates = [
+    join(__dirname, 'ui-source', name),
+    join(__dirname, '../ui-source', name),
+    join(__dirname, '../../../../packages/ui/src/lib', name),
+  ];
+  for (const dir of candidates) {
+    if (existsSync(dir)) return dir;
+  }
+  return null;
+}
+
+export function getComponentSource(name: string): string {
+  const entry = getCatalogEntry(name);
+  const sourceDir = resolveUiSourceDir(name);
+
+  if (!sourceDir) {
+    return `Source files for "${name}" are not available in the MCP server context. Use get_component for metadata and usage instead.`;
+  }
+
+  const files = readdirSync(sourceDir).filter(
+    (f) => /\.(ts|html|scss)$/.test(f) && !f.includes('.spec.') && !f.includes('.stories.'),
+  );
+
+  const sections: string[] = [`# ${entry.title} — Source Code\n`];
+
+  for (const file of files.sort()) {
+    const content = readFileSync(join(sourceDir, file), 'utf8');
+    const ext = file.split('.').pop() ?? '';
+    sections.push(`## ${file}\n\n\`\`\`${ext}\n${content}\n\`\`\`\n`);
+  }
+
+  return sections.join('\n');
+}
+
+export function getComponentExamples(name: string): string {
+  const entry = getCatalogEntry(name);
+  const sourceDir = resolveUiSourceDir(name);
+
+  if (!sourceDir) {
+    return `Examples for "${name}" are not available. Use the usage field from get_component instead.`;
+  }
+
+  const storyFiles = readdirSync(sourceDir).filter((f) => f.includes('.stories.'));
+
+  if (storyFiles.length === 0) {
+    return `# ${entry.title} — Examples\n\nNo Storybook stories found. Basic usage:\n\n\`\`\`html\n${entry.usage}\n\`\`\``;
+  }
+
+  const sections: string[] = [`# ${entry.title} — Examples (Storybook Stories)\n`];
+
+  for (const file of storyFiles) {
+    const content = readFileSync(join(sourceDir, file), 'utf8');
+    sections.push(`## ${file}\n\n\`\`\`typescript\n${content}\n\`\`\`\n`);
+  }
+
+  return sections.join('\n');
 }
 
 export function guidelinesText(): string {

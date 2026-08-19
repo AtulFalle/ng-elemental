@@ -44,6 +44,11 @@
             "glob": "guidelines.md",
             "input": "packages/mcp/src/lib",
             "output": "."
+          },
+          {
+            "glob": "**/*.{ts,html,scss}",
+            "input": "packages/ui/src/lib",
+            "output": "ui-source"
           }
         ],
         "esbuildOptions": {

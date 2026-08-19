@@ -17,7 +17,9 @@ describe('MCP server', () => {
     expect(server.toolInputSchemaJson('search_components')).toBeDefined();
     expect(server.toolInputSchemaJson('list_components')).toBeDefined();
     expect(server.toolInputSchemaJson('get_component')).toBeDefined();
-    expect(server.toolInputSchemaJson('add_components')).toBeDefined();
+    expect(server.toolInputSchemaJson('install_components')).toBeDefined();
+    expect(server.toolInputSchemaJson('get_component_source')).toBeDefined();
+    expect(server.toolInputSchemaJson('get_component_examples')).toBeDefined();
     expect(server.toolInputSchemaJson('init_project')).toBeDefined();
   });
 
@@ -25,7 +27,7 @@ describe('MCP server', () => {
     expect(SERVER_INSTRUCTIONS).toContain('El*');
     expect(SERVER_INSTRUCTIONS).toContain('get_guidelines');
     expect(SERVER_INSTRUCTIONS).toContain('search_components');
-    expect(SERVER_INSTRUCTIONS).toContain('add_components');
+    expect(SERVER_INSTRUCTIONS).toContain('install_components');
     expect(SERVER_INSTRUCTIONS).toMatch(/CSS|SVG/);
     expect(GET_GUIDELINES_DESCRIPTION).toBe(
       'Call this before adding or implementing NgElemental UI. Returns design rules and the page-integration playbook.',

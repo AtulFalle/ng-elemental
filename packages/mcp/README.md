@@ -31,10 +31,32 @@ This sits beside Angular CLI MCP (`npx @angular/cli mcp`). Use Angular MCP for w
 - `search_components` — find widgets by name or intent
 - `list_components` — catalog dump
 - `get_component` — metadata, usage, and wire-in checklist
-- `add_components` — copy source into the project
+- `install_components` — get CLI commands for the user to run (does NOT copy files automatically)
+- `get_component_source` — full source code (TS, HTML, SCSS) to understand the component API
+- `get_component_examples` — Storybook stories showing real usage patterns
 - `init_project` — create `elemental.json` and theme tokens
 
 Also exposes resource `ng-elemental://guidelines`.
+
+## Remote (Vercel) Usage
+
+Configure clients with the HTTP URL instead of the local `npx` command:
+
+```sh
+npx @ng-elemental/mcp init --client cursor --url https://your-deployment.vercel.app/mcp
+```
+
+Or add manually to `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "ng-elemental": {
+      "url": "https://your-deployment.vercel.app/mcp"
+    }
+  }
+}
+```
 
 ## License
 

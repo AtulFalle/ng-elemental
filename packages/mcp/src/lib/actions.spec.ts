@@ -3,8 +3,10 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
-  addComponents,
   describeComponent,
+  getComponentExamples,
+  getComponentSource,
+  getInstallInstructions,
   guidelinesText,
   listComponents,
   searchComponents,
@@ -84,7 +86,7 @@ describe('MCP catalog tools', () => {
   });
 });
 
-describe('MCP init and add', () => {
+describe('MCP install instructions', () => {
   let tmp: string;
 
   afterEach(async () => {
@@ -93,33 +95,39 @@ describe('MCP init and add', () => {
     }
   });
 
-  it('inits a project and adds a component with usage', async () => {
-    tmp = await makeAngularApp();
-    const init = JSON.parse(await initProject({ cwd: tmp, skipTheme: true })) as {
-      componentsDir: string;
-    };
-    expect(init.componentsDir).toBe('src/app/ui');
-
-    const output = addComponents({ cwd: tmp, names: ['button'] });
-    expect(output).toContain('"name": "button"');
-    expect(output).toContain('src/app/ui/button');
+  it('returns CLI commands without elemental.json', () => {
+    const output = getInstallInstructions(['button'], process.cwd());
+    expect(output).toContain('npx @ng-elemental/cli add button');
     expect(output).toContain('## Wire it in');
-    expect(output).toContain("import { ElButton } from './ui/button/button'");
-    expect(output).toContain('imports: [ElButton]');
-    expect(output).toContain('alsoAdd: icon');
-    expect(output).toContain('Follow NgElemental Design Guidelines (call get_guidelines).');
-    expect(existsSync(join(tmp, 'src/app/ui/button/button.ts'))).toBe(true);
-    expect(existsSync(join(tmp, 'src/app/ui/icon/icon.ts'))).toBe(true);
+    expect(output).toContain('ElButton');
+    expect(output).toContain('Do NOT copy-paste');
   });
 
-  it('adds nested registry dependencies for compound widgets', async () => {
+  it('includes npm install for components with npm deps', () => {
+    const output = getInstallInstructions(['icon'], process.cwd());
+    expect(output).toContain('npm install @fortawesome/fontawesome-free');
+  });
+
+  it('omits init command when elemental.json exists', async () => {
     tmp = await makeAngularApp();
     await initProject({ cwd: tmp, skipTheme: true });
+    const output = getInstallInstructions(['button'], tmp);
+    expect(output).not.toContain('npx @ng-elemental/cli init');
+    expect(output).toContain('npx @ng-elemental/cli add button');
+  });
+});
 
-    addComponents({ cwd: tmp, names: ['menubar'] });
-    expect(existsSync(join(tmp, 'src/app/ui/menubar/menubar.ts'))).toBe(true);
-    expect(existsSync(join(tmp, 'src/app/ui/menu/menu.ts'))).toBe(true);
-    expect(existsSync(join(tmp, 'src/app/ui/icon/icon.ts'))).toBe(true);
-    expect(existsSync(join(tmp, 'src/app/ui/button/button.ts'))).toBe(true);
+describe('MCP component source and examples', () => {
+  it('returns source code for a known component', () => {
+    const source = getComponentSource('button');
+    expect(source).toContain('# Button — Source Code');
+    expect(source).toContain('ElButton');
+    expect(source).toContain('.scss');
+  });
+
+  it('returns storybook examples for a known component', () => {
+    const examples = getComponentExamples('button');
+    expect(examples).toContain('# Button — Examples');
+    expect(examples).toContain('stories');
   });
 });

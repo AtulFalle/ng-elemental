@@ -9,29 +9,38 @@ const SERVER_NAME = 'ng-elemental';
 const COMMAND = 'npx';
 const ARGS = ['-y', '@ng-elemental/mcp'];
 
-export function writeClientConfig(cwd: string, client: McpClient): string {
+export interface WriteClientConfigOptions {
+  /** Remote HTTP/HTTPS URL for clients that support URL-based transport. */
+  url?: string;
+}
+
+export function writeClientConfig(
+  cwd: string,
+  client: McpClient,
+  options: WriteClientConfigOptions = {},
+): string {
+  const { url } = options;
   switch (client) {
     case 'cursor':
-      return writeJsonConfig(join(cwd, '.cursor/mcp.json'), 'mcpServers');
+      return writeJsonConfig(join(cwd, '.cursor/mcp.json'), 'mcpServers', url);
     case 'claude':
-      return writeJsonConfig(join(cwd, '.mcp.json'), 'mcpServers');
+      return writeJsonConfig(join(cwd, '.mcp.json'), 'mcpServers', url);
     case 'vscode':
-      return writeJsonConfig(join(cwd, '.vscode/mcp.json'), 'servers');
+      return writeJsonConfig(join(cwd, '.vscode/mcp.json'), 'servers', url);
     case 'codex':
-      return writeCodexConfig(join(cwd, '.codex/config.toml'));
+      return writeCodexConfig(join(cwd, '.codex/config.toml'), url);
   }
 }
 
-function writeJsonConfig(filePath: string, key: 'mcpServers' | 'servers'): string {
+function writeJsonConfig(filePath: string, key: 'mcpServers' | 'servers', url?: string): string {
   const existing = readJsonObject(filePath);
   const group =
     existing[key] && typeof existing[key] === 'object' && !Array.isArray(existing[key])
       ? (existing[key] as Record<string, unknown>)
       : {};
-  group[SERVER_NAME] = {
-    command: COMMAND,
-    args: ARGS,
-  };
+  group[SERVER_NAME] = url
+    ? { url }
+    : { command: COMMAND, args: ARGS };
   existing[key] = group;
   mkdirSync(dirname(filePath), { recursive: true });
   writeFileSync(filePath, `${JSON.stringify(existing, null, 2)}\n`);
@@ -54,11 +63,10 @@ function readJsonObject(filePath: string): Record<string, unknown> {
   }
 }
 
-function writeCodexConfig(filePath: string): string {
-  const block = `[mcp_servers.${SERVER_NAME}]
-command = "${COMMAND}"
-args = ${JSON.stringify(ARGS)}
-`;
+function writeCodexConfig(filePath: string, url?: string): string {
+  const block = url
+    ? `[mcp_servers.${SERVER_NAME}]\nurl = "${url}"\n`
+    : `[mcp_servers.${SERVER_NAME}]\ncommand = "${COMMAND}"\nargs = ${JSON.stringify(ARGS)}\n`;
   mkdirSync(dirname(filePath), { recursive: true });
   if (!existsSync(filePath)) {
     writeFileSync(filePath, `${block}\n`);

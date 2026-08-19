@@ -90,7 +90,7 @@ describe('MCP packed package', () => {
       };
       const server = loaded.createNgElementalServer();
       expect(server.toolInputSchemaJson('search_components')).toBeDefined();
-      expect(server.toolInputSchemaJson('add_components')).toBeDefined();
+      expect(server.toolInputSchemaJson('install_components')).toBeDefined();
     } finally {
       rmSync(tmp, { recursive: true, force: true });
     }
