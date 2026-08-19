@@ -1,0 +1,65 @@
+name: CLI issue
+description: Report a bug or request an improvement for @ng-elemental/cli
+title: "[CLI]: "
+labels:
+  - type:cli
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please include the exact command you ran and the full terminal output so we can reproduce the problem.
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Bug
+        - Feature request
+        - Question
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the problem or the feature you need.
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and output
+      description: The exact command you ran and the full terminal output.
+      placeholder: |
+        $ npx @ng-elemental/cli init
+        ...
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: cli-version
+    attributes:
+      label: CLI version
+      description: Output of `npm view @ng-elemental/cli version`
+    validations:
+      required: false
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      placeholder: e.g. 24.0.0
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, package manager, Angular version, Nx version if applicable
+    validations:
+      required: false

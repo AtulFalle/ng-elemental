@@ -1,0 +1,67 @@
+name: MCP server issue
+description: Report a bug or request an improvement for @ng-elemental/mcp
+title: "[MCP]: "
+labels:
+  - type:mcp
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe which MCP tool failed and include the full error from your AI agent or MCP client.
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Bug
+        - Feature request
+        - Question
+    validations:
+      required: true
+
+  - type: dropdown
+    id: client
+    attributes:
+      label: MCP client
+      options:
+        - Cursor
+        - Claude Desktop
+        - VS Code (GitHub Copilot)
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Which MCP tool failed (list, search, add, etc.) and what did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Error or response
+      description: Full error message or unexpected response from the MCP server.
+      render: json
+    validations:
+      required: false
+
+  - type: input
+    id: mcp-version
+    attributes:
+      label: MCP package version
+      description: Output of `npm view @ng-elemental/mcp version`
+    validations:
+      required: false
+
+  - type: textarea
+    id: config
+    attributes:
+      label: MCP config snippet
+      description: The relevant section of your mcp.json / cursor settings (redact secrets).
+      render: json
+    validations:
+      required: false

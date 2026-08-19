@@ -1,0 +1,35 @@
+name: Documentation issue
+description: Report an error, gap, or improvement needed in the NgElemental docs
+title: "[Docs]: "
+labels:
+  - type:documentation
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for improving the docs. Even small corrections help new developers get started faster.
+
+  - type: input
+    id: page
+    attributes:
+      label: Docs page or section
+      description: URL path or section title where the problem is
+      placeholder: e.g. /docs/components/select or Installation guide
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What is wrong or missing?
+      description: Describe the error, outdated content, or missing information.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested fix or addition
+      description: What should the docs say instead? Paste corrected text or a code snippet if you have one.
+    validations:
+      required: false

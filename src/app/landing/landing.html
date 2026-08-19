@@ -1,0 +1,268 @@
+<div class="landing">
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────── -->
+  <header class="landing-nav">
+    <a routerLink="/" class="landing-nav__brand">
+      <span class="landing-nav__logo">NgElemental</span>
+      <span class="landing-nav__version">v1.0.0</span>
+    </a>
+    <nav class="landing-nav__links" aria-label="Site">
+      <a routerLink="/docs" class="landing-nav__link">Docs</a>
+      <a routerLink="/docs/components/button" class="landing-nav__link">Components</a>
+      <a
+        href="https://github.com/AtulFalle/ng-elemental"
+        target="_blank"
+        rel="noopener"
+        class="landing-nav__link"
+      >GitHub</a>
+    </nav>
+    <div class="landing-nav__actions">
+      <a
+        href="https://www.npmjs.com/package/@ng-elemental/cli"
+        target="_blank"
+        rel="noopener"
+        class="landing-nav__npm"
+      >npm</a>
+      <el-button variant="primary" size="sm" routerLink="/docs">Get started</el-button>
+    </div>
+  </header>
+
+  <!-- ─── HERO ─────────────────────────────────────────────────────── -->
+  <section class="landing-hero" aria-labelledby="hero-heading">
+    <div class="landing-container">
+      <div class="landing-hero__badge">
+        <el-chip type="assist" iconStart="circle-check">v1.0.0 — now on npm</el-chip>
+      </div>
+
+      <h1 id="hero-heading" class="landing-hero__heading">
+        Angular UI components<br>
+        <span class="landing-hero__accent">built for developers and AI agents</span>
+      </h1>
+
+      <p class="landing-hero__sub">
+        Copy-paste component source directly into your Angular project.
+        No wrapper library, no fighting overrides — you own every line.
+        AI agents use the MCP server to install components without any manual commands.
+      </p>
+
+      <div class="landing-hero__ctas">
+        <el-button variant="primary" size="lg" routerLink="/docs">
+          Get started
+        </el-button>
+        <el-button variant="secondary" size="lg" routerLink="/docs/components/button">
+          Explore components
+        </el-button>
+      </div>
+
+      <div class="landing-hero__snippet">
+        <app-code-block [code]="initCode" language="shell" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHY ──────────────────────────────────────────────────────── -->
+  <section class="landing-section" aria-labelledby="why-heading">
+    <div class="landing-container">
+      <h2 id="why-heading" class="landing-section__title">Why NgElemental</h2>
+      <p class="landing-section__lead">
+        Angular component libraries make it easy to get started and hard to get out.
+        NgElemental reverses that trade-off.
+      </p>
+
+      <div class="landing-why-grid">
+        @for (reason of reasons; track reason.title) {
+          <el-card appearance="outlined" class="landing-why-card">
+            <div elCardContent>
+              <div class="landing-why-card__icon">
+                <el-icon [name]="reason.icon" size="md" />
+              </div>
+              <h3 class="landing-why-card__title">{{ reason.title }}</h3>
+              <p class="landing-why-card__desc">{{ reason.description }}</p>
+            </div>
+          </el-card>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── COMPONENTS ───────────────────────────────────────────────── -->
+  <section class="landing-section landing-section--muted" aria-labelledby="components-heading">
+    <div class="landing-container">
+      <div class="landing-section__header">
+        <div>
+          <h2 id="components-heading" class="landing-section__title">50+ production components</h2>
+          <p class="landing-section__lead">
+            Every component ships as standalone Angular source — no extra install, no peer dependency.
+          </p>
+        </div>
+          <el-button variant="secondary" size="sm" routerLink="/docs/components/button">
+            Browse all
+          </el-button>
+      </div>
+
+      <div class="landing-components-grid">
+        @for (group of componentGroups; track group.title) {
+          <el-card appearance="outlined" class="landing-comp-card">
+            <div elCardContent>
+              <div class="landing-comp-card__header">
+                <el-icon [name]="group.icon" size="sm" />
+                <span class="landing-comp-card__title">{{ group.title }}</span>
+              </div>
+              <ul class="landing-comp-card__list">
+                @for (item of group.items; track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            </div>
+          </el-card>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CLI ──────────────────────────────────────────────────────── -->
+  <section class="landing-section" aria-labelledby="cli-heading">
+    <div class="landing-container">
+      <div class="landing-split">
+        <div class="landing-split__text">
+          <h2 id="cli-heading" class="landing-section__title">Install with the CLI</h2>
+          <p>
+            <code>@ng-elemental/cli</code> copies component source files directly into your
+            Angular project. Run <code>init</code> once to configure the output directory and
+            install theme tokens, then add any component by name.
+          </p>
+
+          <el-stack direction="column" gap="3" class="landing-cli-steps">
+            <div class="landing-step">
+              <span class="landing-step__num">1</span>
+              <div>
+                <strong>init</strong> — creates <code>elemental.json</code>, installs
+                theme tokens and sets up your component directory
+              </div>
+            </div>
+            <div class="landing-step">
+              <span class="landing-step__num">2</span>
+              <div>
+                <strong>add &lt;component&gt;</strong> — copies TypeScript, HTML, and SCSS
+                into your project
+              </div>
+            </div>
+            <div class="landing-step">
+              <span class="landing-step__num">3</span>
+              <div>
+                <strong>import &amp; use</strong> — import the copied file like any local Angular component
+              </div>
+            </div>
+          </el-stack>
+
+          <div class="landing-split__actions">
+            <el-button variant="primary" size="md" routerLink="/docs/installation">
+              CLI setup guide
+            </el-button>
+            <a
+              href="https://www.npmjs.com/package/@ng-elemental/cli"
+              target="_blank"
+              rel="noopener"
+              class="landing-link-btn"
+            >npm ↗</a>
+          </div>
+        </div>
+
+        <div class="landing-split__code">
+          <app-code-block [code]="initCode" language="shell" />
+          <div class="landing-split__code-spacer"></div>
+          <app-code-block [code]="usageCode" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MCP ──────────────────────────────────────────────────────── -->
+  <section class="landing-section landing-section--muted" aria-labelledby="mcp-heading">
+    <div class="landing-container">
+      <div class="landing-split landing-split--reverse">
+        <div class="landing-split__text">
+          <h2 id="mcp-heading" class="landing-section__title">AI agents use the MCP server</h2>
+          <p>
+            <code>@ng-elemental/mcp</code> exposes a Model Context Protocol endpoint so
+            Cursor, Claude Desktop, and other AI coding tools can list, inspect, and
+            install NgElemental components on behalf of a developer — no terminal commands needed.
+          </p>
+
+          <el-alert
+            color="info"
+            title="Publicly hosted"
+            [dismissible]="false"
+          >
+            Point your MCP client at
+            <strong>https://ng-elemental.vercel.app/mcp</strong> —
+            no local install required.
+          </el-alert>
+
+          <div class="landing-split__actions">
+          <el-button variant="primary" size="md" routerLink="/docs/mcp">
+            MCP setup guide
+          </el-button>
+          <a
+            href="https://www.npmjs.com/package/@ng-elemental/mcp"
+            target="_blank"
+            rel="noopener"
+            class="landing-link-btn"
+          >npm ↗</a>
+          </div>
+        </div>
+
+        <div class="landing-split__code">
+          <div class="landing-mcp-label">mcp.json / Cursor settings</div>
+          <app-code-block [code]="mcpCode" language="json" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── OPEN SOURCE ──────────────────────────────────────────────── -->
+  <section class="landing-section landing-oss" aria-labelledby="oss-heading">
+    <div class="landing-container landing-oss__inner">
+      <div>
+        <h2 id="oss-heading" class="landing-section__title">Free and open source</h2>
+        <p class="landing-section__lead">
+          MIT licensed. Issues, pull requests, and feature ideas welcome on GitHub.
+        </p>
+      </div>
+      <div class="landing-oss__actions">
+        <a
+          href="https://github.com/AtulFalle/ng-elemental"
+          target="_blank"
+          rel="noopener"
+          class="landing-gh-btn"
+        >View on GitHub</a>
+        <a
+          href="https://github.com/AtulFalle/ng-elemental/blob/master/CONTRIBUTING.md"
+          target="_blank"
+          rel="noopener"
+          class="landing-link-btn"
+        >Contributing guide</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────────────── -->
+  <footer class="landing-footer">
+    <div class="landing-container">
+      <el-separator />
+      <div class="landing-footer__inner">
+        <span class="landing-footer__copy">
+          NgElemental v1.0.0 &mdash; MIT License
+        </span>
+        <nav class="landing-footer__links" aria-label="Footer">
+          <a routerLink="/docs">Docs</a>
+          <a routerLink="/docs/components/button">Components</a>
+          <a href="https://github.com/AtulFalle/ng-elemental" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/@ng-elemental/cli" target="_blank" rel="noopener">npm (cli)</a>
+          <a href="https://www.npmjs.com/package/@ng-elemental/mcp" target="_blank" rel="noopener">npm (mcp)</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</div>

@@ -1,6 +1,7 @@
 <div class="docs-shell">
   <aside class="docs-sidebar">
-    <a routerLink="/" class="docs-brand">NgElemental</a>
+    <a routerLink="/" class="docs-back" aria-label="Back to home">← Home</a>
+    <a routerLink="/docs" class="docs-brand">NgElemental</a>
     <p class="docs-tagline">Copy-paste Angular components</p>
 
     @for (section of nav; track section.title) {
@@ -12,7 +13,7 @@
               <a
                 routerLink="{{ item.path }}"
                 routerLinkActive="is-active"
-                [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+                [routerLinkActiveOptions]="{ exact: item.path === '/docs' }"
               >
                 {{ item.label }}
               </a>

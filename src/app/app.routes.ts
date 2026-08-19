@@ -3,13 +3,15 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () =>
-      import('./docs/layout/doc-layout').then((m) => m.DocLayout),
+    loadComponent: () => import('./landing/landing').then((m) => m.LandingPage),
+  },
+  {
+    path: 'docs',
+    loadComponent: () => import('./docs/layout/doc-layout').then((m) => m.DocLayout),
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./docs/pages/home').then((m) => m.HomePage),
+        loadComponent: () => import('./docs/pages/home').then((m) => m.HomePage),
       },
       {
         path: 'installation',
@@ -18,13 +20,11 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'mcp',
-        loadComponent: () =>
-          import('./docs/pages/mcp-doc').then((m) => m.McpDocPage),
+        loadComponent: () => import('./docs/pages/mcp-doc').then((m) => m.McpDocPage),
       },
       {
         path: 'theming',
-        loadComponent: () =>
-          import('./docs/pages/theme-doc').then((m) => m.ThemeDocPage),
+        loadComponent: () => import('./docs/pages/theme-doc').then((m) => m.ThemeDocPage),
       },
       {
         path: 'components/button',
@@ -131,16 +131,12 @@ export const appRoutes: Route[] = [
       {
         path: 'components/aspect-ratio',
         loadComponent: () =>
-          import('./docs/pages/aspect-ratio-doc').then(
-            (m) => m.AspectRatioDocPage,
-          ),
+          import('./docs/pages/aspect-ratio-doc').then((m) => m.AspectRatioDocPage),
       },
       {
         path: 'components/scroll-area',
         loadComponent: () =>
-          import('./docs/pages/scroll-area-doc').then(
-            (m) => m.ScrollAreaDocPage,
-          ),
+          import('./docs/pages/scroll-area-doc').then((m) => m.ScrollAreaDocPage),
       },
       {
         path: 'components/separator',
@@ -172,16 +168,12 @@ export const appRoutes: Route[] = [
       {
         path: 'components/attachment',
         loadComponent: () =>
-          import('./docs/pages/attachment-doc').then(
-            (m) => m.AttachmentDocPage,
-          ),
+          import('./docs/pages/attachment-doc').then((m) => m.AttachmentDocPage),
       },
       {
         path: 'components/file-upload',
         loadComponent: () =>
-          import('./docs/pages/file-upload-doc').then(
-            (m) => m.FileUploadDocPage,
-          ),
+          import('./docs/pages/file-upload-doc').then((m) => m.FileUploadDocPage),
       },
       {
         path: 'components/tabs',
@@ -206,9 +198,7 @@ export const appRoutes: Route[] = [
       {
         path: 'components/pagination',
         loadComponent: () =>
-          import('./docs/pages/pagination-doc').then(
-            (m) => m.PaginationDocPage,
-          ),
+          import('./docs/pages/pagination-doc').then((m) => m.PaginationDocPage),
       },
       {
         path: 'components/skeleton',
@@ -218,9 +208,7 @@ export const appRoutes: Route[] = [
       {
         path: 'components/breadcrumb',
         loadComponent: () =>
-          import('./docs/pages/breadcrumb-doc').then(
-            (m) => m.BreadcrumbDocPage,
-          ),
+          import('./docs/pages/breadcrumb-doc').then((m) => m.BreadcrumbDocPage),
       },
       {
         path: 'components/tooltip',
@@ -275,9 +263,7 @@ export const appRoutes: Route[] = [
       {
         path: 'components/empty-state',
         loadComponent: () =>
-          import('./docs/pages/empty-state-doc').then(
-            (m) => m.EmptyStateDocPage,
-          ),
+          import('./docs/pages/empty-state-doc').then((m) => m.EmptyStateDocPage),
       },
       {
         path: 'components/segmented-button',

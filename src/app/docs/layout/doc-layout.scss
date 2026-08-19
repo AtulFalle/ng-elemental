@@ -15,6 +15,18 @@
   background: var(--docs-sidebar-bg);
 }
 
+.docs-back {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--docs-muted);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--docs-fg);
+  }
+}
+
 .docs-brand {
   display: block;
   font-size: 1.125rem;

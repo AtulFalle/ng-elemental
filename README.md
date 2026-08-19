@@ -1,8 +1,10 @@
 # NgElemental
 
 [![npm version](https://img.shields.io/npm/v/@ng-elemental/cli.svg)](https://www.npmjs.com/package/@ng-elemental/cli)
+[![MCP](https://img.shields.io/npm/v/@ng-elemental/mcp.svg?label=%40ng-elemental%2Fmcp)](https://www.npmjs.com/package/@ng-elemental/mcp)
 [![CI](https://github.com/AtulFalle/ng-elemental/actions/workflows/ci.yml/badge.svg)](https://github.com/AtulFalle/ng-elemental/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Website](https://img.shields.io/badge/website-ng--elemental.vercel.app-blue)](https://ng-elemental.vercel.app)
 
 Copy-paste Angular UI components for your application. Run the CLI, and component source files land in your project — you own and customize the code.
 

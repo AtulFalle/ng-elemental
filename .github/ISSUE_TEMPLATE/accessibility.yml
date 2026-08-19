@@ -1,0 +1,59 @@
+name: Accessibility issue
+description: Report an accessibility, WCAG, or ARIA problem with a component
+title: "[A11y]: "
+labels:
+  - type:accessibility
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make NgElemental accessible to everyone. Please provide enough detail to reproduce and verify the issue.
+
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Which NgElemental component is affected?
+      placeholder: e.g. el-dialog, el-select, el-checkbox
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What is the accessibility problem?
+      description: Describe the barrier. Include the WCAG criterion or ARIA pattern if known.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should happen for keyboard, screen reader, or other AT users?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Commands, code, or interactions that demonstrate the problem.
+    validations:
+      required: true
+
+  - type: input
+    id: at
+    attributes:
+      label: Assistive technology
+      description: Screen reader, browser, OS (e.g. NVDA + Chrome on Windows 11)
+    validations:
+      required: false
+
+  - type: input
+    id: angular-version
+    attributes:
+      label: Angular version
+      placeholder: e.g. 22.0.4
+    validations:
+      required: false
