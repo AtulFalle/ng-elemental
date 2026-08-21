@@ -754,6 +754,11 @@
             "glob": "tokens.scss",
             "input": "packages/ui/src/lib/theme",
             "output": "registry/theme"
+          },
+          {
+            "glob": "typography.scss",
+            "input": "packages/ui/src/lib/theme",
+            "output": "registry/theme"
           }
         ],
         "esbuildOptions": {

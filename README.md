@@ -162,10 +162,10 @@ Add `theme` (included with `init`, or `npx @ng-elemental/cli add theme`) to copy
 @use './app/ui/theme/tokens';
 
 :root {
-  --el-color-primary: light-dark(#5f479b, #d0bcff);
-  --el-color-on-primary: light-dark(#ffffff, #381e72);
-  --el-color-surface: light-dark(#fffbfe, #1c1b1f);
-  --el-color-on-surface: light-dark(#1c1b1f, #e6e1e5);
+  --el-color-primary: light-dark(#0f172a, #f8fafc);
+  --el-color-on-primary: light-dark(#f8fafc, #0f172a);
+  --el-color-surface: light-dark(#ffffff, #000000);
+  --el-color-on-surface: light-dark(#000000, #ffffff);
 }
 ```
 
@@ -173,18 +173,16 @@ Changing `--el-color-primary` updates buttons, chips, checkboxes, sliders, and o
 
 ## Typography
 
-Widgets use `var(--el-font-sans)` and `var(--el-font-mono)`, which default to inherit / system fonts so they match the consumer app. Load your brand typeface (Google Fonts, `@fontsource`, or a self-hosted file) and point the tokens at it:
+Defaults are **Inter** (sans) plus a monospace stack, with a shadcn type scale in `tokens.scss` and utilities in `typography.scss` (`.el-text-h1` … `.el-text-muted`, blockquote, inline code).
 
 ```scss
-@use './app/ui/theme/tokens';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-:root {
-  --el-font-sans: 'Inter', system-ui, sans-serif;
-  --el-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-}
+@use './app/ui/theme/tokens';
+@use './app/ui/theme/typography';
 ```
 
-`init` appends this comment block to your global stylesheet when it finds one.
+Widgets use `var(--el-font-sans)` / `var(--el-font-mono)`. Override those tokens only if you need a different brand face. `init` appends the `@use` lines for tokens and typography when it finds a global stylesheet.
 
 ## Configuration
 

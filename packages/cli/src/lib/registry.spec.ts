@@ -26,5 +26,6 @@ describe('CLI component registry', () => {
     expect(files).not.toContain('fonts.scss');
     expect(files.some((file) => file.endsWith('.woff2'))).toBe(false);
     expect(files).toContain('tokens.scss');
+    expect(files).toContain('typography.scss');
   });
 });

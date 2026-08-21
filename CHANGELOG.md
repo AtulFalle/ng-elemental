@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Default theme palette remapped to shadcn/ui slate (light/dark); `--el-color-*` token names unchanged
+- Typography defaults to Inter + shadcn type scale (`tokens.scss`); text utilities in `typography.scss` (`.el-text-h1` …). Geist font files removed from the repo
+
 ## [1.0.0] - 2026-08-19
 
 ### Changed

@@ -13,8 +13,10 @@ describe('add theme e2e', () => {
         const themeDir = join(tmp, 'src/app/ui/theme');
         const tokens = await readFile(join(themeDir, 'tokens.scss'), 'utf8');
         expect(tokens).toContain('--el-font-sans');
+        expect(tokens).toContain('--el-text-h1-size');
         expect(tokens).not.toContain("@use './fonts'");
         expect(existsSync(join(themeDir, 'fonts.scss'))).toBe(false);
+        expect(existsSync(join(themeDir, 'typography.scss'))).toBe(true);
       },
       { skipInit: true },
     );
