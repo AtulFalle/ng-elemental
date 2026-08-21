@@ -501,9 +501,9 @@ export const COMPONENT_REGISTRY = [
   {
     name: 'theme',
     sourceDir: 'packages/ui/src/lib/theme',
-    assetGlobs: ['theme.ts', 'theme.token.ts', 'tokens.scss'],
+    assetGlobs: ['theme.ts', 'theme.token.ts', 'tokens.scss', 'typography.scss'],
     requiredBasenames: ['theme', 'theme.token'],
-    requiredFiles: ['tokens.scss'],
+    requiredFiles: ['tokens.scss', 'typography.scss'],
   },
 ] as const satisfies readonly ComponentRegistryEntry[];
 

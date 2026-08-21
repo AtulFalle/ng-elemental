@@ -1,7 +1,7 @@
-// NgElemental design tokens — Material 3 color roles + density.
-// Copied by `npx @ng-elemental/cli init` (or `add theme`), then @use once
-// in styles.scss. Typography is owned by the consumer — set --el-font-sans
-// / --el-font-mono after loading your brand typeface.
+// NgElemental design tokens — semantic color roles + density + typography.
+// Defaults match shadcn/ui slate colors and Inter type scale (Figma kit).
+// Copied by `npx @ng-elemental/cli init` (or `add theme`), then @use tokens
+// and typography once in styles.scss. Load the Inter font face in the app.
 //
 // Customization:
 //   1. Edit the BRAND section. Changing --el-color-primary updates buttons,
@@ -17,65 +17,60 @@
 :root {
   color-scheme: light;
 
-  // ── BRAND — edit these ───────────────────────────────────────────────────
-  // Light primary is slightly darker than Material 3 Purple 40 so white
-  // on-primary text meets WCAG 2.2 AAA 7:1 (Storybook runs wcag2aaa).
-  --el-color-primary: light-dark(#5f479b, #d0bcff);
-  --el-color-on-primary: light-dark(#fff, #381e72);
-  --el-color-primary-container: light-dark(#eaddff, #4f378b);
-  --el-color-on-primary-container: light-dark(#21005d, #eaddff);
+  // ── BRAND — edit these (shadcn slate defaults) ───────────────────────────
+  // Tailwind slate / red aliases from the shadcn Figma kit.
+  --el-color-primary: light-dark(#0f172a, #f8fafc);
+  --el-color-on-primary: light-dark(#f8fafc, #0f172a);
+  --el-color-primary-container: light-dark(#f1f5f9, #1e293b);
+  --el-color-on-primary-container: light-dark(#0f172a, #f8fafc);
 
-  --el-color-secondary: light-dark(#625b71, #ccc2dc);
-  --el-color-on-secondary: light-dark(#fff, #332d41);
-  --el-color-secondary-container: light-dark(#e8def8, #4a4458);
-  --el-color-on-secondary-container: light-dark(#1d192b, #e8def8);
+  --el-color-secondary: light-dark(#f1f5f9, #1e293b);
+  --el-color-on-secondary: light-dark(#0f172a, #f8fafc);
+  --el-color-secondary-container: light-dark(#f1f5f9, #1e293b);
+  --el-color-on-secondary-container: light-dark(#0f172a, #f8fafc);
 
-  --el-color-tertiary: light-dark(#7d5260, #efb8c8);
-  --el-color-on-tertiary: light-dark(#fff, #492532);
-  --el-color-tertiary-container: light-dark(#ffd8e4, #633b48);
-  --el-color-on-tertiary-container: light-dark(#31111d, #ffd8e4);
+  --el-color-tertiary: light-dark(#f1f5f9, #1e293b);
+  --el-color-on-tertiary: light-dark(#0f172a, #f8fafc);
+  --el-color-tertiary-container: light-dark(#e2e8f0, #334155);
+  --el-color-on-tertiary-container: light-dark(#0f172a, #f8fafc);
 
-  --el-color-error: light-dark(#b3261e, #f2b8b5);
-  --el-color-on-error: light-dark(#fff, #601410);
-  --el-color-error-container: light-dark(#f9dedc, #8c1d18);
-  --el-color-on-error-container: light-dark(#410e0b, #f9dedc);
+  --el-color-error: light-dark(#ef4444, #7f1d1d);
+  --el-color-on-error: light-dark(#ffffff, #f8fafc);
+  --el-color-error-container: light-dark(#fee2e2, #7f1d1d);
+  --el-color-on-error-container: light-dark(#7f1d1d, #fee2e2);
 
-  --el-color-success: light-dark(#146c2e, #7ddc8a);
-  --el-color-on-success: light-dark(#fff, #003912);
-  --el-color-success-container: light-dark(#c4eed0, #0b5220);
-  --el-color-on-success-container: light-dark(#00210a, #c4eed0);
+  --el-color-success: light-dark(#15803d, #4ade80);
+  --el-color-on-success: light-dark(#ffffff, #052e16);
+  --el-color-success-container: light-dark(#dcfce7, #14532d);
+  --el-color-on-success-container: light-dark(#14532d, #dcfce7);
 
-  --el-color-warning: light-dark(#8a5b00, #f5be4a);
-  --el-color-on-warning: light-dark(#fff, #3f2e00);
-  --el-color-warning-container: light-dark(#ffdf9a, #624000);
-  --el-color-on-warning-container: light-dark(#2a1a00, #ffdf9a);
+  --el-color-warning: light-dark(#b45309, #fbbf24);
+  --el-color-on-warning: light-dark(#ffffff, #451a03);
+  --el-color-warning-container: light-dark(#fef3c7, #78350f);
+  --el-color-on-warning-container: light-dark(#78350f, #fef3c7);
 
-  --el-color-info: light-dark(#0061a4, #9ecaff);
-  --el-color-on-info: light-dark(#fff, #003258);
-  --el-color-info-container: light-dark(#d1e4ff, #00497d);
-  --el-color-on-info-container: light-dark(#001d36, #d1e4ff);
+  --el-color-info: light-dark(#1d4ed8, #60a5fa);
+  --el-color-on-info: light-dark(#ffffff, #172554);
+  --el-color-info-container: light-dark(#dbeafe, #1e3a8a);
+  --el-color-on-info-container: light-dark(#1e3a8a, #dbeafe);
 
-  --el-color-surface: light-dark(#fffbfe, #1c1b1f);
-  --el-color-on-surface: light-dark(#1c1b1f, #e6e1e5);
-  --el-color-on-surface-variant: light-dark(#49454f, #cac4d0);
-  --el-color-surface-container: light-dark(#f3edf7, #211f26);
-  --el-color-surface-container-low: light-dark(#f7f2fa, #1d1b20);
-  --el-color-surface-container-high: light-dark(#ece6f0, #2b2930);
-  --el-color-surface-container-highest: light-dark(#e6e0e9, #36343b);
+  --el-color-surface: light-dark(#ffffff, #000000);
+  --el-color-on-surface: light-dark(#000000, #ffffff);
+  --el-color-on-surface-variant: light-dark(#64748b, #94a3b8);
+  --el-color-surface-container: light-dark(#f1f5f9, #0f172a);
+  --el-color-surface-container-low: light-dark(#f8fafc, #020617);
+  --el-color-surface-container-high: light-dark(#e2e8f0, #1e293b);
+  --el-color-surface-container-highest: light-dark(#cbd5e1, #334155);
 
-  --el-color-outline: light-dark(#79747e, #938f99);
-  --el-color-outline-variant: light-dark(#cac4d0, #49454f);
+  --el-color-outline: light-dark(#94a3b8, #64748b);
+  --el-color-outline-variant: light-dark(#e2e8f0, #334155);
 
-  --el-color-inverse-surface: light-dark(#313033, #e6e1e5);
-  --el-color-inverse-on-surface: light-dark(#f4eff4, #313033);
-  --el-color-inverse-primary: light-dark(#d0bcff, #5f479b);
+  --el-color-inverse-surface: light-dark(#0f172a, #f8fafc);
+  --el-color-inverse-on-surface: light-dark(#f8fafc, #0f172a);
+  --el-color-inverse-primary: light-dark(#f8fafc, #0f172a);
 
   // ── Derived ──────────────────────────────────────────────────────────────
-  --el-color-primary-hover: color-mix(
-    in srgb,
-    var(--el-color-primary) 88%,
-    var(--el-color-on-primary)
-  );
+  --el-color-primary-hover: light-dark(#1e293b, #f1f5f9);
   --el-color-hover: color-mix(in srgb, var(--el-color-on-surface) 8%, transparent);
   --el-color-focus: color-mix(in srgb, var(--el-color-primary) 12%, transparent);
   --el-color-disabled: color-mix(in srgb, var(--el-color-on-surface) 38%, transparent);
@@ -116,8 +111,53 @@
   --el-icon-size-md: 1.125rem;
   --el-icon-size-lg: 1.25rem;
 
-  --el-font-sans: inherit, ui-sans-serif, system-ui, sans-serif;
-  --el-font-mono: inherit, ui-monospace, monospace;
+  // ── Typography — shadcn / Inter scale (Figma Typography page) ─────────────
+  // Load Inter in the app (Google Fonts, @fontsource/inter, or self-hosted).
+  --el-font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --el-font-mono: ui-monospace, 'Cascadia Code', 'Segoe UI Mono', Menlo, Consolas, monospace;
+
+  --el-text-h1-size: 3rem;
+  --el-text-h1-weight: 800;
+  --el-text-h1-line-height: 1;
+  --el-text-h1-tracking: -0.025em;
+
+  --el-text-h2-size: 1.875rem;
+  --el-text-h2-weight: 600;
+  --el-text-h2-line-height: 1.2;
+  --el-text-h2-tracking: -0.025em;
+
+  --el-text-h3-size: 1.5rem;
+  --el-text-h3-weight: 600;
+  --el-text-h3-line-height: 1.333;
+  --el-text-h3-tracking: -0.025em;
+
+  --el-text-h4-size: 1.25rem;
+  --el-text-h4-weight: 600;
+  --el-text-h4-line-height: 1.4;
+  --el-text-h4-tracking: -0.025em;
+
+  --el-text-p-size: 1rem;
+  --el-text-p-weight: 400;
+  --el-text-p-line-height: 1.75;
+
+  --el-text-lead-size: 1.25rem;
+  --el-text-lead-weight: 400;
+  --el-text-lead-line-height: 1.4;
+
+  --el-text-large-size: 1.125rem;
+  --el-text-large-weight: 600;
+  --el-text-large-line-height: 1.556;
+
+  --el-text-small-size: 0.875rem;
+  --el-text-small-weight: 500;
+  --el-text-small-line-height: 1;
+
+  --el-text-muted-size: 0.875rem;
+  --el-text-muted-weight: 400;
+  --el-text-muted-line-height: 1.429;
+
+  --el-text-code-size: 0.875rem;
+  --el-text-code-line-height: 1.429;
 }
 
 [data-el-theme='light'] {

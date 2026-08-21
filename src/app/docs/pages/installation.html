@@ -58,16 +58,16 @@
   <section>
     <h2>3. Theme &amp; typography</h2>
     <p>
-      <code>init</code> copies tokens and, when it finds a global stylesheet,
-      appends an <code>@use</code> plus font comments. If you skipped theme,
-      add it later:
+      <code>init</code> copies tokens and typography utilities and, when it finds
+      a global stylesheet, appends both <code>@use</code> lines. If you skipped
+      theme, add it later:
     </p>
     <app-code-block [code]="themeAddCode" language="shell" />
     <p>Ensure your Angular styles configuration includes a global stylesheet:</p>
     <app-code-block [code]="angularJsonNote" language="json" />
     <p>
-      Tokens inherit the surrounding font. Load your brand typeface, then set
-      the CSS variables:
+      Load Inter, then import tokens and typography. Use
+      <code>.el-text-h1</code> … <code>.el-text-muted</code> for prose:
     </p>
     <app-code-block [code]="stylesCode" language="scss" />
     <p>

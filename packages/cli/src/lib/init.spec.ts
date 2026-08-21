@@ -88,6 +88,7 @@ describe('initCommand', () => {
     const files = readdirSync(themeDir);
     expect(files.some((file) => file.endsWith('.woff2'))).toBe(false);
     expect(files).not.toContain('fonts.scss');
+    expect(files).toContain('typography.scss');
   });
 
   it('skips copying theme when it already exists', async () => {
@@ -98,7 +99,7 @@ describe('initCommand', () => {
     expect(existsSync(join(tmp, 'src/app/ui/theme/tokens.scss'))).toBe(true);
   });
 
-  it('appends a tokens @use and font comments to an existing stylesheet', async () => {
+  it('appends tokens and typography @use to an existing stylesheet', async () => {
     tmp = await makeAngularApp({
       stylesPath: 'src/styles.scss',
       stylesContent: '/* app */\n',
@@ -107,7 +108,8 @@ describe('initCommand', () => {
 
     const styles = readFileSync(join(tmp, 'src/styles.scss'), 'utf8');
     expect(styles).toContain("@use './app/ui/theme/tokens'");
-    expect(styles).toContain('--el-font-sans');
+    expect(styles).toContain("@use './app/ui/theme/typography'");
+    expect(styles).toContain('.el-text-h1');
     expect(styles).toContain('/* app */');
   });
 
