@@ -65,15 +65,13 @@ export function toTokensUsePath(stylesFileAbs: string, componentsDirAbs: string)
 }
 
 export function buildStylesSnippet(usePath: string): string {
+  const typographyPath = usePath.replace(/tokens$/, 'typography');
   return `
 @use '${usePath}';
+@use '${typographyPath}';
 
-// Typography: widgets use inherit / system fonts.
-// Load your brand typeface (Google Fonts, @fontsource, self-hosted), then:
-// :root {
-//   --el-font-sans: 'Inter', system-ui, sans-serif;
-//   --el-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-// }
+// Load Inter (link tag, Google Fonts, or @fontsource/inter) so --el-font-sans resolves.
+// Text utilities: .el-text-h1 … .el-text-muted, .el-text-blockquote, .el-text-inline-code
 `;
 }
 

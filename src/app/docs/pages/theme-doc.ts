@@ -22,20 +22,20 @@ export class ThemeDocPage {
 # or later: npx @ng-elemental/cli add theme`;
 
   protected readonly importTokensCode = `// src/styles.scss
-@use './app/ui/theme/tokens';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-:root {
-  --el-font-sans: 'Inter', system-ui, sans-serif;
-  --el-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-}`;
+@use './app/ui/theme/tokens';
+@use './app/ui/theme/typography';
+
+// Utilities: .el-text-h1 … .el-text-muted, .el-text-blockquote, .el-text-inline-code`;
 
   protected readonly brandCode = `:root {
-  --el-color-primary: light-dark(#5f479b, #d0bcff);
-  --el-color-on-primary: light-dark(#fff, #381e72);
-  --el-color-error: light-dark(#b3261e, #f2b8b5);
-  --el-color-surface: light-dark(#fffbfe, #1c1b1f);
-  --el-color-on-surface: light-dark(#1c1b1f, #e6e1e5);
-  --el-color-outline: light-dark(#79747e, #938f99);
+  --el-color-primary: light-dark(#0f172a, #f8fafc);
+  --el-color-on-primary: light-dark(#f8fafc, #0f172a);
+  --el-color-error: light-dark(#ef4444, #7f1d1d);
+  --el-color-surface: light-dark(#ffffff, #000000);
+  --el-color-on-surface: light-dark(#000000, #ffffff);
+  --el-color-outline: light-dark(#94a3b8, #64748b);
 }`;
 
   protected readonly scopedOverrideCode = `.checkout-panel {
