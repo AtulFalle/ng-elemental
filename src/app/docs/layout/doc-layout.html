@@ -8,7 +8,7 @@
       <nav class="docs-nav-section" [attr.aria-label]="section.title">
         <h2>{{ section.title }}</h2>
         <ul>
-          @for (item of section.items; track item.path) {
+          @for (item of section.items | sort: 'label'; track item.path) {
             <li>
               <a
                 routerLink="{{ item.path }}"

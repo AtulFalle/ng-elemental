@@ -889,9 +889,10 @@ this.drawer.open(WorkspaceDrawer, { title: 'Navigation', side: 'left' });`,
     keywords: ['theme', 'tokens', 'css variables', 'dark mode', 'brand'],
     selectors: [],
     classNames: ['ElThemeService'],
-    usage: `// styles.scss — @use './theme/tokens';
-// Open tokens.scss and edit the BRAND block (--el-color-primary, …)
-// Point --el-font-sans / --el-font-mono at your brand typeface
+    usage: `// styles.scss — load Inter, then:
+// @use './theme/tokens';
+// @use './theme/typography';
+// Edit BRAND in tokens.scss; use .el-text-h1 … .el-text-muted for prose
 // app.config.ts — provideElTheme({ mode: 'light' })`,
     registryDependencies: [],
     npmDependencies: [],

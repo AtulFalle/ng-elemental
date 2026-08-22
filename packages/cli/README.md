@@ -32,7 +32,7 @@ Default config:
 }
 ```
 
-`init` also appends an `@use` of `theme/tokens` plus typography comments to `src/styles.scss` when that file exists. Load your brand typeface and set `--el-font-sans` / `--el-font-mono`.
+`init` also appends `@use` of `theme/tokens` and `theme/typography` to `src/styles.scss` when that file exists. Load Inter so `--el-font-sans` resolves.
 
 ### `list`
 
