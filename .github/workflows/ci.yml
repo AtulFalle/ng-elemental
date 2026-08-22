@@ -40,7 +40,7 @@ jobs:
         run: npm ci
 
       - name: Derive SHAs for nx affected
-        uses: nrwl/nx-set-shas@v4
+        uses: nrwl/nx-set-shas@v5
 
       - name: Set Nx scope
         id: nx-scope
