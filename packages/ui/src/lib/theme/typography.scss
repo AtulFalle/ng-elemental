@@ -1,0 +1,108 @@
+// Typography utilities — shadcn / Inter scale from Figma Typography page.
+// Values come only from tokens.scss (--el-text-*, --el-font-*, --el-color-*).
+// @use after tokens.scss.
+
+.el-text-h1 {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-h1-size);
+  font-weight: var(--el-text-h1-weight);
+  line-height: var(--el-text-h1-line-height);
+  letter-spacing: var(--el-text-h1-tracking);
+  color: var(--el-color-on-surface);
+  scroll-margin-top: 5rem;
+  text-wrap: balance;
+}
+
+.el-text-h2 {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-h2-size);
+  font-weight: var(--el-text-h2-weight);
+  line-height: var(--el-text-h2-line-height);
+  letter-spacing: var(--el-text-h2-tracking);
+  color: var(--el-color-on-surface);
+  scroll-margin-top: 5rem;
+  border-bottom: var(--el-border-width) solid var(--el-color-outline-variant);
+  padding-bottom: var(--el-space-2);
+}
+
+.el-text-h3 {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-h3-size);
+  font-weight: var(--el-text-h3-weight);
+  line-height: var(--el-text-h3-line-height);
+  letter-spacing: var(--el-text-h3-tracking);
+  color: var(--el-color-on-surface);
+  scroll-margin-top: 5rem;
+}
+
+.el-text-h4 {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-h4-size);
+  font-weight: var(--el-text-h4-weight);
+  line-height: var(--el-text-h4-line-height);
+  letter-spacing: var(--el-text-h4-tracking);
+  color: var(--el-color-on-surface);
+  scroll-margin-top: 5rem;
+}
+
+.el-text-p {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-p-size);
+  font-weight: var(--el-text-p-weight);
+  line-height: var(--el-text-p-line-height);
+  color: var(--el-color-on-surface);
+}
+
+.el-text-lead {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-lead-size);
+  font-weight: var(--el-text-lead-weight);
+  line-height: var(--el-text-lead-line-height);
+  color: var(--el-color-on-surface-variant);
+}
+
+.el-text-large {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-large-size);
+  font-weight: var(--el-text-large-weight);
+  line-height: var(--el-text-large-line-height);
+  color: var(--el-color-on-surface);
+}
+
+.el-text-small {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-small-size);
+  font-weight: var(--el-text-small-weight);
+  line-height: var(--el-text-small-line-height);
+  color: var(--el-color-on-surface);
+}
+
+.el-text-muted {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-muted-size);
+  font-weight: var(--el-text-muted-weight);
+  line-height: var(--el-text-muted-line-height);
+  color: var(--el-color-on-surface-variant);
+}
+
+.el-text-blockquote {
+  font-family: var(--el-font-sans);
+  font-size: var(--el-text-p-size);
+  font-weight: var(--el-text-p-weight);
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--el-color-on-surface);
+  border-left: var(--el-border-width-thick) solid var(--el-color-outline-variant);
+  padding-left: var(--el-space-6);
+  margin: 0;
+}
+
+.el-text-inline-code {
+  font-family: var(--el-font-mono);
+  font-size: var(--el-text-code-size);
+  line-height: var(--el-text-code-line-height);
+  color: var(--el-color-on-surface);
+  background: var(--el-color-surface-container);
+  border-radius: 0.1875rem;
+  padding: 0.1875rem 0.25rem;
+}

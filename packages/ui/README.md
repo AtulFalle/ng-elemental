@@ -14,20 +14,18 @@ See the [contributing guide](../../CONTRIBUTING.md) if you are working on compon
 
 ## Theming
 
-Design tokens live in `packages/ui/src/lib/theme/`. Import once in global styles:
+Design tokens live in `packages/ui/src/lib/theme/`. Import tokens and typography once:
 
 ```scss
-@use './path/to/theme/tokens';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-:root {
-  --el-font-sans: 'Inter', system-ui, sans-serif;
-  --el-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-}
+@use './path/to/theme/tokens';
+@use './path/to/theme/typography';
 ```
 
-Geist fonts are local to this repo (docs and Storybook only). They are **not** copied by the CLI. Consumers load their own typeface and set `--el-font-sans` / `--el-font-mono`.
+Inter is the default sans (`--el-font-sans`). Scale vars and `.el-text-*` utilities live in the theme package — do not reintroduce a second font stack.
 
-Customize colors by editing the BRAND block in `tokens.scss`. Dark mode is a mode toggle only:
+Customize colors by editing the BRAND block in `tokens.scss`. Typography defaults to Inter plus `typography.scss` utilities (`.el-text-h1` …). Dark mode is a mode toggle only:
 
 ```typescript
 import { provideElTheme } from './theme/theme';
@@ -45,8 +43,8 @@ export const appConfig = {
 
 Component stories live next to source (`*.stories.ts`). Storybook loads styles through a single global entry:
 
-- `.storybook/styles.scss` — shared UI tokens, local Geist fonts, canvas defaults
-- `packages/ui/src/lib/theme/tokens.scss` — design tokens (`:root` CSS variables)
+- `.storybook/styles.scss` — Inter, tokens, typography, canvas defaults
+- `packages/ui/src/lib/theme/tokens.scss` + `typography.scss` — design tokens and text utilities
 - Each component — own `styleUrl` with BEM classes referencing generic tokens (`--el-color-primary`, `--el-radius-xs`, …). Unique sizes stay in the widget file.
 
 Compound components (e.g. segmented button) may use a story host in `packages/ui/src/stories/`. Story hosts are not copied by the CLI.

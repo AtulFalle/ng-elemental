@@ -30,19 +30,15 @@ npx @ng-elemental/cli add <component>`;
   "componentsDir": "src/app/ui"
 }`;
 
-  protected readonly stylesCode = `@use './app/ui/theme/tokens';
+  protected readonly stylesCode = `@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-// Typography: widgets use inherit / system fonts.
-// Load your brand typeface (Google Fonts, @fontsource, self-hosted), then:
-:root {
-  --el-font-sans: 'Inter', system-ui, sans-serif;
-  --el-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-}
+@use './app/ui/theme/tokens';
+@use './app/ui/theme/typography';
 
 // Optional: override brand colors (or edit the BRAND block in tokens.scss)
 :root {
-  --el-color-primary: light-dark(#5f479b, #d0bcff);
-  --el-color-on-primary: light-dark(#ffffff, #381e72);
+  --el-color-primary: light-dark(#0f172a, #f8fafc);
+  --el-color-on-primary: light-dark(#f8fafc, #0f172a);
 }
 
 // When using icons, also load Font Awesome once:
