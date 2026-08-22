@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-08-22
+
 ### Changed
 
 - Default theme palette remapped to shadcn/ui slate (light/dark); `--el-color-*` token names unchanged
@@ -127,7 +129,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `ElLabel` form-oriented label component (`ng-elemental add label`)
 
-[Unreleased]: https://github.com/AtulFalle/ng-elemental/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/AtulFalle/ng-elemental/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/AtulFalle/ng-elemental/releases/tag/v1.0.1
 [1.0.0]: https://github.com/AtulFalle/ng-elemental/releases/tag/v1.0.0
 [0.0.9]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.9
 [0.0.8]: https://github.com/AtulFalle/ng-elemental/releases/tag/v0.0.8
