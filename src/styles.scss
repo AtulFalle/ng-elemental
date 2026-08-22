@@ -2,18 +2,18 @@
 @use '../packages/ui/src/lib/icon/fontawesome';
 
 :root {
-  --docs-fg: #111827;
-  --docs-muted: #6b7280;
-  --docs-border: #e5e7eb;
-  --docs-surface: #ffffff;
-  --docs-surface-muted: #f9fafb;
-  --docs-sidebar-bg: #fafafa;
-  --docs-accent: #1d4ed8;
-  --docs-accent-muted: #eff6ff;
-  --docs-code-bg: #0f172a;
-  --docs-code-header-bg: #1e293b;
-  --docs-code-fg: #e2e8f0;
-  --docs-code-inline-bg: #f3f4f6;
+  --docs-fg: var(--el-color-on-surface);
+  --docs-muted: var(--el-color-on-surface-variant);
+  --docs-border: var(--el-color-outline-variant);
+  --docs-surface: var(--el-color-surface);
+  --docs-surface-muted: var(--el-color-surface-container);
+  --docs-sidebar-bg: var(--el-color-surface-container-low);
+  --docs-accent: var(--el-color-info);
+  --docs-accent-muted: var(--el-color-info-container);
+  --docs-code-bg: var(--el-color-surface-container-high);
+  --docs-code-header-bg: var(--el-color-surface-container-highest);
+  --docs-code-fg: var(--el-color-on-surface);
+  --docs-code-inline-bg: var(--el-color-surface-container-high);
 }
 
 *,
