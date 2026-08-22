@@ -205,13 +205,19 @@ export const DENSITY_TOKENS: TokenDefinition[] = [
   },
   {
     name: '--el-font-sans',
-    description:
-      'UI font stack. Defaults to inherit / system-ui. Set this to your brand typeface in global styles.',
+    description: 'UI font stack. Defaults to Inter (shadcn / Figma Typography). Load the Inter face in the app.',
   },
   {
     name: '--el-font-mono',
-    description:
-      'Monospace font stack. Defaults to inherit / system monospace. Override after loading your code font.',
+    description: 'Monospace stack for inline code and code samples.',
+  },
+  {
+    name: '--el-text-h1-size',
+    description: 'Heading 1 size (3rem). Paired with weight/line-height/tracking tokens; use .el-text-h1.',
+  },
+  {
+    name: '--el-text-p-size',
+    description: 'Body paragraph size (1rem). Use .el-text-p / .el-text-lead / .el-text-muted for prose.',
   },
 ];
 

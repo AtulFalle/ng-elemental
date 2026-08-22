@@ -8,6 +8,7 @@ describe('init e2e', () => {
     await withCliConsumer(async ({ tmp, installedRoot }) => {
       const themeDir = join(tmp, 'src/app/ui/theme');
       expect(existsSync(join(themeDir, 'tokens.scss'))).toBe(true);
+      expect(existsSync(join(themeDir, 'typography.scss'))).toBe(true);
       expect(existsSync(join(themeDir, 'theme.ts'))).toBe(true);
       expect(existsSync(join(themeDir, 'fonts.scss'))).toBe(false);
 
@@ -15,12 +16,14 @@ describe('init e2e', () => {
       expect(themeFiles.some((file) => file.endsWith('.woff2'))).toBe(false);
 
       const installedTheme = readdirSync(join(installedRoot, 'registry/theme'));
+      expect(installedTheme).toContain('typography.scss');
       expect(installedTheme).not.toContain('fonts.scss');
       expect(installedTheme.some((file) => file.endsWith('.woff2'))).toBe(false);
 
       const styles = await readFile(join(tmp, 'src/styles.scss'), 'utf8');
       expect(styles).toContain("@use './app/ui/theme/tokens'");
-      expect(styles).toContain('--el-font-sans');
+      expect(styles).toContain("@use './app/ui/theme/typography'");
+      expect(styles).toContain('.el-text-h1');
     });
   });
 

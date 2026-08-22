@@ -2,9 +2,9 @@
   <header class="docs-page__header">
     <h1>Theming</h1>
     <p class="docs-lead">
-      One generic <code>tokens.scss</code> file — Material 3 color roles plus
-      density. Widgets reuse those tokens; you do not add
-      <code>--el-button-*</code> aliases to the theme package.
+      One generic theme — <code>tokens.scss</code> (shadcn slate + Inter
+      scale) and <code>typography.scss</code> (text utilities). Widgets reuse
+      those tokens; you do not add <code>--el-button-*</code> aliases.
     </p>
   </header>
 
@@ -23,11 +23,10 @@
   <section>
     <h2>Setup</h2>
     <p>
-      The <code>theme</code> package copies <code>tokens.scss</code> and
-      optional <code>ElThemeService</code> into your components directory
-      during <code>init</code>. Import tokens once in your global styles so
-      every component receives default values. Point
-      <code>--el-font-sans</code> at your brand typeface:
+      The <code>theme</code> package copies <code>tokens.scss</code>,
+      <code>typography.scss</code>, and optional <code>ElThemeService</code>.
+      Import both once in global styles and load Inter so
+      <code>--el-font-sans</code> resolves:
     </p>
     <app-code-block [code]="addCode" language="shell" />
     <app-code-block [code]="importTokensCode" language="scss" />

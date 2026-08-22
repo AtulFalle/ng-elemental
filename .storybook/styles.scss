@@ -1,10 +1,4 @@
 // Single Storybook global styles entry — add shared layers here, not per-component imports.
-@use '../packages/ui/src/lib/theme/fonts';
 @use '../packages/ui/src/styles/tokens';
 @use '../packages/ui/src/styles/storybook-canvas';
 @use '../packages/ui/src/lib/icon/fontawesome';
-
-:root {
-  --el-font-sans: 'Geist Variable', Geist, ui-sans-serif, system-ui, sans-serif;
-  --el-font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
-}
