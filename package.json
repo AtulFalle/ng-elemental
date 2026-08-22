@@ -68,7 +68,7 @@
     "nx": "23.1.1",
     "playwright": "latest",
     "postcss-scss": "^4.0.9",
-    "prettier": "~3.6.2",
+    "prettier": "~3.9.6",
     "storybook": "^10.5.0",
     "stylelint": "^16.26.1",
     "stylelint-config-standard-scss": "^14.0.0",
