@@ -93,7 +93,7 @@ jobs:
         run: bash .github/scripts/prepare-release.sh "$VERSION"
 
       - name: Create release PR
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ steps.meta.outputs.branch }}
