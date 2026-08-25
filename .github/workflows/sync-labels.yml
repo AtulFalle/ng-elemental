@@ -15,7 +15,7 @@ jobs:
     name: Sync GitHub labels
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Apply label definitions
         uses: EndBug/label-sync@v2
