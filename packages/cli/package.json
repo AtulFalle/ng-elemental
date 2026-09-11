@@ -11,7 +11,7 @@
     "copy-paste",
     "scss"
   ],
-  "type": "commonjs",
+  "type": "module",
   "main": "./index.cjs",
   "bin": {
     "ng-elemental": "./bin.cjs"

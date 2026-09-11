@@ -282,7 +282,7 @@ export const Interactions: Story = {
     });
 
     await step('Browse label associates with hidden file input', async () => {
-      const fileInput = canvas.getByLabelText('Browse files', { hidden: true });
+      const fileInput = canvas.getByLabelText('Browse files');
       await expect(fileInput).toHaveAttribute('type', 'file');
       await expect(fileInput).toHaveAttribute('aria-labelledby');
     });

@@ -11,6 +11,7 @@ import {
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { loadGuidelines } from './guidelines';
+import { moduleDir } from './module-dir';
 
 export function resolveCwd(cwd?: string): string {
   return cwd ?? process.cwd();
@@ -122,10 +123,11 @@ export function getInstallInstructions(names: string[], cwd: string): string {
 }
 
 function resolveUiSourceDir(name: string): string | null {
+  const here = moduleDir(import.meta.url);
   const candidates = [
-    join(__dirname, 'ui-source', name),
-    join(__dirname, '../ui-source', name),
-    join(__dirname, '../../../../packages/ui/src/lib', name),
+    join(here, 'ui-source', name),
+    join(here, '../ui-source', name),
+    join(here, '../../../../packages/ui/src/lib', name),
     join(process.cwd(), 'packages/ui/src/lib', name),
   ];
   for (const dir of candidates) {

@@ -1,8 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { moduleDir } from './module-dir';
 
 export function mcpPackageVersion(): string {
-  const here = __dirname;
+  const here = moduleDir(import.meta.url);
   const candidates = [
     join(here, 'package.json'),
     join(here, '../package.json'),

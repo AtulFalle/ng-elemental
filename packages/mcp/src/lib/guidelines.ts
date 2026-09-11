@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { moduleDir } from './module-dir';
 
 export const SERVER_INSTRUCTIONS =
   'Use NgElemental MCP for El* widgets. Call get_guidelines first, then search_components or get_component for metadata. Use get_component_source and get_component_examples to understand implementation details. Use install_components to get CLI commands for the user to run — never copy-paste files manually. Do not invent parallel CSS or SVG widgets. Never import from @ng-elemental/ui in a consumer app.';
@@ -12,7 +13,7 @@ export function loadGuidelines(): string {
 }
 
 function guidelinesPath(): string {
-  const here = __dirname;
+  const here = moduleDir(import.meta.url);
   const candidates = [
     join(here, 'guidelines.md'),
     join(here, 'src/lib/guidelines.md'),

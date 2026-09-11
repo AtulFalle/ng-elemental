@@ -10,7 +10,7 @@
     "ui",
     "components"
   ],
-  "type": "commonjs",
+  "type": "module",
   "main": "./index.cjs",
   "bin": {
     "ng-elemental-mcp": "./bin.cjs"
