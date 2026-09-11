@@ -23,20 +23,16 @@ describe('MCP server', () => {
     expect(server.toolInputSchemaJson('init_project')).toBeDefined();
   });
 
-  it('marks the Vercel MCP function as ESM so Node can load api/mcp.js', () => {
+  it('marks the Vercel MCP function as ESM so Node can load the handler', () => {
     const repoRoot = join(__dirname, '../../../..');
-    const rootPkg = JSON.parse(readFileSync(join(repoRoot, 'package.json'), 'utf8')) as {
+    const apiPkg = JSON.parse(readFileSync(join(repoRoot, 'api/package.json'), 'utf8')) as {
       type?: string;
     };
-    const mcpPkg = JSON.parse(readFileSync(join(repoRoot, 'packages/mcp/package.json'), 'utf8')) as {
-      type?: string;
+    const vercel = JSON.parse(readFileSync(join(repoRoot, 'vercel.json'), 'utf8')) as {
+      functions?: Record<string, { includeFiles?: string }>;
     };
-    const cliPkg = JSON.parse(readFileSync(join(repoRoot, 'packages/cli/package.json'), 'utf8')) as {
-      type?: string;
-    };
-    expect(rootPkg.type).toBe('module');
-    expect(mcpPkg.type).toBe('module');
-    expect(cliPkg.type).toBe('module');
+    expect(apiPkg.type).toBe('module');
+    expect(vercel.functions?.['api/mcp.mts']?.includeFiles).toContain('api/package.json');
   });
 
   it('advertises short instructions that point agents at get_guidelines first', () => {
