@@ -6,7 +6,7 @@
   "installCommand": "npm ci",
   "trailingSlash": false,
   "functions": {
-    "api/mcp.mts": {
+    "api/mcp.ts": {
       "maxDuration": 30,
       "includeFiles": "{api/package.json,packages/ui/src/lib/**,packages/mcp/src/lib/guidelines.md,packages/mcp/package.json}"
     }

@@ -32,7 +32,7 @@ describe('MCP server', () => {
       functions?: Record<string, { includeFiles?: string }>;
     };
     expect(apiPkg.type).toBe('module');
-    expect(vercel.functions?.['api/mcp.mts']?.includeFiles).toContain('api/package.json');
+    expect(vercel.functions?.['api/mcp.ts']?.includeFiles).toContain('api/package.json');
   });
 
   it('advertises short instructions that point agents at get_guidelines first', () => {

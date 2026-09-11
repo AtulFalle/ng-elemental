@@ -7,5 +7,5 @@
     "outDir": "../dist/api",
     "types": ["node"]
   },
-  "include": ["./**/*.ts", "./**/*.mts"]
+  "include": ["./**/*.ts"]
 }

@@ -6,8 +6,8 @@ import { createNgElementalServer } from '../packages/mcp/src/lib/server';
  *
  * Public URL: https://ng-elemental.vercel.app/mcp (rewritten from /api/mcp)
  *
- * `.mts` compiles to `.mjs` so Node loads this as ESM even if the Lambda
- * package.json does not copy `"type": "module"`.
+ * `api/package.json` sets `"type": "module"` so Node loads the compiled
+ * `/var/task/api/mcp.js` as ESM.
  */
 const mcp = createMcpHandler(
   () => createNgElementalServer(),
