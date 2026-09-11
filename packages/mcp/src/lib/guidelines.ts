@@ -18,6 +18,7 @@ function guidelinesPath(): string {
     join(here, 'src/lib/guidelines.md'),
     join(here, '../src/lib/guidelines.md'),
     join(here, '../../src/lib/guidelines.md'),
+    join(process.cwd(), 'packages/mcp/src/lib/guidelines.md'),
   ];
   for (const candidate of candidates) {
     if (existsSync(candidate)) {

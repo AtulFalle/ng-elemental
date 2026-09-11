@@ -7,6 +7,7 @@ export function mcpPackageVersion(): string {
     join(here, 'package.json'),
     join(here, '../package.json'),
     join(here, '../../package.json'),
+    join(process.cwd(), 'packages/mcp/package.json'),
   ];
 
   for (const candidate of candidates) {

@@ -40,6 +40,8 @@ Also exposes resource `ng-elemental://guidelines`.
 
 ## Remote (Vercel) Usage
 
+The HTTP endpoint at `https://ng-elemental.vercel.app/mcp` is deployed with the website on every `master` commit. Pull requests get a preview of the same `/mcp` route.
+
 Configure clients with the HTTP URL instead of the local `npx` command:
 
 ```sh

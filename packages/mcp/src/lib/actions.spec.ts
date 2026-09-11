@@ -125,6 +125,12 @@ describe('MCP component source and examples', () => {
     expect(source).toContain('.scss');
   });
 
+  it('resolves UI source from the workspace packages/ui tree', () => {
+    const source = getComponentSource('button');
+    expect(source).not.toContain('are not available in the MCP server context');
+    expect(source).toContain('selector: \'el-button\'');
+  });
+
   it('returns storybook examples for a known component', () => {
     const examples = getComponentExamples('button');
     expect(examples).toContain('# Button — Examples');

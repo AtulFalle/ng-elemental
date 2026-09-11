@@ -2,14 +2,9 @@ import { createMcpHandler } from '@modelcontextprotocol/server';
 import { createNgElementalServer } from '../packages/mcp/src/lib/server';
 
 /**
- * Vercel serverless function exposing the NgElemental MCP server over
- * the MCP Streamable HTTP transport (stateless per-request mode).
+ * Vercel Function for the NgElemental MCP server (stateless Streamable HTTP).
  *
- * Endpoint: GET/POST /mcp
- *
- * Compatible with any MCP client that supports the 2025-03-26 protocol
- * (Cursor, Claude Desktop, VS Code, etc.) configured with:
- *   url: https://<your-deployment>.vercel.app/mcp
+ * Public URL: https://ng-elemental.vercel.app/mcp (rewritten from /api/mcp)
  */
 const handler = createMcpHandler(
   () => createNgElementalServer(),

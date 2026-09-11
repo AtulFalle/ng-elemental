@@ -126,6 +126,7 @@ function resolveUiSourceDir(name: string): string | null {
     join(__dirname, 'ui-source', name),
     join(__dirname, '../ui-source', name),
     join(__dirname, '../../../../packages/ui/src/lib', name),
+    join(process.cwd(), 'packages/ui/src/lib', name),
   ];
   for (const dir of candidates) {
     if (existsSync(dir)) return dir;

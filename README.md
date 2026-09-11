@@ -6,13 +6,13 @@
 [![MCP monthly downloads](https://img.shields.io/npm/dm/@ng-elemental/mcp.svg?label=MCP%20downloads%2Fmo)](https://www.npmjs.com/package/@ng-elemental/mcp)
 [![CI](https://github.com/AtulFalle/ng-elemental/actions/workflows/ci.yml/badge.svg)](https://github.com/AtulFalle/ng-elemental/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Website](https://img.shields.io/badge/website-atulfalle.github.io%2Fng--elemental-blue)](https://atulfalle.github.io/ng-elemental/)
+[![Website](https://img.shields.io/badge/website-ng--elemental.vercel.app-blue)](https://ng-elemental.vercel.app/)
 
 **Copy-paste Angular UI components — you receive the source, you own the code.**
 
 Run the CLI, and component source files (TypeScript, HTML, SCSS) are written directly into your project. There is no runtime library to import, no version to pin, and no black-box dependency to fight. Adapt styling, behavior, and structure as freely as first-party code.
 
-> **Links:** [Website & Docs](https://atulfalle.github.io/ng-elemental/) · [Component catalog](https://atulfalle.github.io/ng-elemental/docs) · [npm (CLI)](https://www.npmjs.com/package/@ng-elemental/cli) · [npm (MCP)](https://www.npmjs.com/package/@ng-elemental/mcp) · [MCP endpoint](https://ng-elemental.vercel.app/mcp) · [GitHub](https://github.com/AtulFalle/ng-elemental)
+> **Links:** [Website & Docs](https://ng-elemental.vercel.app/) · [Component catalog](https://ng-elemental.vercel.app/docs) · [npm (CLI)](https://www.npmjs.com/package/@ng-elemental/cli) · [npm (MCP)](https://www.npmjs.com/package/@ng-elemental/mcp) · [MCP endpoint](https://ng-elemental.vercel.app/mcp) · [GitHub](https://github.com/AtulFalle/ng-elemental)
 
 ---
 
@@ -241,7 +241,7 @@ Or add manually to `.cursor/mcp.json`:
 
 ### Configure with the remote HTTP endpoint
 
-A production MCP server is deployed at `https://ng-elemental.vercel.app/mcp` on every NgElemental release. Use the HTTP URL to avoid local `npx` startup time:
+A production MCP server is deployed at `https://ng-elemental.vercel.app/mcp` with the website on every `master` commit. Pull requests get a Vercel preview of the same app. Use the HTTP URL to avoid local `npx` startup time:
 
 ```json
 {
@@ -274,7 +274,7 @@ See [packages/mcp/README.md](packages/mcp/README.md) for full MCP documentation.
 
 ## Component catalog
 
-50+ accessible, production-quality Angular components distributed as source. Full API docs and live examples are on the [documentation website](https://atulfalle.github.io/ng-elemental/docs).
+50+ accessible, production-quality Angular components distributed as source. Full API docs and live examples are on the [documentation website](https://ng-elemental.vercel.app/docs).
 
 **Form controls**
 `icon` · `button` · `label` · `form-error` · `input` · `checkbox` · `slide-toggle` · `radio` · `select` · `datepicker` · `segmented-button`
@@ -347,7 +347,7 @@ See [packages/mcp/README.md](packages/mcp/README.md) for full MCP documentation.
 | `required` | `boolean` | `false` | Shows required indicator |
 | `disabled` | `boolean` | `false` | Muted, non-interactive label |
 
-See the [full component docs](https://atulfalle.github.io/ng-elemental) for all 50+ components.
+See the [full component docs](https://ng-elemental.vercel.app/docs) for all 50+ components.
 
 ## Packages
 
