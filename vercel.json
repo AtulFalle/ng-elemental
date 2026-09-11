@@ -1,14 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "buildCommand": "npx nx run ng-elemental:build:production",
+  "buildCommand": "npx nx run mcp:build-vercel && npx nx run ng-elemental:build:production",
   "outputDirectory": "dist/ng-elemental/browser",
   "installCommand": "npm ci",
   "trailingSlash": false,
   "functions": {
-    "api/mcp.ts": {
+    "api/mcp.mjs": {
       "maxDuration": 30,
-      "includeFiles": "{api/package.json,packages/ui/src/lib/**,packages/mcp/src/lib/guidelines.md,packages/mcp/package.json}"
+      "includeFiles": "{packages/ui/src/lib/**,packages/mcp/src/lib/guidelines.md,packages/mcp/package.json}"
     }
   },
   "rewrites": [

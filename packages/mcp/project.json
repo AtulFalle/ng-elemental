@@ -58,11 +58,18 @@
         }
       }
     },
+    "build-vercel": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/api/mcp.mjs"],
+      "options": {
+        "command": "npx esbuild packages/mcp/src/vercel-handler.ts --bundle --format=esm --platform=node --outfile=api/mcp.mjs --external:@modelcontextprotocol/server --external:@modelcontextprotocol/server/stdio --external:zod --alias:@ng-elemental/cli=./packages/cli/src/index.ts"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "dependsOn": ["build", "cli:build"]
+      "dependsOn": ["build", "build-vercel", "cli:build"]
     },
     "nx-release-publish": {
       "options": {

@@ -1,8 +1,0 @@
-{
-  "name": "ng-elemental-mcp-api",
-  "private": true,
-  "type": "module",
-  "nx": {
-    "includedScripts": []
-  }
-}

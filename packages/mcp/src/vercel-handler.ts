@@ -1,13 +1,9 @@
 import { createMcpHandler } from '@modelcontextprotocol/server';
-import { createNgElementalServer } from '../packages/mcp/src/lib/server';
+import { createNgElementalServer } from './lib/server';
 
 /**
- * Vercel Function for the NgElemental MCP server (stateless Streamable HTTP).
- *
- * Public URL: https://ng-elemental.vercel.app/mcp (rewritten from /api/mcp)
- *
- * `api/package.json` sets `"type": "module"` so Node loads the compiled
- * `/var/task/api/mcp.js` as ESM.
+ * ESM HTTP handler bundled to api/mcp.mjs for Vercel.
+ * Node always treats .mjs as ESM, which avoids the CJS `import` crash.
  */
 const mcp = createMcpHandler(
   () => createNgElementalServer(),

@@ -23,16 +23,15 @@ describe('MCP server', () => {
     expect(server.toolInputSchemaJson('init_project')).toBeDefined();
   });
 
-  it('marks the Vercel MCP function as ESM so Node can load the handler', () => {
+  it('ships a Vercel .mjs handler so Node loads the function as ESM', () => {
     const repoRoot = join(__dirname, '../../../..');
-    const apiPkg = JSON.parse(readFileSync(join(repoRoot, 'api/package.json'), 'utf8')) as {
-      type?: string;
-    };
+    const bundled = readFileSync(join(repoRoot, 'api/mcp.mjs'), 'utf8');
     const vercel = JSON.parse(readFileSync(join(repoRoot, 'vercel.json'), 'utf8')) as {
-      functions?: Record<string, { includeFiles?: string }>;
+      functions?: Record<string, unknown>;
     };
-    expect(apiPkg.type).toBe('module');
-    expect(vercel.functions?.['api/mcp.ts']?.includeFiles).toContain('api/package.json');
+    expect(bundled.startsWith('// packages/mcp/src/vercel-handler.ts')).toBe(true);
+    expect(bundled).toContain('import { createMcpHandler }');
+    expect(vercel.functions).toHaveProperty('api/mcp.mjs');
   });
 
   it('advertises short instructions that point agents at get_guidelines first', () => {
