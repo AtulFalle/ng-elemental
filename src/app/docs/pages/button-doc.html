@@ -1,234 +1,399 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Button</h1>
+    <div class="docs-page__header-row">
+      <h1>Button</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
-      A styled button component with variant and size options for actions and
-      form controls.
+      Displays a button or a component that looks like a button.
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add icon</code> (for icons),
-    <code>npx @ng-elemental/cli add button</code>
-  </div>
+  <app-docs-example [code]="heroCode">
+    <el-button variant="primary">Button</el-button>
+    <el-button variant="icon" iconStart="arrow-up" ariaLabel="Submit" />
+    <ng-template #standards>
+      <p>
+        Hero shows the default secondary action and an icon-only control. Icon-only
+        buttons require <code>ariaLabel</code> so assistive technology has a name.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code> when you use icon props.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency if you need icons on buttons.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="manualImportCode" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>Import <code>ElButton</code> and place the selector where actions are needed.</p>
-    <app-code-block [code]="importCode" />
+    <h2 id="usage">Usage</h2>
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Common actions</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+    <h2 id="size">Size</h2>
+    <p class="docs-page__section-lead">
+      Use the <code>size</code> prop to change the size of the button. Icons stay
+      <code>sm</code> through <code>md</code> and step up to <code>md</code> on
+      <code>lg</code>.
+    </p>
+    <app-docs-example [code]="sizeCode">
+      <div class="docs-page__size-demo">
+        <div class="docs-page__size-row">
+          <el-button size="sm" variant="primary">Small</el-button>
+          <el-button
+            size="sm"
+            variant="icon"
+            iconStart="arrow-up-right-from-square"
+            ariaLabel="Submit"
+          />
         </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-button variant="primary">Save</el-button>
-            <el-button variant="secondary">Cancel</el-button>
-            <el-button variant="ghost" disabled>Disabled</el-button>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Uses native button semantics with clear visual states and keyboard support.
-            Disabled remains semantic, and focus-visible stays clear for non-pointer navigation.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Icon-only button</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="iconPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="iconPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="iconPanel.set('standards')" />
+        <div class="docs-page__size-row">
+          <el-button size="md" variant="primary">Medium</el-button>
+          <el-button
+            size="md"
+            variant="icon"
+            iconStart="arrow-up-right-from-square"
+            ariaLabel="Submit"
+          />
         </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (iconPanel() === 'preview') {
-          <app-preview>
-            <el-button variant="icon" size="sm" iconStart="gear" ariaLabel="Open settings" />
-            <el-button variant="icon" size="md" iconStart="ellipsis-vertical" ariaLabel="More actions" />
-            <el-button variant="icon" size="lg" iconStart="arrow-up-right-from-square" ariaLabel="Open in new tab" />
-          </app-preview>
-        } @else if (iconPanel() === 'code') {
-          <app-code-block [code]="iconOnlyCode" language="html" />
-        } @else {
-          <p>
-            Icon-only controls require an accessible name via <code>ariaLabel</code>.
-            The icon variant keeps a consistent square target so hit area and spacing remain predictable.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Loading state</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="loadingPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="loadingPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="loadingPanel.set('standards')" />
+        <div class="docs-page__size-row">
+          <el-button size="lg" variant="primary">Large</el-button>
+          <el-button
+            size="lg"
+            variant="icon"
+            iconStart="arrow-up-right-from-square"
+            ariaLabel="Submit"
+          />
         </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (loadingPanel() === 'preview') {
-          <app-preview>
-            <el-button variant="primary" [loading]="true" loadingLabel="Saving">
-              Save changes
-            </el-button>
-            <el-button variant="icon" iconStart="rotate-right" ariaLabel="Refresh" [loading]="true" />
-          </app-preview>
-        } @else if (loadingPanel() === 'code') {
-          <app-code-block [code]="loadingCode" language="html" />
-        } @else {
-          <p>
-            Loading marks the action busy and prevents repeated activation while work is in progress.
-            This improves feedback for both visual users and assistive technology users.
-          </p>
-        }
       </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Long labels</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="longLabelPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="longLabelPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="longLabelPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (longLabelPanel() === 'preview') {
-          <app-preview>
-            <div style="max-width: 17rem;">
-              <el-button variant="secondary">
-                Save shipping preferences and billing profile changes
-              </el-button>
-            </div>
-          </app-preview>
-        } @else if (longLabelPanel() === 'code') {
-          <app-code-block [code]="longLabelCode" language="html" />
-        } @else {
-          <p>
-            Long labels remain readable without overlap. The label behavior supports constrained widths
-            and preserves meaning at larger zoom levels.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Variants</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="variantPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="variantPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="variantPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (variantPanel() === 'preview') {
-          <app-preview>
-            <el-button variant="primary">Primary</el-button>
-            <el-button variant="secondary">Secondary</el-button>
-            <el-button variant="ghost">Ghost</el-button>
-            <el-button variant="icon" iconStart="bookmark" ariaLabel="Bookmark" />
-          </app-preview>
-        } @else if (variantPanel() === 'code') {
-          <app-code-block [code]="variantCode" language="html" />
-        } @else {
-          <p>
-            Variants communicate hierarchy without changing behavior. The icon variant is purpose-built
-            for single-icon actions and avoids uneven widths from text-button spacing.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Sizes</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (sizePanel() === 'preview') {
-          <app-preview>
-            <el-button size="sm">Small</el-button>
-            <el-button size="md">Medium</el-button>
-            <el-button size="lg">Large</el-button>
-          </app-preview>
-        } @else if (sizePanel() === 'code') {
-          <app-code-block [code]="sizeCode" language="html" />
-        } @else {
-          <p>
-            Sizes keep spacing and readability consistent while preserving minimum touch target expectations
-            for interactive controls.
-          </p>
-        }
-      </div>
-    </article>
+      <ng-template #standards>
+        <p>
+          Sizes keep spacing and readability consistent while preserving minimum
+          touch target expectations for interactive controls.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="primary">Primary</h2>
+    <app-docs-example [code]="primaryCode">
+      <el-button variant="primary">Button</el-button>
+      <ng-template #standards>
+        <p>
+          Primary is the highest-emphasis action. Prefer one primary action per
+          view so hierarchy stays clear.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="secondary">Secondary</h2>
+    <app-docs-example [code]="secondaryCode">
+      <el-button variant="secondary">Secondary</el-button>
+      <ng-template #standards>
+        <p>
+          Secondary is the default bordered look for supporting actions beside a
+          primary control.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="outline">Outline</h2>
+    <app-docs-example [code]="outlineCode">
+      <el-button variant="outline">Outline</el-button>
+      <ng-template #standards>
+        <p>
+          Outline keeps a visible border on a transparent fill. Use it when the
+          action needs a control shape without competing with primary.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="ghost">Ghost</h2>
+    <app-docs-example [code]="ghostCode">
+      <el-button variant="ghost">Ghost</el-button>
+      <ng-template #standards>
+        <p>
+          Ghost keeps low visual weight for tertiary actions without looking
+          disabled.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="destructive">Destructive</h2>
+    <app-docs-example [code]="destructiveCode">
+      <el-button variant="destructive">Delete</el-button>
+      <ng-template #standards>
+        <p>
+          Destructive is for irreversible actions. Pair the error color with a
+          clear label such as Delete so color is not the only cue.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="icon">Icon</h2>
+    <app-docs-example [code]="iconCode">
+      <el-button variant="icon" iconStart="arrow-up" ariaLabel="Submit" />
+      <ng-template #standards>
+        <p>
+          Icon-only controls require an accessible name via <code>ariaLabel</code>.
+          The icon variant keeps a consistent square target. Glyphs stay
+          <code>sm</code> through <code>md</code> buttons and use <code>md</code>
+          on <code>lg</code>.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="with-icon">With Icon</h2>
+    <p class="docs-page__section-lead">
+      Use <code>iconStart</code> or <code>iconEnd</code> for icon spacing before or
+      after the label.
+    </p>
+    <app-docs-example [code]="withIconCode">
+      <el-button variant="secondary" iconStart="code-branch">New Branch</el-button>
+      <el-button variant="secondary" iconEnd="code-fork">Fork</el-button>
+      <ng-template #standards>
+        <p>
+          Start and end icons keep label and icon spacing predictable without
+          custom CSS.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="rounded">Rounded</h2>
+    <p class="docs-page__section-lead">
+      Override <code>border-radius</code> on a wrapper to make the button fully
+      rounded.
+    </p>
+    <app-docs-example [code]="roundedCode">
+      <div class="docs-page__rounded">
+        <el-button variant="primary">Get Started</el-button>
+      </div>
+      <div class="docs-page__rounded">
+        <el-button variant="icon" iconStart="arrow-up" ariaLabel="Submit" />
+      </div>
+      <ng-template #standards>
+        <p>
+          Rounding is composition via CSS, not a separate variant, so token-based
+          corners stay the default.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="loading">Loading</h2>
+    <p class="docs-page__section-lead">
+      Set <code>loading</code> to show a spinner and mark the control busy. Use
+      <code>loadingLabel</code> for the announced text.
+    </p>
+    <app-docs-example [code]="loadingCode">
+      <el-button variant="primary" [loading]="true" loadingLabel="Generating">
+        Generating
+      </el-button>
+      <el-button
+        variant="secondary"
+        [loading]="true"
+        loadingLabel="Downloading"
+      >
+        Downloading
+      </el-button>
+      <ng-template #standards>
+        <p>
+          Loading marks the action busy and prevents repeated activation while
+          work is in progress.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="segmented-button">Segmented Button</h2>
+    <p class="docs-page__section-lead">
+      For exclusive choices styled as a connected group, use
+      <a routerLink="/docs/components/segmented-button">Segmented Button</a>. It
+      is a radiogroup, not a cluster of independent actions.
+    </p>
+    <app-docs-example [code]="segmentedCode">
+      <el-segmented-button
+        [value]="viewMode()"
+        (valueChange)="viewMode.set($event)"
+        ariaLabel="View mode"
+      >
+        <el-segmented-button-item value="list">List</el-segmented-button-item>
+        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+        <el-segmented-button-item value="board">Board</el-segmented-button-item>
+      </el-segmented-button>
+      <ng-template #standards>
+        <p>
+          Segmented Button uses <code>role="radiogroup"</code> with arrow-key
+          selection. Prefer a future Button Group for independent actions.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="as-a-link">As a link</h2>
+    <el-alert color="warning" title="Do not render el-button as a link">
+      <code>el-button</code> always renders a native <code>&lt;button&gt;</code>.
+      To style a link like a button, put button classes on a plain
+      <code>&lt;a&gt;</code> (or wait for an as-link helper). Do not force
+      <code>role="button"</code> onto anchors.
+    </el-alert>
+  </section>
+
+  <section>
+    <h2 id="rtl">RTL</h2>
+    <p class="docs-page__section-lead">
+      Wrap controls in a <code>dir="rtl"</code> container to mirror layout.
+    </p>
+    <app-docs-example [code]="rtlCode">
+      <div dir="rtl" class="docs-row">
+        <el-button variant="secondary">زر</el-button>
+        <el-button variant="primary" iconEnd="arrow-right">إرسال</el-button>
+        <el-button variant="icon" iconStart="plus" ariaLabel="Add" />
+        <el-button
+          variant="secondary"
+          [loading]="true"
+          loadingLabel="جاري التحميل"
+        >
+          جاري التحميل
+        </el-button>
+      </div>
+      <ng-template #standards>
+        <p>
+          Logical start/end icon props keep icon placement correct when direction
+          flips.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="animation-recipes">Animation recipes</h2>
+    <p class="docs-page__section-lead">
+      Motion patterns you can compose on <code>el-button</code>. They are not part
+      of the Button API or the design system — copy the idea into your app.
+    </p>
+    <app-docs-example [code]="recipesCode">
+      <app-docs-button-recipes />
+      <ng-template #standards>
+        <p>
+          Recipes keep native button semantics and a stable control size while
+          status changes. The running outline is decorative hover motion and
+          honors <code>prefers-reduced-motion</code>.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <p class="docs-page__section-lead">
+      The <code>ElButton</code> component wraps a native
+      <code>&lt;button&gt;</code> with variants, sizes, icons, and loading state.
+    </p>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
-      Button behavior prioritizes native semantics and WCAG 2.2 AA outcomes for keyboard, focus, motion,
-      contrast, and touch accessibility.
+      Button behavior prioritizes native semantics and WCAG 2.2 AA outcomes for
+      keyboard, focus, motion, contrast, and touch accessibility.
     </p>
     <ul>
       <li>APG Button pattern with native Enter/Space activation.</li>
       <li>Visible <code>:focus-visible</code> indication for keyboard navigation.</li>
       <li>Distinct default, hover, active, disabled, and loading states.</li>
-      <li>Primary label contrast meets WCAG 2.2 AAA 7:1 against the default brand fill.</li>
+      <li>Outline and destructive variants with labels so color is not the only cue.</li>
       <li>Accessible naming requirement for icon-only actions.</li>
       <li>Reduced-motion support for non-essential animation.</li>
     </ul>
     <p>
       References:
-      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/" target="_blank" rel="noreferrer">APG Button</a>,
-      <a href="https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" target="_blank" rel="noreferrer">APG Keyboard Interface</a>,
-      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>,
-      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2</a>.
+      <a
+        href="https://www.w3.org/WAI/ARIA/apg/patterns/button/"
+        target="_blank"
+        rel="noreferrer"
+        >APG Button</a
+      >,
+      <a
+        href="https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/"
+        target="_blank"
+        rel="noreferrer"
+        >APG Keyboard Interface</a
+      >,
+      <a
+        href="https://www.a11yproject.com/checklist"
+        target="_blank"
+        rel="noreferrer"
+        >A11Y Project Checklist</a
+      >,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer"
+        >WCAG 2.2</a
+      >.
     </p>
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
-      Colors come from generic theme tokens. Open
-      <code>tokens.scss</code> and edit the BRAND block, or override
-      <code>--el-color-primary</code> on a wrapper. See
-      <a routerLink="/docs/theming">Theming</a> for the full token list.
+      Colors come from generic theme tokens. Open <code>tokens.scss</code> and
+      edit the BRAND block, or override <code>--el-color-primary</code> on a
+      wrapper. See <a routerLink="/docs/theming">Theming</a> for the full token
+      list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>

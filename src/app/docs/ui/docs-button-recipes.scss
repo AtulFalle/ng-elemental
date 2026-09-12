@@ -1,0 +1,455 @@
+:host {
+  display: contents;
+}
+
+.docs-recipe {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  justify-items: center;
+  gap: 1.5rem 1rem;
+  width: 100%;
+  flex: 1 1 100%;
+
+  @media (max-width: 36rem) {
+    grid-template-columns: 1fr;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__caption {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    color: var(--docs-muted);
+    text-align: center;
+    max-width: 10rem;
+  }
+
+  &__swap {
+    display: grid;
+    justify-items: center;
+  }
+
+  &__swap-layer {
+    grid-area: 1 / 1;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--el-space-2);
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.84) translateY(4px);
+    pointer-events: none;
+    transition:
+      opacity 0.28s ease,
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &--in {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+  }
+
+  &__wipe {
+    display: grid;
+    justify-items: start;
+  }
+
+  &__wipe-base,
+  &__wipe-over {
+    grid-area: 1 / 1;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--el-space-2);
+    white-space: nowrap;
+  }
+
+  &__wipe-over {
+    color: var(--el-color-on-primary);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &__item--progress {
+    .docs-recipe__wipe-over {
+      transition-duration: 1.1s;
+    }
+
+    .docs-recipe__swap {
+      min-width: 5.75rem;
+    }
+
+    ::ng-deep .el-button {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    ::ng-deep .el-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--el-color-primary);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    ::ng-deep .el-button__label {
+      position: relative;
+      z-index: 1;
+    }
+
+    ::ng-deep .el-button:hover:not(:disabled) {
+      background-color: transparent;
+    }
+  }
+
+  &__item--progress-running,
+  &__item--progress-success {
+    .docs-recipe__wipe-over {
+      clip-path: inset(0 0 0 0);
+    }
+
+    ::ng-deep .el-button::before {
+      transform: scaleX(1);
+    }
+  }
+
+  &__item--progress-running {
+    ::ng-deep .el-button {
+      pointer-events: none;
+    }
+  }
+
+  &__item--progress-success {
+    .docs-recipe__swap-layer--in {
+      color: var(--el-color-on-success);
+    }
+
+    ::ng-deep .el-button {
+      border-color: var(--el-color-success);
+    }
+
+    ::ng-deep .el-button::before {
+      background: var(--el-color-success);
+      transition:
+        transform 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.28s ease;
+    }
+  }
+
+  &__item--copy {
+    .docs-recipe__morph {
+      min-width: 5.75rem;
+    }
+
+    ::ng-deep .el-button__label {
+      overflow: hidden;
+    }
+  }
+
+  &__item--copy-done {
+    .docs-recipe__morph-icon-face--from,
+    .docs-recipe__morph-text-face--from {
+      transform: translateY(-120%);
+      opacity: 0;
+    }
+
+    .docs-recipe__morph-icon-face--to,
+    .docs-recipe__morph-text-face--to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  &__item--loading .docs-recipe__swap {
+    min-width: 5.75rem;
+  }
+
+  &__morph {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--el-space-2);
+  }
+
+  &__morph-icon,
+  &__morph-text {
+    display: grid;
+    overflow: hidden;
+  }
+
+  &__morph-icon {
+    width: var(--el-icon-size-sm);
+    height: var(--el-icon-size-sm);
+    flex-shrink: 0;
+    place-items: center;
+  }
+
+  &__morph-text {
+    line-height: 1.25;
+    height: 1.25em;
+  }
+
+  &__morph-icon-face,
+  &__morph-text-face {
+    grid-area: 1 / 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    transition:
+      transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.28s ease;
+  }
+
+  &__morph-icon-face--to,
+  &__morph-text-face--to {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+
+  &__item--slide {
+    ::ng-deep .el-button__label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--el-space-2);
+    }
+  }
+
+  &__arrows {
+    position: relative;
+    display: inline-block;
+    width: var(--el-icon-size-sm);
+    height: var(--el-icon-size-sm);
+    overflow: hidden;
+  }
+
+  &__arrow {
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:last-child {
+      transform: translateX(-130%);
+    }
+  }
+
+  &__item--slide-on {
+    .docs-recipe__arrow:first-child {
+      transform: translateX(130%);
+    }
+
+    .docs-recipe__arrow:last-child {
+      transform: translateX(0);
+    }
+  }
+
+  &__trace {
+    position: relative;
+    display: inline-flex;
+
+    &:hover .docs-recipe__trace-path,
+    &:focus-within .docs-recipe__trace-path {
+      animation:
+        docs-recipe-trace-run 0.55s ease-in-out 1 forwards,
+        docs-recipe-trace-fade 0.7s linear 1 forwards;
+    }
+
+    &:focus-within ::ng-deep .el-button {
+      background-color: transparent;
+      border-color: color-mix(in srgb, var(--el-color-outline) 40%, transparent);
+      color: var(--el-color-on-surface);
+    }
+  }
+
+  &__trace-svg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    fill: none;
+  }
+
+  &__trace-path {
+    fill: none;
+    stroke: var(--el-color-primary);
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 28 72;
+    vector-effect: non-scaling-stroke;
+    opacity: 0;
+  }
+
+  &__item--trace {
+    ::ng-deep .el-button {
+      position: relative;
+      background-color: transparent;
+    }
+
+    ::ng-deep .el-button:hover:not(:disabled) {
+      background-color: transparent;
+      border-color: color-mix(in srgb, var(--el-color-outline) 40%, transparent);
+      color: var(--el-color-on-surface);
+    }
+
+    ::ng-deep .el-button:active:not(:disabled) {
+      transform: none;
+    }
+  }
+
+  &__spin {
+    display: inline-flex;
+    animation: docs-recipe-spin 0.7s linear infinite;
+  }
+
+  &__sparkle {
+    position: relative;
+    display: inline-flex;
+  }
+
+  &__particles {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  &__item--sparkle {
+    ::ng-deep .el-button {
+      transition:
+        transform 0.2s ease,
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease;
+    }
+
+    ::ng-deep .el-button:hover:not(:disabled) {
+      transform: scale(1.08);
+    }
+
+    ::ng-deep .el-button:active:not(:disabled) {
+      transform: scale(0.92);
+    }
+  }
+
+  &__item--sparkle-on ::ng-deep .el-button {
+    color: var(--el-color-error);
+    border-color: var(--el-color-error-container);
+  }
+
+  &__particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--docs-recipe-size, 5px);
+    height: var(--docs-recipe-size, 5px);
+    border-radius: 999px;
+    background: var(--docs-recipe-color, var(--el-color-warning));
+    pointer-events: none;
+    animation: docs-recipe-sparkle 0.75s ease-out forwards;
+    animation-delay: var(--docs-recipe-delay, 0ms);
+    box-shadow: 0 0 6px
+      color-mix(
+        in srgb,
+        var(--docs-recipe-color, var(--el-color-warning)) 55%,
+        transparent
+      );
+
+    &--diamond {
+      border-radius: 1px;
+      transform-origin: center;
+    }
+  }
+}
+
+@keyframes docs-recipe-trace-run {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@keyframes docs-recipe-trace-fade {
+  0% {
+    opacity: 0;
+  }
+
+  18%,
+  78% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes docs-recipe-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes docs-recipe-sparkle {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+  }
+
+  22% {
+    opacity: 1;
+    transform: translate(
+        calc(-50% + var(--docs-recipe-x) * 0.35),
+        calc(-50% + var(--docs-recipe-y) * 0.35)
+      )
+      scale(1.1) rotate(20deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(
+        calc(-50% + var(--docs-recipe-x)),
+        calc(-50% + var(--docs-recipe-y))
+      )
+      scale(0.2) rotate(90deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-recipe *,
+  .docs-recipe *::before {
+    transition: none;
+    animation: none;
+  }
+
+  .docs-recipe__item--progress,
+  .docs-recipe__item--sparkle,
+  .docs-recipe__item--trace {
+    ::ng-deep .el-button,
+    ::ng-deep .el-button::before {
+      transition: none;
+    }
+  }
+
+  .docs-recipe__particle {
+    opacity: 0;
+  }
+}

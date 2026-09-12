@@ -1,0 +1,38 @@
+---
+description: Enforce BEM SCSS naming for NgElemental UI and docs styles
+globs: "**/*.{scss,css,html,ts}"
+alwaysApply: false
+---
+
+# BEM SCSS
+
+Use Block Element Modifier naming for all component and docs styles.
+
+## Pattern
+
+- **Block:** `.el-button`, `.docs-example`, `.docs-page`
+- **Element:** `.el-button__label`, `.docs-example__canvas`, `.docs-page__header`
+- **Modifier:** `.el-button--primary`, `.docs-example--code`, `.docs-toc__link--active`
+
+## Rules
+
+- Do **not** use bare state classes like `.is-active`, `.active`, `.open` on their own. Prefer a modifier on the block or element: `.docs-toc__link--active`.
+- Do **not** invent one-off utility class names outside an existing block (e.g. `.docs-section-lead`). Nest under the block: `.docs-page__section-lead`.
+- Prefer `styleUrl` + a sibling `.scss` file over large inline `styles:` strings for new docs/UI chrome.
+- Library widgets use the `el-` prefix: `.el-<block>`, `.el-<block>__<element>`, `.el-<block>--<modifier>`.
+- Docs app chrome uses the `docs-` prefix the same way.
+- Avoid styling through `::ng-deep` when possible. If a docs demo must pierce encapsulation (e.g. rounded button), keep the piercing rule under a clear BEM block such as `.docs-page__rounded`.
+
+## Examples
+
+```scss
+/* Good */
+.docs-example__toolbar { }
+.docs-toc__link--active { }
+.el-button--ghost { }
+
+/* Bad */
+.is-active { }
+.docs-section-lead { }
+.view-code-btn { }
+```

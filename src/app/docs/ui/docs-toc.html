@@ -1,0 +1,19 @@
+@if (items().length > 0) {
+  <nav class="docs-toc" aria-label="On this page">
+    <h2 class="docs-toc__title">On this page</h2>
+    <ul class="docs-toc__list">
+      @for (item of items(); track item.id) {
+        <li class="docs-toc__item">
+          <a
+            class="docs-toc__link"
+            [class.docs-toc__link--active]="item.id === activeId()"
+            [routerLink]="[]"
+            [fragment]="item.id"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+}

@@ -11,8 +11,9 @@
           @for (item of section.items | sort: 'label'; track item.path) {
             <li>
               <a
+                class="docs-nav-section__link"
                 routerLink="{{ item.path }}"
-                routerLinkActive="is-active"
+                routerLinkActive="docs-nav-section__link--active"
                 [routerLinkActiveOptions]="{ exact: item.path === '/docs' }"
               >
                 {{ item.label }}
@@ -38,6 +39,10 @@
   <main class="docs-main">
     <router-outlet />
   </main>
+
+  <aside class="docs-toc-rail" aria-label="Page sections">
+    <app-docs-toc />
+  </aside>
 </div>
 
 @if (themeOpen()) {

@@ -6,12 +6,11 @@ import {
   input,
   model,
 } from '@angular/core';
-import type { ElButtonVariant } from '../button/button';
 import { ElSegmentedButtonItem } from './segmented-button-item';
 import { EL_SEGMENTED_BUTTON } from './segmented-button.token';
 
 export type ElSegmentedButtonSize = 'sm' | 'md' | 'lg';
-export type ElSegmentedButtonVariant = ElButtonVariant;
+export type ElSegmentedButtonVariant = 'primary' | 'secondary' | 'ghost';
 
 export { ElSegmentedButtonItem } from './segmented-button-item';
 export { EL_SEGMENTED_BUTTON } from './segmented-button.token';
