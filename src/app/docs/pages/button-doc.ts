@@ -1,8 +1,16 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   ElAlert,
   ElButton,
+  ElIcon,
   ElSegmentedButton,
   ElSegmentedButtonItem,
   ElTab,
@@ -23,6 +31,7 @@ import { PropsTable } from '../ui/props-table';
     RouterLink,
     ElAlert,
     ElButton,
+    ElIcon,
     ElSegmentedButton,
     ElSegmentedButtonItem,
     ElTabs,
@@ -35,12 +44,124 @@ import { PropsTable } from '../ui/props-table';
     PropsTable,
   ],
   templateUrl: './button-doc.html',
-  styleUrl: './page.scss',
+  styleUrl: './button-doc.scss',
 })
 export class ButtonDocPage {
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly timeouts = new Set<ReturnType<typeof setTimeout>>();
+
   protected readonly installTab = signal('cli');
   protected readonly viewMode = signal('list');
   protected readonly pageCopied = signal(false);
+  protected readonly progressState = signal<'idle' | 'running' | 'success'>(
+    'idle',
+  );
+  protected readonly copied = signal(false);
+  protected readonly slideOn = signal(false);
+  protected readonly saveState = signal<'idle' | 'loading' | 'success'>('idle');
+  protected readonly favorited = signal(false);
+  protected readonly sparkleBurstId = signal(0);
+
+  protected readonly progressLabel = computed(() =>
+    this.progressState() === 'success' ? 'Published' : 'Publish',
+  );
+  protected readonly copyLabel = computed(() =>
+    this.copied() ? 'Copied' : 'Copy',
+  );
+  protected readonly saveLabel = computed(() => {
+    switch (this.saveState()) {
+      case 'loading':
+        return 'Saving';
+      case 'success':
+        return 'Saved';
+      default:
+        return 'Save';
+    }
+  });
+
+  protected readonly sparkleParticles = [
+    {
+      id: 1,
+      x: 8,
+      y: -28,
+      size: 5,
+      delay: '0ms',
+      color: 'var(--el-color-warning)',
+      diamond: false,
+    },
+    {
+      id: 2,
+      x: 24,
+      y: -18,
+      size: 4,
+      delay: '40ms',
+      color: 'var(--el-color-error)',
+      diamond: true,
+    },
+    {
+      id: 3,
+      x: 28,
+      y: 6,
+      size: 6,
+      delay: '80ms',
+      color: 'var(--el-color-warning)',
+      diamond: false,
+    },
+    {
+      id: 4,
+      x: 16,
+      y: 24,
+      size: 4,
+      delay: '50ms',
+      color: 'var(--el-color-success)',
+      diamond: false,
+    },
+    {
+      id: 5,
+      x: -10,
+      y: 26,
+      size: 5,
+      delay: '90ms',
+      color: 'var(--el-color-warning)',
+      diamond: true,
+    },
+    {
+      id: 6,
+      x: -26,
+      y: 8,
+      size: 4,
+      delay: '30ms',
+      color: 'var(--el-color-error)',
+      diamond: false,
+    },
+    {
+      id: 7,
+      x: -24,
+      y: -16,
+      size: 6,
+      delay: '70ms',
+      color: 'var(--el-color-success)',
+      diamond: false,
+    },
+    {
+      id: 8,
+      x: -6,
+      y: -30,
+      size: 3,
+      delay: '20ms',
+      color: 'var(--el-color-warning)',
+      diamond: true,
+    },
+  ] as const;
+
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      for (const id of this.timeouts) {
+        clearTimeout(id);
+      }
+      this.timeouts.clear();
+    });
+  }
 
   protected readonly heroCode = `<el-button variant="secondary">Button</el-button>
 <el-button
@@ -170,6 +291,157 @@ ui/button/button.scss`;
   --el-color-on-primary: #ffffff;
 }`;
 
+  protected readonly recipesCode = `<div class="docs-recipe">
+  <div
+    class="docs-recipe__item docs-recipe__item--progress"
+    [class.docs-recipe__item--progress-running]="progressState() === 'running'"
+    [class.docs-recipe__item--progress-success]="progressState() === 'success'"
+  >
+    <el-button
+      variant="outline"
+      [attr.aria-busy]="progressState() === 'running' ? 'true' : null"
+      (click)="runProgress()"
+    >
+      <span class="docs-recipe__swap" aria-live="polite">
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="progressState() !== 'success'"
+        >
+          <span class="docs-recipe__wipe">
+            <span class="docs-recipe__wipe-base">
+              <el-icon name="paper-plane" size="sm" />
+              Publish
+            </span>
+            <span class="docs-recipe__wipe-over" aria-hidden="true">
+              <el-icon name="paper-plane" size="sm" />
+              Publish
+            </span>
+          </span>
+        </span>
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="progressState() === 'success'"
+        >
+          <el-icon name="circle-check" size="sm" />
+          Published
+        </span>
+      </span>
+    </el-button>
+  </div>
+
+  <div
+    class="docs-recipe__item docs-recipe__item--copy"
+    [class.docs-recipe__item--copy-done]="copied()"
+  >
+    <el-button
+      variant="secondary"
+      [ariaLabel]="copyLabel()"
+      (click)="copyRecipe()"
+    >
+      <span class="docs-recipe__morph" aria-live="polite">
+        <span class="docs-recipe__morph-icon" aria-hidden="true">
+          <span class="docs-recipe__morph-icon-face docs-recipe__morph-icon-face--from">
+            <el-icon name="copy" size="sm" />
+          </span>
+          <span class="docs-recipe__morph-icon-face docs-recipe__morph-icon-face--to">
+            <el-icon name="check" size="sm" />
+          </span>
+        </span>
+        <span class="docs-recipe__morph-text">
+          <span class="docs-recipe__morph-text-face docs-recipe__morph-text-face--from">
+            Copy
+          </span>
+          <span class="docs-recipe__morph-text-face docs-recipe__morph-text-face--to">
+            Copied
+          </span>
+        </span>
+      </span>
+    </el-button>
+  </div>
+
+  <div
+    class="docs-recipe__item docs-recipe__item--slide"
+    [class.docs-recipe__item--slide-on]="slideOn()"
+  >
+    <el-button variant="primary" (click)="playSlide()">
+      Continue
+      <span class="docs-recipe__arrows" aria-hidden="true">
+        <span class="docs-recipe__arrow">
+          <el-icon name="arrow-right" size="sm" />
+        </span>
+        <span class="docs-recipe__arrow">
+          <el-icon name="arrow-right" size="sm" />
+        </span>
+      </span>
+    </el-button>
+  </div>
+
+  <div class="docs-recipe__item docs-recipe__item--loading">
+    <el-button
+      variant="primary"
+      [attr.aria-busy]="saveState() === 'loading' ? 'true' : null"
+      (click)="runSave()"
+    >
+      <span class="docs-recipe__swap" aria-live="polite">
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="saveState() === 'idle'"
+        >
+          <el-icon name="cloud-arrow-up" size="sm" />
+          Save
+        </span>
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="saveState() === 'loading'"
+        >
+          <el-icon class="docs-recipe__spin" name="spinner" size="sm" />
+          Saving
+        </span>
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="saveState() === 'success'"
+        >
+          <el-icon name="check" size="sm" />
+          Saved
+        </span>
+      </span>
+    </el-button>
+  </div>
+
+  <div class="docs-recipe__item docs-recipe__item--trace">
+    <span class="docs-recipe__trace">
+      <svg
+        class="docs-recipe__trace-svg"
+        viewBox="0 0 100 40"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          class="docs-recipe__trace-path"
+          pathLength="100"
+          d="M 99 1 V 39 H 1 V 1 Z"
+        />
+      </svg>
+      <el-button variant="outline">Hover me</el-button>
+    </span>
+  </div>
+
+  <div
+    class="docs-recipe__item docs-recipe__item--sparkle"
+    [class.docs-recipe__item--sparkle-on]="favorited()"
+  >
+    <span class="docs-recipe__sparkle">
+      <el-button
+        variant="icon"
+        iconStart="heart"
+        [iconVariant]="favorited() ? 'solid' : 'regular'"
+        [ariaLabel]="favorited() ? 'Unlike' : 'Like'"
+        (click)="toggleFavorite()"
+      />
+    </span>
+  </div>
+</div>`;
+
   protected readonly pageMarkdown = `# Button
 
 Displays a button or a component that looks like a button.
@@ -260,9 +532,81 @@ import { ElButton } from './ui/button/button'
     },
   ];
 
+  protected runProgress(): void {
+    if (this.progressState() !== 'idle') {
+      return;
+    }
+    this.progressState.set('running');
+    this.later(() => {
+      this.progressState.set('success');
+      this.later(() => this.progressState.set('idle'), 1800);
+    }, 1100);
+  }
+
+  protected async copyRecipe(): Promise<void> {
+    if (this.copied()) {
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText('npx @ng-elemental/cli add button');
+    } catch {
+      // Demo still morphs if clipboard permission is denied.
+    }
+    this.copied.set(true);
+    this.later(() => this.copied.set(false), 2000);
+  }
+
+  protected playSlide(): void {
+    if (this.slideOn()) {
+      return;
+    }
+    this.slideOn.set(true);
+    this.later(() => this.slideOn.set(false), 650);
+  }
+
+  protected runSave(): void {
+    if (this.saveState() !== 'idle') {
+      return;
+    }
+    this.saveState.set('loading');
+    this.later(() => {
+      this.saveState.set('success');
+      this.later(() => this.saveState.set('idle'), 1800);
+    }, 1200);
+  }
+
+  protected toggleFavorite(): void {
+    this.favorited.update((value) => !value);
+    this.sparkleBurstId.update((id) => id + 1);
+    const burstId = this.sparkleBurstId();
+    this.later(() => {
+      if (this.sparkleBurstId() === burstId) {
+        this.sparkleBurstId.set(0);
+      }
+    }, 800);
+  }
+
   protected async copyPage(): Promise<void> {
     await navigator.clipboard.writeText(this.pageMarkdown);
     this.pageCopied.set(true);
-    setTimeout(() => this.pageCopied.set(false), 2000);
+    this.later(() => this.pageCopied.set(false), 2000);
+  }
+
+  private later(fn: () => void, ms: number): void {
+    const id = setTimeout(() => {
+      this.timeouts.delete(id);
+      fn();
+    }, this.motionMs(ms));
+    this.timeouts.add(id);
+  }
+
+  private motionMs(ms: number): number {
+    if (
+      typeof matchMedia === 'function' &&
+      matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return Math.min(ms, 80);
+    }
+    return ms;
   }
 }
