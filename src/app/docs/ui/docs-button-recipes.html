@@ -1,0 +1,177 @@
+<div class="docs-recipe">
+  <div
+    class="docs-recipe__item docs-recipe__item--progress"
+    [class.docs-recipe__item--progress-running]="progressState() === 'running'"
+    [class.docs-recipe__item--progress-success]="progressState() === 'success'"
+  >
+    <el-button
+      variant="outline"
+      [attr.aria-busy]="progressState() === 'running' ? 'true' : null"
+      (click)="runProgress()"
+    >
+      <span class="docs-recipe__swap" aria-live="polite">
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="progressState() !== 'success'"
+        >
+          <span class="docs-recipe__wipe">
+            <span class="docs-recipe__wipe-base">
+              <el-icon name="paper-plane" size="sm" />
+              Publish
+            </span>
+            <span class="docs-recipe__wipe-over" aria-hidden="true">
+              <el-icon name="paper-plane" size="sm" />
+              Publish
+            </span>
+          </span>
+        </span>
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="progressState() === 'success'"
+        >
+          <el-icon name="circle-check" size="sm" />
+          Published
+        </span>
+      </span>
+    </el-button>
+    <span class="docs-recipe__caption">Progress action</span>
+  </div>
+
+  <div
+    class="docs-recipe__item docs-recipe__item--copy"
+    [class.docs-recipe__item--copy-done]="copied()"
+  >
+    <el-button
+      variant="secondary"
+      [ariaLabel]="copyLabel()"
+      (click)="copyRecipe()"
+    >
+      <span class="docs-recipe__morph" aria-live="polite">
+        <span class="docs-recipe__morph-icon" aria-hidden="true">
+          <span class="docs-recipe__morph-icon-face docs-recipe__morph-icon-face--from">
+            <el-icon name="copy" size="sm" />
+          </span>
+          <span class="docs-recipe__morph-icon-face docs-recipe__morph-icon-face--to">
+            <el-icon name="check" size="sm" />
+          </span>
+        </span>
+        <span class="docs-recipe__morph-text">
+          <span
+            class="docs-recipe__morph-text-face docs-recipe__morph-text-face--from"
+            [attr.aria-hidden]="copied() ? 'true' : null"
+          >
+            Copy
+          </span>
+          <span
+            class="docs-recipe__morph-text-face docs-recipe__morph-text-face--to"
+            [attr.aria-hidden]="copied() ? null : 'true'"
+          >
+            Copied
+          </span>
+        </span>
+      </span>
+    </el-button>
+    <span class="docs-recipe__caption">Copy → Copied</span>
+  </div>
+
+  <div
+    class="docs-recipe__item docs-recipe__item--slide"
+    [class.docs-recipe__item--slide-on]="slideOn()"
+  >
+    <el-button variant="primary" (click)="playSlide()">
+      Continue
+      <span class="docs-recipe__arrows" aria-hidden="true">
+        <span class="docs-recipe__arrow">
+          <el-icon name="arrow-right" size="sm" />
+        </span>
+        <span class="docs-recipe__arrow">
+          <el-icon name="arrow-right" size="sm" />
+        </span>
+      </span>
+    </el-button>
+    <span class="docs-recipe__caption">Icon slide</span>
+  </div>
+
+  <div class="docs-recipe__item docs-recipe__item--loading">
+    <el-button
+      variant="primary"
+      [attr.aria-busy]="saveState() === 'loading' ? 'true' : null"
+      (click)="runSave()"
+    >
+      <span class="docs-recipe__swap" aria-live="polite">
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="saveState() === 'idle'"
+        >
+          <el-icon name="cloud-arrow-up" size="sm" />
+          Save
+        </span>
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="saveState() === 'loading'"
+        >
+          <el-icon class="docs-recipe__spin" name="spinner" size="sm" />
+          Saving
+        </span>
+        <span
+          class="docs-recipe__swap-layer"
+          [class.docs-recipe__swap-layer--in]="saveState() === 'success'"
+        >
+          <el-icon name="check" size="sm" />
+          Saved
+        </span>
+      </span>
+    </el-button>
+    <span class="docs-recipe__caption">Loading → Success</span>
+  </div>
+
+  <div class="docs-recipe__item docs-recipe__item--trace">
+    <span class="docs-recipe__trace">
+      <svg
+        class="docs-recipe__trace-svg"
+        viewBox="0 0 100 40"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          class="docs-recipe__trace-path"
+          pathLength="100"
+          d="M 99 1 V 39 H 1 V 1 Z"
+        />
+      </svg>
+      <el-button variant="outline">Hover me</el-button>
+    </span>
+    <span class="docs-recipe__caption">Running outline</span>
+  </div>
+
+  <div
+    class="docs-recipe__item docs-recipe__item--sparkle"
+    [class.docs-recipe__item--sparkle-on]="favorited()"
+  >
+    <span class="docs-recipe__sparkle">
+      <el-button
+        variant="icon"
+        iconStart="heart"
+        [iconVariant]="favorited() ? 'solid' : 'regular'"
+        [ariaLabel]="favorited() ? 'Unlike' : 'Like'"
+        (click)="toggleFavorite()"
+      />
+      @if (sparkleBurstId() > 0) {
+        <span class="docs-recipe__particles" aria-hidden="true">
+          @for (particle of sparkleParticles; track sparkleBurstId() + '-' + particle.id) {
+            <span
+              class="docs-recipe__particle"
+              [class.docs-recipe__particle--diamond]="particle.diamond"
+              [style.--docs-recipe-x.px]="particle.x"
+              [style.--docs-recipe-y.px]="particle.y"
+              [style.--docs-recipe-size.px]="particle.size"
+              [style.--docs-recipe-delay]="particle.delay"
+              [style.--docs-recipe-color]="particle.color"
+            ></span>
+          }
+        </span>
+      }
+    </span>
+    <span class="docs-recipe__caption">Sparkle success</span>
+  </div>
+</div>

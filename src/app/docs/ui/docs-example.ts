@@ -6,7 +6,6 @@ import {
   model,
   TemplateRef,
 } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
 import {
   ElIcon,
   ElSegmentedButton,
@@ -20,7 +19,6 @@ export type DocsExampleMode = 'preview' | 'code' | 'standards';
   selector: 'app-docs-example',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    NgTemplateOutlet,
     ElIcon,
     ElSegmentedButton,
     ElSegmentedButtonItem,
