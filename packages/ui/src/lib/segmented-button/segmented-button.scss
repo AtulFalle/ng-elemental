@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: stretch;
   border: var(--el-border-width) solid var(--el-segmented-track-border);
-  border-radius: var(--el-segmented-radius, 1.25rem);
+  border-radius: var(--el-segmented-radius, var(--el-radius-xs));
   overflow: hidden;
   background-color: var(--el-segmented-track-bg, transparent);
 }
@@ -10,21 +10,21 @@
 :host(.el-segmented-button--sm) {
   --el-segmented-item-padding: 0.25rem 0.75rem;
   --el-segmented-item-font-size: 0.75rem;
-  --el-segmented-radius: 1rem;
+  --el-segmented-radius: var(--el-radius-xs);
   min-height: 2rem;
 }
 
 :host(.el-segmented-button--md) {
   --el-segmented-item-padding: 0.5625rem 1rem;
   --el-segmented-item-font-size: 0.875rem;
-  --el-segmented-radius: 1.25rem;
+  --el-segmented-radius: var(--el-radius-sm);
   min-height: 2.5rem;
 }
 
 :host(.el-segmented-button--lg) {
   --el-segmented-item-padding: 0.75rem 1.25rem;
   --el-segmented-item-font-size: 1rem;
-  --el-segmented-radius: 1.5rem;
+  --el-segmented-radius: var(--el-radius-md);
   min-height: 3rem;
 }
 

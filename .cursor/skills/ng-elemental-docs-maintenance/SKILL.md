@@ -14,35 +14,57 @@ Use this when updating or removing documentation for any `El*` component page.
   - `src/app/docs/nav.ts`
   - `src/app/app.routes.ts`
   - `src/app/docs/pages/home.html`
+- Docs chrome: `src/app/docs/layout/`, `src/app/docs/ui/` (`DocsExample`, `DocsSnippet`, `DocsPager`, `DocsToc`)
 - API/usage examples and standards explanations
 
 ## Required workflow
 
 1. Identify component and current docs status.
 2. Update doc page examples, usage, and API props to match component behavior.
-3. Build examples as a single panel pattern (not separate preview/code sections):
-   - top-right icon controls in this order: preview, code, standards,
-   - preview: show live component output,
-   - code: show the exact code for the visible preview,
-   - standards: explain relevant UX/a11y decisions for that example.
-4. Ensure docs include a standards/decision section:
+3. Prefer shadcn-style information flow when rewriting a page:
+   - one-line lead under the H1,
+   - hero live example before Installation,
+   - Installation (Command / Manual) then Usage as compact snippets,
+   - **one H2 per capability** (not a dump under “Examples”),
+   - preview code must match the live example exactly.
+4. Build examples with `app-docs-example` (single canvas, not nested `app-preview`):
+   - toolbar is an `el-segmented-button` with preview / code / standards icon items,
+   - preview: live component output only (no shadcn-style “View Code” peek for now),
+   - code: the exact markup for that preview,
+   - standards: short UX/a11y rationale via `<ng-template #standards>`.
+5. Give every docs `h2` a stable slug `id` (e.g. `id="installation"`) so the right-rail **On this page** TOC can link and scroll-spy correctly. The layout auto-slugs missing ids, but explicit ids are preferred.
+6. Style docs chrome and page helpers with **BEM** (`docs-block`, `docs-block__element`, `docs-block--modifier`). No bare `.is-active` / one-off utilities; see `.cursor/rules/bem-scss.mdc` and component conventions.
+7. Ensure docs include a standards/decision section:
    - what standards are used,
    - why decisions were made,
    - links to references,
    - explicit success checks covered.
-5. Use clear, direct wording and semantic structure. Avoid noisy or repetitive headings.
-6. For component removal, remove stale references from nav, route, and home lists in the same change.
-7. Verify docs compile and lint through Nx tasks used by this repo.
+8. Use clear, direct wording and semantic structure. Avoid noisy or repetitive headings.
+9. For component removal, remove stale references from nav, route, and home lists in the same change.
+10. Verify docs compile and lint through Nx tasks used by this repo.
 
-## Example panel template
+## Example canvas template
 
-Each example panel should provide:
+```html
+<section>
+  <h2 id="size">Size</h2>
+  <p class="docs-page__section-lead">Use the <code>size</code> prop…</p>
+  <app-docs-example [code]="sizeCode">
+    <el-button size="sm">Small</el-button>
+    <ng-template #standards>
+      <p>Short rationale for this example.</p>
+    </ng-template>
+  </app-docs-example>
+</section>
+```
 
-- **Preview icon:** renders the live component example
-- **Code icon:** shows code matching that exact preview
-- **Standards icon:** concise rationale and standards relevant to that example
+Keep this canvas pattern consistent across component docs as they are rewritten. Use only Font Awesome Free icon names that exist (e.g. `arrow-up-right-from-square`, not `arrow-up-right`).
 
-Keep this panel pattern consistent across all component docs.
+## Layout notes
+
+- Docs shell is three columns on desktop: left site nav, center article, right **On this page**.
+- Do not add a second in-page TOC; rely on `app-docs-toc` in the layout.
+- Reading column is constrained via `.docs-page { max-width: … }` in `page.scss`.
 
 ## Standards section template
 

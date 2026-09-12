@@ -1,32 +1,88 @@
 
+.docs-page {
+  max-width: 46rem;
+}
 
 .docs-page__header {
   margin-bottom: 2rem;
 }
 
+.docs-page__header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.docs-page__header-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .docs-page h1 {
-  margin: 0 0 0.75rem;
-  font-size: 2rem;
+  margin: 0;
+  font-size: 2.25rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
 .docs-lead {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--docs-muted);
 }
 
 .docs-page section {
-  margin-top: 2.5rem;
+  margin-top: 3rem;
 }
 
 .docs-page h2 {
   margin: 0 0 0.75rem;
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  scroll-margin-top: 1.5rem;
+}
+
+.docs-page__section-lead {
+  margin: 0 0 0.25rem;
+  color: var(--docs-muted);
+}
+
+.docs-page__steps {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.docs-page__steps > li + li {
+  margin-top: 1rem;
+}
+
+.docs-page__size-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.5rem 2rem;
+}
+
+.docs-page__size-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.docs-page__rounded {
+  display: inline-flex;
+  border-radius: 999px;
+}
+
+.docs-page__rounded ::ng-deep .el-button {
+  border-radius: 999px;
 }
 
 .docs-page h3 {

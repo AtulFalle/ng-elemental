@@ -99,6 +99,24 @@
     }
   }
 
+  &--outline {
+    background-color: transparent;
+    border-color: var(--el-color-outline);
+    color: var(--el-color-on-surface);
+
+    &:hover:not(:disabled) {
+      background-color: var(--el-color-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: color-mix(
+        in srgb,
+        var(--el-color-on-surface) 10%,
+        transparent
+      );
+    }
+  }
+
   &--ghost {
     background-color: transparent;
     color: var(--el-color-primary);
@@ -112,6 +130,24 @@
         in srgb,
         var(--el-color-primary-container) 80%,
         var(--el-color-on-primary-container)
+      );
+    }
+  }
+
+  &--destructive {
+    background-color: var(--el-color-error);
+    background-color: oklch(from var(--el-color-error) min(l, 0.47) c h);
+    color: var(--el-color-on-error);
+
+    &:hover:not(:disabled) {
+      background-color: oklch(
+        from var(--el-color-error) calc(min(l, 0.47) - 0.05) c h
+      );
+    }
+
+    &:active:not(:disabled) {
+      background-color: oklch(
+        from var(--el-color-error) calc(min(l, 0.47) - 0.08) c h
       );
     }
   }

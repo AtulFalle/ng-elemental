@@ -46,8 +46,16 @@ export const COMPONENT_CATALOG: readonly CatalogEntry[] = [
     name: 'button',
     kind: 'component',
     title: 'Button',
-    description: 'Action button with primary, secondary, and ghost variants plus optional icons.',
-    keywords: ['button', 'action', 'cta', 'submit'],
+    description:
+      'Action button with primary, secondary, outline, ghost, destructive, and icon variants plus optional icons.',
+    keywords: [
+      'button',
+      'action',
+      'cta',
+      'submit',
+      'outline',
+      'destructive',
+    ],
     selectors: ['el-button'],
     classNames: ['ElButton'],
     usage: '<el-button variant="primary" iconStart="plus">Add item</el-button>',

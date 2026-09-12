@@ -1,0 +1,32 @@
+<div
+  class="docs-example"
+  [class.docs-example--code]="mode() === 'code'"
+  [class.docs-example--standards]="mode() === 'standards'"
+>
+  <div class="docs-example__toolbar">
+    <el-segmented-button
+      size="sm"
+      variant="secondary"
+      [value]="mode()"
+      (valueChange)="setMode($event)"
+      ariaLabel="Example view"
+    >
+      <el-segmented-button-item value="preview" [attr.aria-label]="'Show preview'">
+        <el-icon name="eye" size="sm" />
+      </el-segmented-button-item>
+      <el-segmented-button-item value="code" [attr.aria-label]="'Show code'">
+        <el-icon name="code" size="sm" />
+      </el-segmented-button-item>
+    </el-segmented-button>
+  </div>
+
+  @if (mode() === 'preview') {
+    <div class="docs-example__canvas">
+      <ng-content />
+    </div>
+  } @else if (mode() === 'code') {
+    <div class="docs-example__code">
+      <app-code-block [code]="code()" [language]="language()" />
+    </div>
+  }
+</div>

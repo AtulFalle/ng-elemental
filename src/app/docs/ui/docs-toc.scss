@@ -1,0 +1,45 @@
+.docs-toc {
+  padding: 1.5rem 1rem 2rem 0.75rem;
+}
+
+.docs-toc__title {
+  margin: 0 0 0.75rem;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--docs-muted);
+}
+
+.docs-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--docs-border);
+}
+
+.docs-toc__item {
+  margin: 0;
+}
+
+.docs-toc__link {
+  display: block;
+  margin-left: -1px;
+  padding: 0.3rem 0.75rem;
+  border-left: 2px solid transparent;
+  color: var(--docs-muted);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.docs-toc__link:hover {
+  color: var(--docs-fg);
+}
+
+.docs-toc__link--active {
+  border-left-color: var(--docs-accent);
+  color: var(--docs-fg);
+  font-weight: 600;
+}

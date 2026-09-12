@@ -1,0 +1,55 @@
+.docs-example {
+  position: relative;
+  margin-top: 1rem;
+  border: 1px solid var(--docs-border);
+  border-radius: 0.75rem;
+  background: var(--docs-surface);
+  overflow: hidden;
+}
+
+.docs-example__toolbar {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+}
+
+.docs-example__toolbar ::ng-deep .el-segmented-button-item {
+  flex: 0 0 auto;
+  min-width: 2rem;
+  padding-inline: 0.5rem;
+}
+
+.docs-example__canvas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 10rem;
+  padding: 3rem 1.5rem 2rem;
+}
+
+.docs-example__code {
+  padding: 0.75rem;
+  padding-top: 3rem;
+}
+
+.docs-example__code .docs-code-block {
+  margin: 0;
+  border: 0;
+  border-radius: 0.5rem;
+}
+
+.docs-example__standards {
+  padding: 3rem 1.5rem 1.25rem;
+  line-height: 1.7;
+}
+
+.docs-example__standards p {
+  margin: 0;
+}
+
+.docs-example__standards p + p {
+  margin-top: 0.75rem;
+}

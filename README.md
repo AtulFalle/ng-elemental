@@ -318,13 +318,14 @@ See [packages/mcp/README.md](packages/mcp/README.md) for full MCP documentation.
 
 ```html
 <el-button variant="primary" iconStart="plus">Save</el-button>
-<el-button variant="secondary" size="sm">Cancel</el-button>
+<el-button variant="outline" size="sm">Cancel</el-button>
+<el-button variant="destructive">Delete</el-button>
 <el-button variant="ghost" iconEnd="arrow-right">Next</el-button>
 ```
 
 | Input | Type | Default | Description |
 | --- | --- | --- | --- |
-| `variant` | `primary` \| `secondary` \| `ghost` | `primary` | Visual style |
+| `variant` | `primary` \| `secondary` \| `outline` \| `ghost` \| `destructive` \| `icon` | `primary` | Visual style |
 | `size` | `sm` \| `md` \| `lg` | `md` | Button size |
 | `disabled` | `boolean` | `false` | Disabled state |
 | `type` | `button` \| `submit` \| `reset` | `button` | Native button type |

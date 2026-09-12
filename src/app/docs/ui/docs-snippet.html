@@ -1,0 +1,11 @@
+<div class="docs-snippet">
+  <pre class="docs-snippet__body"><code class="docs-snippet__text">{{ code() }}</code></pre>
+  <button
+    type="button"
+    class="docs-snippet__copy"
+    (click)="copy()"
+    [attr.aria-label]="copied() ? 'Copied' : 'Copy code'"
+  >
+    {{ copied() ? 'Copied' : 'Copy' }}
+  </button>
+</div>

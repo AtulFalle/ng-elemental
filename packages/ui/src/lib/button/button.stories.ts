@@ -8,7 +8,14 @@ const meta: Meta<ElButton> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'ghost', 'icon'],
+      options: [
+        'primary',
+        'secondary',
+        'outline',
+        'ghost',
+        'destructive',
+        'icon',
+      ],
     },
     size: {
       control: 'select',
@@ -88,6 +95,14 @@ export const Ghost: Story = {
   args: { variant: 'ghost' },
 };
 
+export const Outline: Story = {
+  args: { variant: 'outline' },
+};
+
+export const Destructive: Story = {
+  args: { variant: 'destructive' },
+};
+
 export const Small: Story = {
   args: { size: 'sm' },
 };
@@ -141,6 +156,8 @@ export const Interactions: Story = {
     moduleMetadata: { imports: [ElButton] },
     template: `<div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center">
       <el-button>Button</el-button>
+      <el-button variant="outline">Outline</el-button>
+      <el-button variant="destructive">Delete</el-button>
       <el-button disabled>Disabled</el-button>
       <el-button loading loadingLabel="Saving">Save</el-button>
       <el-button

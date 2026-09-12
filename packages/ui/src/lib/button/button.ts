@@ -7,7 +7,13 @@ import {
 } from '@angular/core';
 import { ElIcon, type ElIconSize, type ElIconVariant } from '../icon/icon';
 
-export type ElButtonVariant = 'primary' | 'secondary' | 'ghost' | 'icon';
+export type ElButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'outline'
+  | 'ghost'
+  | 'destructive'
+  | 'icon';
 export type ElButtonSize = 'sm' | 'md' | 'lg';
 export type ElButtonType = 'button' | 'submit' | 'reset';
 
@@ -35,5 +41,7 @@ export class ElButton {
   );
   protected readonly isIconOnly = computed(() => this.variant() === 'icon');
 
-  protected readonly iconSize = computed((): ElIconSize => this.size());
+  protected readonly iconSize = computed((): ElIconSize =>
+    this.size() === 'lg' ? 'md' : 'sm',
+  );
 }
