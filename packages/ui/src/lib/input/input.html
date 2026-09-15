@@ -12,10 +12,17 @@
     [placeholder]="placeholder() || null"
     [disabled]="disabled()"
     [readOnly]="readOnly()"
+    [attr.role]="role() || null"
     [attr.autocomplete]="autocomplete() || null"
-    [attr.aria-label]="ariaLabel() || null"
+    [attr.aria-label]="ariaLabelledby() ? null : ariaLabel() || null"
+    [attr.aria-labelledby]="ariaLabelledby() || null"
     [attr.aria-describedby]="ariaDescribedby() || null"
     [attr.aria-invalid]="error() ? true : null"
+    [attr.aria-expanded]="ariaExpanded()"
+    [attr.aria-controls]="ariaControls() || null"
+    [attr.aria-activedescendant]="ariaActivedescendant() || null"
+    [attr.aria-autocomplete]="ariaAutocomplete() || null"
+    [attr.aria-busy]="ariaBusy()"
     (input)="onInput($event)"
   />
 

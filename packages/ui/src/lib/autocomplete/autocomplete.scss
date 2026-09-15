@@ -1,0 +1,86 @@
+:host {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+  vertical-align: top;
+}
+
+:host(.el-autocomplete--disabled) {
+  pointer-events: none;
+}
+
+.el-autocomplete {
+  &__field {
+    width: 100%;
+  }
+
+  &__chevron {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--el-color-on-surface-variant);
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+
+  &__chevron--open {
+    transform: rotate(180deg);
+  }
+
+  &__panel {
+    position: absolute;
+    z-index: 10;
+    inset-block-start: calc(100% + var(--el-space-1));
+    inset-inline-start: 0;
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+    max-height: 16rem;
+    overflow: auto;
+    border: var(--el-border-width) solid var(--el-color-outline-variant);
+    border-radius: var(--el-radius-xs);
+    background: var(--el-color-surface);
+    box-shadow: var(--el-shadow-3);
+  }
+
+  &__panel--open {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__status {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--el-space-2);
+    min-height: 2.5rem;
+    padding: var(--el-space-2) var(--el-space-3);
+    border-block-end: var(--el-border-width) solid var(--el-color-outline-variant);
+    text-align: center;
+
+    // Compact projected sm progress in the list panel (~1.4rem visual).
+    el-progress-circle {
+      zoom: 0.55;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding-block: var(--el-space-1);
+  }
+}
+
+:host(.el-autocomplete--panel-above) .el-autocomplete__panel {
+  inset-block: auto calc(100% + var(--el-space-1));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .el-autocomplete__chevron {
+    transition: none;
+  }
+}

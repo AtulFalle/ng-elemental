@@ -277,7 +277,7 @@ See [packages/mcp/README.md](packages/mcp/README.md) for full MCP documentation.
 50+ accessible, production-quality Angular components distributed as source. Full API docs and live examples are on the [documentation website](https://ng-elemental.vercel.app/docs).
 
 **Form controls**
-`icon` · `button` · `label` · `form-error` · `input` · `checkbox` · `slide-toggle` · `radio` · `select` · `datepicker` · `segmented-button`
+`icon` · `button` · `label` · `form-error` · `input` · `checkbox` · `slide-toggle` · `radio` · `select` · `autocomplete` · `datepicker` · `segmented-button`
 
 **Data display**
 `chip` · `badge` · `avatar` · `card` · `list` · `tree` · `table` · `progress` · `slider` · `carousel` · `skeleton` · `breadcrumb` · `navigation` · `attachment`

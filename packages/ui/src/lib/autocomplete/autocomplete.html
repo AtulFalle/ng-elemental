@@ -1,0 +1,78 @@
+<el-input
+  class="el-autocomplete__field"
+  [value]="query()"
+  (valueChange)="onQueryChange($event)"
+  [size]="size()"
+  [placeholder]="placeholder()"
+  [inputId]="inputId()"
+  [disabled]="disabled()"
+  [error]="error()"
+  [ariaLabel]="ariaLabel()"
+  [ariaLabelledby]="ariaLabelledby()"
+  [ariaDescribedby]="ariaDescribedby()"
+  role="combobox"
+  [ariaExpanded]="open()"
+  [ariaControls]="listboxId"
+  [ariaActivedescendant]="activeDescendant()"
+  [ariaAutocomplete]="'list'"
+  [ariaBusy]="loading() || null"
+  [autocomplete]="'off'"
+  (keydown)="onInputKeydown($event)"
+>
+  <ng-content select="[elInputPrefix]" />
+
+  @if (hasCustomSuffix()) {
+    <ng-content select="[elInputSuffix]" />
+  } @else {
+    <span
+      elInputSuffix
+      class="el-autocomplete__chevron"
+      [class.el-autocomplete__chevron--open]="open()"
+      aria-hidden="true"
+      (click)="onChevronClick($event)"
+    >
+      <el-icon name="chevron-down" [size]="iconSize()" />
+    </span>
+  }
+</el-input>
+
+<div
+  class="el-autocomplete__panel"
+  [class.el-autocomplete__panel--open]="open()"
+  [attr.inert]="open() ? null : ''"
+>
+  @if (showStatus()) {
+    <div class="el-autocomplete__status" role="status">
+      @if (showLoading()) {
+        @if (loadingTemplate(); as template) {
+          <ng-container
+            [ngTemplateOutlet]="template"
+            [ngTemplateOutletContext]="slotContext()"
+          />
+        } @else {
+          <ng-content select="[elAutocompleteLoading]" />
+        }
+      }
+      @if (showEmpty()) {
+        @if (emptyTemplate(); as template) {
+          <ng-container
+            [ngTemplateOutlet]="template"
+            [ngTemplateOutletContext]="slotContext()"
+          />
+        } @else {
+          <ng-content select="[elAutocompleteEmpty]" />
+        }
+      }
+    </div>
+  }
+
+  <div
+    #listbox
+    class="el-autocomplete__list"
+    role="listbox"
+    [id]="listboxId"
+    [attr.aria-label]="ariaLabel() || null"
+  >
+    <ng-content />
+  </div>
+</div>

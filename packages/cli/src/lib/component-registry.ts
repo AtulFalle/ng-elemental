@@ -88,6 +88,23 @@ export const COMPONENT_REGISTRY = [
     ],
   },
   {
+    name: 'autocomplete',
+    assetGlobs: [
+      'autocomplete.{ts,html,scss}',
+      'autocomplete-item.{ts,html,scss}',
+      'autocomplete-empty.ts',
+      'autocomplete-loading.ts',
+      'autocomplete.token.ts',
+    ],
+    requiredBasenames: [
+      'autocomplete',
+      'autocomplete-item',
+      'autocomplete-empty',
+      'autocomplete-loading',
+      'autocomplete.token',
+    ],
+  },
+  {
     name: 'chip',
     assetGlobs: ['chip.{ts,html,scss}'],
     requiredBasenames: ['chip'],

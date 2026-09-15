@@ -178,6 +178,31 @@ export const COMPONENT_CATALOG: readonly CatalogEntry[] = [
     category: 'components',
   },
   {
+    name: 'autocomplete',
+    kind: 'component',
+    title: 'Autocomplete',
+    description:
+      'Editable combobox with filtered suggestions, keyboard navigation, and separate query vs value.',
+    keywords: [
+      'autocomplete',
+      'combobox',
+      'typeahead',
+      'search',
+      'filter',
+      'suggest',
+    ],
+    selectors: ['el-autocomplete', 'el-autocomplete-item'],
+    classNames: ['ElAutocomplete', 'ElAutocompleteItem'],
+    usage: `<el-autocomplete [(value)]="country" placeholder="Search…" ariaLabel="Country">
+  <el-autocomplete-item value="in" label="India">India</el-autocomplete-item>
+  <el-autocomplete-item value="jp" label="Japan">Japan</el-autocomplete-item>
+</el-autocomplete>`,
+    registryDependencies: ['input', 'icon'],
+    npmDependencies: [],
+    docsPath: '/components/autocomplete',
+    category: 'components',
+  },
+  {
     name: 'chip',
     kind: 'component',
     title: 'Chip',

@@ -112,7 +112,15 @@ export class ElInput {
   readonly name = input('');
   readonly autocomplete = input('');
   readonly ariaLabel = input<string>();
+  readonly ariaLabelledby = input('');
   readonly ariaDescribedby = input('');
+  /** Optional ARIA role on the native input (e.g. `combobox`). */
+  readonly role = input('');
+  readonly ariaExpanded = input<boolean | null>(null);
+  readonly ariaControls = input('');
+  readonly ariaActivedescendant = input('');
+  readonly ariaAutocomplete = input('');
+  readonly ariaBusy = input<boolean | null>(null);
 
   private readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('input');
 
@@ -162,6 +170,10 @@ export class ElInput {
       return;
     }
 
+    this.focus();
+  }
+
+  focus(): void {
     this.inputRef()?.nativeElement.focus();
   }
 }
