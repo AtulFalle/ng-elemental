@@ -1,28 +1,40 @@
 <div class="docs-shell">
-  <aside class="docs-sidebar">
-    <a routerLink="/" class="docs-back" aria-label="Back to home">← Home</a>
-    <a routerLink="/docs" class="docs-brand">NgElemental</a>
-    <p class="docs-tagline">Copy-paste Angular components</p>
+  <header class="docs-header">
+    <a routerLink="/" class="docs-header__brand">
+      <span class="docs-header__logo">NgElemental</span>
+      <span class="docs-header__version">v{{ version }}</span>
+    </a>
 
-    @for (section of nav; track section.title) {
-      <nav class="docs-nav-section" [attr.aria-label]="section.title">
-        <h2>{{ section.title }}</h2>
-        <ul>
-          @for (item of section.items | sort: 'label'; track item.path) {
-            <li>
-              <a
-                class="docs-nav-section__link"
-                routerLink="{{ item.path }}"
-                routerLinkActive="docs-nav-section__link--active"
-                [routerLinkActiveOptions]="{ exact: item.path === '/docs' }"
-              >
-                {{ item.label }}
-              </a>
-            </li>
-          }
-        </ul>
-      </nav>
-    }
+    <nav class="docs-header__links" aria-label="Site">
+      <a routerLink="/docs" class="docs-header__link">Docs</a>
+      <a
+        href="https://github.com/AtulFalle/ng-elemental"
+        target="_blank"
+        rel="noopener"
+        class="docs-header__link"
+      >GitHub</a>
+    </nav>
+
+    <div class="docs-header__actions">
+      <app-docs-search />
+    </div>
+  </header>
+
+  <aside class="docs-sidebar">
+    <el-nav
+      appearance="rail"
+      size="sm"
+      [value]="activePath()"
+      (valueChange)="onNavValueChange($event)"
+      ariaLabel="Documentation"
+    >
+      @for (section of sections; track section.title) {
+        <el-nav-heading>{{ section.title }}</el-nav-heading>
+        @for (item of section.items; track item.path) {
+          <el-nav-item [value]="item.path" [label]="item.label" />
+        }
+      }
+    </el-nav>
 
     <button
       type="button"

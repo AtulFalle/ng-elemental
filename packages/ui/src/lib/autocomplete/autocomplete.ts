@@ -90,7 +90,7 @@ export class ElAutocomplete implements ElAutocompleteContext {
 
   private readonly registered = signal<ElAutocompleteOption[]>([]);
   private readonly hiddenIds = signal<ReadonlySet<string>>(new Set());
-  protected readonly open = signal(false);
+  readonly open = model(false);
   private readonly activeOptionId = signal<string | null>(null);
   protected readonly panelAbove = signal(false);
 
@@ -193,8 +193,8 @@ export class ElAutocomplete implements ElAutocompleteContext {
       return;
     }
 
-    this.value.set(itemValue);
     this.query.set(item.displayLabel());
+    this.value.set(itemValue);
     this.closePanel({ restoreQuery: false });
   }
 

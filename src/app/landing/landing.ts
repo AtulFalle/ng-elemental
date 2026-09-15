@@ -9,6 +9,7 @@ import {
   ElSeparator,
   ElStack,
 } from '@ng-elemental/ui';
+import { DOCS_VERSION } from '../docs/nav';
 import { CodeBlock } from '../docs/ui/code-block';
 
 @Component({
@@ -19,6 +20,8 @@ import { CodeBlock } from '../docs/ui/code-block';
   styleUrl: './landing.scss',
 })
 export class LandingPage {
+  protected readonly version = DOCS_VERSION;
+
   protected readonly initCode = `npx @ng-elemental/cli init
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add dialog toast table`;
