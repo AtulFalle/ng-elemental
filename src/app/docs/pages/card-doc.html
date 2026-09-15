@@ -9,25 +9,37 @@
     <p class="docs-lead">
       Presentational container with named slots for media, header, content, and
       footer. The card itself is not a control — put buttons and links inside.
+      Use <code>appearance</code> for outlined or elevated surfaces.
     </p>
   </header>
 
   <app-docs-example [code]="heroCode">
     <el-card style="max-width: 22rem">
-      <div elCardHeader>Outlined card</div>
-      <div elCardContent>
-        Slot-based body. Omit unused slots — they collapse.
+      <el-aspect-ratio elCardMedia ratio="16/9">
+        <img
+          style="width: 100%; height: 100%; object-fit: cover"
+          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=640&q=80"
+          alt=""
+        />
+      </el-aspect-ratio>
+      <div elCardHeader>
+        <div elCardTitle>Trail overlook pack</div>
+        <div elCardDescription>
+          Daypack with weather shell for weekend hikes.
+        </div>
       </div>
+      <div elCardContent>$128</div>
       <div elCardFooter>
-        <el-button size="sm" variant="secondary">Cancel</el-button>
-        <el-button size="sm">Save</el-button>
+        <el-button size="sm" variant="secondary">View</el-button>
+        <el-button size="sm">Add to cart</el-button>
       </div>
     </el-card>
     <ng-template #standards>
       <p>
-        Card is a layout shell, not a button. Actions stay on real
-        <code>el-button</code> controls in the footer so keyboard, name, and
-        focus stay on those controls.
+        Product tiles keep actions on real
+        <code>el-button</code> controls. Empty
+        <code>alt</code> is correct when the title already names the image.
+        Lock media with <code>el-aspect-ratio</code> so layout does not shift.
       </p>
     </ng-template>
   </app-docs-example>
@@ -42,8 +54,15 @@
       <el-tab value="cli" label="Command">
         <ng-template elTabContent>
           <p class="docs-page__section-lead">
-            Optional: <code>icon</code>, <code>avatar</code>, and
-            <code>button</code> for people-card / file-row examples.
+            Optional:
+            <code>aspect-ratio</code>,
+            <code>stack</code>,
+            <code>grid</code>,
+            <code>avatar</code>,
+            <code>button</code>,
+            <code>icon</code>, and
+            <code>slide-toggle</code>
+            for the recipe examples.
           </p>
           <app-docs-snippet [code]="addCode" />
         </ng-template>
@@ -70,102 +89,139 @@
     <p class="docs-page__section-lead">
       Mark projected nodes with <code>elCardMedia</code>,
       <code>elCardHeader</code>, <code>elCardContent</code>, or
-      <code>elCardFooter</code>. Omit unused slots so they collapse.
+      <code>elCardFooter</code>.       Nest <code>elCardTitle</code> and
+      <code>elCardDescription</code> in the header when you need title typography.
+      Size media inside <code>el-aspect-ratio</code> with
+      <code>width/height: 100%</code> and <code>object-fit: cover</code>.
+      Omit unused slots so they collapse.
     </p>
     <app-docs-snippet [code]="importSnippet" />
     <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2 id="media">Media</h2>
-    <app-docs-example [code]="mediaCode">
-      <el-card style="max-width: 22rem">
-        <img
-          elCardMedia
-          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=640&q=80"
-          alt=""
-        />
-        <div elCardHeader>Trail overlook</div>
-        <div elCardContent>Media sits flush at the top.</div>
-      </el-card>
-      <ng-template #standards>
-        <p>
-          Images in the media slot fill the width. Empty <code>alt</code> is
-          correct when the header already names the image; otherwise provide a
-          text alternative.
-        </p>
-      </ng-template>
-    </app-docs-example>
-  </section>
-
-  <section>
-    <h2 id="grid">Grid</h2>
-    <app-docs-example [code]="gridCode">
-      <el-grid [columns]="3" gap="4" style="width: 100%">
+    <h2 id="stats">Stats</h2>
+    <p class="docs-page__section-lead">
+      KPI tiles in a responsive grid. Use
+      <code>minItemWidth</code> so cards wrap cleanly instead of forcing three
+      cramped columns.
+    </p>
+    <app-docs-example [code]="statsCode">
+      <el-grid minItemWidth="12rem" gap="4" style="width: 100%">
         <el-card>
-          <div elCardHeader>Short</div>
-          <div elCardContent>One line.</div>
-          <div elCardFooter>
-            <el-button size="sm" variant="secondary">Open</el-button>
+          <div elCardHeader>
+            <div elCardTitle>Revenue</div>
+            <div elCardDescription>Last 30 days</div>
           </div>
-        </el-card>
-        <el-card>
-          <div elCardHeader>A much longer title that wraps</div>
           <div elCardContent>
-            Longer body copy so the card grows. Footers stay at the bottom
-            of the row.
-          </div>
-          <div elCardFooter>
-            <el-button size="sm" variant="secondary">Open</el-button>
+            <div class="el-text-h3">$48.2k</div>
+            <div class="el-text-muted">+12.4% vs prior</div>
           </div>
         </el-card>
         <el-card>
-          <div elCardHeader>Medium</div>
-          <div elCardContent>A couple of sentences of content.</div>
-          <div elCardFooter>
-            <el-button size="sm" variant="secondary">Open</el-button>
+          <div elCardHeader>
+            <div elCardTitle>Active users</div>
+            <div elCardDescription>Last 30 days</div>
+          </div>
+          <div elCardContent>
+            <div class="el-text-h3">3,842</div>
+            <div class="el-text-muted">+8.1% vs prior</div>
+          </div>
+        </el-card>
+        <el-card>
+          <div elCardHeader>
+            <div elCardTitle>Churn</div>
+            <div elCardDescription>Last 30 days</div>
+          </div>
+          <div elCardContent>
+            <div class="el-text-h3">1.8%</div>
+            <div class="el-text-muted">−0.3 pts vs prior</div>
           </div>
         </el-card>
       </el-grid>
       <ng-template #standards>
         <p>
-          Cards fill the grid cell so unequal copy still lines footers up.
-          Long titles wrap instead of overflowing the column.
+          Values use theme type utilities
+          (<code>el-text-h3</code>, <code>el-text-muted</code>), not a special
+          card API. Cards fill the grid cell so unequal copy stays aligned.
         </p>
       </ng-template>
     </app-docs-example>
   </section>
 
   <section>
-    <h2 id="with-avatar">With avatar</h2>
-    <app-docs-example [code]="avatarComposeCode">
+    <h2 id="profile">Profile</h2>
+    <p class="docs-page__section-lead">
+      People cards compose <code>el-avatar</code> with
+      <code>el-stack</code> in the header. Elevated appearance lifts the surface.
+    </p>
+    <app-docs-example [code]="profileCode">
       <el-card appearance="elevated" style="max-width: 22rem">
-        <div
-          elCardHeader
-          style="display: flex; align-items: center; gap: 0.75rem"
-        >
-          <el-avatar initials="AL" alt="Ada Lovelace" />
-          <div>
-            <div style="font-weight: 600">Ada Lovelace</div>
-            <div
-              style="font-size: 0.875rem; color: var(--el-color-on-surface-variant)"
-            >
-              Mathematician
-            </div>
-          </div>
+        <div elCardHeader>
+          <el-stack direction="row" gap="3" align="center">
+            <el-avatar initials="AL" alt="" />
+            <el-stack gap="2" style="min-width: 0">
+              <div elCardTitle>Ada Lovelace</div>
+              <div elCardDescription>Mathematician · London</div>
+            </el-stack>
+          </el-stack>
         </div>
         <div elCardContent>
-          Compose <code>el-avatar</code> in the header when you need a
-          people card.
+          Working on analytical engines and early computing notes.
         </div>
         <div elCardFooter>
-          <el-button size="sm" variant="secondary">Follow</el-button>
+          <el-button size="sm" variant="secondary">Message</el-button>
+          <el-button size="sm">Follow</el-button>
         </div>
       </el-card>
       <ng-template #standards>
         <p>
-          Avatar needs its own accessible name. Follow is a real button in the
-          footer, not a clickable card.
+          Empty <code>alt</code> on the avatar is correct when the name is
+          visible next to it. Follow and Message stay real buttons in the footer.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="settings">Settings</h2>
+    <p class="docs-page__section-lead">
+      Full-width settings panels hold form controls in the content slot. Footer
+      actions stay end-aligned.
+    </p>
+    <app-docs-example [code]="settingsCode">
+      <el-card style="width: 100%">
+        <div elCardHeader>
+          <div elCardTitle>Email preferences</div>
+          <div elCardDescription>
+            Choose which product emails you want to receive.
+          </div>
+        </div>
+        <div elCardContent>
+          <el-stack gap="4">
+            <el-slide-toggle
+              [(checked)]="marketingEmails"
+              inputId="card-marketing"
+            >
+              Marketing emails
+            </el-slide-toggle>
+            <el-slide-toggle
+              [(checked)]="productUpdates"
+              inputId="card-updates"
+            >
+              Product updates
+            </el-slide-toggle>
+          </el-stack>
+        </div>
+        <div elCardFooter>
+          <el-button size="sm" variant="secondary">Cancel</el-button>
+          <el-button size="sm">Save</el-button>
+        </div>
+      </el-card>
+      <ng-template #standards>
+        <p>
+          Toggles keep their own accessible names from visible label text. The
+          card does not take a widget role — it is only the grouping surface.
         </p>
       </ng-template>
     </app-docs-example>
@@ -173,10 +229,12 @@
 
   <section>
     <h2 id="compact">Compact</h2>
+    <p class="docs-page__section-lead">
+      Horizontal file rows for uploads and attachments. Long names truncate;
+      trailing actions stay on the row.
+    </p>
     <app-docs-example [code]="compactCode">
-      <div
-        style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%; max-width: 28rem"
-      >
+      <div class="docs-stack" style="width: 100%; max-width: 28rem">
         <el-card size="compact">
           <el-icon elCardMedia name="file-lines" />
           <div elCardHeader>report.pdf</div>
@@ -233,10 +291,19 @@
     <ul>
       <li>No <code>role</code> on the host — grouping comes from visible structure.</li>
       <li>Whole-card click is avoided so footer buttons are not nested controls.</li>
+      <li>
+        <code>elCardTitle</code> / <code>elCardDescription</code> give consistent
+        header typography without inline styles.
+      </li>
+      <li>
+        Compose media with <code>el-aspect-ratio</code>; size images with
+        <code>object-fit: cover</code> so the frame crops cleanly.
+      </li>
       <li>Omitted slots collapse; footer padding stays even when the body is empty.</li>
+      <li>Default and compact footers end-align actions; compact does not wrap actions under the name.</li>
       <li>Outlined border uses <code>--el-color-outline</code> for 3:1 against surface.</li>
       <li>Long text wraps (default) or ellipsizes (compact) without overlapping actions.</li>
-      <li>Grid cells stretch so footers align across unequal copy.</li>
+      <li>Grid cells stretch so cards align across unequal copy.</li>
     </ul>
     <p>
       References:

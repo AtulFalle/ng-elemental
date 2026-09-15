@@ -62,12 +62,26 @@
   flex-direction: column;
   gap: var(--el-space-1);
   min-width: 0;
+  color: var(--el-color-on-surface);
+  font-size: var(--el-text-p-size);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* Plain header text is the title; structured headers reset inheritance. */
+.el-card__header:has(el-avatar),
+.el-card__header:has(el-stack),
+.el-card__header:has([elCardTitle]) {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
 }
 
 .el-card__content {
   flex: 1 1 auto;
   min-width: 0;
-  color: var(--el-color-on-surface-variant);
+  color: var(--el-color-on-surface);
   font-size: 0.875rem;
   line-height: 1.5;
 }
@@ -76,11 +90,47 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--el-space-3);
   padding: var(--el-space-4);
   min-width: 0;
   margin-top: auto;
 }
+
+/* Consumers usually wrap actions in one [elCardFooter] node — space its children. */
+/* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+:host ::ng-deep .el-card__footer > [elCardFooter] {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--el-space-3);
+  min-width: 0;
+}
+
+/* Projected slot attrs need piercing under emulated encapsulation. */
+/* stylelint-disable selector-pseudo-element-no-unknown */
+:host ::ng-deep [elCardTitle] {
+  display: block;
+  min-width: 0;
+  color: var(--el-color-on-surface);
+  font-size: var(--el-text-p-size);
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: start;
+}
+
+:host ::ng-deep [elCardDescription] {
+  display: block;
+  min-width: 0;
+  color: var(--el-color-on-surface-variant);
+  font-size: var(--el-text-muted-size);
+  font-weight: var(--el-text-muted-weight);
+  line-height: 1.35;
+  text-align: start;
+}
+/* stylelint-enable selector-pseudo-element-no-unknown */
 
 .el-card__media:empty,
 .el-card__header:empty,
@@ -103,6 +153,7 @@
   flex: 1 1 auto;
   gap: 0.125rem;
   padding: 0;
+  min-width: 0;
 }
 
 .el-card--compact .el-card__header {
@@ -120,16 +171,25 @@
 }
 
 .el-card--compact .el-card__content {
+  color: var(--el-color-on-surface-variant);
   font-size: 0.8125rem;
+  font-weight: 400;
   line-height: 1.35;
 }
 
 .el-card--compact .el-card__footer {
-  flex: 0 1 auto;
-  flex-wrap: wrap;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
   justify-content: flex-end;
   padding: 0;
   margin-top: 0;
+}
+
+/* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+:host ::ng-deep .el-card--compact .el-card__footer > [elCardFooter] {
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
 }
 
 .el-card--default .el-card__media > * {

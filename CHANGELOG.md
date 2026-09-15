@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Docs landing page redesigned with a shadcn-style live component collage, compact hero, and unified CLI/MCP install band
+- `ElCard` adds optional `elCardTitle` / `elCardDescription` typography, end-aligned footers, compact nowrap actions, and docs recipes for product, stats, profile, settings, and file rows
 
 ## [1.1.0] - 2026-09-15
 

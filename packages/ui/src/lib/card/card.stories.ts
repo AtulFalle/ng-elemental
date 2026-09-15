@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { ElAspectRatio } from '../aspect-ratio/aspect-ratio';
 import { ElAvatar } from '../avatar/avatar';
 import { ElButton } from '../button/button';
 import { ElGrid } from '../grid/grid';
+import { ElIcon } from '../icon/icon';
+import { ElSlideToggle } from '../slide-toggle/slide-toggle';
+import { ElStack } from '../stack/stack';
 import { ElCard } from './card';
 
 const meta: Meta<ElCard> = {
@@ -24,16 +28,27 @@ const meta: Meta<ElCard> = {
   render: (args) => ({
     props: args,
     moduleMetadata: {
-      imports: [ElCard, ElButton],
+      imports: [ElCard, ElButton, ElAspectRatio],
     },
     template: `
       <el-card [appearance]="appearance" [size]="size" style="max-width: 22rem">
-        <div elCardHeader>Card title</div>
-        <div elCardContent>
-          Slot-based body content. Put whatever you need here.
+        <el-aspect-ratio elCardMedia ratio="16/9">
+          <img
+            style="width: 100%; height: 100%; object-fit: cover"
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=640&q=80"
+            alt=""
+          />
+        </el-aspect-ratio>
+        <div elCardHeader>
+          <div elCardTitle>Trail overlook pack</div>
+          <div elCardDescription>
+            Daypack with weather shell for weekend hikes.
+          </div>
         </div>
+        <div elCardContent>$128</div>
         <div elCardFooter>
-          <el-button size="sm">Save</el-button>
+          <el-button size="sm" variant="secondary">View</el-button>
+          <el-button size="sm">Add to cart</el-button>
         </div>
       </el-card>
     `,
@@ -43,79 +58,45 @@ const meta: Meta<ElCard> = {
 export default meta;
 type Story = StoryObj<ElCard>;
 
-export const Outlined: Story = {};
+export const Product: Story = {};
 
 export const Elevated: Story = {
   args: { appearance: 'elevated' },
 };
 
-export const WithMedia: Story = {
-  render: () => ({
-    moduleMetadata: { imports: [ElCard] },
-    template: `
-      <el-card style="max-width: 22rem; max-height: 22rem">
-        <img
-          elCardMedia
-          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=640&q=80"
-          alt=""
-        />
-        <div elCardHeader>Trail overlook</div>
-        <div elCardContent>
-          Media sits flush at the top of the card.
-        </div>
-      </el-card>
-    `,
-  }),
-};
-
-export const SlotRegions: Story = {
+export const Stats: Story = {
   render: () => ({
     moduleMetadata: { imports: [ElCard, ElGrid] },
     template: `
-      <el-grid [columns]="3" gap="4">
+      <el-grid minItemWidth="12rem" gap="4">
         <el-card>
-          <div elCardHeader>Header only</div>
-        </el-card>
-        <el-card>
-          <div elCardContent>Content only</div>
-        </el-card>
-        <el-card>
-          <div elCardFooter>Footer only</div>
-        </el-card>
-      </el-grid>
-    `,
-  }),
-};
-
-export const InGrid: Story = {
-  render: () => ({
-    moduleMetadata: { imports: [ElCard, ElButton, ElGrid] },
-    template: `
-      <el-grid [columns]="3" gap="4">
-        <el-card>
-          <div elCardHeader>Short</div>
-          <div elCardContent>One line.</div>
-          <div elCardFooter>
-            <el-button size="sm" variant="secondary">Open</el-button>
+          <div elCardHeader>
+            <div elCardTitle>Revenue</div>
+            <div elCardDescription>Last 30 days</div>
           </div>
-        </el-card>
-        <el-card>
-          <div elCardHeader>A much longer title that wraps inside the header</div>
           <div elCardContent>
-            Longer body copy so the card grows. Footers stay at the bottom of the
-            row because the card fills the grid cell.
-          </div>
-          <div elCardFooter>
-            <el-button size="sm" variant="secondary">Open</el-button>
+            <div class="el-text-h3">$48.2k</div>
+            <div class="el-text-muted">+12.4% vs prior</div>
           </div>
         </el-card>
         <el-card>
-          <div elCardHeader>Medium</div>
-          <div elCardContent>
-            A couple of sentences of content, still shorter than the middle card.
+          <div elCardHeader>
+            <div elCardTitle>Active users</div>
+            <div elCardDescription>Last 30 days</div>
           </div>
-          <div elCardFooter>
-            <el-button size="sm" variant="secondary">Open</el-button>
+          <div elCardContent>
+            <div class="el-text-h3">3,842</div>
+            <div class="el-text-muted">+8.1% vs prior</div>
+          </div>
+        </el-card>
+        <el-card>
+          <div elCardHeader>
+            <div elCardTitle>Churn</div>
+            <div elCardDescription>Last 30 days</div>
+          </div>
+          <div elCardContent>
+            <div class="el-text-h3">1.8%</div>
+            <div class="el-text-muted">−0.3 pts vs prior</div>
           </div>
         </el-card>
       </el-grid>
@@ -123,47 +104,97 @@ export const InGrid: Story = {
   }),
 };
 
-export const WithLink: Story = {
+export const Profile: Story = {
   render: () => ({
-    moduleMetadata: { imports: [ElCard] },
-    template: `
-      <el-card style="max-width: 22rem">
-        <div elCardHeader>Release notes</div>
-        <div elCardContent>
-          See the
-          <a href="https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/">APG landmarks</a>
-          guidance for grouping content. Put the link in the card — do not make
-          the card itself a control.
-        </div>
-      </el-card>
-    `,
-  }),
-};
-
-export const WithAvatar: Story = {
-  render: () => ({
-    moduleMetadata: { imports: [ElCard, ElAvatar, ElButton] },
+    moduleMetadata: { imports: [ElCard, ElAvatar, ElButton, ElStack] },
     template: `
       <el-card appearance="elevated" style="max-width: 22rem">
-        <div
-          elCardHeader
-          style="display: flex; align-items: center; gap: 0.75rem"
-        >
-          <el-avatar initials="AL" alt="Ada Lovelace" />
-          <div>
-            <div style="font-weight: 600">Ada Lovelace</div>
-            <div style="font-size: 0.875rem; color: var(--el-color-on-surface-variant)">
-              Mathematician
-            </div>
+        <div elCardHeader>
+          <el-stack direction="row" gap="3" align="center">
+            <el-avatar initials="AL" alt="" />
+            <el-stack gap="2" style="min-width: 0">
+              <div elCardTitle>Ada Lovelace</div>
+              <div elCardDescription>Mathematician · London</div>
+            </el-stack>
+          </el-stack>
+        </div>
+        <div elCardContent>
+          Working on analytical engines and early computing notes.
+        </div>
+        <div elCardFooter>
+          <el-button size="sm" variant="secondary">Message</el-button>
+          <el-button size="sm">Follow</el-button>
+        </div>
+      </el-card>
+    `,
+  }),
+};
+
+export const Settings: Story = {
+  render: () => ({
+    moduleMetadata: { imports: [ElCard, ElButton, ElSlideToggle, ElStack] },
+    template: `
+      <el-card style="max-width: 28rem">
+        <div elCardHeader>
+          <div elCardTitle>Email preferences</div>
+          <div elCardDescription>
+            Choose which product emails you want to receive.
           </div>
         </div>
         <div elCardContent>
-          Compose avatar inside the header slot when you need a people card.
+          <el-stack gap="4">
+            <el-slide-toggle [checked]="true" inputId="story-marketing">
+              Marketing emails
+            </el-slide-toggle>
+            <el-slide-toggle [checked]="false" inputId="story-updates">
+              Product updates
+            </el-slide-toggle>
+          </el-stack>
         </div>
         <div elCardFooter>
-          <el-button size="sm" variant="secondary">Follow</el-button>
+          <el-button size="sm" variant="secondary">Cancel</el-button>
+          <el-button size="sm">Save</el-button>
         </div>
       </el-card>
+    `,
+  }),
+};
+
+export const Compact: Story = {
+  render: () => ({
+    moduleMetadata: { imports: [ElCard, ElButton, ElIcon] },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 28rem">
+        <el-card size="compact">
+          <el-icon elCardMedia name="file-lines" />
+          <div elCardHeader>report.pdf</div>
+          <div elCardContent>2.4 MB</div>
+          <div elCardFooter>
+            <el-button
+              variant="ghost"
+              size="sm"
+              iconStart="xmark"
+              ariaLabel="Remove report.pdf"
+            />
+          </div>
+        </el-card>
+        <el-card size="compact">
+          <el-icon elCardMedia name="image" />
+          <div elCardHeader>
+            quarterly-financial-summary-final-v12.png
+          </div>
+          <div elCardContent>840 KB</div>
+          <div elCardFooter>
+            <el-button size="sm" variant="ghost">Replace</el-button>
+            <el-button
+              variant="ghost"
+              size="sm"
+              iconStart="xmark"
+              ariaLabel="Remove quarterly-financial-summary-final-v12.png"
+            />
+          </div>
+        </el-card>
+      </div>
     `,
   }),
 };

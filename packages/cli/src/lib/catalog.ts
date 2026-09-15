@@ -317,7 +317,10 @@ export const COMPONENT_CATALOG: readonly CatalogEntry[] = [
     selectors: ['el-card'],
     classNames: ['ElCard'],
     usage: `<el-card appearance="outlined">
-  <div elCardHeader>Title</div>
+  <div elCardHeader>
+    <div elCardTitle>Title</div>
+    <div elCardDescription>Optional description</div>
+  </div>
   <div elCardContent>Body</div>
   <div elCardFooter>Actions</div>
 </el-card>
