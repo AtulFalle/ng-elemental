@@ -108,6 +108,7 @@ Commands:
   add icon              Copy the Icon component into your project
   add button            Copy the Button component into your project
   add chip              Copy the Chip component into your project
+  add badge             Copy the Badge component into your project
   add label             Copy the Label component into your project
   add form-error        Copy the Form Error component into your project
   add input             Copy the Input component into your project

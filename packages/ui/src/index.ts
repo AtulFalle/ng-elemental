@@ -40,6 +40,13 @@ export {
   type ElChipType,
 } from './lib/chip/chip';
 export {
+  ElBadge,
+  type ElBadgeColor,
+  type ElBadgePlacement,
+  type ElBadgeSize,
+  type ElBadgeVariant,
+} from './lib/badge/badge';
+export {
   ElSelect,
   ElSelectGroup,
   ElSelectItem,

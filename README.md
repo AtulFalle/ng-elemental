@@ -280,7 +280,7 @@ See [packages/mcp/README.md](packages/mcp/README.md) for full MCP documentation.
 `icon` · `button` · `label` · `form-error` · `input` · `checkbox` · `slide-toggle` · `radio` · `select` · `datepicker` · `segmented-button`
 
 **Data display**
-`chip` · `avatar` · `card` · `list` · `tree` · `table` · `progress` · `slider` · `carousel` · `skeleton` · `breadcrumb` · `navigation` · `attachment`
+`chip` · `badge` · `avatar` · `card` · `list` · `tree` · `table` · `progress` · `slider` · `carousel` · `skeleton` · `breadcrumb` · `navigation` · `attachment`
 
 **Layout**
 `container` · `stack` · `grid` · `aspect-ratio` · `scroll-area` · `separator` · `resizable`

@@ -44,6 +44,7 @@ Layout-only rows still get names/contrast/zoom from the audit. They have no widg
 | radio | Radio Group | https://www.w3.org/WAI/ARIA/apg/patterns/radio/ | `radiogroup` + `radio`. Tab into group, arrows move, one tab stop. `aria-checked`. |
 | select | Combobox + Listbox | https://www.w3.org/WAI/ARIA/apg/patterns/combobox/ · [listbox](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) | `aria-expanded`, `aria-controls`, listbox options, typeahead, Escape closes. |
 | chip | Button or Checkbox | button / checkbox | Action chip = button keys. Filter/input chip = selected/removed semantics + name. |
+| badge | (display) | — | Non-interactive. Visible text names pills. Overlay: put the count in the wrapped control’s name. Dots: `role="img"` + `ariaLabel` (same as avatar). Not a chip. |
 | progress | progressbar (ARIA) | no dedicated APG pattern; use `role="progressbar"` | Name. `aria-valuemin/max/now` or `aria-valuetext`. Determinate vs indeterminate. |
 | slider | Slider | https://www.w3.org/WAI/ARIA/apg/patterns/slider/ | Arrows, Home/End, Page Up/Down. `aria-valuemin/max/now`. Range: [Multi-Thumb](https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/). |
 | carousel | Carousel | https://www.w3.org/WAI/ARIA/apg/patterns/carousel/ | Pause control if autoplay. Prev/next. Do not steal focus each slide. |

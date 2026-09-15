@@ -93,6 +93,11 @@ export const COMPONENT_REGISTRY = [
     requiredBasenames: ['chip'],
   },
   {
+    name: 'badge',
+    assetGlobs: ['badge.{ts,html,scss}'],
+    requiredBasenames: ['badge'],
+  },
+  {
     name: 'progress',
     assetGlobs: [
       'progress.{ts,html,scss}',

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ElBadge` — notification overlay or inline count pill for unread marks, NEW labels, and filter counts
 - `ElNav`, `ElNavItem`, and `ElNavHeading` — sidebar navigation with rail/soft appearance, item slots, and expandable parents
 
 ### Changed

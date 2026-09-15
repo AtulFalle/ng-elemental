@@ -1,0 +1,17 @@
+<span [class]="rootClass()">
+  <span class="el-badge__anchor">
+    <ng-content />
+  </span>
+  @if (showIndicator()) {
+    <span
+      class="el-badge__indicator"
+      [attr.role]="indicatorRole()"
+      [attr.aria-label]="accessibleName()"
+      [attr.aria-hidden]="indicatorHidden()"
+    >
+      @if (!dot()) {
+        <span class="el-badge__label">{{ indicatorText() }}</span>
+      }
+    </span>
+  }
+</span>

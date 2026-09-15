@@ -199,6 +199,13 @@
     line-height: 1.25;
     letter-spacing: 0.02em;
 
+    &:has(el-badge) {
+      min-width: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+    }
+
     &:empty {
       display: none;
     }

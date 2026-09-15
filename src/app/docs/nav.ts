@@ -48,6 +48,7 @@ export const DOC_NAV: DocNavSection[] = [
       { label: 'Date Picker', path: '/docs/components/datepicker' },
       { label: 'Date Range Picker', path: '/docs/components/date-range-picker' },
       { label: 'Chip', path: '/docs/components/chip' },
+      { label: 'Badge', path: '/docs/components/badge' },
       { label: 'Progress', path: '/docs/components/progress' },
       { label: 'Slider', path: '/docs/components/slider' },
       { label: 'Carousel', path: '/docs/components/carousel' },
