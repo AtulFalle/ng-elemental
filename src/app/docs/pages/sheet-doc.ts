@@ -12,10 +12,15 @@ import {
   ElSheetClose,
   ElSheetRef,
   ElSheetService,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 interface EditFiltersData {
@@ -49,8 +54,13 @@ export class EditFiltersSheet {
     ElButton,
     ElSheet,
     ElSheetClose,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './sheet-doc.html',
@@ -59,10 +69,7 @@ export class EditFiltersSheet {
 export class SheetDocPage {
   private readonly sheet = inject(ElSheetService);
 
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sidePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly servicePanel = signal<'preview' | 'code' | 'standards'>('preview');
-
+  protected readonly installTab = signal('cli');
   protected readonly open = signal(false);
   protected readonly sideOpen = signal(false);
   protected readonly serviceResult = signal<string | null>(null);
@@ -72,27 +79,21 @@ npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add sheet`;
 
-  protected readonly importCode = `import { ElSheet, ElSheetClose } from './ui/sheet/sheet';
-import { ElButton } from './ui/button/button';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElSheet, ElSheetClose, ElButton],
-  template: \`
-    <el-button (click)="open.set(true)">Filters</el-button>
-    <el-sheet [(open)]="open" title="Filters" side="bottom">
-      <div elSheetContent>Filter fields</div>
-      <div elSheetFooter>
-        <el-button elSheetClose variant="ghost">Cancel</el-button>
-        <el-button>Apply</el-button>
-      </div>
-    </el-sheet>
-  \`,
-})
-export class MyComponent {
-  protected open = false;
-}`;
+  protected readonly manualFilesCode = `ui/sheet/sheet.ts
+ui/sheet/sheet.html
+ui/sheet/sheet.scss
+ui/sheet/sheet-close.ts
+ui/sheet/sheet.token.ts
+ui/sheet/sheet-ref.ts
+ui/sheet/sheet.service.ts
+ui/sheet/sheet-outlet.ts`;
 
-  protected readonly usageCode = `<el-sheet [(open)]="open" title="Filters" side="bottom" size="md">
+  protected readonly importSnippet = `import { ElSheet, ElSheetClose } from './ui/sheet/sheet';
+import { ElButton } from './ui/button/button';`;
+
+  protected readonly usageSnippet = `<el-sheet [(open)]="open" title="Filters" side="bottom" size="md">
   <div elSheetContent>Any HTML or components.</div>
   <div elSheetFooter>
     <el-button elSheetClose variant="ghost">Cancel</el-button>

@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Empty State</h1>
+    <div class="docs-page__header-row">
+      <h1>Empty State</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Placeholder for an empty list, search, or page. Project an illustration,
       extra copy, and actions. Requires the icon component; examples also use
@@ -8,132 +13,120 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
-    <code>npx @ng-elemental/cli add icon</code>, then
-    <code>npx @ng-elemental/cli add empty-state</code>
-  </div>
+  <app-docs-example [code]="heroCode">
+    <el-empty-state
+      style="width: 100%;"
+      icon="folder-open"
+      title="No projects"
+      description="Create a project to get started."
+    >
+      <div elEmptyStateActions>
+        <el-button>Create project</el-button>
+        <el-button variant="ghost">Learn more</el-button>
+      </div>
+    </el-empty-state>
+    <ng-template #standards>
+      <p>
+        Actions are real buttons in the actions slot — keyboard, focus, and naming stay on
+        those controls. The empty state itself is not interactive.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code>; examples also use <code>button</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Mark an illustration with <code>elEmptyStateMedia</code> and actions with
       <code>elEmptyStateActions</code>. Default content lands under the
       description. Empty slots collapse.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">With actions</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-empty-state
-              style="width: 100%;"
-              icon="folder-open"
-              title="No projects"
-              description="Create a project to get started."
-            >
-              <div elEmptyStateActions>
-                <el-button>Create project</el-button>
-                <el-button variant="ghost">Learn more</el-button>
-              </div>
-            </el-empty-state>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="heroCode" language="html" />
-        } @else {
-          <p>
-            Actions are real buttons in the actions slot — keyboard, focus, and naming stay on
-            those controls. The empty state itself is not interactive.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Icon only</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="iconPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="iconPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="iconPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (iconPanel() === 'preview') {
-          <app-preview>
-            <el-empty-state
-              style="width: 100%;"
-              icon="inbox"
-              title="Inbox zero"
-              description="You are all caught up."
-            />
-          </app-preview>
-        } @else if (iconPanel() === 'code') {
-          <app-code-block [code]="iconCode" language="html" />
-        } @else {
-          <p>
-            Title and description carry the message. The icon is decorative when text is present.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Extra copy</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="extraPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="extraPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="extraPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (extraPanel() === 'preview') {
-          <app-preview>
-            <el-empty-state
-              style="width: 100%;"
-              icon="magnifying-glass"
-              title="No results"
-              description="Try a different search term."
-            >
-              Filters are still applied.
-              <div elEmptyStateActions>
-                <el-button variant="secondary">Clear filters</el-button>
-              </div>
-            </el-empty-state>
-          </app-preview>
-        } @else if (extraPanel() === 'code') {
-          <app-code-block [code]="extraCode" language="html" />
-        } @else {
-          <p>
-            Default slot content sits between description and actions. Use it for secondary
-            context such as active filter summaries.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="icon-only">Icon only</h2>
+    <app-docs-example [code]="iconCode">
+      <el-empty-state
+        style="width: 100%;"
+        icon="inbox"
+        title="Inbox zero"
+        description="You are all caught up."
+      />
+      <ng-template #standards>
+        <p>
+          Title and description carry the message. The icon is decorative when text is present.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="extra-copy">Extra copy</h2>
+    <app-docs-example [code]="extraCode">
+      <el-empty-state
+        style="width: 100%;"
+        icon="magnifying-glass"
+        title="No results"
+        description="Try a different search term."
+      >
+        Filters are still applied.
+        <div elEmptyStateActions>
+          <el-button variant="secondary">Clear filters</el-button>
+        </div>
+      </el-empty-state>
+      <ng-template #standards>
+        <p>
+          Default slot content sits between description and actions. Use it for secondary
+          context such as active filter summaries.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Empty state announces status without trapping focus.
     </p>
@@ -152,16 +145,11 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. See
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>

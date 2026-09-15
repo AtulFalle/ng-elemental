@@ -1,21 +1,33 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElGrid } from '@ng-elemental/ui';
+import { ElGrid, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-grid-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElGrid, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElGrid,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './grid-doc.html',
   styleUrl: './page.scss',
 })
 export class GridDocPage {
-  protected readonly columnsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly autoFitPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly columnItems = ['One', 'Two', 'Three', 'Four', 'Five', 'Six'];
   protected readonly autoFitItems = ['A', 'B', 'C', 'D'];
@@ -23,19 +35,17 @@ export class GridDocPage {
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add grid`;
 
-  protected readonly importCode = `import { ElGrid } from './ui/grid/grid';
+  protected readonly manualFilesCode = `ui/grid/grid.ts
+ui/grid/grid.html
+ui/grid/grid.scss`;
 
-@Component({
-  imports: [ElGrid],
-  template: \`
-    <el-grid [columns]="3" gap="4">
-      <div>One</div>
-      <div>Two</div>
-      <div>Three</div>
-    </el-grid>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElGrid } from './ui/grid/grid';`;
+
+  protected readonly usageSnippet = `<el-grid [columns]="3" gap="4">
+  <div>One</div>
+  <div>Two</div>
+  <div>Three</div>
+</el-grid>`;
 
   protected readonly columnsCode = `<el-grid [columns]="3" gap="3">
   <div>One</div>

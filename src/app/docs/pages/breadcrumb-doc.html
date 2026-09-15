@@ -1,171 +1,146 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Breadcrumb</h1>
+    <div class="docs-page__header-row">
+      <h1>Breadcrumb</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Navigation trail for the current page. The last item hides its separator
       automatically. Requires the icon component for the chevron.
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
-    <code>npx @ng-elemental/cli add icon</code>, then
-    <code>npx @ng-elemental/cli add breadcrumb</code>
-  </div>
+  <app-docs-example [code]="usageSnippet">
+    <el-breadcrumb ariaLabel="Breadcrumb">
+      <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+      <el-breadcrumb-item href="/components">Components</el-breadcrumb-item>
+      <el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>
+    </el-breadcrumb>
+    <ng-template #standards>
+      <p>
+        Renders a labelled <code>nav</code> with an ordered list. The current
+        page uses <code>aria-current="page"</code>. Separators are decorative.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code> for the chevron.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency if you need the chevron.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Use <code>href</code> for plain links. Omit it and project an
       <code>a routerLink</code> when you need the Angular router. Mark the last
       crumb with <code>current</code>.
     </p>
-    <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Default trail</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="defaultPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="defaultPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="defaultPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (defaultPanel() === 'preview') {
-          <app-preview>
-            <el-breadcrumb ariaLabel="Breadcrumb">
-              <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
-              <el-breadcrumb-item href="/components">Components</el-breadcrumb-item>
-              <el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>
-            </el-breadcrumb>
-          </app-preview>
-        } @else if (defaultPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Renders a labelled <code>nav</code> with an ordered list. The current
-            page uses <code>aria-current="page"</code>. Separators are decorative.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Current page only</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="currentPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="currentPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="currentPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (currentPanel() === 'preview') {
-          <app-preview>
-            <el-breadcrumb>
-              <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
-              <el-breadcrumb-item current>Overview</el-breadcrumb-item>
-            </el-breadcrumb>
-          </app-preview>
-        } @else if (currentPanel() === 'code') {
-          <app-code-block [code]="currentPageCode" language="html" />
-        } @else {
-          <p>
-            Only the current crumb should omit a link target. Earlier crumbs
-            remain keyboard focusable links.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Custom link content</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="customPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="customPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="customPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (customPanel() === 'preview') {
-          <app-preview>
-            <el-breadcrumb>
-              <el-breadcrumb-item>
-                <a href="/docs">Docs</a>
-              </el-breadcrumb-item>
-              <el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>
-            </el-breadcrumb>
-          </app-preview>
-        } @else if (customPanel() === 'code') {
-          <app-code-block [code]="customLinkCode" language="html" />
-        } @else {
-          <p>
-            Project router links or other anchors when you need client-side
-            navigation. The link text becomes the accessible name.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Long labels</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="longPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="longPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="longPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (longPanel() === 'preview') {
-          <app-preview>
-            <div style="max-width: 22rem; width: 100%;">
-              <el-breadcrumb>
-                <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
-                <el-breadcrumb-item href="/workspace">Product documentation</el-breadcrumb-item>
-                <el-breadcrumb-item current>
-                  Quarterly planning notes for the North American regional strategy review
-                </el-breadcrumb-item>
-              </el-breadcrumb>
-            </div>
-          </app-preview>
-        } @else if (longPanel() === 'code') {
-          <app-code-block [code]="longLabelCode" language="html" />
-        } @else {
-          <p>
-            Long crumb labels truncate with an ellipsis instead of introducing
-            horizontal scroll. Truncation does not remove the full name from
-            the accessibility tree.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="current-page-only">Current page only</h2>
+    <app-docs-example [code]="currentPageCode">
+      <el-breadcrumb>
+        <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+        <el-breadcrumb-item current>Overview</el-breadcrumb-item>
+      </el-breadcrumb>
+      <ng-template #standards>
+        <p>
+          Only the current crumb should omit a link target. Earlier crumbs
+          remain keyboard focusable links.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="custom-link-content">Custom link content</h2>
+    <app-docs-example [code]="customLinkCode">
+      <el-breadcrumb>
+        <el-breadcrumb-item>
+          <a href="/docs">Docs</a>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item current>Breadcrumb</el-breadcrumb-item>
+      </el-breadcrumb>
+      <ng-template #standards>
+        <p>
+          Project router links or other anchors when you need client-side
+          navigation. The link text becomes the accessible name.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="long-labels">Long labels</h2>
+    <app-docs-example [code]="longLabelCode">
+      <div style="max-width: 22rem; width: 100%;">
+        <el-breadcrumb>
+          <el-breadcrumb-item href="/">Home</el-breadcrumb-item>
+          <el-breadcrumb-item href="/workspace">Product documentation</el-breadcrumb-item>
+          <el-breadcrumb-item current>
+            Quarterly planning notes for the North American regional strategy review
+          </el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <ng-template #standards>
+        <p>
+          Long crumb labels truncate with an ellipsis instead of introducing
+          horizontal scroll. Truncation does not remove the full name from
+          the accessibility tree.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block. See
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>

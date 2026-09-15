@@ -1,22 +1,40 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElIcon, ElSlideToggle } from '@ng-elemental/ui';
+import {
+  ElIcon,
+  ElSlideToggle,
+  ElTab,
+  ElTabContent,
+  ElTabs,
+} from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-slide-toggle-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElIcon, ElSlideToggle, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElIcon,
+    ElSlideToggle,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './slide-toggle-doc.html',
   styleUrl: './page.scss',
 })
 export class SlideToggleDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly iconsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly statesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly notifications = signal(true);
   protected readonly wifi = signal(true);
@@ -25,17 +43,17 @@ export class SlideToggleDocPage {
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add slide-toggle`;
 
-  protected readonly importCode = `import { ElSlideToggle } from './ui/slide-toggle/slide-toggle';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElSlideToggle],
-  template: \`
-    <el-slide-toggle [(checked)]="enabled" inputId="notifications">
-      Notifications
-    </el-slide-toggle>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly manualFilesCode = `ui/slide-toggle/slide-toggle.ts
+ui/slide-toggle/slide-toggle.html
+ui/slide-toggle/slide-toggle.scss`;
+
+  protected readonly importSnippet = `import { ElSlideToggle } from './ui/slide-toggle/slide-toggle';`;
+
+  protected readonly usageSnippet = `<el-slide-toggle [(checked)]="enabled" inputId="notifications">
+  Notifications
+</el-slide-toggle>`;
 
   protected readonly heroCode = `<el-slide-toggle [(checked)]="enabled" inputId="notifications">
   Notifications

@@ -1,9 +1,18 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElFormError, ElInput, ElLabel } from '@ng-elemental/ui';
+import {
+  ElFormError,
+  ElInput,
+  ElLabel,
+  ElTab,
+  ElTabContent,
+  ElTabs,
+} from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -11,20 +20,23 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElFormError,
     ElInput,
     ElLabel,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './form-error-doc.html',
   styleUrl: './page.scss',
 })
 export class FormErrorDocPage {
-  protected readonly fieldPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly messagePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly email = signal('');
   protected readonly emailInvalid = signal(true);
@@ -34,21 +46,19 @@ npx @ng-elemental/cli add label
 npx @ng-elemental/cli add input
 npx @ng-elemental/cli add form-error`;
 
-  protected readonly importCode = `import { ElFormError } from './ui/form-error/form-error';
-import { ElLabel } from './ui/label/label';
-import { ElInput } from './ui/input/input';
+  protected readonly manualFilesCode = `ui/form-error/form-error.ts
+ui/form-error/form-error.html
+ui/form-error/form-error.scss`;
 
-@Component({
-  imports: [ElFormError, ElLabel, ElInput],
-  template: \`
-    <el-label htmlFor="email" required>Email</el-label>
-    <el-input inputId="email" [(value)]="email" [error]="invalid" ariaDescribedby="email-err" />
-    @if (invalid) {
-      <el-form-error id="email-err">Email is required</el-form-error>
-    }
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElFormError } from './ui/form-error/form-error';
+import { ElLabel } from './ui/label/label';
+import { ElInput } from './ui/input/input';`;
+
+  protected readonly usageSnippet = `<el-label htmlFor="email" required>Email</el-label>
+<el-input inputId="email" [(value)]="email" [error]="invalid" ariaDescribedby="email-err" />
+@if (invalid) {
+  <el-form-error id="email-err">Email is required</el-form-error>
+}`;
 
   protected readonly fieldCode = `<el-label htmlFor="email" required>Email</el-label>
 <el-input

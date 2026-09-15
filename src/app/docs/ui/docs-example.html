@@ -17,6 +17,14 @@
       <el-segmented-button-item value="code" [attr.aria-label]="'Show code'">
         <el-icon name="code" size="sm" />
       </el-segmented-button-item>
+      @if (standards()) {
+        <el-segmented-button-item
+          value="standards"
+          [attr.aria-label]="'Show standards'"
+        >
+          <el-icon name="book" size="sm" />
+        </el-segmented-button-item>
+      }
     </el-segmented-button>
   </div>
 
@@ -28,5 +36,11 @@
     <div class="docs-example__code">
       <app-code-block [code]="code()" [language]="language()" />
     </div>
+  } @else if (mode() === 'standards') {
+    @if (standards(); as standardsTpl) {
+      <div class="docs-example__standards">
+        <ng-container [ngTemplateOutlet]="standardsTpl" />
+      </div>
+    }
   }
 </div>

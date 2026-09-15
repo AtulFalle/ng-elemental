@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Sheet</h1>
+    <div class="docs-page__header-row">
+      <h1>Sheet</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Edge panel with header, scrolling content, and footer slots. Open it in
       the template with
@@ -11,137 +16,129 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add sheet</code>
-    (requires <code>icon</code>; examples also need <code>button</code>)
-  </div>
+  <app-docs-example [code]="usageSnippet">
+    <el-button (click)="open.set(true)">Open sheet</el-button>
+    <el-sheet
+      [open]="open()"
+      (openChange)="open.set($event)"
+      title="Filters"
+      side="bottom"
+      size="md"
+    >
+      <div elSheetContent>
+        Header and footer stay put. Long content scrolls inside the panel.
+      </div>
+      <div elSheetFooter>
+        <el-button elSheetClose variant="ghost">Cancel</el-button>
+        <el-button (click)="open.set(false)">Apply</el-button>
+      </div>
+    </el-sheet>
+    <ng-template #standards>
+      <p>
+        Sheets trap focus while open, restore it on dismiss, and expose a named dialog role.
+        Escape and backdrop clicks dismiss unless disabled.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code>; examples also need <code>button</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency for the close control.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Mark projected nodes with <code>elSheetHeader</code>,
       <code>elSheetContent</code>, or <code>elSheetFooter</code>. Empty slots
       collapse. Use <code>elSheetClose</code> on a button to dismiss.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Bottom sheet</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+    <h2 id="left-side">Left side</h2>
+    <app-docs-example [code]="sideCode">
+      <el-button (click)="sideOpen.set(true)">Open from the left</el-button>
+      <el-sheet
+        [open]="sideOpen()"
+        (openChange)="sideOpen.set($event)"
+        title="Details"
+        side="left"
+        size="sm"
+      >
+        <div elSheetContent>A left sheet uses width sizes instead of height.</div>
+        <div elSheetFooter>
+          <el-button elSheetClose variant="ghost">Close</el-button>
         </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="open.set(true)">Open sheet</el-button>
-            <el-sheet
-              [open]="open()"
-              (openChange)="open.set($event)"
-              title="Filters"
-              side="bottom"
-              size="md"
-            >
-              <div elSheetContent>
-                Header and footer stay put. Long content scrolls inside the panel.
-              </div>
-              <div elSheetFooter>
-                <el-button elSheetClose variant="ghost">Cancel</el-button>
-                <el-button (click)="open.set(false)">Apply</el-button>
-              </div>
-            </el-sheet>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Sheets trap focus while open, restore it on dismiss, and expose a named dialog role.
-            Escape and backdrop clicks dismiss unless disabled.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Left side</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sidePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sidePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sidePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (sidePanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="sideOpen.set(true)">Open from the left</el-button>
-            <el-sheet
-              [open]="sideOpen()"
-              (openChange)="sideOpen.set($event)"
-              title="Details"
-              side="left"
-              size="sm"
-            >
-              <div elSheetContent>A left sheet uses width sizes instead of height.</div>
-              <div elSheetFooter>
-                <el-button elSheetClose variant="ghost">Close</el-button>
-              </div>
-            </el-sheet>
-          </app-preview>
-        } @else if (sidePanel() === 'code') {
-          <app-code-block [code]="sideCode" language="html" />
-        } @else {
-          <p>
-            Side controls which viewport edge the panel attaches to. Size maps to width for
-            left/right sheets and max-height for top/bottom sheets.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Open with a service</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="servicePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="servicePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="servicePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (servicePanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="openService()">Open with service</el-button>
-            @if (serviceResult(); as result) {
-              <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
-            }
-          </app-preview>
-        } @else if (servicePanel() === 'code') {
-          <app-code-block [code]="serviceCode" />
-        } @else {
-          <p>
-            Service-opened sheets mount on <code>document.body</code> and inject
-            <code>EL_SHEET_DATA</code> plus <code>ElSheetRef</code> into the custom component.
-          </p>
-        }
-      </div>
-    </article>
+      </el-sheet>
+      <ng-template #standards>
+        <p>
+          Side controls which viewport edge the panel attaches to. Size maps to width for
+          left/right sheets and max-height for top/bottom sheets.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="open-with-a-service">Open with a service</h2>
+    <app-docs-example [code]="serviceCode">
+      <el-button (click)="openService()">Open with service</el-button>
+      @if (serviceResult(); as result) {
+        <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
+      }
+      <ng-template #standards>
+        <p>
+          Service-opened sheets mount on <code>document.body</code> and inject
+          <code>EL_SHEET_DATA</code> plus <code>ElSheetRef</code> into the custom component.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-sheet</h3>
+    <app-props-table [props]="sheetProps" />
+    <h3>ElSheetService.open()</h3>
+    <app-props-table [props]="serviceProps" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <ul>
       <li>Modal dialog semantics with focus trap and focus restore.</li>
       <li>Named via title or <code>ariaLabel</code>.</li>
@@ -155,20 +152,12 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. See
       <a routerLink="/docs/theming">Theming</a>
       for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <h3>el-sheet</h3>
-    <app-props-table [props]="sheetProps" />
-    <h3>ElSheetService.open()</h3>
-    <app-props-table [props]="serviceProps" />
   </section>
 </article>

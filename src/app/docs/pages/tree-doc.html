@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Tree</h1>
+    <div class="docs-page__header-row">
+      <h1>Tree</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Hierarchical files-and-folders list. Project nested
       <code>el-tree-item</code>
@@ -10,318 +15,268 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add tree</code>
-    (requires <code>icon</code>, <code>checkbox</code>, and <code>button</code>)
-  </div>
+  <app-docs-example [code]="heroCode">
+    <el-tree
+      [(expanded)]="expanded"
+      ariaLabel="Files"
+      style="max-width: 22rem; width: 100%"
+    >
+      <el-tree-item value="docs" label="Documents">
+        <el-icon elTreeLeading name="folder" />
+        <el-tree-item value="resume" label="Resume.pdf">
+          <el-icon elTreeLeading name="file" />
+        </el-tree-item>
+        <el-tree-item value="cover" label="Cover letter.pdf">
+          <el-icon elTreeLeading name="file" />
+        </el-tree-item>
+      </el-tree-item>
+      <el-tree-item value="photos" label="Photos">
+        <el-icon elTreeLeading name="folder" />
+        <el-tree-item value="trip" label="Trip">
+          <el-icon elTreeLeading name="folder" />
+          <el-tree-item value="beach" label="Beach.jpg">
+            <el-icon elTreeLeading name="image" />
+          </el-tree-item>
+        </el-tree-item>
+      </el-tree-item>
+    </el-tree>
+    <ng-template #standards>
+      <p>
+        Follows the APG tree pattern with <code>role="tree"</code> and
+        <code>aria-expanded</code> on parent rows. Arrow keys move between items; Left
+        collapses, Right expands.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code>, <code>checkbox</code>, and
+            <code>button</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       The parent owns <code>expanded</code> and <code>checked</code>. Project
       leading media with <code>elTreeLeading</code> and row actions with
       <code>elTreeActions</code>. Nested <code>el-tree-item</code> children
       form the hierarchy.
     </p>
-    <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">File tree</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-tree
-              [(expanded)]="expanded"
-              ariaLabel="Files"
-              style="max-width: 22rem; width: 100%"
-            >
-              <el-tree-item value="docs" label="Documents">
-                <el-icon elTreeLeading name="folder" />
-                <el-tree-item value="resume" label="Resume.pdf">
-                  <el-icon elTreeLeading name="file" />
-                </el-tree-item>
-                <el-tree-item value="cover" label="Cover letter.pdf">
-                  <el-icon elTreeLeading name="file" />
-                </el-tree-item>
-              </el-tree-item>
-              <el-tree-item value="photos" label="Photos">
-                <el-icon elTreeLeading name="folder" />
-                <el-tree-item value="trip" label="Trip">
-                  <el-icon elTreeLeading name="folder" />
-                  <el-tree-item value="beach" label="Beach.jpg">
-                    <el-icon elTreeLeading name="image" />
-                  </el-tree-item>
-                </el-tree-item>
-              </el-tree-item>
-            </el-tree>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Follows the APG tree pattern with <code>role="tree"</code> and
-            <code>aria-expanded</code> on parent rows. Arrow keys move between items; Left
-            collapses, Right expands.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Cascade checkboxes</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="checkboxPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="checkboxPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="checkboxPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (checkboxPanel() === 'preview') {
-          <app-preview>
-            <el-tree
-              checkbox
-              [(expanded)]="expanded"
-              [(checked)]="checked"
-              ariaLabel="Selectable files"
-              style="max-width: 22rem; width: 100%"
-            >
-              <el-tree-item value="docs" label="Documents">
-                <el-icon elTreeLeading name="folder" />
-                <el-tree-item value="resume" label="Resume.pdf">
-                  <el-icon elTreeLeading name="file" />
-                </el-tree-item>
-                <el-tree-item value="notes" label="Notes.md">
-                  <el-icon elTreeLeading name="file" />
-                </el-tree-item>
-              </el-tree-item>
-              <el-tree-item value="media" label="Media">
-                <el-icon elTreeLeading name="folder" />
-                <el-tree-item value="photo" label="Photo.png">
-                  <el-icon elTreeLeading name="image" />
-                </el-tree-item>
-              </el-tree-item>
-            </el-tree>
-          </app-preview>
-        } @else if (checkboxPanel() === 'code') {
-          <app-code-block [code]="checkboxCode" language="html" />
-        } @else {
-          <p>
-            Checking a folder checks descendants. A mixed folder shows indeterminate via
-            <code>aria-checked="mixed"</code>. The checked model stores subtree roots only.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Actions</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="actionsPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="actionsPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="actionsPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (actionsPanel() === 'preview') {
-          <app-preview>
-            <el-tree ariaLabel="Project files" style="max-width: 24rem; width: 100%">
-              <el-tree-item value="src" label="src">
-                <el-icon elTreeLeading name="folder" />
-                <el-button
-                  elTreeActions
-                  variant="ghost"
-                  size="sm"
-                  iconStart="ellipsis-vertical"
-                  aria-label="src actions"
-                />
-                <el-tree-item value="app" label="app.ts">
-                  <el-icon elTreeLeading name="file" />
-                  <el-button
-                    elTreeActions
-                    variant="ghost"
-                    size="sm"
-                    iconStart="ellipsis-vertical"
-                    aria-label="app.ts actions"
-                  />
-                </el-tree-item>
-              </el-tree-item>
-            </el-tree>
-          </app-preview>
-        } @else if (actionsPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Trailing actions sit in <code>elTreeActions</code> and do not activate the row.
-            Each action button needs its own accessible name.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Virtual</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="virtualPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="virtualPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="virtualPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (virtualPanel() === 'preview') {
-          <app-preview>
-            <el-tree
-              virtual
-              checkbox
-              [nodes]="fileNodes"
-              [(expanded)]="virtualExpanded"
-              [(checked)]="virtualChecked"
-              [itemHeight]="36"
-              ariaLabel="Virtual files"
-              style="max-height: 16rem; max-width: 24rem; width: 100%"
-            >
-              <ng-template elTreeNodeDef let-node>
-                <el-icon [name]="node.icon ?? 'file'" size="sm" />
-                {{ node.label }}
-              </ng-template>
-            </el-tree>
-          </app-preview>
-        } @else if (virtualPanel() === 'code') {
-          <app-code-block [code]="virtualCode" language="html" />
-        } @else {
-          <p>
-            Virtual mode flattens expanded rows and requires <code>[nodes]</code> plus a
-            max-height. Keyboard focus still moves through the visible window.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Lazy children and load more</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="lazyPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="lazyPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="lazyPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (lazyPanel() === 'preview') {
-          <app-preview>
-            <el-tree
-              [nodes]="lazyNodes()"
-              [loadingIds]="lazyLoading()"
-              [(expanded)]="lazyExpanded"
-              (loadChildren)="onLoadChildren($event)"
-              (loadMore)="onLoadMore($event)"
-              ariaLabel="Lazy folders"
-              style="max-width: 22rem; width: 100%"
-            >
-              <ng-template elTreeNodeDef let-node>
-                <el-icon [name]="node.icon ?? 'folder'" size="sm" />
-                {{ node.label }}
-              </ng-template>
-            </el-tree>
-          </app-preview>
-        } @else if (lazyPanel() === 'code') {
-          <app-code-block [code]="lazyCode" language="html" />
-        } @else {
-          <p>
-            Expanding a node with <code>hasChildren</code> and no <code>children</code> emits
-            <code>loadChildren</code>. Loading rows expose <code>aria-busy</code> while children
-            fetch.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Root infinite scroll</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="infinitePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="infinitePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="infinitePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (infinitePanel() === 'preview') {
-          <p>
-            Root-level paging is not built in. Compose
-            <a routerLink="/components/infinite-scroll">Infinite Scroll</a>
-            around the tree.
-          </p>
-        } @else if (infinitePanel() === 'code') {
-          <app-code-block [code]="infiniteCode" language="html" />
-        } @else {
-          <p>
-            Wrap the tree in a scroll container with <code>elInfiniteScroll</code>. Bind
-            <code>[disabled]</code> while loading and <code>[complete]</code> when there are no
-            more root nodes.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Sizes</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizesPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizesPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizesPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (sizesPanel() === 'preview') {
-          <app-preview>
-            <div style="display: grid; gap: 1rem; width: 100%; max-width: 22rem">
-              @for (size of sizes; track size) {
-                <el-tree [size]="size" [ariaLabel]="size + ' tree'">
-                  <el-tree-item value="root" [label]="size + ' density'">
-                    <el-icon elTreeLeading name="folder" />
-                    <el-tree-item value="child" label="Nested file">
-                      <el-icon elTreeLeading name="file" />
-                    </el-tree-item>
-                  </el-tree-item>
-                </el-tree>
-              }
-            </div>
-          </app-preview>
-        } @else if (sizesPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Size adjusts row padding and type scale. Keyboard and ARIA behavior is unchanged
-            across densities.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="cascade-checkboxes">Cascade checkboxes</h2>
+    <app-docs-example [code]="checkboxCode">
+      <el-tree
+        checkbox
+        [(expanded)]="expanded"
+        [(checked)]="checked"
+        ariaLabel="Selectable files"
+        style="max-width: 22rem; width: 100%"
+      >
+        <el-tree-item value="docs" label="Documents">
+          <el-icon elTreeLeading name="folder" />
+          <el-tree-item value="resume" label="Resume.pdf">
+            <el-icon elTreeLeading name="file" />
+          </el-tree-item>
+          <el-tree-item value="notes" label="Notes.md">
+            <el-icon elTreeLeading name="file" />
+          </el-tree-item>
+        </el-tree-item>
+        <el-tree-item value="media" label="Media">
+          <el-icon elTreeLeading name="folder" />
+          <el-tree-item value="photo" label="Photo.png">
+            <el-icon elTreeLeading name="image" />
+          </el-tree-item>
+        </el-tree-item>
+      </el-tree>
+      <ng-template #standards>
+        <p>
+          Checking a folder checks descendants. A mixed folder shows indeterminate via
+          <code>aria-checked="mixed"</code>. The checked model stores subtree roots only.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="actions">Actions</h2>
+    <app-docs-example [code]="usageCode">
+      <el-tree ariaLabel="Project files" style="max-width: 24rem; width: 100%">
+        <el-tree-item value="src" label="src">
+          <el-icon elTreeLeading name="folder" />
+          <el-button
+            elTreeActions
+            variant="ghost"
+            size="sm"
+            iconStart="ellipsis-vertical"
+            aria-label="src actions"
+          />
+          <el-tree-item value="app" label="app.ts">
+            <el-icon elTreeLeading name="file" />
+            <el-button
+              elTreeActions
+              variant="ghost"
+              size="sm"
+              iconStart="ellipsis-vertical"
+              aria-label="app.ts actions"
+            />
+          </el-tree-item>
+        </el-tree-item>
+      </el-tree>
+      <ng-template #standards>
+        <p>
+          Trailing actions sit in <code>elTreeActions</code> and do not activate the row.
+          Each action button needs its own accessible name.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="virtual">Virtual</h2>
+    <app-docs-example [code]="virtualCode">
+      <el-tree
+        virtual
+        checkbox
+        [nodes]="fileNodes"
+        [(expanded)]="virtualExpanded"
+        [(checked)]="virtualChecked"
+        [itemHeight]="36"
+        ariaLabel="Virtual files"
+        style="max-height: 16rem; max-width: 24rem; width: 100%"
+      >
+        <ng-template elTreeNodeDef let-node>
+          <el-icon [name]="node.icon ?? 'file'" size="sm" />
+          {{ node.label }}
+        </ng-template>
+      </el-tree>
+      <ng-template #standards>
+        <p>
+          Virtual mode flattens expanded rows and requires <code>[nodes]</code> plus a
+          max-height. Keyboard focus still moves through the visible window.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="lazy-children-and-load-more">Lazy children and load more</h2>
+    <app-docs-example [code]="lazyCode">
+      <el-tree
+        [nodes]="lazyNodes()"
+        [loadingIds]="lazyLoading()"
+        [(expanded)]="lazyExpanded"
+        (loadChildren)="onLoadChildren($event)"
+        (loadMore)="onLoadMore($event)"
+        ariaLabel="Lazy folders"
+        style="max-width: 22rem; width: 100%"
+      >
+        <ng-template elTreeNodeDef let-node>
+          <el-icon [name]="node.icon ?? 'folder'" size="sm" />
+          {{ node.label }}
+        </ng-template>
+      </el-tree>
+      <ng-template #standards>
+        <p>
+          Expanding a node with <code>hasChildren</code> and no <code>children</code> emits
+          <code>loadChildren</code>. Loading rows expose <code>aria-busy</code> while children
+          fetch.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="root-infinite-scroll">Root infinite scroll</h2>
+    <app-docs-example [code]="infiniteCode">
+      <p>
+        Root-level paging is not built in. Compose
+        <a routerLink="/components/infinite-scroll">Infinite Scroll</a>
+        around the tree.
+      </p>
+      <ng-template #standards>
+        <p>
+          Wrap the tree in a scroll container with <code>elInfiniteScroll</code>. Bind
+          <code>[disabled]</code> while loading and <code>[complete]</code> when there are no
+          more root nodes.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <app-docs-example [code]="usageCode">
+      <div style="display: grid; gap: 1rem; width: 100%; max-width: 22rem">
+        @for (size of sizes; track size) {
+          <el-tree [size]="size" [ariaLabel]="size + ' tree'">
+            <el-tree-item value="root" [label]="size + ' density'">
+              <el-icon elTreeLeading name="folder" />
+              <el-tree-item value="child" label="Nested file">
+                <el-icon elTreeLeading name="file" />
+              </el-tree-item>
+            </el-tree-item>
+          </el-tree>
+        }
+      </div>
+      <ng-template #standards>
+        <p>
+          Size adjusts row padding and type scale. Keyboard and ARIA behavior is unchanged
+          across densities.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-tree</h3>
+    <app-props-table [props]="treeProps" />
+    <h3>Outputs</h3>
+    <app-props-table [props]="treeOutputs" />
+    <h3>el-tree-item</h3>
+    <app-props-table [props]="itemProps" />
+    <h3>Slots</h3>
+    <app-props-table [props]="slots" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <ul>
       <li>APG Tree View with <code>role="tree"</code>, <code>treeitem</code>, and <code>group</code>.</li>
       <li>Arrow keys, Home, End, and typeahead move focus between rows.</li>
@@ -335,7 +290,7 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -343,17 +298,5 @@
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <h3>el-tree</h3>
-    <app-props-table [props]="treeProps" />
-    <h3>Outputs</h3>
-    <app-props-table [props]="treeOutputs" />
-    <h3>el-tree-item</h3>
-    <app-props-table [props]="itemProps" />
-    <h3>Slots</h3>
-    <app-props-table [props]="slots" />
   </section>
 </article>

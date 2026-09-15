@@ -1,22 +1,33 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElSlider } from '@ng-elemental/ui';
+import { ElSlider, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-slider-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElSlider, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElSlider,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './slider-doc.html',
   styleUrl: './page.scss',
 })
 export class SliderDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly rangePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly statesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly volume = signal(40);
   protected readonly minPrice = signal(25);
@@ -26,17 +37,16 @@ export class SliderDocPage {
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add slider`;
 
-  protected readonly importCode = `import { ElSlider } from './ui/slider/slider';
+  protected readonly manualFilesCode = `ui/slider/slider.ts
+ui/slider/slider.html
+ui/slider/slider.scss
+ui/slider/slider-utils.ts`;
 
-@Component({
-  imports: [ElSlider],
-  template: \`
-    <el-slider [(value)]="volume" showValue ariaLabel="Volume" />
-    <el-slider range [(start)]="min" [(end)]="max" [step]="5" showTicks showValue
-      ariaLabelStart="Min price" ariaLabelEnd="Max price" />
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElSlider } from './ui/slider/slider';`;
+
+  protected readonly usageSnippet = `<el-slider [(value)]="volume" showValue ariaLabel="Volume" />
+<el-slider range [(start)]="min" [(end)]="max" [step]="5" showTicks showValue
+  ariaLabelStart="Min price" ariaLabelEnd="Max price" />`;
 
   protected readonly heroCode = `<el-slider [(value)]="volume" showValue ariaLabel="Volume" />`;
 

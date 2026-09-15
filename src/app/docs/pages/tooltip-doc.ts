@@ -1,39 +1,48 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElTooltip } from '@ng-elemental/ui';
+import { ElButton, ElTab, ElTabContent, ElTabs, ElTooltip } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-tooltip-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElTooltip, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElButton,
+    ElTooltip,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './tooltip-doc.html',
   styleUrl: './page.scss',
 })
 export class TooltipDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly positionsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly disabledPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add tooltip`;
 
-  protected readonly importCode = `import { ElTooltip } from './ui/tooltip/tooltip';
-import { ElButton } from './ui/button/button';
+  protected readonly manualFilesCode = `ui/tooltip/tooltip.ts
+ui/tooltip/tooltip-bubble.ts
+ui/tooltip/tooltip-bubble.html
+ui/tooltip/tooltip-bubble.scss`;
 
-@Component({
-  imports: [ElTooltip, ElButton],
-  template: \`
-    <el-button elTooltip="Save file">Save</el-button>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElTooltip } from './ui/tooltip/tooltip';
+import { ElButton } from './ui/button/button';`;
 
-  protected readonly usageCode = `<el-button elTooltip="Save file">Save</el-button>
+  protected readonly usageSnippet = `<el-button elTooltip="Save file">Save</el-button>
 <el-button elTooltip="More" elTooltipPosition="end">Open</el-button>
 <el-button elTooltip="Hidden" elTooltipDisabled>Disabled tip</el-button>`;
 

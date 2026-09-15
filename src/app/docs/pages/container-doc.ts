@@ -1,32 +1,44 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElContainer } from '@ng-elemental/ui';
+import { ElContainer, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-container-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElContainer, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElContainer,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './container-doc.html',
   styleUrl: './page.scss',
 })
 export class ContainerDocPage {
-  protected readonly defaultPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly fullPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add container`;
 
-  protected readonly importCode = `import { ElContainer } from './ui/container/container';
+  protected readonly manualFilesCode = `ui/container/container.ts
+ui/container/container.html
+ui/container/container.scss`;
 
-@Component({
-  imports: [ElContainer],
-  template: \`<el-container size="lg">Page content</el-container>\`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElContainer } from './ui/container/container';`;
+
+  protected readonly usageSnippet = `<el-container size="lg">Page content</el-container>`;
 
   protected readonly defaultCode = `<el-container size="sm">
   Constrained to 40rem

@@ -1,34 +1,44 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElLabel } from '@ng-elemental/ui';
+import { ElLabel, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-label-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElLabel, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElLabel,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './label-doc.html',
   styleUrl: './page.scss',
 })
 export class LabelDocPage {
-  protected readonly variantsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly requiredPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add label`;
 
-  protected readonly importCode = `import { ElLabel } from './ui/label/label';
+  protected readonly manualFilesCode = `ui/label/label.ts
+ui/label/label.html
+ui/label/label.scss`;
 
-@Component({
-  imports: [ElLabel],
-  template: \`
-    <el-label htmlFor="email" variant="default">Email</el-label>
-    <input id="email" type="email" />
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElLabel } from './ui/label/label';`;
+
+  protected readonly usageSnippet = `<el-label htmlFor="email" variant="default">Email</el-label>
+<input id="email" type="email" />`;
 
   protected readonly variantsCode = `<el-label variant="default">Default</el-label>
 <el-label variant="muted">Muted</el-label>

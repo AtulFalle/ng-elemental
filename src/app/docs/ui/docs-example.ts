@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -19,6 +20,7 @@ export type DocsExampleMode = 'preview' | 'code' | 'standards';
   selector: 'app-docs-example',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    NgTemplateOutlet,
     ElIcon,
     ElSegmentedButton,
     ElSegmentedButtonItem,

@@ -1,42 +1,52 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElAlert, ElButton } from '@ng-elemental/ui';
+import { ElAlert, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-alert-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElAlert, ElButton, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElAlert,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './alert-doc.html',
   styleUrl: './page.scss',
 })
 export class AlertDocPage {
+  protected readonly installTab = signal('cli');
   protected readonly showBanner = signal(true);
-
-  protected readonly colorsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly titlePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly dismissPanel = signal<'preview' | 'code' | 'standards'>('preview');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add alert`;
 
-  protected readonly importCode = `import { ElAlert } from './ui/alert/alert';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElAlert],
-  template: \`
-    @if (show()) {
-      <el-alert color="success" title="Saved" dismissible (dismissed)="show.set(false)">
-        Your changes were written.
-      </el-alert>
-    }
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly manualFilesCode = `ui/alert/alert.ts
+ui/alert/alert.html
+ui/alert/alert.scss`;
+
+  protected readonly importSnippet = `import { ElAlert } from './ui/alert/alert';`;
+
+  protected readonly usageSnippet = `@if (show()) {
+  <el-alert color="success" title="Saved" dismissible (dismissed)="show.set(false)">
+    Your changes were written.
+  </el-alert>
+}`;
 
   protected readonly colorsCode = `<el-alert color="neutral">Neutral update.</el-alert>
 <el-alert color="success">Saved successfully.</el-alert>

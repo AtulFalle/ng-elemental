@@ -9,12 +9,16 @@ import {
   ElAttachmentGroup,
   ElAttachmentMedia,
   ElAttachmentTitle,
-  ElButton,
   ElIcon,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -22,7 +26,6 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElAttachment,
     ElAttachmentMedia,
     ElAttachmentContent,
@@ -32,26 +35,55 @@ import { PropsTable } from '../ui/props-table';
     ElAttachmentAction,
     ElAttachmentGroup,
     ElIcon,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './attachment-doc.html',
   styleUrl: './page.scss',
 })
 export class AttachmentDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly statesPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly imagePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly groupPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add attachment`;
 
-  protected readonly importCode = `import {
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+
+  protected readonly manualFilesCode = `ui/attachment/attachment.ts
+ui/attachment/attachment.html
+ui/attachment/attachment.scss
+ui/attachment/attachment-media.ts
+ui/attachment/attachment-media.html
+ui/attachment/attachment-media.scss
+ui/attachment/attachment-content.ts
+ui/attachment/attachment-content.html
+ui/attachment/attachment-content.scss
+ui/attachment/attachment-title.ts
+ui/attachment/attachment-title.html
+ui/attachment/attachment-title.scss
+ui/attachment/attachment-description.ts
+ui/attachment/attachment-description.html
+ui/attachment/attachment-description.scss
+ui/attachment/attachment-actions.ts
+ui/attachment/attachment-actions.html
+ui/attachment/attachment-actions.scss
+ui/attachment/attachment-action.ts
+ui/attachment/attachment-action.html
+ui/attachment/attachment-action.scss
+ui/attachment/attachment-group.ts
+ui/attachment/attachment-group.html
+ui/attachment/attachment-group.scss
+ui/attachment/attachment.token.ts`;
+
+  protected readonly importSnippet = `import {
   ElAttachment,
   ElAttachmentAction,
   ElAttachmentActions,
@@ -59,36 +91,47 @@ npx @ng-elemental/cli add attachment`;
   ElAttachmentDescription,
   ElAttachmentMedia,
   ElAttachmentTitle,
-} from './ui/attachment/attachment';
-import { ElIcon } from './ui/icon/icon';
+} from './ui/attachment/attachment'`;
 
-@Component({
-  imports: [
-    ElAttachment,
-    ElAttachmentMedia,
-    ElAttachmentContent,
-    ElAttachmentTitle,
-    ElAttachmentDescription,
-    ElAttachmentActions,
-    ElAttachmentAction,
-    ElIcon,
-  ],
-  template: \`
-    <el-attachment state="done">
-      <el-attachment-media>
-        <el-icon name="file-lines" />
-      </el-attachment-media>
-      <el-attachment-content>
-        <el-attachment-title>report.pdf</el-attachment-title>
-        <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
-      </el-attachment-content>
-      <el-attachment-actions>
-        <el-attachment-action ariaLabel="Remove report.pdf" />
-      </el-attachment-actions>
-    </el-attachment>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly usageSnippet = `<el-attachment state="done">
+  <el-attachment-media>
+    <el-icon name="file-lines" />
+  </el-attachment-media>
+  <el-attachment-content>
+    <el-attachment-title>report.pdf</el-attachment-title>
+    <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+  </el-attachment-content>
+  <el-attachment-actions>
+    <el-attachment-action ariaLabel="Remove report.pdf" />
+  </el-attachment-actions>
+</el-attachment>`;
+
+  protected readonly heroCode = `<div style="display: grid; gap: 0.75rem; max-width: 22rem">
+  <el-attachment state="done">
+    <el-attachment-media>
+      <el-icon name="file-lines" />
+    </el-attachment-media>
+    <el-attachment-content>
+      <el-attachment-title>sales-dashboard.pdf</el-attachment-title>
+      <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+    </el-attachment-content>
+    <el-attachment-actions>
+      <el-attachment-action ariaLabel="Remove sales-dashboard.pdf" />
+    </el-attachment-actions>
+  </el-attachment>
+  <el-attachment state="uploading">
+    <el-attachment-media>
+      <el-icon name="file-zipper" />
+    </el-attachment-media>
+    <el-attachment-content>
+      <el-attachment-title>design-system.zip</el-attachment-title>
+      <el-attachment-description>Uploading · 64%</el-attachment-description>
+    </el-attachment-content>
+    <el-attachment-actions>
+      <el-attachment-action ariaLabel="Cancel upload" />
+    </el-attachment-actions>
+  </el-attachment>
+</div>`;
 
   protected readonly usageCode = `<el-attachment state="uploading">
   <el-attachment-media>

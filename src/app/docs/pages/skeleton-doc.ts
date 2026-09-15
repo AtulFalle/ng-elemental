@@ -5,10 +5,15 @@ import {
   ElInput,
   ElSkeleton,
   ElSkeletonDirective,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -20,33 +25,37 @@ import { PropsTable } from '../ui/props-table';
     ElSkeleton,
     ElSkeletonDirective,
     ElInput,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './skeleton-doc.html',
   styleUrl: './page.scss',
 })
 export class SkeletonDocPage {
-  protected readonly textPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly shapesPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly hostPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add skeleton`;
 
-  protected readonly importCode = `import { ElSkeleton, ElSkeletonDirective } from './ui/skeleton/skeleton';
+  protected readonly manualFilesCode = `ui/skeleton/skeleton.ts
+ui/skeleton/skeleton.html
+ui/skeleton/skeleton.scss
+ui/skeleton/skeleton-cover.ts
+ui/skeleton/skeleton-cover.scss
+ui/skeleton/skeleton-target.ts`;
 
-@Component({
-  imports: [ElSkeleton, ElSkeletonDirective],
-  template: \`
-    <div aria-busy="true" aria-live="polite">
-      <el-skeleton [lines]="3" />
-    </div>
-    <button [elSkeleton]="loading">Save</button>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElSkeleton, ElSkeletonDirective } from './ui/skeleton/skeleton';`;
+
+  protected readonly usageSnippet = `<div aria-busy="true" aria-live="polite">
+  <el-skeleton [lines]="3" />
+</div>
+<button [elSkeleton]="loading">Save</button>`;
 
   protected readonly textCode = `<div aria-busy="true" aria-live="polite" style="width: 16rem">
   <el-skeleton [lines]="4" />

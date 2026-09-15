@@ -1,14 +1,18 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  ElButton,
   ElResizable,
   ElResizableHandle,
   ElResizablePanel,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -16,43 +20,50 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElResizable,
     ElResizablePanel,
     ElResizableHandle,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './resizable-doc.html',
   styleUrl: './page.scss',
 })
 export class ResizableDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly verticalPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly minMaxPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly customHandlePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add resizable`;
 
-  protected readonly importCode = `import {
+  protected readonly manualFilesCode = `ui/resizable/resizable.ts
+ui/resizable/resizable.html
+ui/resizable/resizable.scss
+ui/resizable/resizable-panel.ts
+ui/resizable/resizable-panel.html
+ui/resizable/resizable-panel.scss
+ui/resizable/resizable-handle.ts
+ui/resizable/resizable-handle.html
+ui/resizable/resizable-handle.scss
+ui/resizable/resizable.token.ts
+ui/resizable/resizable-utils.ts`;
+
+  protected readonly importSnippet = `import {
   ElResizable,
   ElResizableHandle,
   ElResizablePanel,
-} from './ui/resizable/resizable';
+} from './ui/resizable/resizable';`;
 
-@Component({
-  imports: [ElResizable, ElResizablePanel, ElResizableHandle],
-  template: \`
-    <el-resizable>
-      <el-resizable-panel [defaultSize]="30" [min]="15">A</el-resizable-panel>
-      <el-resizable-handle />
-      <el-resizable-panel [min]="20">B</el-resizable-panel>
-    </el-resizable>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly usageSnippet = `<el-resizable>
+  <el-resizable-panel [defaultSize]="30" [min]="15">A</el-resizable-panel>
+  <el-resizable-handle />
+  <el-resizable-panel [min]="20">B</el-resizable-panel>
+</el-resizable>`;
 
   protected readonly defaultCode = `<el-resizable>
   <el-resizable-panel [defaultSize]="32" [min]="15">Sidebar</el-resizable-panel>
@@ -67,12 +78,6 @@ export class MyComponent {}`;
 </el-resizable>`;
 
   protected readonly minMaxCode = `<el-resizable-panel [defaultSize]="40" [min]="25" [max]="60">A</el-resizable-panel>`;
-
-  protected readonly usageCode = `<el-resizable orientation="vertical">
-  <el-resizable-panel [min]="20">Top</el-resizable-panel>
-  <el-resizable-handle />
-  <el-resizable-panel>Bottom</el-resizable-panel>
-</el-resizable>`;
 
   protected readonly handleSlotCode = `<el-resizable-handle ariaLabel="Resize sidebar">
   <span style="display: inline-block; width: 0.25rem; height: 1.5rem; border-radius: var(--el-radius-full); background: var(--el-color-outline)"></span>

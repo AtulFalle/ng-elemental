@@ -1,22 +1,33 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElChip } from '@ng-elemental/ui';
+import { ElChip, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-chip-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElChip, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElChip,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './chip-doc.html',
   styleUrl: './page.scss',
 })
 export class ChipDocPage {
-  protected readonly assistPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly filterPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly suggestionPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly filterActive = signal(true);
   protected readonly tags = signal(['Angular', 'Material', 'Design']);
@@ -25,15 +36,13 @@ export class ChipDocPage {
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add chip`;
 
-  protected readonly importCode = `import { ElChip } from './ui/chip/chip';
+  protected readonly manualFilesCode = `ui/chip/chip.ts
+ui/chip/chip.html
+ui/chip/chip.scss`;
 
-@Component({
-  imports: [ElChip],
-  template: \`
-    <el-chip type="filter" [(selected)]="active">Filter</el-chip>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElChip } from './ui/chip/chip';`;
+
+  protected readonly usageSnippet = `<el-chip type="filter" [(selected)]="active">Filter</el-chip>`;
 
   protected readonly assistCode = `<el-chip type="assist" iconStart="key">Assist</el-chip>
 <el-chip type="assist" (clicked)="onAssist()">Action</el-chip>`;

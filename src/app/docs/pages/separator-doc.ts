@@ -1,32 +1,43 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElSeparator } from '@ng-elemental/ui';
+import { ElSeparator, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-separator-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElSeparator, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElSeparator,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './separator-doc.html',
   styleUrl: './page.scss',
 })
 export class SeparatorDocPage {
-  protected readonly horizontalPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly verticalPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add separator`;
 
-  protected readonly importCode = `import { ElSeparator } from './ui/separator/separator';
+  protected readonly manualFilesCode = `ui/separator/separator.ts
+ui/separator/separator.scss`;
 
-@Component({
-  imports: [ElSeparator],
-  template: \`<el-separator />\`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElSeparator } from './ui/separator/separator';`;
+
+  protected readonly usageSnippet = `<el-separator />`;
 
   protected readonly horizontalCode = `<div>Above</div>
 <el-separator style="margin-block: var(--el-space-3)" />

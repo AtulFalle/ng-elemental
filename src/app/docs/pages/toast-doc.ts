@@ -2,6 +2,9 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { RouterLink } from '@angular/router';
 import {
   ElButton,
+  ElTab,
+  ElTabContent,
+  ElTabs,
   ElToast,
   ElToaster,
   ElToastService,
@@ -9,7 +12,9 @@ import {
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -20,8 +25,13 @@ import { PropsTable } from '../ui/props-table';
     ElButton,
     ElToast,
     ElToaster,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './toast-doc.html',
@@ -30,28 +40,29 @@ import { PropsTable } from '../ui/props-table';
 export class ToastDocPage {
   private readonly toast = inject(ElToastService);
 
-  protected readonly servicePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly presentationalPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add toast`;
 
-  protected readonly importCode = `import { ElToaster } from './ui/toast/toaster';
-import { ElToastService } from './ui/toast/toast.service';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElToaster],
-  template: \`<el-toaster /><router-outlet />\`,
-})
-export class App {
-  private readonly toast = inject(ElToastService);
+  protected readonly manualFilesCode = `ui/toast/toast.ts
+ui/toast/toast.html
+ui/toast/toast.scss
+ui/toast/toaster.ts
+ui/toast/toaster.html
+ui/toast/toaster.scss
+ui/toast/toast.service.ts`;
 
-  save(): void {
-    this.toast.show('Saved', { color: 'success' });
-  }
-}`;
+  protected readonly importSnippet = `import { ElToaster } from './ui/toast/toaster';
+import { ElToastService } from './ui/toast/toast.service';`;
+
+  protected readonly usageSnippet = `<el-toaster /><router-outlet />
+
+this.toast.show('Saved', { color: 'success' });`;
 
   protected readonly serviceCode = `<el-toaster position="bottom-end" />
 

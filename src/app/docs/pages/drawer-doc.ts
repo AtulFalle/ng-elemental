@@ -12,10 +12,15 @@ import {
   ElDrawerClose,
   ElDrawerRef,
   ElDrawerService,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 interface WorkspaceDrawerData {
@@ -49,8 +54,13 @@ export class WorkspaceDrawer {
     ElButton,
     ElDrawer,
     ElDrawerClose,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './drawer-doc.html',
@@ -59,10 +69,7 @@ export class WorkspaceDrawer {
 export class DrawerDocPage {
   private readonly drawer = inject(ElDrawerService);
 
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sidePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly servicePanel = signal<'preview' | 'code' | 'standards'>('preview');
-
+  protected readonly installTab = signal('cli');
   protected readonly open = signal(false);
   protected readonly rightOpen = signal(false);
   protected readonly serviceResult = signal<string | null>(null);
@@ -72,26 +79,21 @@ npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add drawer`;
 
-  protected readonly importCode = `import { ElDrawer, ElDrawerClose } from './ui/drawer/drawer';
-import { ElButton } from './ui/button/button';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElDrawer, ElDrawerClose, ElButton],
-  template: \`
-    <el-button (click)="open.set(true)">Menu</el-button>
-    <el-drawer [(open)]="open" title="Navigation" side="left">
-      <div elDrawerContent>Nav links</div>
-      <div elDrawerFooter>
-        <el-button elDrawerClose variant="ghost">Close</el-button>
-      </div>
-    </el-drawer>
-  \`,
-})
-export class MyComponent {
-  protected open = false;
-}`;
+  protected readonly manualFilesCode = `ui/drawer/drawer.ts
+ui/drawer/drawer.html
+ui/drawer/drawer.scss
+ui/drawer/drawer-close.ts
+ui/drawer/drawer.token.ts
+ui/drawer/drawer-ref.ts
+ui/drawer/drawer.service.ts
+ui/drawer/drawer-outlet.ts`;
 
-  protected readonly usageCode = `<el-drawer [(open)]="open" title="Navigation" side="left" size="md">
+  protected readonly importSnippet = `import { ElDrawer, ElDrawerClose } from './ui/drawer/drawer';
+import { ElButton } from './ui/button/button';`;
+
+  protected readonly usageSnippet = `<el-drawer [(open)]="open" title="Navigation" side="left" size="md">
   <div elDrawerContent>Any HTML or components.</div>
   <div elDrawerFooter>
     <el-button elDrawerClose variant="ghost">Close</el-button>

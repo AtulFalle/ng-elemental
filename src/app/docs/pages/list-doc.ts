@@ -8,11 +8,16 @@ import {
   ElList,
   ElListItem,
   ElListItemDef,
+  ElTab,
+  ElTabContent,
+  ElTabs,
   type ElListSize,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -27,20 +32,20 @@ import { PropsTable } from '../ui/props-table';
     ElList,
     ElListItem,
     ElListItemDef,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './list-doc.html',
   styleUrl: './page.scss',
 })
 export class ListDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly plainPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly interactivePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly virtualPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly actionsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly selectedId = signal('ada');
   protected readonly sizes: ElListSize[] = ['lg', 'md', 'sm'];
@@ -65,20 +70,44 @@ npx @ng-elemental/cli add avatar
 npx @ng-elemental/cli add chip
 npx @ng-elemental/cli add button`;
 
-  protected readonly importCode = `import { ElList, ElListItem } from './ui/list/list';
+  protected readonly manualFilesCode = `ui/list/list.ts
+ui/list/list.html
+ui/list/list.scss
+ui/list/list-item.ts
+ui/list/list-item.html
+ui/list/list-item.scss
+ui/list/list-item-def.ts
+ui/list/list-virtual.ts`;
 
-@Component({
-  imports: [ElList, ElListItem],
-  template: \`
-    <el-list ariaLabel="Inbox">
-      <el-list-item>
-        <span elListTitle>Ada Lovelace</span>
-        <span elListDescription>Notes on the Analytical Engine</span>
-      </el-list-item>
-    </el-list>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElList, ElListItem } from './ui/list/list'`;
+
+  protected readonly usageSnippet = `<el-list ariaLabel="Inbox">
+  <el-list-item>
+    <span elListTitle>Ada Lovelace</span>
+    <span elListDescription>Notes on the Analytical Engine</span>
+  </el-list-item>
+</el-list>`;
+
+  protected readonly heroCode = `<el-list ariaLabel="Inbox" style="max-width: 24rem; width: 100%">
+  <el-list-item>
+    <el-avatar elListLeading initials="AL" alt="Ada Lovelace" />
+    <span elListTitle>Ada Lovelace</span>
+    <span elListDescription>Notes on the Analytical Engine</span>
+    <span elListTrailing>09:12</span>
+  </el-list-item>
+  <el-list-item>
+    <el-avatar elListLeading initials="GH" alt="Grace Hopper" />
+    <span elListTitle>Grace Hopper</span>
+    <span elListDescription>Compiler progress update</span>
+    <span elListTrailing>Yesterday</span>
+  </el-list-item>
+  <el-list-item>
+    <el-icon elListLeading name="file-lines" />
+    <span elListTitle>Quarterly report</span>
+    <span elListDescription>PDF · 2.4 MB</span>
+    <el-chip elListTrailing>Review</el-chip>
+  </el-list-item>
+</el-list>`;
 
   protected readonly plainCode = `<el-list ariaLabel="Folders">
   <el-list-item>Inbox</el-list-item>

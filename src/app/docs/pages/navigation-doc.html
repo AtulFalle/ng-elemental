@@ -369,7 +369,24 @@
   </section>
 
   <section>
-    <h2 id="standards">Standards</h2>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-nav</h3>
+    <app-props-table [props]="navProps" />
+    <h3>el-nav-item</h3>
+    <app-props-table [props]="itemProps" />
+    <p class="docs-page__section-lead">
+      Item slots:
+      <code>elNavLeading</code>,
+      <code>elNavLabel</code>,
+      <code>elNavSublabel</code>,
+      <code>elNavBadge</code>,
+      <code>elNavActions</code>.
+      See <a routerLink="/docs/theming">Theming</a> for token overrides.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Navigation follows the native
       <a href="https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/" target="_blank" rel="noreferrer">nav landmark</a>
@@ -387,22 +404,5 @@
       <li>Focus-visible rings on interactive controls.</li>
       <li>Chevron rotation honors <code>prefers-reduced-motion</code>.</li>
     </ul>
-  </section>
-
-  <section>
-    <h2 id="api">API</h2>
-    <h3>el-nav</h3>
-    <app-props-table [props]="navProps" />
-    <h3>el-nav-item</h3>
-    <app-props-table [props]="itemProps" />
-    <p class="docs-page__section-lead">
-      Item slots:
-      <code>elNavLeading</code>,
-      <code>elNavLabel</code>,
-      <code>elNavSublabel</code>,
-      <code>elNavBadge</code>,
-      <code>elNavActions</code>.
-      See <a routerLink="/docs/theming">Theming</a> for token overrides.
-    </p>
   </section>
 </article>

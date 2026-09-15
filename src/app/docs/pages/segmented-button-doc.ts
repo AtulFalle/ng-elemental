@@ -1,13 +1,17 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  ElButton,
   ElSegmentedButton,
   ElSegmentedButtonItem,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -15,42 +19,45 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElSegmentedButton,
     ElSegmentedButtonItem,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './segmented-button-doc.html',
   styleUrl: './page.scss',
 })
 export class SegmentedButtonDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly variantsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly disabledPanel = signal<'preview' | 'code' | 'standards'>('preview');
-
+  protected readonly installTab = signal('cli');
   protected readonly view = signal('list');
   protected readonly primaryDemo = signal('list');
   protected readonly disabledDemo = signal('list');
 
   protected readonly addCode = `npx @ng-elemental/cli add segmented-button`;
 
-  protected readonly importCode = `import {
+  protected readonly manualFilesCode = `ui/segmented-button/segmented-button.ts
+ui/segmented-button/segmented-button.html
+ui/segmented-button/segmented-button.scss
+ui/segmented-button/segmented-button-item.ts
+ui/segmented-button/segmented-button-item.html
+ui/segmented-button/segmented-button-item.scss
+ui/segmented-button/segmented-button.token.ts`;
+
+  protected readonly importSnippet = `import {
   ElSegmentedButton,
   ElSegmentedButtonItem,
-} from './ui/segmented-button/segmented-button';
+} from './ui/segmented-button/segmented-button';`;
 
-@Component({
-  imports: [ElSegmentedButton, ElSegmentedButtonItem],
-  template: \`
-    <el-segmented-button [(value)]="view" ariaLabel="View mode">
-      <el-segmented-button-item value="list">List</el-segmented-button-item>
-      <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
-    </el-segmented-button>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly usageSnippet = `<el-segmented-button [(value)]="view" ariaLabel="View mode">
+  <el-segmented-button-item value="list">List</el-segmented-button-item>
+  <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+</el-segmented-button>`;
 
   protected readonly heroCode = `<el-segmented-button [(value)]="view" ariaLabel="View mode">
   <el-segmented-button-item value="list">List</el-segmented-button-item>

@@ -1,15 +1,19 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  ElButton,
   ElChip,
   ElSelect,
   ElSelectItem,
   ElSelectValue,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -17,22 +21,24 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElChip,
     ElSelect,
     ElSelectItem,
     ElSelectValue,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './select-doc.html',
   styleUrl: './page.scss',
 })
 export class SelectDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly multiplePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly chipsPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly city = signal('pune');
   protected readonly cities = signal<string[]>(['pune']);
@@ -48,23 +54,24 @@ export class SelectDocPage {
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add select`;
 
-  protected readonly importCode = `import {
+  protected readonly manualFilesCode = `ui/select/select.ts
+ui/select/select.html
+ui/select/select.scss
+ui/select/select-item.ts
+ui/select/select-item.html
+ui/select/select-item.scss
+ui/select/select-group.ts
+ui/select/select-group.html
+ui/select/select-group.scss
+ui/select/select-value.ts
+ui/select/select.token.ts`;
+
+  protected readonly importSnippet = `import {
   ElSelect,
   ElSelectItem,
-} from './ui/select/select';
+} from './ui/select/select';`;
 
-@Component({
-  imports: [ElSelect, ElSelectItem],
-  template: \`
-    <el-select [(value)]="city" placeholder="Choose a city" ariaLabel="City">
-      <el-select-item value="pune" label="Pune">Pune</el-select-item>
-      <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
-    </el-select>
-  \`,
-})
-export class MyComponent {}`;
-
-  protected readonly usageCode = `<el-select [(value)]="city" size="md" placeholder="Choose a city" ariaLabel="City">
+  protected readonly usageSnippet = `<el-select [(value)]="city" size="md" placeholder="Choose a city" ariaLabel="City">
   <el-select-item value="pune" label="Pune">Pune</el-select-item>
   <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
 </el-select>`;

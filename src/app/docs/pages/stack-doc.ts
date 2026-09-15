@@ -1,37 +1,47 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElStack } from '@ng-elemental/ui';
+import { ElStack, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-stack-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElStack, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElStack,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './stack-doc.html',
   styleUrl: './page.scss',
 })
 export class StackDocPage {
-  protected readonly columnPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly rowPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add stack`;
 
-  protected readonly importCode = `import { ElStack } from './ui/stack/stack';
+  protected readonly manualFilesCode = `ui/stack/stack.ts
+ui/stack/stack.html
+ui/stack/stack.scss`;
 
-@Component({
-  imports: [ElStack],
-  template: \`
-    <el-stack gap="4">
-      <div>One</div>
-      <div>Two</div>
-    </el-stack>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElStack } from './ui/stack/stack';`;
+
+  protected readonly usageSnippet = `<el-stack gap="4">
+  <div>One</div>
+  <div>Two</div>
+</el-stack>`;
 
   protected readonly columnCode = `<el-stack gap="3" style="width: 16rem">
   <div>One</div>

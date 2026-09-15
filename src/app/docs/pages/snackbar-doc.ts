@@ -4,54 +4,66 @@ import {
   ElButton,
   ElSnackbar,
   ElSnackbarService,
+  ElTab,
+  ElTabContent,
+  ElTabs,
   type ElSnackbarColor,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-snackbar-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElSnackbar, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElButton,
+    ElSnackbar,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './snackbar-doc.html',
   styleUrl: './page.scss',
 })
 export class SnackbarDocPage {
   private readonly snackbar = inject(ElSnackbarService);
 
+  protected readonly installTab = signal('cli');
   protected readonly open = signal(false);
   protected readonly colorOpen = signal(false);
   protected readonly color = signal<ElSnackbarColor>('success');
   protected readonly bulkOpen = signal(false);
-
-  protected readonly defaultPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly bulkPanel = signal<'preview' | 'code' | 'standards'>('preview');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add snackbar`;
 
-  protected readonly importCode = `import { ElSnackbar } from './ui/snackbar/snackbar';
-import { ElSnackbarService } from './ui/snackbar/snackbar.service';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElSnackbar],
-  template: \`
-    <el-snackbar [(open)]="open" message="File deleted" action="Undo"
-      (actionClick)="undo()" />
-  \`,
-})
-export class MyComponent {
-  private readonly snackbar = inject(ElSnackbarService);
-  protected open = false;
+  protected readonly manualFilesCode = `ui/snackbar/snackbar.ts
+ui/snackbar/snackbar.html
+ui/snackbar/snackbar.scss
+ui/snackbar/snackbar.service.ts
+ui/snackbar/snackbar-ref.ts`;
 
-  save(): void {
-    this.snackbar.open('Saved', { color: 'success' });
-  }
-}`;
+  protected readonly importSnippet = `import { ElSnackbar } from './ui/snackbar/snackbar';
+import { ElSnackbarService } from './ui/snackbar/snackbar.service';`;
+
+  protected readonly usageSnippet = `<el-snackbar [(open)]="open" message="File deleted" action="Undo"
+  (actionClick)="undo()" />
+
+this.snackbar.open('Saved', { color: 'success' });`;
 
   protected readonly defaultCode = `<el-button (click)="open.set(true)">Show snackbar</el-button>
 <el-snackbar

@@ -1,22 +1,26 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  ElButton,
   ElCheckbox,
   ElChip,
   ElIcon,
   ElPagination,
+  ElTab,
+  ElTabContent,
   ElTable,
   ElTableCell,
   ElTableColumn,
   ElTableExpand,
   ElTableHeader,
+  ElTabs,
   type ElTableExpanded,
   type ElTableSort,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 const PEOPLE = [
@@ -59,7 +63,6 @@ const PEOPLE = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElTable,
     ElTableColumn,
     ElTableHeader,
@@ -69,21 +72,20 @@ const PEOPLE = [
     ElIcon,
     ElCheckbox,
     ElPagination,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './table-doc.html',
   styleUrl: './page.scss',
 })
 export class TableDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly stringPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sortPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly expandPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly paginationPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly emptyPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly selectionPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly people = PEOPLE;
   protected readonly sort = signal<ElTableSort>(null);
@@ -140,24 +142,40 @@ npx @ng-elemental/cli add chip
 npx @ng-elemental/cli add checkbox
 npx @ng-elemental/cli add pagination`;
 
-  protected readonly importCode = `import { ElTable, ElTableColumn, ElTableCell } from './ui/table/table';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElTable, ElTableColumn, ElTableCell],
-  template: \`
-    <el-table [data]="users">
-      <el-table-column name="name" label="Name" sortable />
-      <el-table-column name="status" label="Status">
-        <ng-template elTableCell let-user>
-          {{ user.status }}
-        </ng-template>
-      </el-table-column>
-    </el-table>
-  \`,
-})
-export class MyComponent {
-  protected users = [{ id: '1', name: 'Ada', status: 'Active' }];
-}`;
+  protected readonly manualFilesCode = `ui/table/table.ts
+ui/table/table.html
+ui/table/table.scss
+ui/table/table-column.ts
+ui/table/table-header.ts
+ui/table/table-cell-def.ts
+ui/table/table-expand.ts
+ui/table/table-virtual.ts
+ui/table/table.token.ts`;
+
+  protected readonly importSnippet = `import { ElTable, ElTableColumn, ElTableCell } from './ui/table/table'`;
+
+  protected readonly usageSnippet = `<el-table [data]="users">
+  <el-table-column name="name" label="Name" sortable />
+  <el-table-column name="status" label="Status">
+    <ng-template elTableCell let-user>
+      {{ user.status }}
+    </ng-template>
+  </el-table-column>
+</el-table>`;
+
+  protected readonly heroCode = `<div class="docs-table-demo">
+  <el-table [data]="people" ariaLabel="People">
+    <el-table-column name="name" label="Name" sortable width="12rem" />
+    <el-table-column name="email" label="Email" />
+    <el-table-column name="status" label="Status">
+      <ng-template elTableCell let-user>
+        <el-chip>{{ user.status }}</el-chip>
+      </ng-template>
+    </el-table-column>
+  </el-table>
+</div>`;
 
   protected readonly stringFallbackCode = `<el-table [data]="users" ariaLabel="People">
   <el-table-column name="name" label="Name" />

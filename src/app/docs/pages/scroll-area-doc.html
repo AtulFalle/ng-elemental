@@ -1,75 +1,87 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Scroll Area</h1>
+    <div class="docs-page__header-row">
+      <h1>Scroll Area</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Native overflow with a styled scrollbar. Set a height or width on the host
       so content can scroll. No JavaScript scrollbar.
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add scroll-area</code>
-  </div>
+  <app-docs-example [code]="verticalCode">
+    <el-scroll-area
+      ariaLabel="Example notes"
+      style="height: 10rem; width: 100%; max-width: 20rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm); padding: var(--el-space-3)"
+    >
+      <p>Line 1</p>
+      <p>Line 2</p>
+      <p>Line 3</p>
+      <p>Line 4</p>
+      <p>Line 5</p>
+      <p>Line 6</p>
+      <p>Line 7</p>
+      <p>Line 8</p>
+      <p>Line 9</p>
+      <p>Line 10</p>
+    </el-scroll-area>
+    <ng-template #standards>
+      <p>
+        Native scrolling keeps platform scroll gestures and keyboard support.
+        Name the region when users cannot infer purpose from visible headings alone.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Give the host a fixed height or width and label the region with
       <code>ariaLabel</code> when the scrollable content is not self-describing.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Vertical scroll</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="verticalPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="verticalPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="verticalPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (verticalPanel() === 'preview') {
-          <app-preview>
-            <el-scroll-area
-              ariaLabel="Example notes"
-              style="height: 10rem; width: 100%; max-width: 20rem; border: var(--el-border-width) solid var(--el-color-outline-variant); border-radius: var(--el-radius-sm); padding: var(--el-space-3)"
-            >
-              <p>Line 1</p>
-              <p>Line 2</p>
-              <p>Line 3</p>
-              <p>Line 4</p>
-              <p>Line 5</p>
-              <p>Line 6</p>
-              <p>Line 7</p>
-              <p>Line 8</p>
-              <p>Line 9</p>
-              <p>Line 10</p>
-            </el-scroll-area>
-          </app-preview>
-        } @else if (verticalPanel() === 'code') {
-          <app-code-block [code]="verticalCode" language="html" />
-        } @else {
-          <p>
-            Native scrolling keeps platform scroll gestures and keyboard support.
-            Name the region when users cannot infer purpose from visible headings alone.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Scroll area is a labeled region with native overflow — not a custom scrollbar widget.
     </p>
@@ -89,16 +101,11 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Thumb color is <code>--el-color-outline-variant</code>. See
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>

@@ -8,10 +8,15 @@ import {
   ElMenuPanel,
   ElMenuSeparator,
   ElMenuTrigger,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -26,18 +31,20 @@ import { PropsTable } from '../ui/props-table';
     ElMenuPanel,
     ElMenuSeparator,
     ElMenuTrigger,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './menu-doc.html',
   styleUrl: './page.scss',
 })
 export class MenuDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly checkboxRadioPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly contextPanel = signal<'preview' | 'code' | 'standards'>('preview');
-
+  protected readonly installTab = signal('cli');
   protected readonly bold = signal(true);
   protected readonly italic = signal(false);
   protected readonly align = signal('start');
@@ -47,26 +54,43 @@ npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add menu`;
 
-  protected readonly importCode = `import {
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+
+  protected readonly manualFilesCode = `ui/menu/menu.ts
+ui/menu/menu.html
+ui/menu/menu.scss
+ui/menu/menu-trigger.ts
+ui/menu/menu-panel.ts
+ui/menu/menu-panel.html
+ui/menu/menu-panel.scss
+ui/menu/menu-item.ts
+ui/menu/menu-item.html
+ui/menu/menu-item.scss
+ui/menu/menu-separator.ts
+ui/menu/menu-label.ts
+ui/menu/menu-position.ts
+ui/menu/menu.token.ts`;
+
+  protected readonly importSnippet = `import {
   ElMenu,
   ElMenuPanel,
   ElMenuItem,
   ElMenuTrigger,
 } from './ui/menu/menu';
-import { ElButton } from './ui/button/button';
+import { ElButton } from './ui/button/button';`;
 
-@Component({
-  imports: [ElMenu, ElMenuPanel, ElMenuItem, ElMenuTrigger, ElButton],
-  template: \`
+  protected readonly usageSnippet = `<el-menu ariaLabel="Actions">
+  <el-button elMenuTrigger variant="secondary">Actions</el-button>
+  <el-menu-panel>
+    <el-menu-item icon="scissors">Cut</el-menu-item>
     <el-menu>
-      <el-button elMenuTrigger>Actions</el-button>
+      <el-menu-item elMenuTrigger>Share</el-menu-item>
       <el-menu-panel>
-        <el-menu-item>Cut</el-menu-item>
+        <el-menu-item>Email</el-menu-item>
       </el-menu-panel>
     </el-menu>
-  \`,
-})
-export class MyComponent {}`;
+  </el-menu-panel>
+</el-menu>`;
 
   protected readonly checkboxRadioCode = `<el-menu-item type="checkbox" [checked]="bold()" (selected)="bold.set(!bold())">
   Bold
@@ -80,19 +104,6 @@ export class MyComponent {}`;
   <el-menu-panel>
     <el-menu-item icon="scissors">Cut</el-menu-item>
     <el-menu-item variant="danger">Delete</el-menu-item>
-  </el-menu-panel>
-</el-menu>`;
-
-  protected readonly usageCode = `<el-menu ariaLabel="Actions">
-  <el-button elMenuTrigger variant="secondary">Actions</el-button>
-  <el-menu-panel>
-    <el-menu-item icon="scissors">Cut</el-menu-item>
-    <el-menu>
-      <el-menu-item elMenuTrigger>Share</el-menu-item>
-      <el-menu-panel>
-        <el-menu-item>Email</el-menu-item>
-      </el-menu-panel>
-    </el-menu>
   </el-menu-panel>
 </el-menu>`;
 

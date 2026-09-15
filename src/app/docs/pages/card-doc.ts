@@ -6,10 +6,15 @@ import {
   ElCard,
   ElGrid,
   ElIcon,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -22,19 +27,20 @@ import { PropsTable } from '../ui/props-table';
     ElCard,
     ElGrid,
     ElIcon,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './card-doc.html',
   styleUrl: './page.scss',
 })
 export class CardDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly mediaPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly gridPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly avatarPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly compactPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add card
 # optional — for people-card / file-row examples:
@@ -42,21 +48,24 @@ npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add avatar
 npx @ng-elemental/cli add button`;
 
-  protected readonly importCode = `import { ElCard } from './ui/card/card';
+  protected readonly manualFilesCode = `ui/card/card.ts
+ui/card/card.html
+ui/card/card.scss`;
 
-@Component({
-  imports: [ElCard],
-  template: \`
-    <el-card>
-      <div elCardHeader>Title</div>
-      <div elCardContent>Body</div>
-      <div elCardFooter>Actions</div>
-    </el-card>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElCard } from './ui/card/card';`;
 
-  protected readonly usageCode = `<el-card>
+  protected readonly usageSnippet = `<el-card>
+  <div elCardHeader>Outlined card</div>
+  <div elCardContent>
+    Slot-based body. Omit unused slots — they collapse.
+  </div>
+  <div elCardFooter>
+    <el-button size="sm" variant="secondary">Cancel</el-button>
+    <el-button size="sm">Save</el-button>
+  </div>
+</el-card>`;
+
+  protected readonly heroCode = `<el-card>
   <div elCardHeader>Outlined card</div>
   <div elCardContent>
     Slot-based body. Omit unused slots — they collapse.

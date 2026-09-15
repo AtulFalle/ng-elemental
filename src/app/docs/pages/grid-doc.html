@@ -1,102 +1,102 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Grid</h1>
+    <div class="docs-page__header-row">
+      <h1>Grid</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       CSS grid wrapper. Use a column count, or <code>minItemWidth</code> for
       responsive auto-fit. Children are projected as-is.
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add grid</code>
-  </div>
+  <app-docs-example [code]="columnsCode">
+    <el-grid [columns]="3" gap="3" style="width: 100%">
+      @for (item of columnItems; track item) {
+        <div
+          style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+        >
+          {{ item }}
+        </div>
+      }
+    </el-grid>
+    <ng-template #standards>
+      <p>
+        Fixed columns suit dashboards with predictable tile counts. Reading order follows
+        DOM order left-to-right, top-to-bottom.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Prefer <code>minItemWidth</code> when the grid should reflow without a
       breakpoint map.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Fixed columns</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="columnsPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="columnsPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="columnsPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (columnsPanel() === 'preview') {
-          <app-preview>
-            <el-grid [columns]="3" gap="3" style="width: 100%">
-              @for (item of columnItems; track item) {
-                <div
-                  style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-                >
-                  {{ item }}
-                </div>
-              }
-            </el-grid>
-          </app-preview>
-        } @else if (columnsPanel() === 'code') {
-          <app-code-block [code]="columnsCode" language="html" />
-        } @else {
-          <p>
-            Fixed columns suit dashboards with predictable tile counts. Reading order follows
-            DOM order left-to-right, top-to-bottom.
-          </p>
+    <h2 id="auto-fit">Auto-fit</h2>
+    <app-docs-example [code]="autoFitCode">
+      <el-grid minItemWidth="8rem" gap="3" style="width: 100%">
+        @for (item of autoFitItems; track item) {
+          <div
+            style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+          >
+            {{ item }}
+          </div>
         }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Auto-fit</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="autoFitPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="autoFitPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="autoFitPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (autoFitPanel() === 'preview') {
-          <app-preview>
-            <el-grid minItemWidth="8rem" gap="3" style="width: 100%">
-              @for (item of autoFitItems; track item) {
-                <div
-                  style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
-                >
-                  {{ item }}
-                </div>
-              }
-            </el-grid>
-          </app-preview>
-        } @else if (autoFitPanel() === 'code') {
-          <app-code-block [code]="autoFitCode" language="html" />
-        } @else {
-          <p>
-            Auto-fit reflows tiles without JavaScript breakpoints. Tiles stay readable when
-            users zoom or narrow the viewport.
-          </p>
-        }
-      </div>
-    </article>
+      </el-grid>
+      <ng-template #standards>
+        <p>
+          Auto-fit reflows tiles without JavaScript breakpoints. Tiles stay readable when
+          users zoom or narrow the viewport.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Grid is presentational layout. It does not define landmarks or interactive behavior.
     </p>
@@ -115,16 +115,11 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Gap uses <code>--el-space-*</code>. See
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>
