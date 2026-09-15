@@ -696,6 +696,26 @@
             "output": "registry/accordion"
           },
           {
+            "glob": "navigation.{ts,html,scss}",
+            "input": "packages/ui/src/lib/navigation",
+            "output": "registry/navigation"
+          },
+          {
+            "glob": "navigation-item.{ts,html,scss}",
+            "input": "packages/ui/src/lib/navigation",
+            "output": "registry/navigation"
+          },
+          {
+            "glob": "navigation-heading.{ts,html,scss}",
+            "input": "packages/ui/src/lib/navigation",
+            "output": "registry/navigation"
+          },
+          {
+            "glob": "navigation.token.ts",
+            "input": "packages/ui/src/lib/navigation",
+            "output": "registry/navigation"
+          },
+          {
             "glob": "segmented-button.{ts,html,scss}",
             "input": "packages/ui/src/lib/segmented-button",
             "output": "registry/segmented-button"

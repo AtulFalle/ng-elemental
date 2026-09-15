@@ -117,6 +117,7 @@ See [packages/mcp/README.md](../mcp/README.md) for Cursor, Claude Code, VS Code,
 | `pagination` | `el-pagination` | `ElPagination` |
 | `skeleton` | `el-skeleton`, `[elSkeleton]` | `ElSkeleton`, `ElSkeletonDirective` |
 | `breadcrumb` | `el-breadcrumb`, `el-breadcrumb-item` | `ElBreadcrumb`, `ElBreadcrumbItem` |
+| `navigation` | `el-nav`, `el-nav-item`, `el-nav-heading` | `ElNav`, `ElNavItem`, `ElNavHeading` |
 | `tooltip` | `[elTooltip]` | `ElTooltip` |
 | `menu` | `el-menu`, `el-menu-panel`, `el-menu-item` | `ElMenu`, `ElMenuPanel`, `ElMenuItem`, `ElMenuTrigger` |
 | `menubar` | `el-menubar` | `ElMenubar` |

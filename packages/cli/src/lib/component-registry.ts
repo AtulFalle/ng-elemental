@@ -467,6 +467,21 @@ export const COMPONENT_REGISTRY = [
     ],
   },
   {
+    name: 'navigation',
+    assetGlobs: [
+      'navigation.{ts,html,scss}',
+      'navigation-item.{ts,html,scss}',
+      'navigation-heading.{ts,html,scss}',
+      'navigation.token.ts',
+    ],
+    requiredBasenames: [
+      'navigation',
+      'navigation-item',
+      'navigation-heading',
+      'navigation.token',
+    ],
+  },
+  {
     name: 'segmented-button',
     assetGlobs: [
       'segmented-button.{ts,html,scss}',

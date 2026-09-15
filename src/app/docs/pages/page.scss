@@ -70,6 +70,28 @@
   gap: 1.5rem 2rem;
 }
 
+.docs-page__nav-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.5rem 2rem;
+  width: 100%;
+}
+
+.docs-page__nav-pane {
+  flex: 1 1 14rem;
+  max-width: 18rem;
+  min-width: 0;
+}
+
+.docs-page__nav-pane-label {
+  margin: 0 0 0.5rem;
+  color: var(--docs-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
 .docs-page__size-row {
   display: inline-flex;
   align-items: center;

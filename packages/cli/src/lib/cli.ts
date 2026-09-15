@@ -141,6 +141,7 @@ Commands:
   add pagination        Copy the Pagination component into your project
   add skeleton          Copy the Skeleton placeholders and host directive into your project
   add breadcrumb        Copy the Breadcrumb component into your project
+  add navigation        Copy the Navigation sidebar component into your project
   add tooltip           Copy the Tooltip directive into your project
   add menu              Copy the Menu, panel, and item components into your project
   add menubar           Copy the Menubar component into your project

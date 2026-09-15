@@ -1,0 +1,17 @@
+:host(.el-nav-heading-host) {
+  display: block;
+  min-width: 0;
+}
+
+.el-nav-heading {
+  display: block;
+  margin: 0;
+  padding: 0.75rem 0.75rem 0.25rem;
+  color: var(--el-color-on-surface-variant);
+  font-family: var(--el-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
