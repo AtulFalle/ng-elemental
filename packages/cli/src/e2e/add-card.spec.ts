@@ -39,6 +39,9 @@ describe('add card e2e', () => {
       expect(cardScss).toContain('--el-radius-md');
       expect(cardScss).toContain('&--outlined');
       expect(cardScss).toContain('&--compact');
+      expect(cardScss).toContain('[elCardTitle]');
+      expect(cardScss).toContain('[elCardDescription]');
+      expect(cardScss).toContain('justify-content: flex-end');
 
       expect(existsSync(componentUiPath(tmp, 'card', 'card.stories.ts'))).toBe(
         false,

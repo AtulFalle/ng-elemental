@@ -1,5 +1,8 @@
 :host {
   display: flex;
+
+  /* align-items:center must not center inline text in children */
+  text-align: start;
 }
 
 :host(.el-stack--row) {

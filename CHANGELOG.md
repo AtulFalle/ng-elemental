@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Docs landing page redesigned with a shadcn-style live component collage, compact hero, and unified CLI/MCP install band
+- `ElCard` adds optional `elCardTitle` / `elCardDescription` typography, end-aligned footers, compact nowrap actions, and docs recipes for product, stats, profile, settings, and file rows
 - `ElTree` defaults to `appearance="plain"` so file trees sit flush; outlined remains available for boxed pickers
 - Tree docs and stories use file-manager examples (explorer, row actions, bulk share, remote folders)
 
