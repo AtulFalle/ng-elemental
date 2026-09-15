@@ -5,15 +5,19 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  ElButton,
   ElInfiniteScroll,
   ElList,
   ElListItem,
   ElProgress,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 type FeedItem = { id: number; title: string; description: string };
@@ -26,20 +30,24 @@ const TOTAL_ITEMS = 40;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElInfiniteScroll,
     ElList,
     ElListItem,
     ElProgress,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './infinite-scroll-doc.html',
   styleUrl: './page.scss',
 })
 export class InfiniteScrollDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly items = signal<FeedItem[]>([]);
   protected readonly loading = signal(false);
@@ -51,28 +59,40 @@ npx @ng-elemental/cli add infinite-scroll
 # demo uses list; add it when rendering rows:
 npx @ng-elemental/cli add list`;
 
-  protected readonly importCode = `import { ElInfiniteScroll } from './ui/infinite-scroll/infinite-scroll';
-import { ElList, ElListItem } from './ui/list/list';
+  protected readonly manualFilesCode = `ui/infinite-scroll/infinite-scroll.ts`;
 
-@Component({
-  imports: [ElInfiniteScroll, ElList, ElListItem],
-  template: \`
-    <div
-      elInfiniteScroll
-      [disabled]="loading()"
-      [complete]="done()"
-      (loadMore)="loadPage()"
-      style="max-height: 24rem; overflow: auto"
-    >
-      <el-list>
-        @for (item of items(); track item.id) {
-          <el-list-item>{{ item.title }}</el-list-item>
-        }
-      </el-list>
-    </div>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElInfiniteScroll } from './ui/infinite-scroll/infinite-scroll'`;
+
+  protected readonly usageSnippet = `<div
+  elInfiniteScroll
+  [disabled]="loading()"
+  [complete]="done()"
+  (loadMore)="loadPage()"
+  style="max-height: 24rem; overflow: auto"
+>
+  <el-list>
+    @for (item of items(); track item.id) {
+      <el-list-item>{{ item.title }}</el-list-item>
+    }
+  </el-list>
+</div>`;
+
+  protected readonly heroCode = `<div
+  elInfiniteScroll
+  [disabled]="loading()"
+  [complete]="complete()"
+  (loadMore)="onLoadMore()"
+  style="width: 100%; max-width: 28rem; max-height: 24rem; overflow: auto"
+>
+  <el-list appearance="plain" ariaLabel="Notifications">
+    @for (item of items(); track item.id) {
+      <el-list-item>
+        <span elListTitle>{{ item.title }}</span>
+        <span elListDescription>{{ item.description }}</span>
+      </el-list-item>
+    }
+  </el-list>
+</div>`;
 
   protected readonly usageCode = `<div
   elInfiniteScroll

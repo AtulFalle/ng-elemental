@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElAvatar, ElButton } from '@ng-elemental/ui';
+import { ElAvatar, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -12,34 +14,34 @@ import { PropsTable } from '../ui/props-table';
   imports: [
     RouterLink,
     ElAvatar,
-    ElButton,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './avatar-doc.html',
   styleUrl: './page.scss',
 })
 export class AvatarDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly iconPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add avatar`;
 
-  protected readonly importCode = `import { ElAvatar } from './ui/avatar/avatar';
+  protected readonly manualFilesCode = `ui/avatar/avatar.ts
+ui/avatar/avatar.html
+ui/avatar/avatar.scss`;
 
-@Component({
-  imports: [ElAvatar],
-  template: \`
-    <el-avatar src="/me.jpg" alt="Jane Doe" />
-    <el-avatar initials="JD" alt="Jane Doe" />
-    <el-avatar icon="user" alt="Account" />
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElAvatar } from './ui/avatar/avatar';`;
+
+  protected readonly usageSnippet = `<el-avatar src="/me.jpg" alt="Jane Doe" />
+<el-avatar initials="JD" alt="Jane Doe" />
+<el-avatar icon="user" alt="Account" />`;
 
   protected readonly heroCode = `<el-avatar src="https://example.com/me.jpg" alt="Example user" />
 <el-avatar initials="JD" alt="Jane Doe" />

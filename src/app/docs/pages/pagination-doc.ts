@@ -1,27 +1,36 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElPagination } from '@ng-elemental/ui';
+import { ElPagination, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-pagination-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElPagination, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElPagination,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './pagination-doc.html',
   styleUrl: './page.scss',
 })
 export class PaginationDocPage {
+  protected readonly installTab = signal('cli');
   protected readonly page = signal(1);
   protected readonly pageSize = signal(10);
   protected readonly manyPage = signal(12);
-
-  protected readonly defaultPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly manyPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sizePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly compactPanel = signal<'preview' | 'code' | 'standards'>('preview');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
@@ -29,17 +38,26 @@ npx @ng-elemental/cli add button
 npx @ng-elemental/cli add select
 npx @ng-elemental/cli add pagination`;
 
-  protected readonly importCode = `import { ElPagination } from './ui/pagination/pagination';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElPagination],
-  template: \`
-    <el-pagination [(page)]="page" [total]="100" [pageSize]="10" />
-  \`,
-})
-export class MyComponent {
-  protected page = 1;
-}`;
+  protected readonly manualFilesCode = `ui/pagination/pagination.ts
+ui/pagination/pagination.html
+ui/pagination/pagination.scss
+ui/pagination/pagination-utils.ts`;
+
+  protected readonly importSnippet = `import { ElPagination } from './ui/pagination/pagination'`;
+
+  protected readonly usageSnippet = `<el-pagination [(page)]="page" [total]="100" [pageSize]="10" />`;
+
+  protected readonly heroCode = `<div class="docs-pagination-demo">
+  <el-pagination
+    [page]="page()"
+    (pageChange)="page.set($event)"
+    [pageSize]="pageSize()"
+    (pageSizeChange)="pageSize.set($event)"
+    [total]="240"
+  />
+</div>`;
 
   protected readonly usageCode = `<el-pagination
   [(page)]="page"

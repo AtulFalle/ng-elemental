@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Toast</h1>
+    <div class="docs-page__header-row">
+      <h1>Toast</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Overlay notifications. Place <code>el-toaster</code> once in the app
       shell, then call <code>ElToastService.show()</code>. Requires the icon
@@ -8,93 +13,97 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
-    <code>npx @ng-elemental/cli add icon</code>, then
-    <code>npx @ng-elemental/cli add toast</code>
-  </div>
+  <app-docs-example [code]="serviceCode">
+    <el-toaster />
+    <div class="docs-row">
+      <el-button (click)="show('neutral')">Neutral</el-button>
+      <el-button (click)="show('success')">Success</el-button>
+      <el-button (click)="show('error')">Error</el-button>
+      <el-button (click)="show('warning')">Warning</el-button>
+      <el-button (click)="show('info')">Info</el-button>
+    </div>
+    <ng-template #standards>
+      <p>
+        Toasts use <code>role="status"</code> and stack in a live region managed by the
+        toaster. Timers pause focus management — dismiss stays available for sticky toasts.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       The service owns the toast list and timers. <code>el-toast</code> is
       presentational only. For a single action bar with auto-dismiss, use
       <a routerLink="/components/snackbar">Snackbar</a>.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Service and toaster</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="servicePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="servicePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="servicePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (servicePanel() === 'preview') {
-          <app-preview>
-            <el-toaster />
-            <div class="docs-row">
-              <el-button (click)="show('neutral')">Neutral</el-button>
-              <el-button (click)="show('success')">Success</el-button>
-              <el-button (click)="show('error')">Error</el-button>
-              <el-button (click)="show('warning')">Warning</el-button>
-              <el-button (click)="show('info')">Info</el-button>
-            </div>
-          </app-preview>
-        } @else if (servicePanel() === 'code') {
-          <app-code-block [code]="serviceCode" language="html" />
-        } @else {
-          <p>
-            Toasts use <code>role="status"</code> and stack in a live region managed by the
-            toaster. Timers pause focus management — dismiss stays available for sticky toasts.
-          </p>
-        }
+    <h2 id="presentational-toast">Presentational toast</h2>
+    <app-docs-example [code]="presentationalCode">
+      <div class="docs-stack">
+        <el-toast color="success" title="Saved">Your changes were written.</el-toast>
+        <el-toast color="error" title="Could not save">Check your connection.</el-toast>
       </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Presentational toast</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="presentationalPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="presentationalPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="presentationalPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (presentationalPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-stack">
-              <el-toast color="success" title="Saved">Your changes were written.</el-toast>
-              <el-toast color="error" title="Could not save">Check your connection.</el-toast>
-            </div>
-          </app-preview>
-        } @else if (presentationalPanel() === 'code') {
-          <app-code-block [code]="presentationalCode" language="html" />
-        } @else {
-          <p>
-            Static markup is for docs and tests. Production flows should use
-            <code>ElToastService</code> so timing and stacking stay consistent.
-          </p>
-        }
-      </div>
-    </article>
+      <ng-template #standards>
+        <p>
+          Static markup is for docs and tests. Production flows should use
+          <code>ElToastService</code> so timing and stacking stay consistent.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="api-reference">API Reference</h2>
+    <p>
+      Shared by <code>el-toast</code>, <code>el-toaster</code>, and
+      <code>ElToastService.show()</code>.
+    </p>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Toast notifications are transient status messages — not modal dialogs.
     </p>
@@ -114,21 +123,12 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Neutral toasts use inverse surface. Semantic colors use the matching
       container roles. See
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <p>
-      Shared by <code>el-toast</code>, <code>el-toaster</code>, and
-      <code>ElToastService.show()</code>.
-    </p>
-    <app-props-table [props]="props" />
   </section>
 </article>

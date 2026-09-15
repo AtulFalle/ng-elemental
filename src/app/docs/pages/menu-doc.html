@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Menu</h1>
+    <div class="docs-page__header-row">
+      <h1>Menu</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Command menu with a floating panel, nested submenus, and an optional
       context-menu trigger. Use
@@ -12,185 +17,178 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add menu</code>
-    (requires <code>icon</code> and usually <code>button</code>)
-  </div>
+  <app-docs-example [code]="usageSnippet">
+    <div style="min-height: 12rem">
+      <el-menu ariaLabel="Actions">
+        <el-button elMenuTrigger variant="secondary">Actions</el-button>
+        <el-menu-panel>
+          <el-menu-item icon="scissors" shortcut="Ctrl+X">Cut</el-menu-item>
+          <el-menu-item icon="copy" shortcut="Ctrl+C">Copy</el-menu-item>
+          <el-menu>
+            <el-menu-item elMenuTrigger>Share</el-menu-item>
+            <el-menu-panel>
+              <el-menu-item icon="envelope">Email</el-menu-item>
+              <el-menu-item icon="link">Copy link</el-menu-item>
+            </el-menu-panel>
+          </el-menu>
+          <el-menu-separator />
+          <el-menu-item variant="danger" icon="trash">Delete</el-menu-item>
+        </el-menu-panel>
+      </el-menu>
+    </div>
+    <ng-template #standards>
+      <p>
+        Follows the APG menu pattern with <code>role="menu"</code> and
+        <code>menuitem</code>. Arrow keys move between items; Escape closes the tree.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code> and usually <code>button</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency if you use menu icons.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       <code>el-menu</code> is a controller with no chrome. Project a trigger
       with <code>elMenuTrigger</code> and items into <code>el-menu-panel</code>.
       Nest another <code>el-menu</code> for a submenu. Escape, outside click,
       and Tab close the tree. Checkbox and radio items emit
       <code>selected</code>; the parent owns <code>checked</code>.
     </p>
-    <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Actions menu</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <div style="min-height: 12rem">
-              <el-menu ariaLabel="Actions">
-                <el-button elMenuTrigger variant="secondary">Actions</el-button>
-                <el-menu-panel>
-                  <el-menu-item icon="scissors" shortcut="Ctrl+X">Cut</el-menu-item>
-                  <el-menu-item icon="copy" shortcut="Ctrl+C">Copy</el-menu-item>
-                  <el-menu>
-                    <el-menu-item elMenuTrigger>Share</el-menu-item>
-                    <el-menu-panel>
-                      <el-menu-item icon="envelope">Email</el-menu-item>
-                      <el-menu-item icon="link">Copy link</el-menu-item>
-                    </el-menu-panel>
-                  </el-menu>
-                  <el-menu-separator />
-                  <el-menu-item variant="danger" icon="trash">Delete</el-menu-item>
-                </el-menu-panel>
-              </el-menu>
-            </div>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Follows the APG menu pattern with <code>role="menu"</code> and
-            <code>menuitem</code>. Arrow keys move between items; Escape closes the tree.
-          </p>
-        }
+    <h2 id="checkbox-and-radio">Checkbox and radio</h2>
+    <app-docs-example [code]="checkboxRadioCode">
+      <div style="min-height: 12rem">
+        <el-menu ariaLabel="View">
+          <el-button elMenuTrigger variant="secondary">View</el-button>
+          <el-menu-panel>
+            <el-menu-label>Style</el-menu-label>
+            <el-menu-item
+              type="checkbox"
+              [checked]="bold()"
+              (selected)="bold.set(!bold())"
+            >
+              Bold
+            </el-menu-item>
+            <el-menu-item
+              type="checkbox"
+              [checked]="italic()"
+              (selected)="italic.set(!italic())"
+            >
+              Italic
+            </el-menu-item>
+            <el-menu-separator />
+            <el-menu-label>Align</el-menu-label>
+            <el-menu-item
+              type="radio"
+              [checked]="align() === 'start'"
+              (selected)="align.set('start')"
+            >
+              Start
+            </el-menu-item>
+            <el-menu-item
+              type="radio"
+              [checked]="align() === 'center'"
+              (selected)="align.set('center')"
+            >
+              Center
+            </el-menu-item>
+            <el-menu-item
+              type="radio"
+              [checked]="align() === 'end'"
+              (selected)="align.set('end')"
+            >
+              End
+            </el-menu-item>
+          </el-menu-panel>
+        </el-menu>
       </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Checkbox and radio</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="checkboxRadioPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="checkboxRadioPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="checkboxRadioPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (checkboxRadioPanel() === 'preview') {
-          <app-preview>
-            <div style="min-height: 12rem">
-              <el-menu ariaLabel="View">
-                <el-button elMenuTrigger variant="secondary">View</el-button>
-                <el-menu-panel>
-                  <el-menu-label>Style</el-menu-label>
-                  <el-menu-item
-                    type="checkbox"
-                    [checked]="bold()"
-                    (selected)="bold.set(!bold())"
-                  >
-                    Bold
-                  </el-menu-item>
-                  <el-menu-item
-                    type="checkbox"
-                    [checked]="italic()"
-                    (selected)="italic.set(!italic())"
-                  >
-                    Italic
-                  </el-menu-item>
-                  <el-menu-separator />
-                  <el-menu-label>Align</el-menu-label>
-                  <el-menu-item
-                    type="radio"
-                    [checked]="align() === 'start'"
-                    (selected)="align.set('start')"
-                  >
-                    Start
-                  </el-menu-item>
-                  <el-menu-item
-                    type="radio"
-                    [checked]="align() === 'center'"
-                    (selected)="align.set('center')"
-                  >
-                    Center
-                  </el-menu-item>
-                  <el-menu-item
-                    type="radio"
-                    [checked]="align() === 'end'"
-                    (selected)="align.set('end')"
-                  >
-                    End
-                  </el-menu-item>
-                </el-menu-panel>
-              </el-menu>
-            </div>
-          </app-preview>
-        } @else if (checkboxRadioPanel() === 'code') {
-          <app-code-block [code]="checkboxRadioCode" language="html" />
-        } @else {
-          <p>
-            Checkbox and radio items use <code>menuitemcheckbox</code> and
-            <code>menuitemradio</code> roles. Checked state is parent-owned; items emit
-            <code>selected</code> on activate.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Context menu</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="contextPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="contextPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="contextPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (contextPanel() === 'preview') {
-          <app-preview>
-            <el-menu trigger="contextmenu" ariaLabel="Canvas">
-              <div
-                elMenuTrigger
-                style="display:flex;align-items:center;justify-content:center;min-height:8rem;width:100%;border:var(--el-border-width) dashed var(--el-color-outline);border-radius:var(--el-radius-md);color:var(--el-color-on-surface-variant)"
-              >
-                Right-click this area
-              </div>
-              <el-menu-panel>
-                <el-menu-item icon="scissors">Cut</el-menu-item>
-                <el-menu-item icon="copy">Copy</el-menu-item>
-                <el-menu-separator />
-                <el-menu-item variant="danger">Delete</el-menu-item>
-              </el-menu-panel>
-            </el-menu>
-          </app-preview>
-        } @else if (contextPanel() === 'code') {
-          <app-code-block [code]="contextCode" language="html" />
-        } @else {
-          <p>
-            Context menus open at the pointer on right-click. Focus moves into the panel on
-            open; Escape and outside click dismiss it.
-          </p>
-        }
-      </div>
-    </article>
+      <ng-template #standards>
+        <p>
+          Checkbox and radio items use <code>menuitemcheckbox</code> and
+          <code>menuitemradio</code> roles. Checked state is parent-owned; items emit
+          <code>selected</code> on activate.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="context-menu">Context menu</h2>
+    <app-docs-example [code]="contextCode">
+      <el-menu trigger="contextmenu" ariaLabel="Canvas">
+        <div
+          elMenuTrigger
+          style="display:flex;align-items:center;justify-content:center;min-height:8rem;width:100%;border:var(--el-border-width) dashed var(--el-color-outline);border-radius:var(--el-radius-md);color:var(--el-color-on-surface-variant)"
+        >
+          Right-click this area
+        </div>
+        <el-menu-panel>
+          <el-menu-item icon="scissors">Cut</el-menu-item>
+          <el-menu-item icon="copy">Copy</el-menu-item>
+          <el-menu-separator />
+          <el-menu-item variant="danger">Delete</el-menu-item>
+        </el-menu-panel>
+      </el-menu>
+      <ng-template #standards>
+        <p>
+          Context menus open at the pointer on right-click. Focus moves into the panel on
+          open; Escape and outside click dismiss it.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-menu</h3>
+    <app-props-table [props]="menuProps" />
+    <h3>el-menu-item</h3>
+    <app-props-table [props]="itemProps" />
+    <h3>Outputs</h3>
+    <app-props-table [props]="itemOutputs" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <ul>
       <li>APG Menu with <code>role="menu"</code>, <code>menuitem</code>, and nested submenus.</li>
       <li>Arrow keys, Home, End, and typeahead move between items.</li>
@@ -204,7 +202,7 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -212,15 +210,5 @@
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <h3>el-menu</h3>
-    <app-props-table [props]="menuProps" />
-    <h3>el-menu-item</h3>
-    <app-props-table [props]="itemProps" />
-    <h3>Outputs</h3>
-    <app-props-table [props]="itemOutputs" />
   </section>
 </article>

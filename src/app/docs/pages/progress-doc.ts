@@ -1,9 +1,17 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElProgress, ElProgressCircle } from '@ng-elemental/ui';
+import {
+  ElProgress,
+  ElProgressCircle,
+  ElTab,
+  ElTabContent,
+  ElTabs,
+} from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -11,35 +19,39 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElProgress,
     ElProgressCircle,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './progress-doc.html',
   styleUrl: './page.scss',
 })
 export class ProgressDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly lineSizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly indeterminatePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add progress`;
 
-  protected readonly importCode = `import { ElProgress } from './ui/progress/progress';
-import { ElProgressCircle } from './ui/progress/progress-circle';
+  protected readonly manualFilesCode = `ui/progress/progress.ts
+ui/progress/progress.html
+ui/progress/progress.scss
+ui/progress/progress-circle.ts
+ui/progress/progress-circle.html
+ui/progress/progress-circle.scss
+ui/progress/progress-utils.ts`;
 
-@Component({
-  imports: [ElProgress, ElProgressCircle],
-  template: \`
-    <el-progress [value]="42" showValue />
-    <el-progress-circle [value]="72" showValue />
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElProgress } from './ui/progress/progress';
+import { ElProgressCircle } from './ui/progress/progress-circle';`;
+
+  protected readonly usageSnippet = `<el-progress [value]="42" showValue />
+<el-progress-circle [value]="72" showValue />`;
 
   protected readonly heroCode = `<el-progress [value]="42" showValue />
 <el-progress-circle [value]="72" showValue />

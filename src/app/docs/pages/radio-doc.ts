@@ -1,40 +1,60 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElRadio, ElRadioGroup } from '@ng-elemental/ui';
+import {
+  ElRadio,
+  ElRadioGroup,
+  ElTab,
+  ElTabContent,
+  ElTabs,
+} from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-radio-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElRadio, ElRadioGroup, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElRadio,
+    ElRadioGroup,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './radio-doc.html',
   styleUrl: './page.scss',
 })
 export class RadioDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly layoutPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly statesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly contact = signal('email');
   protected readonly size = signal('medium');
 
   protected readonly addCode = `npx @ng-elemental/cli add radio`;
 
-  protected readonly importCode = `import { ElRadio, ElRadioGroup } from './ui/radio/radio-group';
+  protected readonly manualFilesCode = `ui/radio/radio.ts
+ui/radio/radio.html
+ui/radio/radio.scss
+ui/radio/radio-group.ts
+ui/radio/radio-group.html
+ui/radio/radio-group.scss
+ui/radio/radio.token.ts`;
 
-@Component({
-  imports: [ElRadio, ElRadioGroup],
-  template: \`
-    <el-radio-group [(value)]="contact" ariaLabel="Contact method">
-      <el-radio value="email" inputId="contact-email">Email</el-radio>
-      <el-radio value="phone" inputId="contact-phone">Phone</el-radio>
-    </el-radio-group>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElRadio, ElRadioGroup } from './ui/radio/radio-group';`;
+
+  protected readonly usageSnippet = `<el-radio-group [(value)]="contact" ariaLabel="Contact method">
+  <el-radio value="email" inputId="contact-email">Email</el-radio>
+  <el-radio value="phone" inputId="contact-phone">Phone</el-radio>
+</el-radio-group>`;
 
   protected readonly heroCode = `<el-radio-group [(value)]="contact" ariaLabel="Contact method">
   <el-radio value="email" inputId="contact-email">Email</el-radio>

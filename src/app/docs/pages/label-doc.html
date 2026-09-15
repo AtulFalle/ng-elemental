@@ -1,86 +1,88 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Label</h1>
+    <div class="docs-page__header-row">
+      <h1>Label</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       An accessible form label with variant styles and optional required
       indicator.
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add label</code>
-  </div>
+  <app-docs-example [code]="variantsCode">
+    <el-label variant="default">Default</el-label>
+    <el-label variant="muted">Muted</el-label>
+    <el-label variant="error">Error</el-label>
+    <ng-template #standards>
+      <p>
+        Uses a native <code>label</code> element. Associate controls with
+        <code>htmlFor</code> matching the control <code>id</code>.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>Import the copied component and associate it with a form control:</p>
-    <app-code-block [code]="importCode" />
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
+      Import the copied component and associate it with a form control:
+    </p>
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Variants</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="variantsPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="variantsPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="variantsPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (variantsPanel() === 'preview') {
-          <app-preview>
-            <el-label variant="default">Default</el-label>
-            <el-label variant="muted">Muted</el-label>
-            <el-label variant="error">Error</el-label>
-          </app-preview>
-        } @else if (variantsPanel() === 'code') {
-          <app-code-block [code]="variantsCode" language="html" />
-        } @else {
-          <p>
-            Uses a native <code>label</code> element. Associate controls with
-            <code>htmlFor</code> matching the control <code>id</code>.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Required &amp; disabled</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="requiredPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="requiredPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="requiredPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (requiredPanel() === 'preview') {
-          <app-preview>
-            <el-label [required]="true">Required field</el-label>
-            <el-label [disabled]="true">Disabled label</el-label>
-          </app-preview>
-        } @else if (requiredPanel() === 'code') {
-          <app-code-block [code]="requiredCode" language="html" />
-        } @else {
-          <p>
-            Required asterisk is decorative (<code>aria-hidden</code>). Also set
-            <code>required</code> or <code>aria-required</code> on the control itself.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="required-and-disabled">Required &amp; disabled</h2>
+    <app-docs-example [code]="requiredCode">
+      <el-label [required]="true">Required field</el-label>
+      <el-label [disabled]="true">Disabled label</el-label>
+      <ng-template #standards>
+        <p>
+          Required asterisk is decorative (<code>aria-hidden</code>). Also set
+          <code>required</code> or <code>aria-required</code> on the control itself.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -88,10 +90,5 @@
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>

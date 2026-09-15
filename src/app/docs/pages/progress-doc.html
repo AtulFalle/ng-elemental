@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Progress</h1>
+    <div class="docs-page__header-row">
+      <h1>Progress</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Line and circle progress indicators with determinate values or an
       indeterminate animation. One CLI package installs both
@@ -8,120 +13,104 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add progress</code>
-  </div>
+  <app-docs-example [code]="heroCode">
+    <div class="docs-stack" style="gap: 1.5rem; width: 100%">
+      <el-progress [value]="42" showValue />
+      <div style="display: flex; gap: 1.5rem; align-items: center">
+        <el-progress-circle [value]="72" showValue />
+        <el-progress-circle indeterminate />
+      </div>
+    </div>
+    <ng-template #standards>
+      <p>
+        Determinate bars expose <code>aria-valuenow</code>, <code>aria-valuemin</code>, and
+        <code>aria-valuemax</code>. Indeterminate mode omits a value and uses motion that
+        honors <code>prefers-reduced-motion</code>.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Pass <code>value</code> and optional <code>max</code> (default
       <code>100</code>). Use <code>indeterminate</code> when progress is
       unknown. Both components share the same inputs.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Line and circle</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-stack" style="gap: 1.5rem; width: 100%">
-              <el-progress [value]="42" showValue />
-              <div style="display: flex; gap: 1.5rem; align-items: center">
-                <el-progress-circle [value]="72" showValue />
-                <el-progress-circle indeterminate />
-              </div>
-            </div>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="heroCode" language="html" />
-        } @else {
-          <p>
-            Determinate bars expose <code>aria-valuenow</code>, <code>aria-valuemin</code>, and
-            <code>aria-valuemax</code>. Indeterminate mode omits a value and uses motion that
-            honors <code>prefers-reduced-motion</code>.
-          </p>
-        }
+    <h2 id="line-sizes">Line sizes</h2>
+    <app-docs-example [code]="lineSizesCode">
+      <div class="docs-stack" style="gap: 1rem; width: 100%">
+        <el-progress size="sm" [value]="40" showValue />
+        <el-progress size="md" [value]="60" showValue />
+        <el-progress size="lg" [value]="80" showValue />
       </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Line sizes</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="lineSizesPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="lineSizesPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="lineSizesPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (lineSizesPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-stack" style="gap: 1rem; width: 100%">
-              <el-progress size="sm" [value]="40" showValue />
-              <el-progress size="md" [value]="60" showValue />
-              <el-progress size="lg" [value]="80" showValue />
-            </div>
-          </app-preview>
-        } @else if (lineSizesPanel() === 'code') {
-          <app-code-block [code]="lineSizesCode" language="html" />
-        } @else {
-          <p>
-            Visible percent labels supplement the bar for users who need numeric feedback.
-            Track fill color is not the only cue when <code>showValue</code> is on.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Indeterminate</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="indeterminatePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="indeterminatePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="indeterminatePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (indeterminatePanel() === 'preview') {
-          <app-preview>
-            <div class="docs-stack" style="gap: 1rem; width: 100%">
-              <el-progress indeterminate />
-              <el-progress-circle indeterminate size="lg" />
-            </div>
-          </app-preview>
-        } @else if (indeterminatePanel() === 'code') {
-          <app-code-block [code]="indeterminateCode" language="html" />
-        } @else {
-          <p>
-            Use indeterminate progress only when duration is unknown. Pair with status text when
-            the operation name is not obvious from context.
-          </p>
-        }
-      </div>
-    </article>
+      <ng-template #standards>
+        <p>
+          Visible percent labels supplement the bar for users who need numeric feedback.
+          Track fill color is not the only cue when <code>showValue</code> is on.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="indeterminate">Indeterminate</h2>
+    <app-docs-example [code]="indeterminateCode">
+      <div class="docs-stack" style="gap: 1rem; width: 100%">
+        <el-progress indeterminate />
+        <el-progress-circle indeterminate size="lg" />
+      </div>
+      <ng-template #standards>
+        <p>
+          Use indeterminate progress only when duration is unknown. Pair with status text when
+          the operation name is not obvious from context.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <p>Shared by <code>el-progress</code> and <code>el-progress-circle</code>.</p>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Progress uses the native <code>progressbar</code> role.
     </p>
@@ -141,7 +130,7 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -149,11 +138,5 @@
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <p>Shared by <code>el-progress</code> and <code>el-progress-circle</code>.</p>
-    <app-props-table [props]="props" />
   </section>
 </article>

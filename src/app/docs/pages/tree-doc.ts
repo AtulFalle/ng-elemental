@@ -3,6 +3,9 @@ import { RouterLink } from '@angular/router';
 import {
   ElButton,
   ElIcon,
+  ElTab,
+  ElTabContent,
+  ElTabs,
   ElTree,
   ElTreeItem,
   ElTreeNodeDef,
@@ -11,7 +14,9 @@ import {
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -24,21 +29,20 @@ import { PropsTable } from '../ui/props-table';
     ElTree,
     ElTreeItem,
     ElTreeNodeDef,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './tree-doc.html',
   styleUrl: './page.scss',
 })
 export class TreeDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly checkboxPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly actionsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly virtualPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly lazyPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly infinitePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly sizes: ElTreeSize[] = ['lg', 'md', 'sm'];
   protected readonly expanded = signal(['docs']);
@@ -89,19 +93,51 @@ npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add checkbox
 npx @ng-elemental/cli add button`;
 
-  protected readonly importCode = `import { ElTree, ElTreeItem } from './ui/tree/tree';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElTree, ElTreeItem],
-  template: \`
-    <el-tree ariaLabel="Files">
-      <el-tree-item value="docs" label="Documents">
-        <el-tree-item value="resume" label="Resume.pdf" />
+  protected readonly manualFilesCode = `ui/tree/tree.ts
+ui/tree/tree.html
+ui/tree/tree.scss
+ui/tree/tree-item.ts
+ui/tree/tree-item.html
+ui/tree/tree-item.scss
+ui/tree/tree-node-def.ts
+ui/tree/tree.token.ts
+ui/tree/tree-utils.ts
+ui/tree/tree-virtual.ts`;
+
+  protected readonly importSnippet = `import { ElTree, ElTreeItem } from './ui/tree/tree'`;
+
+  protected readonly usageSnippet = `<el-tree ariaLabel="Files">
+  <el-tree-item value="docs" label="Documents">
+    <el-tree-item value="resume" label="Resume.pdf" />
+  </el-tree-item>
+</el-tree>`;
+
+  protected readonly heroCode = `<el-tree
+  [(expanded)]="expanded"
+  ariaLabel="Files"
+  style="max-width: 22rem; width: 100%"
+>
+  <el-tree-item value="docs" label="Documents">
+    <el-icon elTreeLeading name="folder" />
+    <el-tree-item value="resume" label="Resume.pdf">
+      <el-icon elTreeLeading name="file" />
+    </el-tree-item>
+    <el-tree-item value="cover" label="Cover letter.pdf">
+      <el-icon elTreeLeading name="file" />
+    </el-tree-item>
+  </el-tree-item>
+  <el-tree-item value="photos" label="Photos">
+    <el-icon elTreeLeading name="folder" />
+    <el-tree-item value="trip" label="Trip">
+      <el-icon elTreeLeading name="folder" />
+      <el-tree-item value="beach" label="Beach.jpg">
+        <el-icon elTreeLeading name="image" />
       </el-tree-item>
-    </el-tree>
-  \`,
-})
-export class MyComponent {}`;
+    </el-tree-item>
+  </el-tree-item>
+</el-tree>`;
 
   protected readonly usageCode = `<el-tree [(expanded)]="open" [(checked)]="checked" checkbox ariaLabel="Files">
   <el-tree-item value="docs" label="Documents">

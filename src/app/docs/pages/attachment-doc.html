@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Attachment</h1>
+    <div class="docs-page__header-row">
+      <h1>Attachment</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       File or image card with media, metadata, upload state, and actions. Pair
       with
@@ -9,295 +14,260 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project:
-    <code>npx @ng-elemental/cli add attachment</code>
-    (requires
-    <code>icon</code>
-    and
-    <code>button</code>)
-  </div>
+  <app-docs-example [code]="heroCode">
+    <div style="display: grid; gap: 0.75rem; max-width: 22rem">
+      <el-attachment state="done">
+        <el-attachment-media>
+          <el-icon name="file-lines" />
+        </el-attachment-media>
+        <el-attachment-content>
+          <el-attachment-title>sales-dashboard.pdf</el-attachment-title>
+          <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+        </el-attachment-content>
+        <el-attachment-actions>
+          <el-attachment-action ariaLabel="Remove sales-dashboard.pdf" />
+        </el-attachment-actions>
+      </el-attachment>
+      <el-attachment state="uploading">
+        <el-attachment-media>
+          <el-icon name="file-zipper" />
+        </el-attachment-media>
+        <el-attachment-content>
+          <el-attachment-title>design-system.zip</el-attachment-title>
+          <el-attachment-description>Uploading · 64%</el-attachment-description>
+        </el-attachment-content>
+        <el-attachment-actions>
+          <el-attachment-action ariaLabel="Cancel upload" />
+        </el-attachment-actions>
+      </el-attachment>
+    </div>
+    <ng-template #standards>
+      <p>
+        Filename and status live in visible text. Icon-only actions require
+        <code>ariaLabel</code>. Uploading and processing states expose
+        <code>aria-busy</code> on the attachment host.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code> and <code>button</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Compose media, content, and actions. Put failure reasons in the
       description so error state is not color-only.
     </p>
-    <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Done and uploading</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <div style="display: grid; gap: 0.75rem; max-width: 22rem">
-              <el-attachment state="done">
-                <el-attachment-media>
-                  <el-icon name="file-lines" />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>sales-dashboard.pdf</el-attachment-title>
-                  <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
-                </el-attachment-content>
-                <el-attachment-actions>
-                  <el-attachment-action ariaLabel="Remove sales-dashboard.pdf" />
-                </el-attachment-actions>
-              </el-attachment>
-              <el-attachment state="uploading">
-                <el-attachment-media>
-                  <el-icon name="file-zipper" />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>design-system.zip</el-attachment-title>
-                  <el-attachment-description>Uploading · 64%</el-attachment-description>
-                </el-attachment-content>
-                <el-attachment-actions>
-                  <el-attachment-action ariaLabel="Cancel upload" />
-                </el-attachment-actions>
-              </el-attachment>
-            </div>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Filename and status live in visible text. Icon-only actions require
-            <code>ariaLabel</code>. Uploading and processing states expose
-            <code>aria-busy</code> on the attachment host.
-          </p>
-        }
+    <h2 id="lifecycle-states">Lifecycle states</h2>
+    <app-docs-example [code]="statesCode">
+      <div style="display: grid; gap: 0.75rem; max-width: 22rem">
+        <el-attachment state="idle">
+          <el-attachment-media>
+            <el-icon name="file-lines" />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>selected-file.pdf</el-attachment-title>
+            <el-attachment-description>Ready to upload</el-attachment-description>
+          </el-attachment-content>
+        </el-attachment>
+        <el-attachment state="processing">
+          <el-attachment-media>
+            <el-icon name="file-lines" />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>market-research.pdf</el-attachment-title>
+            <el-attachment-description>Processing document</el-attachment-description>
+          </el-attachment-content>
+        </el-attachment>
+        <el-attachment state="error">
+          <el-attachment-media>
+            <el-icon name="file-excel" />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>financial-model.xlsx</el-attachment-title>
+            <el-attachment-description>Upload failed. Try again.</el-attachment-description>
+          </el-attachment-content>
+          <el-attachment-actions>
+            <el-attachment-action
+              ariaLabel="Retry financial-model.xlsx"
+              icon="rotate-right"
+            />
+          </el-attachment-actions>
+        </el-attachment>
       </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Lifecycle states</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="statesPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="statesPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="statesPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (statesPanel() === 'preview') {
-          <app-preview>
-            <div style="display: grid; gap: 0.75rem; max-width: 22rem">
-              <el-attachment state="idle">
-                <el-attachment-media>
-                  <el-icon name="file-lines" />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>selected-file.pdf</el-attachment-title>
-                  <el-attachment-description>Ready to upload</el-attachment-description>
-                </el-attachment-content>
-              </el-attachment>
-              <el-attachment state="processing">
-                <el-attachment-media>
-                  <el-icon name="file-lines" />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>market-research.pdf</el-attachment-title>
-                  <el-attachment-description>Processing document</el-attachment-description>
-                </el-attachment-content>
-              </el-attachment>
-              <el-attachment state="error">
-                <el-attachment-media>
-                  <el-icon name="file-excel" />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>financial-model.xlsx</el-attachment-title>
-                  <el-attachment-description>Upload failed. Try again.</el-attachment-description>
-                </el-attachment-content>
-                <el-attachment-actions>
-                  <el-attachment-action
-                    ariaLabel="Retry financial-model.xlsx"
-                    icon="rotate-right"
-                  />
-                </el-attachment-actions>
-              </el-attachment>
-            </div>
-          </app-preview>
-        } @else if (statesPanel() === 'code') {
-          <app-code-block [code]="statesCode" language="html" />
-        } @else {
-          <p>
-            Error reasons belong in the description so status is not conveyed by
-            color alone. Retry and remove controls stay named buttons.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Image (vertical)</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="imagePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="imagePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="imagePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (imagePanel() === 'preview') {
-          <app-preview>
-            <el-attachment orientation="vertical" state="done" style="width: 14rem">
-              <el-attachment-media variant="image">
-                <img
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=320&q=80"
-                  alt=""
-                />
-              </el-attachment-media>
-              <el-attachment-content>
-                <el-attachment-title>workspace.png</el-attachment-title>
-                <el-attachment-description>PNG · 820 KB</el-attachment-description>
-              </el-attachment-content>
-              <el-attachment-actions>
-                <el-attachment-action ariaLabel="Remove workspace.png" />
-              </el-attachment-actions>
-            </el-attachment>
-          </app-preview>
-        } @else if (imagePanel() === 'code') {
-          <app-code-block [code]="imageCode" language="html" />
-        } @else {
-          <p>
-            Decorative previews next to a visible filename use an empty
-            <code>alt</code>. The title provides the accessible name for the
-            attachment row.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Sizes</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="sizesPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="sizesPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="sizesPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (sizesPanel() === 'preview') {
-          <app-preview>
-            <div style="display: grid; gap: 0.75rem; max-width: 22rem">
-              <el-attachment size="lg" state="done">
-                <el-attachment-media>
-                  <el-icon name="file-lines" />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>Large attachment</el-attachment-title>
-                  <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
-                </el-attachment-content>
-              </el-attachment>
-              <el-attachment size="md" state="done">
-                <el-attachment-media>
-                  <el-icon name="file-lines" />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>Medium attachment</el-attachment-title>
-                  <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
-                </el-attachment-content>
-              </el-attachment>
-              <el-attachment size="sm" state="done">
-                <el-attachment-media>
-                  <el-icon name="file-lines" />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>Small attachment</el-attachment-title>
-                  <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
-                </el-attachment-content>
-              </el-attachment>
-            </div>
-          </app-preview>
-        } @else if (sizesPanel() === 'code') {
-          <app-code-block [code]="sizesCode" language="html" />
-        } @else {
-          <p>
-            Density scales touch targets and typography together. Action buttons
-            remain icon-only with explicit labels at every size.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Group</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="groupPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="groupPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="groupPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (groupPanel() === 'preview') {
-          <app-preview>
-            <el-attachment-group ariaLabel="Recent files" style="max-width: 36rem">
-              <el-attachment state="done" orientation="vertical">
-                <el-attachment-media variant="image">
-                  <img
-                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=320&q=80"
-                    alt=""
-                  />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>workspace.png</el-attachment-title>
-                  <el-attachment-description>PNG · 820 KB</el-attachment-description>
-                </el-attachment-content>
-                <el-attachment-actions>
-                  <el-attachment-action ariaLabel="Remove workspace.png" />
-                </el-attachment-actions>
-              </el-attachment>
-              <el-attachment state="done" orientation="vertical">
-                <el-attachment-media variant="image">
-                  <img
-                    src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=320&q=80"
-                    alt=""
-                  />
-                </el-attachment-media>
-                <el-attachment-content>
-                  <el-attachment-title>desk-reference.jpg</el-attachment-title>
-                  <el-attachment-description>JPG · 1.1 MB</el-attachment-description>
-                </el-attachment-content>
-                <el-attachment-actions>
-                  <el-attachment-action ariaLabel="Remove desk-reference.jpg" />
-                </el-attachment-actions>
-              </el-attachment>
-            </el-attachment-group>
-          </app-preview>
-        } @else if (groupPanel() === 'code') {
-          <app-code-block [code]="groupCode" language="html" />
-        } @else {
-          <p>
-            Groups use <code>role="group"</code> with a label so related
-            attachments are announced together without nesting interactive controls.
-          </p>
-        }
-      </div>
-    </article>
+      <ng-template #standards>
+        <p>
+          Error reasons belong in the description so status is not conveyed by
+          color alone. Retry and remove controls stay named buttons.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="image-vertical">Image (vertical)</h2>
+    <app-docs-example [code]="imageCode">
+      <el-attachment orientation="vertical" state="done" style="width: 14rem">
+        <el-attachment-media variant="image">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=320&q=80"
+            alt=""
+          />
+        </el-attachment-media>
+        <el-attachment-content>
+          <el-attachment-title>workspace.png</el-attachment-title>
+          <el-attachment-description>PNG · 820 KB</el-attachment-description>
+        </el-attachment-content>
+        <el-attachment-actions>
+          <el-attachment-action ariaLabel="Remove workspace.png" />
+        </el-attachment-actions>
+      </el-attachment>
+      <ng-template #standards>
+        <p>
+          Decorative previews next to a visible filename use an empty
+          <code>alt</code>. The title provides the accessible name for the
+          attachment row.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <app-docs-example [code]="sizesCode">
+      <div style="display: grid; gap: 0.75rem; max-width: 22rem">
+        <el-attachment size="lg" state="done">
+          <el-attachment-media>
+            <el-icon name="file-lines" />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>Large attachment</el-attachment-title>
+            <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+          </el-attachment-content>
+        </el-attachment>
+        <el-attachment size="md" state="done">
+          <el-attachment-media>
+            <el-icon name="file-lines" />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>Medium attachment</el-attachment-title>
+            <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+          </el-attachment-content>
+        </el-attachment>
+        <el-attachment size="sm" state="done">
+          <el-attachment-media>
+            <el-icon name="file-lines" />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>Small attachment</el-attachment-title>
+            <el-attachment-description>PDF · 2.4 MB</el-attachment-description>
+          </el-attachment-content>
+        </el-attachment>
+      </div>
+      <ng-template #standards>
+        <p>
+          Density scales touch targets and typography together. Action buttons
+          remain icon-only with explicit labels at every size.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="group">Group</h2>
+    <app-docs-example [code]="groupCode">
+      <el-attachment-group ariaLabel="Recent files" style="max-width: 36rem">
+        <el-attachment state="done" orientation="vertical">
+          <el-attachment-media variant="image">
+            <img
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=320&q=80"
+              alt=""
+            />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>workspace.png</el-attachment-title>
+            <el-attachment-description>PNG · 820 KB</el-attachment-description>
+          </el-attachment-content>
+          <el-attachment-actions>
+            <el-attachment-action ariaLabel="Remove workspace.png" />
+          </el-attachment-actions>
+        </el-attachment>
+        <el-attachment state="done" orientation="vertical">
+          <el-attachment-media variant="image">
+            <img
+              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=320&q=80"
+              alt=""
+            />
+          </el-attachment-media>
+          <el-attachment-content>
+            <el-attachment-title>desk-reference.jpg</el-attachment-title>
+            <el-attachment-description>JPG · 1.1 MB</el-attachment-description>
+          </el-attachment-content>
+          <el-attachment-actions>
+            <el-attachment-action ariaLabel="Remove desk-reference.jpg" />
+          </el-attachment-actions>
+        </el-attachment>
+      </el-attachment-group>
+      <ng-template #standards>
+        <p>
+          Groups use <code>role="group"</code> with a label so related
+          attachments are announced together without nesting interactive controls.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-attachment</h3>
+    <app-props-table [props]="props" />
+    <h3>el-attachment-media</h3>
+    <app-props-table [props]="mediaProps" />
+    <h3>el-attachment-action</h3>
+    <app-props-table [props]="actionProps" />
+  </section>
+
+  <section>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -305,15 +275,5 @@
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API</h2>
-    <h3>el-attachment</h3>
-    <app-props-table [props]="props" />
-    <h3>el-attachment-media</h3>
-    <app-props-table [props]="mediaProps" />
-    <h3>el-attachment-action</h3>
-    <app-props-table [props]="actionProps" />
   </section>
 </article>

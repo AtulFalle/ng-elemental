@@ -1,127 +1,118 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Radio</h1>
+    <div class="docs-page__header-row">
+      <h1>Radio</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Material Design 3 radio buttons with label placement and vertical or
       horizontal group layouts.
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add radio</code>
-  </div>
+  <app-docs-example [code]="heroCode">
+    <el-radio-group [(value)]="contact" direction="vertical" ariaLabel="Contact method">
+      <el-radio value="email" inputId="contact-email-preview">Email</el-radio>
+      <el-radio value="phone" inputId="contact-phone-preview">Phone</el-radio>
+      <el-radio value="mail" inputId="contact-mail-preview">Mail</el-radio>
+    </el-radio-group>
+    <ng-template #standards>
+      <p>
+        Group exposes <code>role="radiogroup"</code> with
+        <code>ariaLabel</code>. Each option uses a native radio input.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Wrap radios in <code>el-radio-group</code> and bind the selected value
       with two-way binding:
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Vertical group</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-radio-group [(value)]="contact" direction="vertical" ariaLabel="Contact method">
-              <el-radio value="email" inputId="contact-email-preview">Email</el-radio>
-              <el-radio value="phone" inputId="contact-phone-preview">Phone</el-radio>
-              <el-radio value="mail" inputId="contact-mail-preview">Mail</el-radio>
-            </el-radio-group>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="heroCode" language="html" />
-        } @else {
-          <p>
-            Group exposes <code>role="radiogroup"</code> with
-            <code>ariaLabel</code>. Each option uses a native radio input.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Horizontal group</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="layoutPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="layoutPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="layoutPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (layoutPanel() === 'preview') {
-          <app-preview>
-            <el-radio-group [(value)]="size" direction="horizontal" ariaLabel="Size">
-              <el-radio value="small" inputId="size-small">Small</el-radio>
-              <el-radio value="medium" inputId="size-medium">Medium</el-radio>
-              <el-radio value="large" inputId="size-large">Large</el-radio>
-            </el-radio-group>
-          </app-preview>
-        } @else if (layoutPanel() === 'code') {
-          <app-code-block [code]="layoutCode" language="html" />
-        } @else {
-          <p>
-            Arrow keys move selection within the group per APG radio group
-            keyboard guidance.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">States</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="statesPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="statesPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="statesPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (statesPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-stack">
-              <el-radio-group value="option-1" [disabled]="true" ariaLabel="Disabled group">
-                <el-radio value="option-1" inputId="disabled-1">Disabled group</el-radio>
-              </el-radio-group>
-              <el-radio-group value="available" ariaLabel="With disabled option">
-                <el-radio value="available" inputId="opt-available">Available</el-radio>
-                <el-radio value="unavailable" inputId="opt-unavailable" [disabled]="true">Unavailable</el-radio>
-              </el-radio-group>
-            </div>
-          </app-preview>
-        } @else if (statesPanel() === 'code') {
-          <app-code-block [code]="statesCode" language="html" />
-        } @else {
-          <p>
-            Disabled groups and options use native <code>disabled</code> so
-            assistive technology exposes the inactive state.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="horizontal-group">Horizontal group</h2>
+    <app-docs-example [code]="layoutCode">
+      <el-radio-group [(value)]="size" direction="horizontal" ariaLabel="Size">
+        <el-radio value="small" inputId="size-small">Small</el-radio>
+        <el-radio value="medium" inputId="size-medium">Medium</el-radio>
+        <el-radio value="large" inputId="size-large">Large</el-radio>
+      </el-radio-group>
+      <ng-template #standards>
+        <p>
+          Arrow keys move selection within the group per APG radio group
+          keyboard guidance.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="states">States</h2>
+    <app-docs-example [code]="statesCode">
+      <div class="docs-stack">
+        <el-radio-group value="option-1" [disabled]="true" ariaLabel="Disabled group">
+          <el-radio value="option-1" inputId="disabled-1">Disabled group</el-radio>
+        </el-radio-group>
+        <el-radio-group value="available" ariaLabel="With disabled option">
+          <el-radio value="available" inputId="opt-available">Available</el-radio>
+          <el-radio value="unavailable" inputId="opt-unavailable" [disabled]="true">Unavailable</el-radio>
+        </el-radio-group>
+      </div>
+      <ng-template #standards>
+        <p>
+          Disabled groups and options use native <code>disabled</code> so
+          assistive technology exposes the inactive state.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-radio-group</h3>
+    <app-props-table [props]="groupProps" />
+    <h3>el-radio</h3>
+    <app-props-table [props]="radioProps" />
+  </section>
+
+  <section>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -129,13 +120,5 @@
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <h3>el-radio-group</h3>
-    <app-props-table [props]="groupProps" />
-    <h3>el-radio</h3>
-    <app-props-table [props]="radioProps" />
   </section>
 </article>

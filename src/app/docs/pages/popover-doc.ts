@@ -6,10 +6,15 @@ import {
   ElPopoverClose,
   ElPopoverPanel,
   ElPopoverTrigger,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -22,43 +27,51 @@ import { PropsTable } from '../ui/props-table';
     ElPopoverClose,
     ElPopoverPanel,
     ElPopoverTrigger,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './popover-doc.html',
   styleUrl: './page.scss',
 })
 export class PopoverDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly positionsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly hoverPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly modalPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add popover`;
 
-  protected readonly importCode = `import {
+  protected readonly manualFilesCode = `ui/popover/popover.ts
+ui/popover/popover.html
+ui/popover/popover.scss
+ui/popover/popover-trigger.ts
+ui/popover/popover-panel.ts
+ui/popover/popover-panel.html
+ui/popover/popover-panel.scss
+ui/popover/popover-close.ts
+ui/popover/popover-position.ts
+ui/popover/popover.token.ts`;
+
+  protected readonly importSnippet = `import {
   ElPopover,
   ElPopoverPanel,
   ElPopoverTrigger,
 } from './ui/popover/popover';
-import { ElButton } from './ui/button/button';
+import { ElButton } from './ui/button/button';`;
 
-@Component({
-  imports: [ElPopover, ElPopoverPanel, ElPopoverTrigger, ElButton],
-  template: \`
-    <el-popover>
-      <el-button elPopoverTrigger>Details</el-button>
-      <el-popover-panel>
-        <span elPopoverTitle>Assignee</span>
-        Ada Lovelace
-      </el-popover-panel>
-    </el-popover>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly usageSnippet = `<el-popover position="bottom">
+  <el-button elPopoverTrigger>Details</el-button>
+  <el-popover-panel>
+    <span elPopoverTitle>Assignee</span>
+    Ada Lovelace
+    <el-button elPopoverClose variant="ghost" size="sm">Close</el-button>
+  </el-popover-panel>
+</el-popover>`;
 
   protected readonly positionsCode = `<el-popover position="top">
   <el-button elPopoverTrigger>Top</el-button>
@@ -82,15 +95,6 @@ export class MyComponent {}`;
     <span elPopoverTitle>Confirm</span>
     Focus moves into the panel.
     <el-button elPopoverClose variant="primary" size="sm">Done</el-button>
-  </el-popover-panel>
-</el-popover>`;
-
-  protected readonly usageCode = `<el-popover position="bottom">
-  <el-button elPopoverTrigger>Details</el-button>
-  <el-popover-panel>
-    <span elPopoverTitle>Assignee</span>
-    Ada Lovelace
-    <el-button elPopoverClose variant="ghost" size="sm">Close</el-button>
   </el-popover-panel>
 </el-popover>`;
 

@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Dialog</h1>
+    <div class="docs-page__header-row">
+      <h1>Dialog</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Modal overlay on a native
       <code>&lt;dialog&gt;</code>
@@ -11,252 +16,220 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add dialog</code>
-    (requires <code>icon</code>; examples also need <code>button</code>)
-  </div>
+  <app-docs-example [code]="usageSnippet">
+    <el-button (click)="open.set(true)">Open dialog</el-button>
+    <el-dialog
+      [open]="open()"
+      (openChange)="open.set($event)"
+      title="Edit profile"
+      size="md"
+    >
+      <div elDialogContent>
+        Header and footer stay put. Long content scrolls inside the panel.
+      </div>
+      <div elDialogFooter>
+        <el-button elDialogClose variant="ghost">Cancel</el-button>
+        <el-button (click)="open.set(false)">Save</el-button>
+      </div>
+    </el-dialog>
+    <ng-template #standards>
+      <p>
+        Native <code>&lt;dialog&gt;</code> with <code>showModal()</code>
+        provides the top layer, inert background, focus trap, and Escape.
+        The visible title is an <code>h2</code> that names the dialog.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code>; examples also need <code>button</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency for the close control.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Mark projected nodes with <code>elDialogHeader</code>,
       <code>elDialogContent</code>, or <code>elDialogFooter</code>. Empty slots
       collapse. Use <code>elDialogClose</code> on a button to dismiss.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Header, content, footer</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
+    <h2 id="scrolling-content">Scrolling content</h2>
+    <app-docs-example [code]="scrollCode">
+      <el-button (click)="scrollOpen.set(true)">Long content</el-button>
+      <el-dialog
+        [open]="scrollOpen()"
+        (openChange)="scrollOpen.set($event)"
+        title="Release notes"
+        size="sm"
+      >
+        <div elDialogContent>
+          @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; track n) {
+            <p>Paragraph {{ n }} of a long body that should scroll.</p>
+          }
         </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="open.set(true)">Open dialog</el-button>
-            <el-dialog
-              [open]="open()"
-              (openChange)="open.set($event)"
-              title="Edit profile"
-              size="md"
-            >
-              <div elDialogContent>
-                Header and footer stay put. Long content scrolls inside the panel.
-              </div>
-              <div elDialogFooter>
-                <el-button elDialogClose variant="ghost">Cancel</el-button>
-                <el-button (click)="open.set(false)">Save</el-button>
-              </div>
-            </el-dialog>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Native <code>&lt;dialog&gt;</code> with <code>showModal()</code>
-            provides the top layer, inert background, focus trap, and Escape.
-            The visible title is an <code>h2</code> that names the dialog.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Scrolling content</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="scrollPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="scrollPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="scrollPanel.set('standards')" />
+        <div elDialogFooter>
+          <el-button elDialogClose variant="ghost">Close</el-button>
         </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (scrollPanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="scrollOpen.set(true)">Long content</el-button>
-            <el-dialog
-              [open]="scrollOpen()"
-              (openChange)="scrollOpen.set($event)"
-              title="Release notes"
-              size="sm"
-            >
-              <div elDialogContent>
-                @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; track n) {
-                  <p>Paragraph {{ n }} of a long body that should scroll.</p>
-                }
-              </div>
-              <div elDialogFooter>
-                <el-button elDialogClose variant="ghost">Close</el-button>
-              </div>
-            </el-dialog>
-          </app-preview>
-        } @else if (scrollPanel() === 'code') {
-          <app-code-block [code]="scrollCode" language="html" />
-        } @else {
-          <p>
-            The shell is capped to the viewport. Only the content region
-            scrolls, so header actions and footer buttons stay available at
-            200% zoom and on small screens.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Custom header</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="headerPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="headerPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="headerPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (headerPanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="headerOpen.set(true)">Custom header</el-button>
-            <el-dialog
-              [open]="headerOpen()"
-              (openChange)="headerOpen.set($event)"
-              size="sm"
-            >
-              <div elDialogHeader>Discard draft?</div>
-              <div elDialogContent>Unsaved paragraphs will be lost.</div>
-              <div elDialogFooter>
-                <el-button elDialogClose variant="ghost">Keep editing</el-button>
-                <el-button (click)="headerOpen.set(false)">Discard</el-button>
-              </div>
-            </el-dialog>
-          </app-preview>
-        } @else if (headerPanel() === 'code') {
-          <app-code-block [code]="headerCode" language="html" />
-        } @else {
-          <p>
-            Slot content in <code>elDialogHeader</code> is the dialog name.
-            Set <code>ariaLabel</code> only when there is no visible title.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Open with a service</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="servicePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="servicePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="servicePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (servicePanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="openService()">Open with service</el-button>
-            @if (serviceResult(); as result) {
-              <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
-            }
-          </app-preview>
-        } @else if (servicePanel() === 'code') {
-          <app-code-block [code]="serviceCode" />
-        } @else {
-          <p>
-            <code>open()</code> mounts on <code>document.body</code> and injects
-            <code>EL_DIALOG_DATA</code> plus <code>ElDialogRef</code>. The
-            custom component fills the content slot; chrome comes from options.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Wizard in a dialog</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="wizardPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="wizardPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="wizardPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (wizardPanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="wizardOpen.set(true)">Start setup</el-button>
-            <el-dialog
-              [open]="wizardOpen()"
-              (openChange)="wizardOpen.set($event)"
-              title="Workspace setup"
-              size="lg"
-            >
-              <div elDialogContent>
-                <el-stepper
-                  #wizardStepper
-                  [value]="wizardStep()"
-                  (valueChange)="wizardStep.set($event)"
-                  ariaLabel="Workspace setup"
-                >
-                  <el-step value="account" label="Account" description="Name and email">
-                    <ng-template elStepContent>
-                      <p>Account details for this workspace.</p>
-                    </ng-template>
-                  </el-step>
-                  <el-step value="plan" label="Plan" description="Billing period">
-                    <ng-template elStepContent>
-                      <p>Choose monthly or annual billing.</p>
-                    </ng-template>
-                  </el-step>
-                  <el-step value="review" label="Review">
-                    <ng-template elStepContent>
-                      <p>Confirm and create the workspace.</p>
-                    </ng-template>
-                  </el-step>
-                </el-stepper>
-              </div>
-              <div elDialogFooter>
-                <el-button
-                  variant="ghost"
-                  [disabled]="wizardIsFirst()"
-                  (click)="wizardBack()"
-                >
-                  Back
-                </el-button>
-                @if (wizardIsLast()) {
-                  <el-button (click)="wizardOpen.set(false)">Create</el-button>
-                } @else {
-                  <el-button (click)="wizardNext()">Next</el-button>
-                }
-              </div>
-            </el-dialog>
-          </app-preview>
-        } @else if (wizardPanel() === 'code') {
-          <app-code-block [code]="wizardCode" language="html" />
-        } @else {
-          <p>
-            Put
-            <a routerLink="/components/stepper">Stepper</a>
-            in the content slot. Footer buttons call
-            <code>next()</code> / <code>previous()</code>. Requires
-            <code>npx @ng-elemental/cli add stepper</code>.
-          </p>
-        }
-      </div>
-    </article>
+      </el-dialog>
+      <ng-template #standards>
+        <p>
+          The shell is capped to the viewport. Only the content region
+          scrolls, so header actions and footer buttons stay available at
+          200% zoom and on small screens.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="custom-header">Custom header</h2>
+    <app-docs-example [code]="headerCode">
+      <el-button (click)="headerOpen.set(true)">Custom header</el-button>
+      <el-dialog
+        [open]="headerOpen()"
+        (openChange)="headerOpen.set($event)"
+        size="sm"
+      >
+        <div elDialogHeader>Discard draft?</div>
+        <div elDialogContent>Unsaved paragraphs will be lost.</div>
+        <div elDialogFooter>
+          <el-button elDialogClose variant="ghost">Keep editing</el-button>
+          <el-button (click)="headerOpen.set(false)">Discard</el-button>
+        </div>
+      </el-dialog>
+      <ng-template #standards>
+        <p>
+          Slot content in <code>elDialogHeader</code> is the dialog name.
+          Set <code>ariaLabel</code> only when there is no visible title.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="open-with-a-service">Open with a service</h2>
+    <app-docs-example [code]="serviceCode">
+      <el-button (click)="openService()">Open with service</el-button>
+      @if (serviceResult(); as result) {
+        <span style="margin-inline-start: 0.75rem">Result: {{ result }}</span>
+      }
+      <ng-template #standards>
+        <p>
+          <code>open()</code> mounts on <code>document.body</code> and injects
+          <code>EL_DIALOG_DATA</code> plus <code>ElDialogRef</code>. The
+          custom component fills the content slot; chrome comes from options.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="wizard-in-a-dialog">Wizard in a dialog</h2>
+    <app-docs-example [code]="wizardCode">
+      <el-button (click)="wizardOpen.set(true)">Start setup</el-button>
+      <el-dialog
+        [open]="wizardOpen()"
+        (openChange)="wizardOpen.set($event)"
+        title="Workspace setup"
+        size="lg"
+      >
+        <div elDialogContent>
+          <el-stepper
+            #wizardStepper
+            [value]="wizardStep()"
+            (valueChange)="wizardStep.set($event)"
+            ariaLabel="Workspace setup"
+          >
+            <el-step value="account" label="Account" description="Name and email">
+              <ng-template elStepContent>
+                <p>Account details for this workspace.</p>
+              </ng-template>
+            </el-step>
+            <el-step value="plan" label="Plan" description="Billing period">
+              <ng-template elStepContent>
+                <p>Choose monthly or annual billing.</p>
+              </ng-template>
+            </el-step>
+            <el-step value="review" label="Review">
+              <ng-template elStepContent>
+                <p>Confirm and create the workspace.</p>
+              </ng-template>
+            </el-step>
+          </el-stepper>
+        </div>
+        <div elDialogFooter>
+          <el-button
+            variant="ghost"
+            [disabled]="wizardIsFirst()"
+            (click)="wizardBack()"
+          >
+            Back
+          </el-button>
+          @if (wizardIsLast()) {
+            <el-button (click)="wizardOpen.set(false)">Create</el-button>
+          } @else {
+            <el-button (click)="wizardNext()">Next</el-button>
+          }
+        </div>
+      </el-dialog>
+      <ng-template #standards>
+        <p>
+          Put
+          <a routerLink="/components/stepper">Stepper</a>
+          in the content slot. Footer buttons call
+          <code>next()</code> / <code>previous()</code>. Requires
+          <code>npx @ng-elemental/cli add stepper</code>.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-dialog</h3>
+    <app-props-table [props]="dialogProps" />
+    <h3>ElDialogService.open()</h3>
+    <app-props-table [props]="serviceProps" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Dialog uses the native modal <code>&lt;dialog&gt;</code> element and the
       APG Dialog (Modal) pattern: focus in, trap, Escape, restore, and a name.
@@ -279,7 +252,7 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code>
@@ -290,13 +263,5 @@
       for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <h3>el-dialog</h3>
-    <app-props-table [props]="dialogProps" />
-    <h3>ElDialogService.open()</h3>
-    <app-props-table [props]="serviceProps" />
   </section>
 </article>

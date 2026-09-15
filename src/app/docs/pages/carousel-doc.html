@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Carousel</h1>
+    <div class="docs-page__header-row">
+      <h1>Carousel</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Slide track with previous/next controls and dots. Optional loop, autoplay,
       and a peek of adjacent slides. This is not the
@@ -9,223 +14,184 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add carousel</code>
-    (requires <code>icon</code> and <code>button</code>)
-  </div>
+  <app-docs-example [code]="heroCode">
+    <el-carousel
+      [(index)]="index"
+      ariaLabel="Screenshots"
+      style="width: 100%; max-width: 28rem"
+    >
+      <el-carousel-slide>
+        <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
+      </el-carousel-slide>
+      <el-carousel-slide>
+        <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
+      </el-carousel-slide>
+      <el-carousel-slide>
+        <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
+      </el-carousel-slide>
+    </el-carousel>
+    <ng-template #standards>
+      <p>
+        Uses a named region with prev/next buttons and dot indicators. The active slide is
+        exposed with <code>aria-hidden</code> on inactive panels. Pass
+        <code>ariaLabel</code> to name the carousel.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code> and <code>button</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       The parent owns <code>index</code>. Prev/next and dots live on
       <code>el-carousel</code>. Each <code>el-carousel-slide</code> is only a
       panel — do not put chrome inside the slide.
     </p>
-    <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Default carousel</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-carousel
-              [(index)]="index"
-              ariaLabel="Screenshots"
-              style="width: 100%; max-width: 28rem"
-            >
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
-              </el-carousel-slide>
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
-              </el-carousel-slide>
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
-              </el-carousel-slide>
-            </el-carousel>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Uses a named region with prev/next buttons and dot indicators. The active slide is
-            exposed with <code>aria-hidden</code> on inactive panels. Pass
-            <code>ariaLabel</code> to name the carousel.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Loop</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="loopPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="loopPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="loopPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (loopPanel() === 'preview') {
-          <app-preview>
-            <el-carousel loop ariaLabel="Looping slides" style="width: 100%; max-width: 28rem">
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
-              </el-carousel-slide>
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
-              </el-carousel-slide>
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
-              </el-carousel-slide>
-            </el-carousel>
-          </app-preview>
-        } @else if (loopPanel() === 'code') {
-          <app-code-block [code]="loopCode" language="html" />
-        } @else {
-          <p>
-            Loop wraps from last to first. Prev/next stay enabled at the ends and include
-            visually hidden labels.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Autoplay</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="autoplayPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="autoplayPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="autoplayPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (autoplayPanel() === 'preview') {
-          <app-preview>
-            <el-carousel
-              loop
-              [autoplay]="4000"
-              ariaLabel="Autoplay slides"
-              style="width: 100%; max-width: 28rem"
-            >
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
-              </el-carousel-slide>
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
-              </el-carousel-slide>
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
-              </el-carousel-slide>
-            </el-carousel>
-          </app-preview>
-        } @else if (autoplayPanel() === 'code') {
-          <app-code-block [code]="autoplayCode" language="html" />
-        } @else {
-          <p>
-            Autoplay pauses while the carousel is hovered, focused, or being dragged, and when
-            the user prefers reduced motion — meeting WCAG 2.2.2 Pause, Stop, Hide.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Peek</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="peekPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="peekPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="peekPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (peekPanel() === 'preview') {
-          <app-preview>
-            <el-carousel
-              loop
-              [peek]="24"
-              [(index)]="peekIndex"
-              ariaLabel="Peeking slides"
-              style="width: 100%; max-width: 28rem"
-            >
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
-              </el-carousel-slide>
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
-              </el-carousel-slide>
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
-              </el-carousel-slide>
-              <el-carousel-slide>
-                <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Four</div>
-              </el-carousel-slide>
-            </el-carousel>
-          </app-preview>
-        } @else if (peekPanel() === 'code') {
-          <app-code-block [code]="peekCode" language="html" />
-        } @else {
-          <p>
-            Peek shows adjacent slides for context. Inactive slides stay hidden from assistive
-            technology with <code>aria-hidden</code>.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Many slides</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="manyPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="manyPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="manyPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (manyPanel() === 'preview') {
-          <app-preview>
-            <el-carousel loop ariaLabel="Many slides" style="width: 100%; max-width: 28rem">
-              @for (n of many; track n) {
-                <el-carousel-slide>
-                  <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">{{ n }}</div>
-                </el-carousel-slide>
-              }
-            </el-carousel>
-          </app-preview>
-        } @else if (manyPanel() === 'code') {
-          <app-code-block [code]="manyCode" language="html" />
-        } @else {
-          <p>
-            Dot indicators include an explicit slide label for screen readers. Arrow keys move
-            between slides when the carousel has focus.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="loop">Loop</h2>
+    <app-docs-example [code]="loopCode">
+      <el-carousel loop ariaLabel="Looping slides" style="width: 100%; max-width: 28rem">
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
+        </el-carousel-slide>
+      </el-carousel>
+      <ng-template #standards>
+        <p>
+          Loop wraps from last to first. Prev/next stay enabled at the ends and include
+          visually hidden labels.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="autoplay">Autoplay</h2>
+    <app-docs-example [code]="autoplayCode">
+      <el-carousel
+        loop
+        [autoplay]="4000"
+        ariaLabel="Autoplay slides"
+        style="width: 100%; max-width: 28rem"
+      >
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
+        </el-carousel-slide>
+      </el-carousel>
+      <ng-template #standards>
+        <p>
+          Autoplay pauses while the carousel is hovered, focused, or being dragged, and when
+          the user prefers reduced motion — meeting WCAG 2.2.2 Pause, Stop, Hide.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="peek">Peek</h2>
+    <app-docs-example [code]="peekCode">
+      <el-carousel
+        loop
+        [peek]="24"
+        [(index)]="peekIndex"
+        ariaLabel="Peeking slides"
+        style="width: 100%; max-width: 28rem"
+      >
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">One</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Two</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">Three</div>
+        </el-carousel-slide>
+        <el-carousel-slide>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-secondary-container);background:var(--el-color-secondary-container)">Four</div>
+        </el-carousel-slide>
+      </el-carousel>
+      <ng-template #standards>
+        <p>
+          Peek shows adjacent slides for context. Inactive slides stay hidden from assistive
+          technology with <code>aria-hidden</code>.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="many-slides">Many slides</h2>
+    <app-docs-example [code]="manyCode">
+      <el-carousel loop ariaLabel="Many slides" style="width: 100%; max-width: 28rem">
+        @for (n of many; track n) {
+          <el-carousel-slide>
+            <div style="display:flex;align-items:center;justify-content:center;min-height:12rem;font-weight:600;color:var(--el-color-on-primary);background:var(--el-color-primary)">{{ n }}</div>
+          </el-carousel-slide>
+        }
+      </el-carousel>
+      <ng-template #standards>
+        <p>
+          Dot indicators include an explicit slide label for screen readers. Arrow keys move
+          between slides when the carousel has focus.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-carousel</h3>
+    <app-props-table [props]="carouselProps" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <ul>
       <li>Named carousel region with labelled prev/next and dot controls.</li>
       <li>Inactive slides hidden with <code>aria-hidden</code>.</li>
@@ -239,7 +205,7 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -247,11 +213,5 @@
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <h3>el-carousel</h3>
-    <app-props-table [props]="carouselProps" />
   </section>
 </article>

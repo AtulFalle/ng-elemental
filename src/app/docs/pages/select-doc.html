@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Select</h1>
+    <div class="docs-page__header-row">
+      <h1>Select</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Combobox with an open panel slot. Use <code>el-select-item</code> for
       selectable rows (custom content allowed), and optionally
@@ -8,151 +13,119 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
-    <code>npx @ng-elemental/cli add icon</code>, then
-    <code>npx @ng-elemental/cli add select</code>
-  </div>
+  <app-docs-example [code]="heroCode">
+    <div class="docs-select-demo">
+      <el-select [(value)]="city" placeholder="Choose a city" ariaLabel="City">
+        <el-select-item value="pune" label="Pune">Pune</el-select-item>
+        <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+        <el-select-item value="delhi" label="Delhi">Delhi</el-select-item>
+      </el-select>
+    </div>
+    <ng-template #standards>
+      <p>
+        Trigger uses native <code>button</code> with <code>role="combobox"</code>,
+        <code>aria-expanded</code>, and <code>aria-controls</code> on the listbox.
+        Disabled uses the native <code>disabled</code> attribute.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>theme</code> and <code>icon</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Project <code>el-select-item</code> children into <code>el-select</code>.
       Pair with <code>el-label</code> via <code>ariaLabelledby</code> or use
       <code>ariaLabel</code> when no visible label exists.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Simple list</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-select-demo">
-              <el-select [(value)]="city" placeholder="Choose a city" ariaLabel="City">
-                <el-select-item value="pune" label="Pune">Pune</el-select-item>
-                <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
-                <el-select-item value="delhi" label="Delhi">Delhi</el-select-item>
-              </el-select>
-            </div>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="heroCode" language="html" />
-        } @else {
-          <p>
-            Trigger uses native <code>button</code> with <code>role="combobox"</code>,
-            <code>aria-expanded</code>, and <code>aria-controls</code> on the listbox.
-            Disabled uses the native <code>disabled</code> attribute.
-          </p>
-        }
+    <h2 id="multiple-with-checkboxes">Multiple with checkboxes</h2>
+    <app-docs-example [code]="multipleExampleCode">
+      <div class="docs-select-demo">
+        <el-select multiple [(value)]="cities" placeholder="Choose cities" ariaLabel="Cities">
+          <el-select-item value="pune" label="Pune">Pune</el-select-item>
+          <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
+          <el-select-item value="delhi" label="Delhi">Delhi</el-select-item>
+        </el-select>
       </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Multiple with checkboxes</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="multiplePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="multiplePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="multiplePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (multiplePanel() === 'preview') {
-          <app-preview>
-            <div class="docs-select-demo">
-              <el-select multiple [(value)]="cities" placeholder="Choose cities" ariaLabel="Cities">
-                <el-select-item value="pune" label="Pune">Pune</el-select-item>
-                <el-select-item value="mumbai" label="Mumbai">Mumbai</el-select-item>
-                <el-select-item value="delhi" label="Delhi">Delhi</el-select-item>
-              </el-select>
-            </div>
-          </app-preview>
-        } @else if (multiplePanel() === 'code') {
-          <app-code-block [code]="multipleExampleCode" language="html" />
-        } @else {
-          <p>
-            Multiple mode sets <code>aria-multiselectable</code> on the listbox.
-            Arrow keys move active option focus while the panel is open.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Trigger value template (chips)</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="chipsPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="chipsPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="chipsPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (chipsPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-select-demo">
-              <el-select #tagSelect multiple [(value)]="tags" placeholder="Select tags" ariaLabel="Tags">
-                <ng-template elSelectValue let-selected>
-                  @if (selected.length === 0) {
-                    <span>Select tags</span>
-                  } @else {
-                    @for (item of selected; track item.value) {
-                      <el-chip type="suggestion" appearance="filled" [removable]="true"
-                        (click)="$event.stopPropagation()" (removed)="tagSelect.toggle(item.value)">
-                        {{ item.label }}
-                      </el-chip>
-                    }
-                  }
-                </ng-template>
-                <el-select-item value="angular" label="Angular">Angular</el-select-item>
-                <el-select-item value="signals" label="Signals">Signals</el-select-item>
-                <el-select-item value="a11y" label="Accessibility">Accessibility</el-select-item>
-              </el-select>
-            </div>
-          </app-preview>
-        } @else if (chipsPanel() === 'code') {
-          <app-code-block [code]="valueTemplateCode" language="html" />
-        } @else {
-          <p>
-            Custom trigger content must not replace the combobox accessible name.
-            Keep <code>ariaLabel</code> or an external label via
-            <code>ariaLabelledby</code>.
-          </p>
-        }
-      </div>
-    </article>
+      <ng-template #standards>
+        <p>
+          Multiple mode sets <code>aria-multiselectable</code> on the listbox.
+          Arrow keys move active option focus while the panel is open.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
-    <p>
-      Colors come from generic theme tokens. Open
-      <code>tokens.scss</code> and edit the BRAND block, or override
-      <code>--el-color-primary</code> on a wrapper. See
-      <a routerLink="/docs/theming">Theming</a> for the full token list.
-    </p>
-    <app-code-block [code]="scopedTokensCode" language="scss" />
+    <h2 id="trigger-value-template-chips">Trigger value template (chips)</h2>
+    <app-docs-example [code]="valueTemplateCode">
+      <div class="docs-select-demo">
+        <el-select #tagSelect multiple [(value)]="tags" placeholder="Select tags" ariaLabel="Tags">
+          <ng-template elSelectValue let-selected>
+            @if (selected.length === 0) {
+              <span>Select tags</span>
+            } @else {
+              @for (item of selected; track item.value) {
+                <el-chip type="suggestion" appearance="filled" [removable]="true"
+                  (click)="$event.stopPropagation()" (removed)="tagSelect.toggle(item.value)">
+                  {{ item.label }}
+                </el-chip>
+              }
+            }
+          </ng-template>
+          <el-select-item value="angular" label="Angular">Angular</el-select-item>
+          <el-select-item value="signals" label="Signals">Signals</el-select-item>
+          <el-select-item value="a11y" label="Accessibility">Accessibility</el-select-item>
+        </el-select>
+      </div>
+      <ng-template #standards>
+        <p>
+          Custom trigger content must not replace the combobox accessible name.
+          Keep <code>ariaLabel</code> or an external label via
+          <code>ariaLabelledby</code>.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>API Reference</h2>
+    <h2 id="api-reference">API Reference</h2>
     <h3>el-select</h3>
     <app-props-table [props]="selectProps" />
     <h3>el-select-item</h3>
@@ -163,5 +136,16 @@
       <code>ng-template elSelectValue</code> receives
       <code>let-selected</code> as an array of value/label pairs.
     </p>
+  </section>
+
+  <section>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/docs/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
   </section>
 </article>

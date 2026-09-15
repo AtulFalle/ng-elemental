@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Tooltip</h1>
+    <div class="docs-page__header-row">
+      <h1>Tooltip</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Attribute directive that shows a short inverted label on hover and focus.
       An arrow on the bubble points at the host. The bubble is portaled to
@@ -8,110 +13,93 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add tooltip</code>
-  </div>
+  <app-docs-example [code]="usageSnippet">
+    <el-button elTooltip="Save file" [elTooltipOpen]="true">Save</el-button>
+    <ng-template #standards>
+      <p>
+        Tooltips supplement the host name on hover and focus. Escape dismisses an open tip
+        without moving focus away from the control.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Put <code>elTooltip</code> on any host. Disabled native buttons do not
       fire mouse events — wrap them if the tip must still show.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Basic tooltip</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-button elTooltip="Save file" [elTooltipOpen]="true">Save</el-button>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Tooltips supplement the host name on hover and focus. Escape dismisses an open tip
-            without moving focus away from the control.
-          </p>
-        }
+    <h2 id="positions">Positions</h2>
+    <app-docs-example [code]="positionsCode">
+      <div class="docs-row" style="padding: 3rem 1rem;">
+        <el-button elTooltip="Top" elTooltipPosition="top" [elTooltipOpen]="true">Top</el-button>
+        <el-button elTooltip="Bottom" elTooltipPosition="bottom">Bottom</el-button>
+        <el-button elTooltip="Start" elTooltipPosition="start">Start</el-button>
+        <el-button elTooltip="End" elTooltipPosition="end">End</el-button>
       </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Positions</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="positionsPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="positionsPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="positionsPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (positionsPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-row" style="padding: 3rem 1rem;">
-              <el-button elTooltip="Top" elTooltipPosition="top" [elTooltipOpen]="true">Top</el-button>
-              <el-button elTooltip="Bottom" elTooltipPosition="bottom">Bottom</el-button>
-              <el-button elTooltip="Start" elTooltipPosition="start">Start</el-button>
-              <el-button elTooltip="End" elTooltipPosition="end">End</el-button>
-            </div>
-          </app-preview>
-        } @else if (positionsPanel() === 'code') {
-          <app-code-block [code]="positionsCode" language="html" />
-        } @else {
-          <p>
-            Placement prefers top, bottom, start, or end relative to the host. Start and end follow
-            text direction so tips stay readable in RTL layouts.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Disabled</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="disabledPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="disabledPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="disabledPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (disabledPanel() === 'preview') {
-          <app-preview>
-            <el-button elTooltip="Hidden tip" elTooltipDisabled>Disabled tip</el-button>
-          </app-preview>
-        } @else if (disabledPanel() === 'code') {
-          <app-code-block [code]="disabledCode" language="html" />
-        } @else {
-          <p>
-            Use <code>elTooltipDisabled</code> when a tip should not appear even though the host
-            remains focusable or hoverable.
-          </p>
-        }
-      </div>
-    </article>
+      <ng-template #standards>
+        <p>
+          Placement prefers top, bottom, start, or end relative to the host. Start and end follow
+          text direction so tips stay readable in RTL layouts.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="disabled">Disabled</h2>
+    <app-docs-example [code]="disabledCode">
+      <el-button elTooltip="Hidden tip" elTooltipDisabled>Disabled tip</el-button>
+      <ng-template #standards>
+        <p>
+          Use <code>elTooltipDisabled</code> when a tip should not appear even though the host
+          remains focusable or hoverable.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Tooltips expose supplementary text through <code>aria-describedby</code> while the host
       keeps its primary accessible name.
@@ -129,17 +117,12 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       The bubble uses <code>--el-color-inverse-surface</code> and
       <code>--el-color-inverse-on-surface</code>. See
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>

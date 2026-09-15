@@ -1,20 +1,33 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Chip</h1>
+    <div class="docs-page__header-row">
+      <h1>Chip</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Material Design 3 chips with Font Awesome start icons (checkmark or custom
       names) and an optional close icon at the end.
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
-    <code>npx @ng-elemental/cli add icon</code>, then
-    <code>npx @ng-elemental/cli add chip</code>
-  </div>
+  <app-docs-example [code]="assistCode">
+    <div class="docs-row">
+      <el-chip type="assist">Assist</el-chip>
+      <el-chip type="assist" iconStart="key">With icon</el-chip>
+    </div>
+    <ng-template #standards>
+      <p>
+        Assist chips use native <code>button</code> semantics with visible
+        label text as the accessible name. Handle actions via
+        <code>(clicked)</code>.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section class="docs-callout">
-    <h2>Prerequisites</h2>
+    <h2 id="prerequisites">Prerequisites</h2>
     <ul>
       <li>
         <strong>Theme</strong> — design tokens from <code>init</code> (or
@@ -31,112 +44,90 @@
   </section>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>theme</code> and <code>icon</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>Project label text as content. Filter chips support two-way selection binding:</p>
-    <app-code-block [code]="importCode" />
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
+      Project label text as content. Filter chips support two-way selection binding:
+    </p>
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Assist chips</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="assistPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="assistPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="assistPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (assistPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-row">
-              <el-chip type="assist">Assist</el-chip>
-              <el-chip type="assist" iconStart="key">With icon</el-chip>
-            </div>
-          </app-preview>
-        } @else if (assistPanel() === 'code') {
-          <app-code-block [code]="assistCode" language="html" />
-        } @else {
-          <p>
-            Assist chips use native <code>button</code> semantics with visible
-            label text as the accessible name. Handle actions via
-            <code>(clicked)</code>.
-          </p>
-        }
+    <h2 id="filter-chips">Filter chips</h2>
+    <app-docs-example [code]="filterCode">
+      <div class="docs-row">
+        <el-chip type="filter">Filter off</el-chip>
+        <el-chip type="filter" [(selected)]="filterActive">Filter on</el-chip>
       </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Filter chips</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="filterPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="filterPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="filterPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (filterPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-row">
-              <el-chip type="filter">Filter off</el-chip>
-              <el-chip type="filter" [(selected)]="filterActive">Filter on</el-chip>
-            </div>
-          </app-preview>
-        } @else if (filterPanel() === 'code') {
-          <app-code-block [code]="filterCode" language="html" />
-        } @else {
-          <p>
-            Filter chips expose <code>role="checkbox"</code> with
-            <code>aria-checked</code> reflecting selection state.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Suggestion chips</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="suggestionPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="suggestionPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="suggestionPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (suggestionPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-row">
-              <el-chip type="suggestion" appearance="outlined">Outlined</el-chip>
-              <el-chip type="suggestion" appearance="filled">Filled</el-chip>
-              @for (tag of tags(); track tag) {
-                <el-chip type="suggestion" appearance="filled" [removable]="true" (removed)="removeTag(tag)">
-                  {{ tag }}
-                </el-chip>
-              }
-            </div>
-          </app-preview>
-        } @else if (suggestionPanel() === 'code') {
-          <app-code-block [code]="suggestionCode" language="html" />
-        } @else {
-          <p>
-            Removable chips expose a separately named close control via
-            <code>removeLabel</code>. Color is never the only status cue.
-          </p>
-        }
-      </div>
-    </article>
+      <ng-template #standards>
+        <p>
+          Filter chips expose <code>role="checkbox"</code> with
+          <code>aria-checked</code> reflecting selection state.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="suggestion-chips">Suggestion chips</h2>
+    <app-docs-example [code]="suggestionCode">
+      <div class="docs-row">
+        <el-chip type="suggestion" appearance="outlined">Outlined</el-chip>
+        <el-chip type="suggestion" appearance="filled">Filled</el-chip>
+        @for (tag of tags(); track tag) {
+          <el-chip type="suggestion" appearance="filled" [removable]="true" (removed)="removeTag(tag)">
+            {{ tag }}
+          </el-chip>
+        }
+      </div>
+      <ng-template #standards>
+        <p>
+          Removable chips expose a separately named close control via
+          <code>removeLabel</code>. Color is never the only status cue.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -144,10 +135,5 @@
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>

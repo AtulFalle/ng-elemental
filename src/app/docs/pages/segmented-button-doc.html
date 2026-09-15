@@ -1,130 +1,120 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Segmented Button</h1>
+    <div class="docs-page__header-row">
+      <h1>Segmented Button</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       A single-choice control for switching between related views or options,
       styled as a connected button group with the same variants as Button.
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project:
-    <code>npx @ng-elemental/cli add segmented-button</code>
-  </div>
+  <app-docs-example [code]="heroCode">
+    <el-segmented-button [value]="view()" (valueChange)="view.set($event)" ariaLabel="View mode">
+      <el-segmented-button-item value="list">List</el-segmented-button-item>
+      <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+      <el-segmented-button-item value="board">Board</el-segmented-button-item>
+    </el-segmented-button>
+    <ng-template #standards>
+      <p>
+        Group uses <code>role="radiogroup"</code>; items use
+        <code>role="radio"</code> with <code>aria-checked</code>. Arrow keys
+        move selection.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Import the group and item components, then compose segments with
       <code>el-segmented-button-item</code>:
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">View mode</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-segmented-button [value]="view()" (valueChange)="view.set($event)" ariaLabel="View mode">
-              <el-segmented-button-item value="list">List</el-segmented-button-item>
-              <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
-              <el-segmented-button-item value="board">Board</el-segmented-button-item>
-            </el-segmented-button>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="heroCode" language="html" />
-        } @else {
-          <p>
-            Group uses <code>role="radiogroup"</code>; items use
-            <code>role="radio"</code> with <code>aria-checked</code>. Arrow keys
-            move selection.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Variants</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="variantsPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="variantsPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="variantsPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (variantsPanel() === 'preview') {
-          <app-preview>
-            <el-segmented-button variant="primary" [value]="primaryDemo()" (valueChange)="primaryDemo.set($event)" ariaLabel="Primary">
-              <el-segmented-button-item value="list">List</el-segmented-button-item>
-              <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
-            </el-segmented-button>
-          </app-preview>
-        } @else if (variantsPanel() === 'code') {
-          <app-code-block [code]="variantsCode" language="html" />
-        } @else {
-          <p>
-            Variants change appearance only; keyboard behavior and radiogroup
-            semantics stay the same.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Disabled</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="disabledPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="disabledPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="disabledPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (disabledPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-stack">
-              <el-segmented-button value="list" [disabled]="true" ariaLabel="Disabled group">
-                <el-segmented-button-item value="list">List</el-segmented-button-item>
-                <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
-              </el-segmented-button>
-              <el-segmented-button [value]="disabledDemo()" (valueChange)="disabledDemo.set($event)" ariaLabel="Disabled item">
-                <el-segmented-button-item value="list">List</el-segmented-button-item>
-                <el-segmented-button-item value="grid" [disabled]="true">Grid</el-segmented-button-item>
-                <el-segmented-button-item value="board">Board</el-segmented-button-item>
-              </el-segmented-button>
-            </div>
-          </app-preview>
-        } @else if (disabledPanel() === 'code') {
-          <app-code-block [code]="disabledCode" language="html" />
-        } @else {
-          <p>
-            Disabled groups and items expose <code>aria-disabled</code> and remove
-            items from the tab order.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="variants">Variants</h2>
+    <app-docs-example [code]="variantsCode">
+      <el-segmented-button variant="primary" [value]="primaryDemo()" (valueChange)="primaryDemo.set($event)" ariaLabel="Primary">
+        <el-segmented-button-item value="list">List</el-segmented-button-item>
+        <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+      </el-segmented-button>
+      <ng-template #standards>
+        <p>
+          Variants change appearance only; keyboard behavior and radiogroup
+          semantics stay the same.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="disabled">Disabled</h2>
+    <app-docs-example [code]="disabledCode">
+      <div class="docs-stack">
+        <el-segmented-button value="list" [disabled]="true" ariaLabel="Disabled group">
+          <el-segmented-button-item value="list">List</el-segmented-button-item>
+          <el-segmented-button-item value="grid">Grid</el-segmented-button-item>
+        </el-segmented-button>
+        <el-segmented-button [value]="disabledDemo()" (valueChange)="disabledDemo.set($event)" ariaLabel="Disabled item">
+          <el-segmented-button-item value="list">List</el-segmented-button-item>
+          <el-segmented-button-item value="grid" [disabled]="true">Grid</el-segmented-button-item>
+          <el-segmented-button-item value="board">Board</el-segmented-button-item>
+        </el-segmented-button>
+      </div>
+      <ng-template #standards>
+        <p>
+          Disabled groups and items expose <code>aria-disabled</code> and remove
+          items from the tab order.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-segmented-button</h3>
+    <app-props-table [props]="groupProps" />
+    <h3>el-segmented-button-item</h3>
+    <app-props-table [props]="itemProps" />
+  </section>
+
+  <section>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -132,13 +122,5 @@
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <h3>el-segmented-button</h3>
-    <app-props-table [props]="groupProps" />
-    <h3>el-segmented-button-item</h3>
-    <app-props-table [props]="itemProps" />
   </section>
 </article>

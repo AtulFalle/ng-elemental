@@ -8,10 +8,15 @@ import {
   ElMenuSeparator,
   ElMenuTrigger,
   ElMenubar,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -26,16 +31,20 @@ import { PropsTable } from '../ui/props-table';
     ElMenuSeparator,
     ElMenuTrigger,
     ElMenubar,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './menubar-doc.html',
   styleUrl: './page.scss',
 })
 export class MenubarDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
@@ -43,7 +52,13 @@ npx @ng-elemental/cli add button
 npx @ng-elemental/cli add menu
 npx @ng-elemental/cli add menubar`;
 
-  protected readonly importCode = `import { ElMenubar } from './ui/menubar/menubar';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+
+  protected readonly manualFilesCode = `ui/menubar/menubar.ts
+ui/menubar/menubar.html
+ui/menubar/menubar.scss`;
+
+  protected readonly importSnippet = `import { ElMenubar } from './ui/menubar/menubar';
 import {
   ElMenu,
   ElMenuPanel,
@@ -52,7 +67,7 @@ import {
 } from './ui/menu/menu';
 import { ElButton } from './ui/button/button';`;
 
-  protected readonly usageCode = `<el-menubar ariaLabel="Application">
+  protected readonly usageSnippet = `<el-menubar ariaLabel="Application">
   <el-menu>
     <el-button elMenuTrigger variant="ghost" size="sm">File</el-button>
     <el-menu-panel>

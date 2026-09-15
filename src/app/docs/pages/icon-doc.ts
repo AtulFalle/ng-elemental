@@ -1,29 +1,41 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElChip, ElIcon } from '@ng-elemental/ui';
+import { ElButton, ElChip, ElIcon, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import { ICON_TOKENS } from '../theme-tokens';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 import { TokensTable } from '../ui/tokens-table';
 
 @Component({
   selector: 'app-icon-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElIcon, ElButton, ElChip, CodeBlock, Preview, PropsTable, TokensTable],
+  imports: [
+    RouterLink,
+    ElIcon,
+    ElButton,
+    ElChip,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+    TokensTable,
+  ],
   templateUrl: './icon-doc.html',
   styleUrl: './page.scss',
 })
 export class IconDocPage {
+  protected readonly installTab = signal('cli');
   protected readonly iconTokens = ICON_TOKENS;
   protected readonly filterActive = signal(true);
   protected readonly tags = signal(['Angular', 'Design']);
-
-  protected readonly commonPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly sizesPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly buttonPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly chipPanel = signal<'preview' | 'code' | 'standards'>('preview');
 
   protected readonly installCode = `npm install @fortawesome/fontawesome-free`;
 
@@ -32,13 +44,13 @@ export class IconDocPage {
 
   protected readonly addCode = `npx @ng-elemental/cli add icon`;
 
-  protected readonly importCode = `import { ElIcon } from './ui/icon/icon';
+  protected readonly manualFilesCode = `ui/icon/icon.ts
+ui/icon/icon.scss
+ui/icon/fontawesome.scss`;
 
-@Component({
-  imports: [ElIcon],
-  template: \`<el-icon name="check" />\`,
-})
-export class MyComponent {}`;
+  protected readonly importSnippet = `import { ElIcon } from './ui/icon/icon';`;
+
+  protected readonly usageSnippet = `<el-icon name="check" />`;
 
   protected readonly commonCode = `<el-icon name="check" />
 <el-icon name="xmark" />

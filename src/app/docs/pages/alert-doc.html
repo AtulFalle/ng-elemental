@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Alert</h1>
+    <div class="docs-page__header-row">
+      <h1>Alert</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Inline status banner. The parent owns visibility — wrap in
       <code>&#64;if</code> and handle <code>dismissed</code>. Requires the icon
@@ -8,125 +13,113 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
-    <code>npx @ng-elemental/cli add icon</code>, then
-    <code>npx @ng-elemental/cli add alert</code>
-  </div>
+  <app-docs-example [code]="colorsCode">
+    <div class="docs-stack" style="width: 100%">
+      <el-alert color="neutral">Neutral update.</el-alert>
+      <el-alert color="success">Saved successfully.</el-alert>
+      <el-alert color="error">Could not save changes.</el-alert>
+      <el-alert color="warning">This action cannot be undone.</el-alert>
+      <el-alert color="info">A newer version is available.</el-alert>
+    </div>
+    <ng-template #standards>
+      <p>
+        Error and warning use <code>role="alert"</code> for urgent messages. Other tones use
+        <code>role="status"</code>. Color is paired with icon and text — never the only cue.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Do not hide the alert internally. Remove it from the template when
       dismissed.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Colors</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="colorsPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="colorsPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="colorsPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (colorsPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-stack" style="width: 100%">
-              <el-alert color="neutral">Neutral update.</el-alert>
-              <el-alert color="success">Saved successfully.</el-alert>
-              <el-alert color="error">Could not save changes.</el-alert>
-              <el-alert color="warning">This action cannot be undone.</el-alert>
-              <el-alert color="info">A newer version is available.</el-alert>
-            </div>
-          </app-preview>
-        } @else if (colorsPanel() === 'code') {
-          <app-code-block [code]="colorsCode" language="html" />
-        } @else {
-          <p>
-            Error and warning use <code>role="alert"</code> for urgent messages. Other tones use
-            <code>role="status"</code>. Color is paired with icon and text — never the only cue.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">With title</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="titlePanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="titlePanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="titlePanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (titlePanel() === 'preview') {
-          <app-preview>
-            <el-alert color="success" title="Saved" style="width: 100%">
-              Your changes were written.
-            </el-alert>
-          </app-preview>
-        } @else if (titlePanel() === 'code') {
-          <app-code-block [code]="titleCode" language="html" />
-        } @else {
-          <p>
-            Titles summarize the message for quick scanning. Body copy adds detail without
-            repeating the heading verbatim.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Dismissible</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="dismissPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="dismissPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="dismissPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (dismissPanel() === 'preview') {
-          <app-preview>
-            @if (showBanner()) {
-              <el-alert
-                color="info"
-                title="New version"
-                dismissible
-                style="width: 100%"
-                (dismissed)="showBanner.set(false)"
-              >
-                A newer version of the design system is available.
-              </el-alert>
-            }
-          </app-preview>
-        } @else if (dismissPanel() === 'code') {
-          <app-code-block [code]="dismissCode" language="html" />
-        } @else {
-          <p>
-            The close control is a native button named &ldquo;Dismiss&rdquo;. Parent removes the
-            alert from the DOM on <code>dismissed</code> — the component does not hide itself.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="with-title">With title</h2>
+    <app-docs-example [code]="titleCode">
+      <el-alert color="success" title="Saved" style="width: 100%">
+        Your changes were written.
+      </el-alert>
+      <ng-template #standards>
+        <p>
+          Titles summarize the message for quick scanning. Body copy adds detail without
+          repeating the heading verbatim.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="dismissible">Dismissible</h2>
+    <app-docs-example [code]="dismissCode">
+      @if (showBanner()) {
+        <el-alert
+          color="info"
+          title="New version"
+          dismissible
+          style="width: 100%"
+          (dismissed)="showBanner.set(false)"
+        >
+          A newer version of the design system is available.
+        </el-alert>
+      }
+      <ng-template #standards>
+        <p>
+          The close control is a native button named &ldquo;Dismiss&rdquo;. Parent removes the
+          alert from the DOM on <code>dismissed</code> — the component does not hide itself.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Alert follows live-region semantics for inline feedback.
     </p>
@@ -146,16 +139,11 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic success, warning, info, and error roles. See
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>

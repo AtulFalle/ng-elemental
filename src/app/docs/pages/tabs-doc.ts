@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElIcon, ElTab, ElTabContent, ElTabLabel, ElTabs } from '@ng-elemental/ui';
+import { ElIcon, ElTab, ElTabContent, ElTabLabel, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -11,24 +13,22 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElIcon,
     ElTabs,
     ElTab,
     ElTabContent,
     ElTabLabel,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './tabs-doc.html',
   styleUrl: './page.scss',
 })
 export class TabsDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly labelsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly disabledPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly overflowPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly selected = signal('overview');
   protected readonly iconDemo = signal('profile');
@@ -39,32 +39,59 @@ export class TabsDocPage {
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add tabs`;
 
-  protected readonly importCode = `import {
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+
+  protected readonly manualFilesCode = `ui/tabs/tabs.ts
+ui/tabs/tabs.html
+ui/tabs/tabs.scss
+ui/tabs/tab.ts
+ui/tabs/tab.html
+ui/tabs/tab.scss
+ui/tabs/tab-content.ts
+ui/tabs/tab-label.ts`;
+
+  protected readonly importSnippet = `import {
   ElTabs,
   ElTab,
   ElTabContent,
-} from './ui/tabs/tabs';
+} from './ui/tabs/tabs'`;
 
-@Component({
-  imports: [ElTabs, ElTab, ElTabContent],
-  template: \`
-    <el-tabs [(value)]="selected" ariaLabel="Account">
-      <el-tab value="overview" label="Overview">
-        <ng-template elTabContent>
-          <p>Any HTML goes here.</p>
-        </ng-template>
-      </el-tab>
-      <el-tab value="billing" label="Billing">
-        <ng-template elTabContent>
-          <p>Billing details.</p>
-        </ng-template>
-      </el-tab>
-    </el-tabs>
-  \`,
-})
-export class MyComponent {
-  protected selected = 'overview';
-}`;
+  protected readonly usageSnippet = `<el-tabs [(value)]="selected" ariaLabel="Account">
+  <el-tab value="overview" label="Overview">
+    <ng-template elTabContent>
+      <p>Any HTML goes here.</p>
+    </ng-template>
+  </el-tab>
+  <el-tab value="billing" label="Billing">
+    <ng-template elTabContent>
+      <p>Billing details.</p>
+    </ng-template>
+  </el-tab>
+</el-tabs>`;
+
+  protected readonly heroCode = `<div class="docs-tabs-demo">
+  <el-tabs
+    [value]="selected()"
+    (valueChange)="selected.set($event)"
+    ariaLabel="Account"
+  >
+    <el-tab value="overview" label="Overview">
+      <ng-template elTabContent>
+        <p>Project overview, status, and recent activity.</p>
+      </ng-template>
+    </el-tab>
+    <el-tab value="billing" label="Billing">
+      <ng-template elTabContent>
+        <p>Invoices, payment methods, and billing contacts.</p>
+      </ng-template>
+    </el-tab>
+    <el-tab value="team" label="Team">
+      <ng-template elTabContent>
+        <p>Members, roles, and pending invitations.</p>
+      </ng-template>
+    </el-tab>
+  </el-tabs>
+</div>`;
 
   protected readonly usageCode = `<el-tabs [(value)]="selected" ariaLabel="Account">
   <el-tab value="overview" label="Overview">

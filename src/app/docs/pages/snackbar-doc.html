@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Snackbar</h1>
+    <div class="docs-page__header-row">
+      <h1>Snackbar</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Transient bar with a built-in action or projected controls. Open it in
       the template with
@@ -12,21 +17,61 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add theme</code>,
-    <code>npx @ng-elemental/cli add icon</code>, then
-    <code>npx @ng-elemental/cli add snackbar</code>
-    (custom actions also need <code>button</code>)
-  </div>
+  <app-docs-example [code]="defaultCode">
+    <el-button (click)="open.set(true)">Show snackbar</el-button>
+    <el-snackbar
+      [open]="open()"
+      (openChange)="open.set($event)"
+      message="File deleted"
+      action="Undo"
+    />
+    <ng-template #standards>
+      <p>
+        Built-in actions are native buttons with visible labels. Error bars use
+        <code>role="alert"</code> and assertive live regions; others stay polite.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code>; custom actions also need <code>button</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       The parent owns <code>open</code> in the template. The built-in
       <code>action</code> label dismisses after click. Project any number of
       controls with <code>elSnackbarActions</code> — those do not auto-dismiss,
@@ -34,89 +79,51 @@
       service mounts one bar on <code>document.body</code> and replaces it if
       you open again.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Action and dismiss</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="defaultPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="defaultPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="defaultPanel.set('standards')" />
+    <h2 id="bulk-actions">Bulk actions</h2>
+    <app-docs-example [code]="bulkCode">
+      <el-button (click)="bulkOpen.set(true)">Select 3 items</el-button>
+      <el-snackbar
+        [open]="bulkOpen()"
+        (openChange)="bulkOpen.set($event)"
+        message="3 selected"
+        [duration]="0"
+      >
+        <div elSnackbarActions>
+          <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
+            Move
+          </el-button>
+          <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
+            Delete
+          </el-button>
+          <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
+            Share
+          </el-button>
         </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (defaultPanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="open.set(true)">Show snackbar</el-button>
-            <el-snackbar
-              [open]="open()"
-              (openChange)="open.set($event)"
-              message="File deleted"
-              action="Undo"
-            />
-          </app-preview>
-        } @else if (defaultPanel() === 'code') {
-          <app-code-block [code]="defaultCode" language="html" />
-        } @else {
-          <p>
-            Built-in actions are native buttons with visible labels. Error bars use
-            <code>role="alert"</code> and assertive live regions; others stay polite.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Bulk actions</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="bulkPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="bulkPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="bulkPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (bulkPanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="bulkOpen.set(true)">Select 3 items</el-button>
-            <el-snackbar
-              [open]="bulkOpen()"
-              (openChange)="bulkOpen.set($event)"
-              message="3 selected"
-              [duration]="0"
-            >
-              <div elSnackbarActions>
-                <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
-                  Move
-                </el-button>
-                <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
-                  Delete
-                </el-button>
-                <el-button variant="ghost" size="sm" (click)="bulkOpen.set(false)">
-                  Share
-                </el-button>
-              </div>
-            </el-snackbar>
-          </app-preview>
-        } @else if (bulkPanel() === 'code') {
-          <app-code-block [code]="bulkCode" language="html" />
-        } @else {
-          <p>
-            Selection bars set <code>duration</code> to <code>0</code> so users can reach every
-            action. Parent owns <code>open</code> while items stay selected.
-          </p>
-        }
-      </div>
-    </article>
+      </el-snackbar>
+      <ng-template #standards>
+        <p>
+          Selection bars set <code>duration</code> to <code>0</code> so users can reach every
+          action. Parent owns <code>open</code> while items stay selected.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-snackbar</h3>
+    <app-props-table [props]="props" />
+    <h3>ElSnackbarService.open()</h3>
+    <app-props-table [props]="serviceProps" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Snackbar is a transient bar — not a dialog — with optional undo.
     </p>
@@ -136,20 +143,12 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Neutral bars use inverse surface. Semantic colors use the matching
       container roles. See
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <h3>el-snackbar</h3>
-    <app-props-table [props]="props" />
-    <h3>ElSnackbarService.open()</h3>
-    <app-props-table [props]="serviceProps" />
   </section>
 </article>

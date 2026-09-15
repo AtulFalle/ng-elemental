@@ -1,17 +1,21 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  ElButton,
   ElFormError,
   ElIcon,
   ElInput,
   ElInputPrefix,
   ElInputSuffix,
   ElLabel,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -19,27 +23,26 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    ElButton,
     ElFormError,
     ElIcon,
     ElInput,
     ElInputPrefix,
     ElInputSuffix,
     ElLabel,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './input-doc.html',
   styleUrl: './page.scss',
 })
 export class InputDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly typesPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly prefixPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly maskPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly statesPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly validationPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly email = signal('');
   protected readonly search = signal('');
@@ -55,15 +58,15 @@ export class InputDocPage {
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add input`;
 
-  protected readonly importCode = `import { ElInput } from './ui/input/input';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElInput],
-  template: \`
-    <el-input [(value)]="email" type="email" placeholder="you@example.com" inputId="email" />
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly manualFilesCode = `ui/input/input.ts
+ui/input/input.html
+ui/input/input.scss`;
+
+  protected readonly importSnippet = `import { ElInput } from './ui/input/input';`;
+
+  protected readonly usageSnippet = `<el-input [(value)]="email" type="email" placeholder="you@example.com" inputId="email" />`;
 
   protected readonly heroCode = `<el-label htmlFor="email">Email</el-label>
 <el-input [(value)]="email" type="email" placeholder="you@example.com" inputId="email" />`;

@@ -16,10 +16,15 @@ import {
   ElStep,
   ElStepContent,
   ElStepper,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 interface EditUserData {
@@ -56,8 +61,13 @@ export class EditUserDialog {
     ElStepper,
     ElStep,
     ElStepContent,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './dialog-doc.html',
@@ -69,6 +79,7 @@ export class DialogDocPage {
     read: ElStepper,
   });
 
+  protected readonly installTab = signal('cli');
   protected readonly open = signal(false);
   protected readonly scrollOpen = signal(false);
   protected readonly headerOpen = signal(false);
@@ -76,39 +87,26 @@ export class DialogDocPage {
   protected readonly wizardStep = signal('account');
   protected readonly serviceResult = signal<string | null>(null);
 
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly scrollPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly headerPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly servicePanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly wizardPanel = signal<'preview' | 'code' | 'standards'>('preview');
-
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add dialog`;
 
-  protected readonly importCode = `import { signal } from '@angular/core';
-import { ElDialog, ElDialogClose } from './ui/dialog/dialog';
-import { ElButton } from './ui/button/button';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElDialog, ElDialogClose, ElButton],
-  template: \`
-    <el-button (click)="open.set(true)">Edit</el-button>
-    <el-dialog [(open)]="open" title="Edit profile">
-      <div elDialogContent>Profile fields</div>
-      <div elDialogFooter>
-        <el-button elDialogClose variant="ghost">Cancel</el-button>
-        <el-button>Save</el-button>
-      </div>
-    </el-dialog>
-  \`,
-})
-export class MyComponent {
-  protected readonly open = signal(false);
-}`;
+  protected readonly manualFilesCode = `ui/dialog/dialog.ts
+ui/dialog/dialog.html
+ui/dialog/dialog.scss
+ui/dialog/dialog-close.ts
+ui/dialog/dialog.token.ts
+ui/dialog/dialog-ref.ts
+ui/dialog/dialog.service.ts
+ui/dialog/dialog-outlet.ts`;
 
-  protected readonly usageCode = `<el-button (click)="open.set(true)">Open dialog</el-button>
+  protected readonly importSnippet = `import { ElDialog, ElDialogClose } from './ui/dialog/dialog';
+import { ElButton } from './ui/button/button';`;
+
+  protected readonly usageSnippet = `<el-button (click)="open.set(true)">Open dialog</el-button>
 <el-dialog [(open)]="open" title="Edit profile" size="md">
   <div elDialogContent>
     Header and footer stay put. Long content scrolls inside the panel.

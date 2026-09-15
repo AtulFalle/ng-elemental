@@ -1,47 +1,59 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElEmptyState } from '@ng-elemental/ui';
+import { ElButton, ElEmptyState, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-empty-state-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElEmptyState, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElButton,
+    ElEmptyState,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './empty-state-doc.html',
   styleUrl: './page.scss',
 })
 export class EmptyStateDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly iconPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly extraPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add empty-state`;
 
-  protected readonly importCode = `import { ElEmptyState } from './ui/empty-state/empty-state';
-import { ElButton } from './ui/button/button';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElEmptyState, ElButton],
-  template: \`
-    <el-empty-state
-      icon="folder-open"
-      title="No projects"
-      description="Create a project to get started."
-    >
-      <div elEmptyStateActions>
-        <el-button>Create project</el-button>
-        <el-button variant="ghost">Learn more</el-button>
-      </div>
-    </el-empty-state>
-  \`,
-})
-export class MyComponent {}`;
+  protected readonly manualFilesCode = `ui/empty-state/empty-state.ts
+ui/empty-state/empty-state.html
+ui/empty-state/empty-state.scss`;
+
+  protected readonly importSnippet = `import { ElEmptyState } from './ui/empty-state/empty-state';
+import { ElButton } from './ui/button/button';`;
+
+  protected readonly usageSnippet = `<el-empty-state
+  icon="folder-open"
+  title="No projects"
+  description="Create a project to get started."
+>
+  <div elEmptyStateActions>
+    <el-button>Create project</el-button>
+    <el-button variant="ghost">Learn more</el-button>
+  </div>
+</el-empty-state>`;
 
   protected readonly heroCode = `<el-empty-state
   icon="folder-open"

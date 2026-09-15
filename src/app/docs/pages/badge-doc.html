@@ -332,7 +332,12 @@
   </section>
 
   <section>
-    <h2 id="standards">Standards and checks</h2>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Badge is a display mark — layout-only unless you wrap an interactive
       control.
@@ -392,7 +397,7 @@
   </section>
 
   <section>
-    <h2 id="styling">Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block, or override
@@ -402,11 +407,4 @@
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
   </section>
-
-  <section>
-    <h2 id="api">API Reference</h2>
-    <app-props-table [props]="props" />
-  </section>
-
-  <app-docs-pager />
 </article>

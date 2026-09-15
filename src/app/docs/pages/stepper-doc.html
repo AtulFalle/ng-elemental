@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Stepper</h1>
+    <div class="docs-page__header-row">
+      <h1>Stepper</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Tab-like step list that shows one
       <code>ng-template</code>
@@ -12,291 +17,258 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add stepper</code>
-    (requires <code>icon</code>)
-  </div>
+  <app-docs-example [code]="heroCode">
+    <el-stepper
+      [value]="selected()"
+      (valueChange)="selected.set($event)"
+      ariaLabel="Onboarding"
+    >
+      <el-step value="account" label="Account" description="Name and email">
+        <ng-template elStepContent>
+          <p>Create the account used to sign in.</p>
+        </ng-template>
+      </el-step>
+      <el-step value="plan" label="Plan" description="Billing period" completed>
+        <ng-template elStepContent>
+          <p>Choose a plan.</p>
+        </ng-template>
+      </el-step>
+      <el-step value="review" label="Review">
+        <ng-template elStepContent>
+          <p>Review and finish.</p>
+        </ng-template>
+      </el-step>
+    </el-stepper>
+    <ng-template #standards>
+      <p>
+        Step buttons use <code>aria-current="step"</code> on the active step. Inactive panel
+        content is not mounted until its step is selected.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Requires <code>icon</code>.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Install the icon dependency.</p>
+              <app-docs-snippet [code]="manualIconCode" />
+            </li>
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Import the stepper, step, and content directive. Put panel markup in
       <code>&lt;ng-template elStepContent&gt;</code>
       so inactive steps are not created. Optional
       <code>elStepLabel</code>
       templates replace the text label.
     </p>
-    <app-code-block [code]="importCode" />
-    <app-code-block [code]="usageCode" language="html" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Onboarding stepper</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="heroPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="heroPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="heroPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (heroPanel() === 'preview') {
-          <app-preview>
-            <el-stepper
-              [value]="selected()"
-              (valueChange)="selected.set($event)"
-              ariaLabel="Onboarding"
-            >
-              <el-step value="account" label="Account" description="Name and email">
-                <ng-template elStepContent>
-                  <p>Create the account used to sign in.</p>
-                </ng-template>
-              </el-step>
-              <el-step value="plan" label="Plan" description="Billing period" completed>
-                <ng-template elStepContent>
-                  <p>Choose a plan.</p>
-                </ng-template>
-              </el-step>
-              <el-step value="review" label="Review">
-                <ng-template elStepContent>
-                  <p>Review and finish.</p>
-                </ng-template>
-              </el-step>
-            </el-stepper>
-          </app-preview>
-        } @else if (heroPanel() === 'code') {
-          <app-code-block [code]="usageCode" language="html" />
-        } @else {
-          <p>
-            Step buttons use <code>aria-current="step"</code> on the active step. Inactive panel
-            content is not mounted until its step is selected.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Vertical</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="verticalPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="verticalPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="verticalPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (verticalPanel() === 'preview') {
-          <app-preview>
-            <el-stepper
-              [value]="vertical()"
-              (valueChange)="vertical.set($event)"
-              orientation="vertical"
-              ariaLabel="Onboarding"
-            >
-              <el-step value="account" label="Account" description="Name and email">
-                <ng-template elStepContent>
-                  <p>Account details.</p>
-                </ng-template>
-              </el-step>
-              <el-step value="plan" label="Plan">
-                <ng-template elStepContent>
-                  <p>Plan selection.</p>
-                </ng-template>
-              </el-step>
-              <el-step value="review" label="Review">
-                <ng-template elStepContent>
-                  <p>Summary.</p>
-                </ng-template>
-              </el-step>
-            </el-stepper>
-          </app-preview>
-        } @else if (verticalPanel() === 'code') {
-          <app-code-block [code]="verticalCode" language="html" />
-        } @else {
-          <p>
-            Vertical layout places the panel beside the step list. Arrow Up/Down move between
-            step buttons when the list has focus.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Linear</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="linearPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="linearPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="linearPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (linearPanel() === 'preview') {
-          <app-preview>
-            <el-stepper
-              [value]="linear()"
-              (valueChange)="linear.set($event)"
-              linear
-              ariaLabel="Linear onboarding"
-            >
-              <el-step value="account" label="Account">
-                <ng-template elStepContent>
-                  <p>Start here. Next is allowed; Review is not yet.</p>
-                </ng-template>
-              </el-step>
-              <el-step value="plan" label="Plan">
-                <ng-template elStepContent>
-                  <p>Plan is the next step.</p>
-                </ng-template>
-              </el-step>
-              <el-step value="review" label="Review">
-                <ng-template elStepContent>
-                  <p>Review unlocks after Plan.</p>
-                </ng-template>
-              </el-step>
-            </el-stepper>
-          </app-preview>
-        } @else if (linearPanel() === 'code') {
-          <app-code-block [code]="linearCode" language="html" />
-        } @else {
-          <p>
-            With <code>linear</code>, you can only move to the current step, previous steps, or
-            the next one. Skipped steps stay disabled and expose <code>aria-disabled</code>.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Custom labels</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="customLabelsPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="customLabelsPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="customLabelsPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (customLabelsPanel() === 'preview') {
-          <app-preview>
-            <el-stepper
-              [value]="iconDemo()"
-              (valueChange)="iconDemo.set($event)"
-              ariaLabel="Checkout"
-            >
-              <el-step value="account">
-                <ng-template elStepLabel>
-                  <el-icon name="user" size="sm" />
-                  Account
-                </ng-template>
-                <ng-template elStepContent>
-                  <p>Sign-in details.</p>
-                </ng-template>
-              </el-step>
-              <el-step value="shipping">
-                <ng-template elStepLabel>
-                  <el-icon name="truck" size="sm" />
-                  Shipping
-                </ng-template>
-                <ng-template elStepContent>
-                  <p>Delivery address.</p>
-                </ng-template>
-              </el-step>
-            </el-stepper>
-          </app-preview>
-        } @else if (customLabelsPanel() === 'code') {
-          <app-code-block [code]="customLabelsCode" language="html" />
-        } @else {
-          <p>
-            Custom label templates replace the string label. Decorative icons should be
-            <code>aria-hidden</code>; the step button still needs visible text.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Inside a dialog</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="dialogPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="dialogPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="dialogPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (dialogPanel() === 'preview') {
-          <app-preview>
-            <el-button (click)="wizardOpen.set(true)">Open wizard</el-button>
-            <el-dialog
-              [open]="wizardOpen()"
-              (openChange)="wizardOpen.set($event)"
-              title="Workspace setup"
-              size="lg"
-            >
-              <div elDialogContent>
-                <el-stepper
-                  #stepper
-                  [value]="wizardStep()"
-                  (valueChange)="wizardStep.set($event)"
-                  ariaLabel="Workspace setup"
-                >
-                  <el-step value="account" label="Account">
-                    <ng-template elStepContent>
-                      <p>Account details.</p>
-                    </ng-template>
-                  </el-step>
-                  <el-step value="plan" label="Plan">
-                    <ng-template elStepContent>
-                      <p>Plan selection.</p>
-                    </ng-template>
-                  </el-step>
-                  <el-step value="review" label="Review">
-                    <ng-template elStepContent>
-                      <p>Summary.</p>
-                    </ng-template>
-                  </el-step>
-                </el-stepper>
-              </div>
-              <div elDialogFooter>
-                <el-button
-                  variant="ghost"
-                  [disabled]="stepper.isFirst()"
-                  (click)="stepper.previous()"
-                >
-                  Back
-                </el-button>
-                @if (stepper.isLast()) {
-                  <el-button (click)="wizardOpen.set(false)">Create</el-button>
-                } @else {
-                  <el-button (click)="stepper.next()">Next</el-button>
-                }
-              </div>
-            </el-dialog>
-          </app-preview>
-        } @else if (dialogPanel() === 'code') {
-          <app-code-block [code]="wizardCode" language="html" />
-        } @else {
-          <p>
-            Compose with <a routerLink="/components/dialog">Dialog</a> for a wizard. Focus stays
-            trapped in the dialog; Back/Next buttons in the footer drive
-            <code>previous()</code> and <code>next()</code>.
-          </p>
-        }
-      </div>
-    </article>
+    <h2 id="vertical">Vertical</h2>
+    <app-docs-example [code]="verticalCode">
+      <el-stepper
+        [value]="vertical()"
+        (valueChange)="vertical.set($event)"
+        orientation="vertical"
+        ariaLabel="Onboarding"
+      >
+        <el-step value="account" label="Account" description="Name and email">
+          <ng-template elStepContent>
+            <p>Account details.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="plan" label="Plan">
+          <ng-template elStepContent>
+            <p>Plan selection.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="review" label="Review">
+          <ng-template elStepContent>
+            <p>Summary.</p>
+          </ng-template>
+        </el-step>
+      </el-stepper>
+      <ng-template #standards>
+        <p>
+          Vertical layout places the panel beside the step list. Arrow Up/Down move between
+          step buttons when the list has focus.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="linear">Linear</h2>
+    <app-docs-example [code]="linearCode">
+      <el-stepper
+        [value]="linear()"
+        (valueChange)="linear.set($event)"
+        linear
+        ariaLabel="Linear onboarding"
+      >
+        <el-step value="account" label="Account">
+          <ng-template elStepContent>
+            <p>Start here. Next is allowed; Review is not yet.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="plan" label="Plan">
+          <ng-template elStepContent>
+            <p>Plan is the next step.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="review" label="Review">
+          <ng-template elStepContent>
+            <p>Review unlocks after Plan.</p>
+          </ng-template>
+        </el-step>
+      </el-stepper>
+      <ng-template #standards>
+        <p>
+          With <code>linear</code>, you can only move to the current step, previous steps, or
+          the next one. Skipped steps stay disabled and expose <code>aria-disabled</code>.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="custom-labels">Custom labels</h2>
+    <app-docs-example [code]="customLabelsCode">
+      <el-stepper
+        [value]="iconDemo()"
+        (valueChange)="iconDemo.set($event)"
+        ariaLabel="Checkout"
+      >
+        <el-step value="account">
+          <ng-template elStepLabel>
+            <el-icon name="user" size="sm" />
+            Account
+          </ng-template>
+          <ng-template elStepContent>
+            <p>Sign-in details.</p>
+          </ng-template>
+        </el-step>
+        <el-step value="shipping">
+          <ng-template elStepLabel>
+            <el-icon name="truck" size="sm" />
+            Shipping
+          </ng-template>
+          <ng-template elStepContent>
+            <p>Delivery address.</p>
+          </ng-template>
+        </el-step>
+      </el-stepper>
+      <ng-template #standards>
+        <p>
+          Custom label templates replace the string label. Decorative icons should be
+          <code>aria-hidden</code>; the step button still needs visible text.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="inside-a-dialog">Inside a dialog</h2>
+    <app-docs-example [code]="wizardCode">
+      <el-button (click)="wizardOpen.set(true)">Open wizard</el-button>
+      <el-dialog
+        [open]="wizardOpen()"
+        (openChange)="wizardOpen.set($event)"
+        title="Workspace setup"
+        size="lg"
+      >
+        <div elDialogContent>
+          <el-stepper
+            #stepper
+            [value]="wizardStep()"
+            (valueChange)="wizardStep.set($event)"
+            ariaLabel="Workspace setup"
+          >
+            <el-step value="account" label="Account">
+              <ng-template elStepContent>
+                <p>Account details.</p>
+              </ng-template>
+            </el-step>
+            <el-step value="plan" label="Plan">
+              <ng-template elStepContent>
+                <p>Plan selection.</p>
+              </ng-template>
+            </el-step>
+            <el-step value="review" label="Review">
+              <ng-template elStepContent>
+                <p>Summary.</p>
+              </ng-template>
+            </el-step>
+          </el-stepper>
+        </div>
+        <div elDialogFooter>
+          <el-button
+            variant="ghost"
+            [disabled]="stepper.isFirst()"
+            (click)="stepper.previous()"
+          >
+            Back
+          </el-button>
+          @if (stepper.isLast()) {
+            <el-button (click)="wizardOpen.set(false)">Create</el-button>
+          } @else {
+            <el-button (click)="stepper.next()">Next</el-button>
+          }
+        </div>
+      </el-dialog>
+      <ng-template #standards>
+        <p>
+          Compose with <a routerLink="/components/dialog">Dialog</a> for a wizard. Focus stays
+          trapped in the dialog; Back/Next buttons in the footer drive
+          <code>previous()</code> and <code>next()</code>.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <h3>el-stepper</h3>
+    <app-props-table [props]="stepperProps" />
+    <h3>el-step</h3>
+    <app-props-table [props]="stepProps" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <ul>
       <li>Step list uses tab-like buttons with <code>aria-current="step"</code> on the active step.</li>
       <li>Inactive step panels are not mounted until selected.</li>
@@ -310,7 +282,7 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code>
@@ -321,13 +293,5 @@
       for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <h3>el-stepper</h3>
-    <app-props-table [props]="stepperProps" />
-    <h3>el-step</h3>
-    <app-props-table [props]="stepProps" />
   </section>
 </article>

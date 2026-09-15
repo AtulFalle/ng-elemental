@@ -8,10 +8,15 @@ import {
   ElStepContent,
   ElStepLabel,
   ElStepper,
+  ElTab,
+  ElTabContent,
+  ElTabs,
 } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
@@ -26,19 +31,20 @@ import { PropsTable } from '../ui/props-table';
     ElStep,
     ElStepContent,
     ElStepLabel,
+    ElTabs,
+    ElTab,
+    ElTabContent,
     CodeBlock,
-    Preview,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
     PropsTable,
   ],
   templateUrl: './stepper-doc.html',
   styleUrl: './page.scss',
 })
 export class StepperDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly verticalPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly linearPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly customLabelsPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly dialogPanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly selected = signal('account');
   protected readonly vertical = signal('account');
@@ -51,32 +57,57 @@ export class StepperDocPage {
 npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add stepper`;
 
-  protected readonly importCode = `import {
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+
+  protected readonly manualFilesCode = `ui/stepper/stepper.ts
+ui/stepper/stepper.html
+ui/stepper/stepper.scss
+ui/stepper/step.ts
+ui/stepper/step.html
+ui/stepper/step.scss
+ui/stepper/step-content.ts
+ui/stepper/step-label.ts`;
+
+  protected readonly importSnippet = `import {
   ElStepper,
   ElStep,
   ElStepContent,
-} from './ui/stepper/stepper';
+} from './ui/stepper/stepper'`;
 
-@Component({
-  imports: [ElStepper, ElStep, ElStepContent],
-  template: \`
-    <el-stepper [(value)]="step" ariaLabel="Onboarding">
-      <el-step value="account" label="Account">
-        <ng-template elStepContent>
-          <p>Account fields.</p>
-        </ng-template>
-      </el-step>
-      <el-step value="plan" label="Plan">
-        <ng-template elStepContent>
-          <p>Plan fields.</p>
-        </ng-template>
-      </el-step>
-    </el-stepper>
-  \`,
-})
-export class MyComponent {
-  protected step = 'account';
-}`;
+  protected readonly usageSnippet = `<el-stepper [(value)]="step" ariaLabel="Onboarding">
+  <el-step value="account" label="Account">
+    <ng-template elStepContent>
+      <p>Account fields.</p>
+    </ng-template>
+  </el-step>
+  <el-step value="plan" label="Plan">
+    <ng-template elStepContent>
+      <p>Plan fields.</p>
+    </ng-template>
+  </el-step>
+</el-stepper>`;
+
+  protected readonly heroCode = `<el-stepper
+  [value]="selected()"
+  (valueChange)="selected.set($event)"
+  ariaLabel="Onboarding"
+>
+  <el-step value="account" label="Account" description="Name and email">
+    <ng-template elStepContent>
+      <p>Create the account used to sign in.</p>
+    </ng-template>
+  </el-step>
+  <el-step value="plan" label="Plan" description="Billing period" completed>
+    <ng-template elStepContent>
+      <p>Choose a plan.</p>
+    </ng-template>
+  </el-step>
+  <el-step value="review" label="Review">
+    <ng-template elStepContent>
+      <p>Review and finish.</p>
+    </ng-template>
+  </el-step>
+</el-stepper>`;
 
   protected readonly verticalCode = `<el-stepper [(value)]="step" orientation="vertical" ariaLabel="Onboarding">
   <el-step value="account" label="Account">

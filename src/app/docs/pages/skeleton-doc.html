@@ -1,6 +1,11 @@
 <article class="docs-page">
   <header class="docs-page__header">
-    <h1>Skeleton</h1>
+    <div class="docs-page__header-row">
+      <h1>Skeleton</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
     <p class="docs-lead">
       Presentational loading placeholders for text, avatars, and blocks, or a
       directive that covers any host with a skeleton matching that element.
@@ -9,114 +14,97 @@
     </p>
   </header>
 
-  <div class="docs-cli-hint">
-    Add to your project: <code>npx @ng-elemental/cli add skeleton</code>
-  </div>
+  <app-docs-example [code]="textCode">
+    <div aria-busy="true" aria-live="polite" style="width: 16rem">
+      <el-skeleton [lines]="4" />
+    </div>
+    <ng-template #standards>
+      <p>
+        Skeleton bars are decorative — the parent marks the region busy so assistive
+        technology knows content is loading. Remove skeletons when data arrives.
+      </p>
+    </ng-template>
+  </app-docs-example>
 
   <section>
-    <h2>Installation</h2>
-    <app-code-block [code]="addCode" language="shell" />
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
   </section>
 
   <section>
-    <h2>Usage</h2>
-    <p>
+    <h2 id="usage">Usage</h2>
+    <p class="docs-page__section-lead">
       Place <code>el-skeleton</code> where content will land, or put
       <code>[elSkeleton]</code> on the control itself. Set
       <code>aria-busy="true"</code> on the loading region.
     </p>
-    <app-code-block [code]="importCode" />
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2>Examples</h2>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Multiline text</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="textPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="textPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="textPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (textPanel() === 'preview') {
-          <app-preview>
-            <div aria-busy="true" aria-live="polite" style="width: 16rem">
-              <el-skeleton [lines]="4" />
-            </div>
-          </app-preview>
-        } @else if (textPanel() === 'code') {
-          <app-code-block [code]="textCode" language="html" />
-        } @else {
-          <p>
-            Skeleton bars are decorative — the parent marks the region busy so assistive
-            technology knows content is loading. Remove skeletons when data arrives.
-          </p>
-        }
+    <h2 id="circular-and-rectangular">Circular and rectangular</h2>
+    <app-docs-example [code]="shapesCode">
+      <div class="docs-row" style="align-items: flex-start; width: 100%">
+        <el-skeleton variant="circular" />
+        <el-skeleton variant="rectangular" height="6rem" style="flex: 1" />
       </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Circular and rectangular</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="shapesPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="shapesPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="shapesPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (shapesPanel() === 'preview') {
-          <app-preview>
-            <div class="docs-row" style="align-items: flex-start; width: 100%">
-              <el-skeleton variant="circular" />
-              <el-skeleton variant="rectangular" height="6rem" style="flex: 1" />
-            </div>
-          </app-preview>
-        } @else if (shapesPanel() === 'code') {
-          <app-code-block [code]="shapesCode" language="html" />
-        } @else {
-          <p>
-            Shape variants mirror common content blocks. Animation honors
-            <code>prefers-reduced-motion</code> — set <code>[animation]="false"</code> for static placeholders.
-          </p>
-        }
-      </div>
-    </article>
-
-    <article class="docs-example-panel">
-      <header class="docs-example-panel__header">
-        <p class="docs-example-panel__title">Cover a host</p>
-        <div class="docs-example-panel__controls">
-          <el-button variant="icon" size="sm" iconStart="eye" ariaLabel="Show preview" (click)="hostPanel.set('preview')" />
-          <el-button variant="icon" size="sm" iconStart="code" ariaLabel="Show code" (click)="hostPanel.set('code')" />
-          <el-button variant="icon" size="sm" iconStart="book" ariaLabel="Show standards" (click)="hostPanel.set('standards')" />
-        </div>
-      </header>
-      <div class="docs-example-panel__body">
-        @if (hostPanel() === 'preview') {
-          <app-preview>
-            <div aria-busy="true" class="docs-stack" style="max-width: 16rem">
-              <el-button elSkeleton>Save changes</el-button>
-              <el-input elSkeleton placeholder="Email" />
-            </div>
-          </app-preview>
-        } @else if (hostPanel() === 'code') {
-          <app-code-block [code]="hostCode" language="html" />
-        } @else {
-          <p>
-            The directive covers the host box without changing layout. Keep real controls
-            in the DOM and disable interaction while loading if they would otherwise activate.
-          </p>
-        }
-      </div>
-    </article>
+      <ng-template #standards>
+        <p>
+          Shape variants mirror common content blocks. Animation honors
+          <code>prefers-reduced-motion</code> — set <code>[animation]="false"</code> for static placeholders.
+        </p>
+      </ng-template>
+    </app-docs-example>
   </section>
 
   <section>
-    <h2>Standards and checks</h2>
+    <h2 id="cover-a-host">Cover a host</h2>
+    <app-docs-example [code]="hostCode">
+      <div aria-busy="true" class="docs-stack" style="max-width: 16rem">
+        <el-button elSkeleton>Save changes</el-button>
+        <el-input elSkeleton placeholder="Email" />
+      </div>
+      <ng-template #standards>
+        <p>
+          The directive covers the host box without changing layout. Keep real controls
+          in the DOM and disable interaction while loading if they would otherwise activate.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="api-reference">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <section>
+    <h2 id="standards-and-checks">Standards and checks</h2>
     <p>
       Skeleton is presentational. Loading state belongs on the surrounding region.
     </p>
@@ -135,17 +123,12 @@
   </section>
 
   <section>
-    <h2>Styling &amp; tokens</h2>
+    <h2 id="styling-and-tokens">Styling &amp; tokens</h2>
     <p>
       Colors come from generic theme tokens. Open
       <code>tokens.scss</code> and edit the BRAND block. See
       <a routerLink="/docs/theming">Theming</a> for the full token list.
     </p>
     <app-code-block [code]="scopedTokensCode" language="scss" />
-  </section>
-
-  <section>
-    <h2>API Reference</h2>
-    <app-props-table [props]="props" />
   </section>
 </article>

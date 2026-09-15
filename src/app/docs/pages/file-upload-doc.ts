@@ -1,21 +1,33 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElButton, ElFileUpload } from '@ng-elemental/ui';
+import { ElFileUpload, ElTab, ElTabContent, ElTabs } from '@ng-elemental/ui';
 import type { PropDefinition } from '../nav';
 import { CodeBlock } from '../ui/code-block';
-import { Preview } from '../ui/preview';
+import { DocsExample } from '../ui/docs-example';
+import { DocsPager } from '../ui/docs-pager';
+import { DocsSnippet } from '../ui/docs-snippet';
 import { PropsTable } from '../ui/props-table';
 
 @Component({
   selector: 'app-file-upload-doc-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ElButton, ElFileUpload, CodeBlock, Preview, PropsTable],
+  imports: [
+    RouterLink,
+    ElFileUpload,
+    ElTabs,
+    ElTab,
+    ElTabContent,
+    CodeBlock,
+    DocsExample,
+    DocsPager,
+    DocsSnippet,
+    PropsTable,
+  ],
   templateUrl: './file-upload-doc.html',
   styleUrl: './page.scss',
 })
 export class FileUploadDocPage {
-  protected readonly heroPanel = signal<'preview' | 'code' | 'standards'>('preview');
-  protected readonly multiplePanel = signal<'preview' | 'code' | 'standards'>('preview');
+  protected readonly installTab = signal('cli');
 
   protected readonly singleFiles = signal<File[]>([]);
   protected readonly multiFiles = signal<File[]>([]);
@@ -27,20 +39,18 @@ npx @ng-elemental/cli add form-error
 npx @ng-elemental/cli add attachment
 npx @ng-elemental/cli add file-upload`;
 
-  protected readonly importCode = `import { signal } from '@angular/core';
-import { ElFileUpload } from './ui/file-upload/file-upload';
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
 
-@Component({
-  imports: [ElFileUpload],
-  template: \`
-    <el-file-upload [(files)]="files" multiple accept="image/*,.pdf">
-      PNG, JPG, or PDF up to 5 MB
-    </el-file-upload>
-  \`,
-})
-export class MyComponent {
-  readonly files = signal<File[]>([]);
-}`;
+  protected readonly manualFilesCode = `ui/file-upload/file-upload.ts
+ui/file-upload/file-upload.html
+ui/file-upload/file-upload.scss
+ui/file-upload/file-upload-utils.ts`;
+
+  protected readonly importSnippet = `import { ElFileUpload } from './ui/file-upload/file-upload'`;
+
+  protected readonly usageSnippet = `<el-file-upload [(files)]="files" multiple accept="image/*,.pdf">
+  PNG, JPG, or PDF up to 5 MB
+</el-file-upload>`;
 
   protected readonly heroCode = `<el-file-upload [(files)]="files">
   Drag and drop, or browse to select a file
