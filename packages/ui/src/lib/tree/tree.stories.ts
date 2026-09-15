@@ -1,12 +1,26 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { expect } from 'storybook/test';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ElBadge } from '../badge/badge';
 import { ElButton } from '../button/button';
 import { ElIcon } from '../icon/icon';
+import { ElMenu } from '../menu/menu';
+import { ElMenuItem } from '../menu/menu-item';
+import { ElMenuPanel } from '../menu/menu-panel';
+import { ElMenuSeparator } from '../menu/menu-separator';
+import { ElMenuTrigger } from '../menu/menu-trigger';
 import { ElTree, ElTreeNodeDef, type ElTreeNode } from './tree';
 import { ElTreeItem } from './tree-item';
 
 const TREE_IMPORTS = [ElTree, ElTreeItem, ElIcon, ElButton];
+const SLOT_IMPORTS = [...TREE_IMPORTS, ElBadge];
+const MENU_IMPORTS = [
+  ElMenu,
+  ElMenuItem,
+  ElMenuPanel,
+  ElMenuSeparator,
+  ElMenuTrigger,
+];
 
 const meta: Meta<ElTree> = {
   title: 'Components/Tree',
@@ -23,7 +37,7 @@ const meta: Meta<ElTree> = {
     checkbox: { control: 'boolean' },
   },
   args: {
-    appearance: 'outlined',
+    appearance: 'plain',
     size: 'md',
     checkbox: false,
   },
@@ -35,26 +49,23 @@ const meta: Meta<ElTree> = {
         [appearance]="appearance"
         [size]="size"
         [checkbox]="checkbox"
-        ariaLabel="Files"
+        ariaLabel="Project files"
         style="max-width: 22rem"
       >
-        <el-tree-item value="docs" label="Documents">
+        <el-tree-item value="src" label="src">
           <el-icon elTreeLeading name="folder" />
-          <el-tree-item value="resume" label="Resume.pdf">
-            <el-icon elTreeLeading name="file" />
-          </el-tree-item>
-          <el-tree-item value="cover" label="Cover letter.pdf">
-            <el-icon elTreeLeading name="file" />
-          </el-tree-item>
-        </el-tree-item>
-        <el-tree-item value="photos" label="Photos">
-          <el-icon elTreeLeading name="folder" />
-          <el-tree-item value="trip" label="Trip">
+          <el-tree-item value="app" label="app">
             <el-icon elTreeLeading name="folder" />
-            <el-tree-item value="beach" label="Beach.jpg">
-              <el-icon elTreeLeading name="image" />
+            <el-tree-item value="app-ts" label="app.ts">
+              <el-icon elTreeLeading name="file-code" />
+            </el-tree-item>
+            <el-tree-item value="app-html" label="app.html">
+              <el-icon elTreeLeading name="file-code" />
             </el-tree-item>
           </el-tree-item>
+        </el-tree-item>
+        <el-tree-item value="readme" label="README.md">
+          <el-icon elTreeLeading name="file-lines" />
         </el-tree-item>
       </el-tree>
     `,
@@ -68,26 +79,111 @@ export const Default: Story = {};
 
 export const WithActions: Story = {
   render: () => ({
-    moduleMetadata: { imports: TREE_IMPORTS },
+    moduleMetadata: { imports: [...TREE_IMPORTS, ...MENU_IMPORTS] },
     template: `
-      <el-tree ariaLabel="Project files" style="max-width: 24rem">
+      <el-tree ariaLabel="Workspace files" style="max-width: 24rem">
         <el-tree-item value="src" label="src">
           <el-icon elTreeLeading name="folder" />
-          <el-button
-            elTreeActions
-            variant="ghost"
-            size="sm"
-            iconStart="ellipsis-vertical"
-            aria-label="src actions"
-          />
-          <el-tree-item value="app" label="app.ts">
-            <el-icon elTreeLeading name="file" />
+          <el-menu elTreeActions ariaLabel="src actions">
             <el-button
-              elTreeActions
+              elMenuTrigger
               variant="ghost"
               size="sm"
               iconStart="ellipsis-vertical"
-              aria-label="app.ts actions"
+              ariaLabel="src actions"
+            />
+            <el-menu-panel>
+              <el-menu-item icon="file">New file</el-menu-item>
+              <el-menu-item icon="folder-plus">New folder</el-menu-item>
+              <el-menu-separator />
+              <el-menu-item variant="danger" icon="trash">Delete</el-menu-item>
+            </el-menu-panel>
+          </el-menu>
+          <el-tree-item value="app-ts" label="app.ts">
+            <el-icon elTreeLeading name="file-code" />
+            <el-menu elTreeActions ariaLabel="app.ts actions">
+              <el-button
+                elMenuTrigger
+                variant="ghost"
+                size="sm"
+                iconStart="ellipsis-vertical"
+                ariaLabel="app.ts actions"
+              />
+              <el-menu-panel>
+                <el-menu-item icon="folder-open">Open</el-menu-item>
+                <el-menu-item icon="download">Download</el-menu-item>
+                <el-menu-separator />
+                <el-menu-item variant="danger" icon="trash">Delete</el-menu-item>
+              </el-menu-panel>
+            </el-menu>
+          </el-tree-item>
+        </el-tree-item>
+      </el-tree>
+    `,
+  }),
+};
+
+export const WithSlots: Story = {
+  render: () => ({
+    moduleMetadata: { imports: SLOT_IMPORTS },
+    template: `
+      <el-tree ariaLabel="Service health" style="max-width: 28rem">
+        <el-tree-item value="prod" label="production">
+          <el-icon elTreeLeading name="folder-open" />
+          <el-badge
+            elTreeMeta
+            [count]="2"
+            size="sm"
+            color="error"
+            ariaLabel="2 unhealthy services"
+          />
+          <el-tree-item value="api" label="api-gateway">
+            <el-badge
+              elTreeLeading
+              [count]="3"
+              size="sm"
+              color="error"
+              ariaLabel="3 failing checks"
+            >
+              <el-icon name="server" />
+            </el-badge>
+            <el-badge elTreeMeta content="Disconnected" size="sm" color="error" />
+            <el-icon
+              elTreeMeta
+              name="link-slash"
+              size="sm"
+              [decorative]="false"
+              label="No network"
+            />
+          </el-tree-item>
+          <el-tree-item value="checkout" label="checkout-api">
+            <el-icon elTreeLeading name="server" />
+            <el-icon elTreeLeading name="lock" />
+            <el-badge elTreeMeta content="Broken" size="sm" color="warning" />
+            <el-icon
+              elTreeMeta
+              name="triangle-exclamation"
+              size="sm"
+              [decorative]="false"
+              label="Broken upstream"
+            />
+          </el-tree-item>
+          <el-tree-item value="workers" label="workers">
+            <el-icon elTreeLeading name="gear" />
+            <el-badge
+              elTreeMeta
+              [count]="12"
+              size="sm"
+              color="neutral"
+              ariaLabel="12 jobs"
+            />
+            <el-badge elTreeMeta content="Live" size="sm" color="success" />
+            <el-icon
+              elTreeMeta
+              name="circle-check"
+              size="sm"
+              [decorative]="false"
+              label="Healthy"
             />
           </el-tree-item>
         </el-tree-item>
@@ -105,21 +201,21 @@ export const WithActions: Story = {
       checkbox
       [(expanded)]="expanded"
       [(checked)]="checked"
-      ariaLabel="Selectable files"
+      ariaLabel="Files to share"
       style="max-width: 22rem"
     >
       <el-tree-item value="docs" label="Documents">
         <el-icon elTreeLeading name="folder" />
-        <el-tree-item value="resume" label="Resume.pdf">
+        <el-tree-item value="q3" label="Q3-report.pdf">
           <el-icon elTreeLeading name="file" />
         </el-tree-item>
-        <el-tree-item value="notes" label="Notes.md">
+        <el-tree-item value="contract" label="Contract.pdf">
           <el-icon elTreeLeading name="file" />
         </el-tree-item>
       </el-tree-item>
-      <el-tree-item value="media" label="Media">
+      <el-tree-item value="photos" label="Photos">
         <el-icon elTreeLeading name="folder" />
-        <el-tree-item value="photo" label="Photo.png">
+        <el-tree-item value="headshot" label="headshot.jpg">
           <el-icon elTreeLeading name="image" />
         </el-tree-item>
       </el-tree-item>
@@ -138,15 +234,29 @@ export const Checkbox: Story = {
   }),
 };
 
-function virtualFiles(): ElTreeNode[] {
-  return Array.from({ length: 80 }, (_, i) => ({
-    id: `folder-${i + 1}`,
-    label: `Folder ${i + 1}`,
+function photoLibrary(): ElTreeNode[] {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  return Array.from({ length: 18 }, (_, i) => ({
+    id: `album-${i}`,
+    label: `${months[i % 12]} ${i < 12 ? 2025 : 2026}`,
     icon: 'folder',
-    children: Array.from({ length: 6 }, (__, j) => ({
-      id: `file-${i + 1}-${j + 1}`,
-      label: `File ${i + 1}.${j + 1}.ts`,
-      icon: 'file',
+    children: Array.from({ length: 8 }, (__, j) => ({
+      id: `img-${i}-${j}`,
+      label: `IMG_${String(i * 8 + j + 1).padStart(4, '0')}.jpg`,
+      icon: 'image',
     })),
   }));
 }
@@ -158,12 +268,10 @@ function virtualFiles(): ElTreeNode[] {
   template: `
     <el-tree
       virtual
-      checkbox
       [nodes]="nodes"
       [(expanded)]="expanded"
-      [(checked)]="checked"
       [itemHeight]="36"
-      ariaLabel="Virtual files"
+      ariaLabel="Photo library"
       style="max-height: 16rem; max-width: 24rem"
     >
       <ng-template elTreeNodeDef let-node>
@@ -174,9 +282,8 @@ function virtualFiles(): ElTreeNode[] {
   `,
 })
 class TreeVirtualStoryHost {
-  protected readonly nodes = virtualFiles();
-  protected readonly expanded = signal(['folder-1']);
-  protected readonly checked = signal<string[]>([]);
+  protected readonly nodes = photoLibrary();
+  protected readonly expanded = signal(['album-0']);
 }
 
 export const Virtual: Story = {
@@ -197,7 +304,7 @@ export const Virtual: Story = {
       [(expanded)]="expanded"
       (loadChildren)="onLoadChildren($event)"
       (loadMore)="onLoadMore($event)"
-      ariaLabel="Lazy folders"
+      ariaLabel="Team Drive"
       style="max-width: 22rem"
     >
       <ng-template elTreeNodeDef let-node>
@@ -211,15 +318,16 @@ class TreeLazyStoryHost {
   protected readonly expanded = signal<string[]>(['archive']);
   protected readonly loadingIds = signal<string[]>([]);
   protected readonly nodes = signal<ElTreeNode[]>([
-    { id: 'projects', label: 'Projects', icon: 'folder', hasChildren: true },
+    { id: 'eng', label: 'Engineering', icon: 'folder', hasChildren: true },
+    { id: 'design', label: 'Design', icon: 'folder', hasChildren: true },
     {
       id: 'archive',
       label: 'Archive',
       icon: 'folder',
       hasMore: true,
       children: [
-        { id: 'old-1', label: '2024.zip', icon: 'file' },
-        { id: 'old-2', label: '2023.zip', icon: 'file' },
+        { id: 'q4', label: 'Q4-2025.zip', icon: 'file-zipper' },
+        { id: 'q3', label: 'Q3-2025.zip', icon: 'file-zipper' },
       ],
     },
   ]);
@@ -233,8 +341,8 @@ class TreeLazyStoryHost {
             ? {
                 ...item,
                 children: [
-                  { id: `${node.id}-a`, label: 'README.md', icon: 'file' },
-                  { id: `${node.id}-b`, label: 'package.json', icon: 'file' },
+                  { id: `${node.id}-src`, label: 'src', icon: 'folder' },
+                  { id: `${node.id}-readme`, label: 'README.md', icon: 'file-lines' },
                 ],
               }
             : item,
@@ -258,7 +366,7 @@ class TreeLazyStoryHost {
                 hasMore: false,
                 children: [
                   ...(item.children ?? []),
-                  { id: 'old-3', label: '2022.zip', icon: 'file' },
+                  { id: 'q2', label: 'Q2-2025.zip', icon: 'file-zipper' },
                 ],
               }
             : item,
@@ -285,10 +393,10 @@ export const Interactions: Story = {
       <div style="display:grid;gap:1.5rem;max-width:24rem">
         <el-tree-checkbox-story-host />
         <el-tree ariaLabel="Keyboard tree" style="max-width:22rem">
-          <el-tree-item value="docs" label="Documents">
+          <el-tree-item value="src" label="src">
             <el-icon elTreeLeading name="folder" />
-            <el-tree-item value="readme" label="README.md">
-              <el-icon elTreeLeading name="file" />
+            <el-tree-item value="app-ts" label="app.ts">
+              <el-icon elTreeLeading name="file-code" />
             </el-tree-item>
           </el-tree-item>
         </el-tree>
@@ -297,21 +405,21 @@ export const Interactions: Story = {
   }),
   play: async ({ canvas, userEvent, step }) => {
     const tree = canvas.getByRole('tree', { name: 'Keyboard tree' });
-    const checkboxTree = canvas.getByRole('tree', { name: 'Selectable files' });
-    const documents = canvas.getAllByRole('treeitem', { name: /Documents/i })[0];
+    const checkboxTree = canvas.getByRole('tree', { name: 'Files to share' });
+    const src = canvas.getAllByRole('treeitem', { name: /^src$/i })[0];
 
     await step('Tree exposes treeitem roles and expands with keyboard', async () => {
-      documents.focus();
-      await expect(documents).toHaveFocus();
+      src.focus();
+      await expect(src).toHaveFocus();
       await userEvent.keyboard('{ArrowRight}');
-      await expect(documents).toHaveAttribute('aria-expanded', 'true');
+      await expect(src).toHaveAttribute('aria-expanded', 'true');
     });
 
     await step('Checkbox tree toggles with Space', async () => {
-      const resume = canvas.getByRole('treeitem', { name: /Resume\.pdf/i });
-      resume.focus();
+      const report = canvas.getByRole('treeitem', { name: /Q3-report\.pdf/i });
+      report.focus();
       await userEvent.keyboard(' ');
-      const checkbox = resume.querySelector('input[type="checkbox"]');
+      const checkbox = report.querySelector('input[type="checkbox"]');
       await expect(checkbox).toBeChecked();
       await expect(checkboxTree).toHaveAttribute('aria-multiselectable', 'true');
     });

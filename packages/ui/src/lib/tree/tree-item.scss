@@ -85,6 +85,7 @@
     background: transparent;
     color: var(--el-color-on-surface-variant);
     cursor: pointer;
+    transition: transform 0.15s ease;
 
     &:disabled {
       color: var(--el-color-disabled);
@@ -113,6 +114,7 @@
     display: inline-flex;
     flex: 0 0 auto;
     align-items: center;
+    gap: var(--el-space-1);
 
     &:empty {
       display: none;
@@ -122,11 +124,23 @@
   &__label {
     flex: 1 1 auto;
     min-width: 0;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.35;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  &__meta {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--el-space-2);
+    color: var(--el-color-on-surface-variant);
+
+    &:empty {
+      display: none;
+    }
   }
 
   &__actions {
@@ -134,6 +148,8 @@
     flex: 0 0 auto;
     align-items: center;
     gap: var(--el-space-2);
+    opacity: 1;
+    transition: opacity 0.12s ease;
 
     &:empty {
       display: none;
@@ -148,6 +164,27 @@
 :host(.el-tree-item-host:focus-visible) > .el-tree-item > .el-tree-item__row {
   outline: var(--el-border-width-thick) solid var(--el-color-primary);
   outline-offset: -2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :host(.el-tree-item-host:not(:focus-within))
+    .el-tree-item:not(.el-tree-item--active)
+    > .el-tree-item__row:not(:hover)
+    .el-tree-item__actions {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .el-tree-item__row,
+  .el-tree-item__chevron,
+  .el-tree-item__actions {
+    transition: none;
+  }
+
+  .el-tree-item__chevron--loading {
+    animation: none;
+  }
 }
 
 @keyframes el-tree-spin {

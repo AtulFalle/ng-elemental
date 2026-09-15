@@ -17,6 +17,7 @@ const meta: Meta<ElCheckbox> = {
     name: { control: 'text' },
     value: { control: 'text' },
     inputId: { control: 'text' },
+    tabIndex: { control: 'number' },
   },
   args: {
     checked: false,

@@ -7,7 +7,8 @@
       </div>
     </div>
     <p class="docs-lead">
-      Hierarchical files-and-folders list. Project nested
+      File-manager hierarchy: folders expand, files activate, and row
+      actions stay out of the way. Project nested
       <code>el-tree-item</code>
       rows, or pass
       <code>[nodes]</code>
@@ -16,35 +17,63 @@
   </header>
 
   <app-docs-example [code]="heroCode">
-    <el-tree
-      [(expanded)]="expanded"
-      ariaLabel="Files"
-      style="max-width: 22rem; width: 100%"
-    >
-      <el-tree-item value="docs" label="Documents">
-        <el-icon elTreeLeading name="folder" />
-        <el-tree-item value="resume" label="Resume.pdf">
-          <el-icon elTreeLeading name="file" />
-        </el-tree-item>
-        <el-tree-item value="cover" label="Cover letter.pdf">
-          <el-icon elTreeLeading name="file" />
-        </el-tree-item>
-      </el-tree-item>
-      <el-tree-item value="photos" label="Photos">
-        <el-icon elTreeLeading name="folder" />
-        <el-tree-item value="trip" label="Trip">
-          <el-icon elTreeLeading name="folder" />
-          <el-tree-item value="beach" label="Beach.jpg">
-            <el-icon elTreeLeading name="image" />
+    <div class="docs-tree-explorer">
+      <div class="docs-tree-explorer__sidebar">
+        <p class="docs-tree-explorer__caption">ng-elemental</p>
+        <el-tree
+          [(expanded)]="explorerExpanded"
+          (activated)="selectExplorer($event)"
+          ariaLabel="Project files"
+        >
+          <el-tree-item value="src" label="src">
+            <el-icon elTreeLeading [name]="folderIcon('src', explorerExpanded())" />
+            <el-tree-item value="app" label="app">
+              <el-icon elTreeLeading [name]="folderIcon('app', explorerExpanded())" />
+              <el-tree-item value="app-ts" label="app.ts">
+                <el-icon elTreeLeading name="file-code" />
+              </el-tree-item>
+              <el-tree-item value="app-html" label="app.html">
+                <el-icon elTreeLeading name="file-code" />
+              </el-tree-item>
+              <el-tree-item value="app-scss" label="app.scss">
+                <el-icon elTreeLeading name="file-lines" />
+              </el-tree-item>
+            </el-tree-item>
+            <el-tree-item value="assets" label="assets">
+              <el-icon elTreeLeading [name]="folderIcon('assets', explorerExpanded())" />
+              <el-tree-item value="logo" label="logo.svg">
+                <el-icon elTreeLeading name="image" />
+              </el-tree-item>
+            </el-tree-item>
           </el-tree-item>
-        </el-tree-item>
-      </el-tree-item>
-    </el-tree>
+          <el-tree-item value="pkg" label="package.json">
+            <el-icon elTreeLeading name="file-lines" />
+          </el-tree-item>
+          <el-tree-item value="readme" label="README.md">
+            <el-icon elTreeLeading name="file-lines" />
+          </el-tree-item>
+        </el-tree>
+      </div>
+      <div class="docs-tree-explorer__pane">
+        @if (selectedEntry(); as file) {
+          <el-icon
+            class="docs-tree-explorer__icon"
+            [name]="file.icon"
+            size="lg"
+          />
+          <p class="docs-tree-explorer__name">{{ file.label }}</p>
+          <p class="docs-tree-explorer__meta">{{ file.kind }}</p>
+          <p class="docs-tree-explorer__meta">
+            {{ file.size }} · {{ file.modified }}
+          </p>
+        }
+      </div>
+    </div>
     <ng-template #standards>
       <p>
         Follows the APG tree pattern with <code>role="tree"</code> and
-        <code>aria-expanded</code> on parent rows. Arrow keys move between items; Left
-        collapses, Right expands.
+        <code>aria-expanded</code> on parent rows. Arrow keys move between items;
+        Left collapses, Right expands. Enter activates the focused file.
       </p>
     </ng-template>
   </app-docs-example>
@@ -60,7 +89,8 @@
         <ng-template elTabContent>
           <p class="docs-page__section-lead">
             Requires <code>icon</code>, <code>checkbox</code>, and
-            <code>button</code>.
+            <code>button</code>. Add <code>badge</code> for row counts and
+            status pills.
           </p>
           <app-docs-snippet [code]="addCode" />
         </ng-template>
@@ -90,174 +120,393 @@
     <h2 id="usage">Usage</h2>
     <p class="docs-page__section-lead">
       The parent owns <code>expanded</code> and <code>checked</code>. Project
-      leading media with <code>elTreeLeading</code> and row actions with
-      <code>elTreeActions</code>. Nested <code>el-tree-item</code> children
-      form the hierarchy.
+      leading media with <code>elTreeLeading</code>, always-visible badges or
+      status with <code>elTreeMeta</code>, and row actions with
+      <code>elTreeActions</code>. Each slot accepts as many matching nodes as
+      you pass. Nested <code>el-tree-item</code> children form the hierarchy.
+      Rows are flush by default — set <code>appearance="outlined"</code> only
+      when the tree itself should be a boxed picker.
     </p>
     <app-docs-snippet [code]="importSnippet" />
     <app-docs-snippet [code]="usageSnippet" />
   </section>
 
   <section>
-    <h2 id="cascade-checkboxes">Cascade checkboxes</h2>
-    <app-docs-example [code]="checkboxCode">
-      <el-tree
-        checkbox
-        [(expanded)]="expanded"
-        [(checked)]="checked"
-        ariaLabel="Selectable files"
-        style="max-width: 22rem; width: 100%"
+    <h2 id="file-actions">File actions</h2>
+    <p class="docs-page__section-lead">
+      Put a
+      <a routerLink="/components/menu">Menu</a>
+      in <code>elTreeActions</code>. Clicks on the trailing control do not
+      activate the row. Actions appear on hover, keyboard focus, and the
+      selected file.
+    </p>
+    <app-docs-example [code]="actionsCode">
+      <div class="docs-tree-demo">
+        <el-tree
+          [(expanded)]="actionsExpanded"
+          ariaLabel="Workspace files"
+        >
+          @for (folder of actionFolders; track folder.id) {
+            <el-tree-item [value]="folder.id" [label]="folder.label">
+              <el-icon elTreeLeading [name]="folderIcon(folder.id, actionsExpanded())" />
+              <span elTreeActions>
+                <ng-container
+                  [ngTemplateOutlet]="rowMenu"
+                    [ngTemplateOutletContext]="{ name: folder.label, kind: 'folder' }"
+                />
+              </span>
+              @for (file of folder.children; track file.id) {
+                <el-tree-item [value]="file.id" [label]="file.label">
+                  <el-icon elTreeLeading [name]="file.icon" />
+                  <span elTreeActions>
+                    <ng-container
+                      [ngTemplateOutlet]="rowMenu"
+                      [ngTemplateOutletContext]="{ name: file.label, kind: 'file' }"
+                    />
+                  </span>
+                </el-tree-item>
+              }
+            </el-tree-item>
+          }
+        </el-tree>
+        <p class="docs-tree-demo__status">{{ lastAction() }}</p>
+      </div>
+      <ng-template
+        #rowMenu
+        let-name="name"
+        let-kind="kind"
       >
-        <el-tree-item value="docs" label="Documents">
-          <el-icon elTreeLeading name="folder" />
-          <el-tree-item value="resume" label="Resume.pdf">
-            <el-icon elTreeLeading name="file" />
-          </el-tree-item>
-          <el-tree-item value="notes" label="Notes.md">
-            <el-icon elTreeLeading name="file" />
-          </el-tree-item>
-        </el-tree-item>
-        <el-tree-item value="media" label="Media">
-          <el-icon elTreeLeading name="folder" />
-          <el-tree-item value="photo" label="Photo.png">
-            <el-icon elTreeLeading name="image" />
-          </el-tree-item>
-        </el-tree-item>
-      </el-tree>
-      <ng-template #standards>
-        <p>
-          Checking a folder checks descendants. A mixed folder shows indeterminate via
-          <code>aria-checked="mixed"</code>. The checked model stores subtree roots only.
-        </p>
-      </ng-template>
-    </app-docs-example>
-  </section>
-
-  <section>
-    <h2 id="actions">Actions</h2>
-    <app-docs-example [code]="usageCode">
-      <el-tree ariaLabel="Project files" style="max-width: 24rem; width: 100%">
-        <el-tree-item value="src" label="src">
-          <el-icon elTreeLeading name="folder" />
+        <el-menu [ariaLabel]="name + ' actions'">
           <el-button
-            elTreeActions
+            elMenuTrigger
             variant="ghost"
             size="sm"
             iconStart="ellipsis-vertical"
-            aria-label="src actions"
+            [ariaLabel]="name + ' actions'"
           />
-          <el-tree-item value="app" label="app.ts">
-            <el-icon elTreeLeading name="file" />
-            <el-button
-              elTreeActions
-              variant="ghost"
-              size="sm"
-              iconStart="ellipsis-vertical"
-              aria-label="app.ts actions"
+          <el-menu-panel>
+            @if (kind === 'folder') {
+              <el-menu-item
+                icon="file"
+                (selected)="runAction('New file in', name)"
+              >
+                New file
+              </el-menu-item>
+              <el-menu-item
+                icon="folder-plus"
+                (selected)="runAction('New folder in', name)"
+              >
+                New folder
+              </el-menu-item>
+            } @else {
+              <el-menu-item
+                icon="folder-open"
+                (selected)="runAction('Opened', name)"
+              >
+                Open
+              </el-menu-item>
+              <el-menu-item
+                icon="download"
+                (selected)="runAction('Downloaded', name)"
+              >
+                Download
+              </el-menu-item>
+            }
+            <el-menu-item
+              icon="pen"
+              (selected)="runAction('Rename', name)"
+            >
+              Rename
+            </el-menu-item>
+            <el-menu-separator />
+            <el-menu-item
+              variant="danger"
+              icon="trash"
+              (selected)="runAction('Deleted', name)"
+            >
+              Delete
+            </el-menu-item>
+          </el-menu-panel>
+        </el-menu>
+      </ng-template>
+      <ng-template #standards>
+        <p>
+          Trailing actions sit in <code>elTreeActions</code> and do not activate
+          the row. Each overflow button needs its own accessible name. Hover
+          concealment is visual only — keyboard focus still reveals the control.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="row-slots">Row slots</h2>
+    <p class="docs-page__section-lead">
+      Matching <code>elTreeLeading</code> and <code>elTreeMeta</code> nodes
+      all project — overlay a count on the icon, add a second lock glyph, then
+      hang status pills and extra icons after the name. Meta stays visible;
+      <code>elTreeActions</code> still hide until hover or focus.
+    </p>
+    <app-docs-example [code]="slotsCode">
+      <div class="docs-tree-demo docs-tree-demo--meta">
+        <el-tree [(expanded)]="slotsExpanded" ariaLabel="Service health">
+          <el-tree-item value="prod" label="production">
+            <el-icon
+              elTreeLeading
+              [name]="folderIcon('prod', slotsExpanded())"
             />
-          </el-tree-item>
-        </el-tree-item>
-      </el-tree>
-      <ng-template #standards>
-        <p>
-          Trailing actions sit in <code>elTreeActions</code> and do not activate the row.
-          Each action button needs its own accessible name.
-        </p>
-      </ng-template>
-    </app-docs-example>
-  </section>
-
-  <section>
-    <h2 id="virtual">Virtual</h2>
-    <app-docs-example [code]="virtualCode">
-      <el-tree
-        virtual
-        checkbox
-        [nodes]="fileNodes"
-        [(expanded)]="virtualExpanded"
-        [(checked)]="virtualChecked"
-        [itemHeight]="36"
-        ariaLabel="Virtual files"
-        style="max-height: 16rem; max-width: 24rem; width: 100%"
-      >
-        <ng-template elTreeNodeDef let-node>
-          <el-icon [name]="node.icon ?? 'file'" size="sm" />
-          {{ node.label }}
-        </ng-template>
-      </el-tree>
-      <ng-template #standards>
-        <p>
-          Virtual mode flattens expanded rows and requires <code>[nodes]</code> plus a
-          max-height. Keyboard focus still moves through the visible window.
-        </p>
-      </ng-template>
-    </app-docs-example>
-  </section>
-
-  <section>
-    <h2 id="lazy-children-and-load-more">Lazy children and load more</h2>
-    <app-docs-example [code]="lazyCode">
-      <el-tree
-        [nodes]="lazyNodes()"
-        [loadingIds]="lazyLoading()"
-        [(expanded)]="lazyExpanded"
-        (loadChildren)="onLoadChildren($event)"
-        (loadMore)="onLoadMore($event)"
-        ariaLabel="Lazy folders"
-        style="max-width: 22rem; width: 100%"
-      >
-        <ng-template elTreeNodeDef let-node>
-          <el-icon [name]="node.icon ?? 'folder'" size="sm" />
-          {{ node.label }}
-        </ng-template>
-      </el-tree>
-      <ng-template #standards>
-        <p>
-          Expanding a node with <code>hasChildren</code> and no <code>children</code> emits
-          <code>loadChildren</code>. Loading rows expose <code>aria-busy</code> while children
-          fetch.
-        </p>
-      </ng-template>
-    </app-docs-example>
-  </section>
-
-  <section>
-    <h2 id="root-infinite-scroll">Root infinite scroll</h2>
-    <app-docs-example [code]="infiniteCode">
-      <p>
-        Root-level paging is not built in. Compose
-        <a routerLink="/components/infinite-scroll">Infinite Scroll</a>
-        around the tree.
-      </p>
-      <ng-template #standards>
-        <p>
-          Wrap the tree in a scroll container with <code>elInfiniteScroll</code>. Bind
-          <code>[disabled]</code> while loading and <code>[complete]</code> when there are no
-          more root nodes.
-        </p>
-      </ng-template>
-    </app-docs-example>
-  </section>
-
-  <section>
-    <h2 id="sizes">Sizes</h2>
-    <app-docs-example [code]="usageCode">
-      <div style="display: grid; gap: 1rem; width: 100%; max-width: 22rem">
-        @for (size of sizes; track size) {
-          <el-tree [size]="size" [ariaLabel]="size + ' tree'">
-            <el-tree-item value="root" [label]="size + ' density'">
-              <el-icon elTreeLeading name="folder" />
-              <el-tree-item value="child" label="Nested file">
-                <el-icon elTreeLeading name="file" />
-              </el-tree-item>
+            <el-badge
+              elTreeMeta
+              [count]="2"
+              size="sm"
+              color="error"
+              ariaLabel="2 unhealthy services"
+            />
+            <el-tree-item value="api" label="api-gateway">
+              <el-badge
+                elTreeLeading
+                [count]="3"
+                size="sm"
+                color="error"
+                ariaLabel="3 failing checks"
+              >
+                <el-icon name="server" />
+              </el-badge>
+              <el-badge
+                elTreeMeta
+                content="Disconnected"
+                size="sm"
+                color="error"
+              />
+              <span elTreeMeta class="docs-tree-status docs-tree-status--error">
+                <el-icon
+                  name="link-slash"
+                  size="sm"
+                  [decorative]="false"
+                  label="No network"
+                />
+              </span>
             </el-tree-item>
-          </el-tree>
-        }
+            <el-tree-item value="checkout" label="checkout-api">
+              <el-icon elTreeLeading name="server" />
+              <el-icon elTreeLeading name="lock" />
+              <el-badge
+                elTreeMeta
+                content="Broken"
+                size="sm"
+                color="warning"
+              />
+              <span
+                elTreeMeta
+                class="docs-tree-status docs-tree-status--warning"
+              >
+                <el-icon
+                  name="triangle-exclamation"
+                  size="sm"
+                  [decorative]="false"
+                  label="Broken upstream"
+                />
+              </span>
+            </el-tree-item>
+            <el-tree-item value="workers" label="workers">
+              <el-icon elTreeLeading name="gear" />
+              <el-badge
+                elTreeMeta
+                [count]="12"
+                size="sm"
+                color="neutral"
+                ariaLabel="12 jobs"
+              />
+              <el-badge elTreeMeta content="Live" size="sm" color="success" />
+              <span
+                elTreeMeta
+                class="docs-tree-status docs-tree-status--success"
+              >
+                <el-icon
+                  name="circle-check"
+                  size="sm"
+                  [decorative]="false"
+                  label="Healthy"
+                />
+              </span>
+            </el-tree-item>
+          </el-tree-item>
+        </el-tree>
       </div>
       <ng-template #standards>
         <p>
-          Size adjusts row padding and type scale. Keyboard and ARIA behavior is unchanged
-          across densities.
+          Status is text plus an icon, not color alone. Name count badges and
+          status icons; keep meta out of <code>elTreeActions</code> so it does
+          not disappear on hover.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="select-to-share">Select to share</h2>
+    <p class="docs-page__section-lead">
+      Cascade checkboxes for bulk file operations. Checking a folder checks
+      descendants. A mixed folder shows indeterminate via
+      <code>aria-checked="mixed"</code>.
+    </p>
+    <app-docs-example [code]="checkboxCode">
+      <div class="docs-tree-demo">
+        <div class="docs-tree-demo__bar">
+          <p class="docs-tree-demo__status">{{ shareLabel() }}</p>
+          <el-button
+            size="sm"
+            [disabled]="shareChecked().length === 0"
+          >
+            Share
+          </el-button>
+        </div>
+        <el-tree
+          checkbox
+          [(expanded)]="shareExpanded"
+          [(checked)]="shareChecked"
+          ariaLabel="Files to share"
+        >
+          <el-tree-item value="docs" label="Documents">
+            <el-icon elTreeLeading [name]="folderIcon('docs', shareExpanded())" />
+            <el-tree-item value="q3" label="Q3-report.pdf">
+              <el-icon elTreeLeading name="file" />
+            </el-tree-item>
+            <el-tree-item value="contract" label="Contract.pdf">
+              <el-icon elTreeLeading name="file" />
+            </el-tree-item>
+          </el-tree-item>
+          <el-tree-item value="photos" label="Photos">
+            <el-icon elTreeLeading [name]="folderIcon('photos', shareExpanded())" />
+            <el-tree-item value="headshot" label="headshot.jpg">
+              <el-icon elTreeLeading name="image" />
+            </el-tree-item>
+          </el-tree-item>
+          <el-tree-item value="readme" label="README.md">
+            <el-icon elTreeLeading name="file-lines" />
+          </el-tree-item>
+        </el-tree>
+      </div>
+      <ng-template #standards>
+        <p>
+          The checked model stores subtree roots only. Space toggles the focused
+          row; the native checkbox stays named for assistive tech.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="remote-folders">Remote folders</h2>
+    <p class="docs-page__section-lead">
+      Expanding a node with <code>hasChildren</code> and no
+      <code>children</code> emits <code>loadChildren</code>. Folders with
+      <code>hasMore</code> page extra files. For a long root feed, wrap the
+      tree in
+      <a routerLink="/components/infinite-scroll">Infinite Scroll</a>.
+    </p>
+    <app-docs-example [code]="lazyCode">
+      <div class="docs-tree-demo">
+        <p class="docs-tree-demo__status">Team Drive</p>
+        <el-tree
+          [nodes]="driveNodes()"
+          [loadingIds]="driveLoading()"
+          [(expanded)]="driveExpanded"
+          (loadChildren)="onLoadChildren($event)"
+          (loadMore)="onLoadMore($event)"
+          ariaLabel="Team Drive"
+        >
+          <ng-template elTreeNodeDef let-node>
+            <el-icon [name]="node.icon ?? 'folder'" size="sm" />
+            {{ node.label }}
+          </ng-template>
+        </el-tree>
+      </div>
+      <ng-template #standards>
+        <p>
+          Loading rows expose <code>aria-busy</code> while children fetch. Keep
+          <code>loadingIds</code> in the parent — the tree does not own the
+          request.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="large-libraries">Large libraries</h2>
+    <p class="docs-page__section-lead">
+      Virtual mode flattens expanded rows and requires
+      <code>[nodes]</code> plus a max-height. Keyboard focus still moves through
+      the visible window.
+    </p>
+    <app-docs-example [code]="virtualCode">
+      <div class="docs-tree-demo docs-tree-demo--wide">
+        <el-tree
+          virtual
+          [nodes]="libraryNodes"
+          [(expanded)]="libraryExpanded"
+          [itemHeight]="36"
+          ariaLabel="Photo library"
+          style="max-height: 18rem; width: 100%"
+        >
+          <ng-template elTreeNodeDef let-node>
+            <el-icon [name]="node.icon ?? 'file'" size="sm" />
+            {{ node.label }}
+          </ng-template>
+        </el-tree>
+      </div>
+      <ng-template #standards>
+        <p>
+          Give the tree a max-height so the host can scroll. Row height must
+          stay fixed for the window math.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="density">Density</h2>
+    <p class="docs-page__section-lead">
+      Size adjusts row padding and type scale. Keyboard and ARIA behavior is
+      unchanged across densities.
+    </p>
+    <app-docs-example [code]="densityCode">
+      <div class="docs-tree-demo">
+        <el-segmented-button
+          size="sm"
+          [value]="density()"
+          (valueChange)="onDensity($event)"
+          ariaLabel="Tree density"
+        >
+          <el-segmented-button-item value="sm">Compact</el-segmented-button-item>
+          <el-segmented-button-item value="md">Default</el-segmented-button-item>
+          <el-segmented-button-item value="lg">
+            Comfortable
+          </el-segmented-button-item>
+        </el-segmented-button>
+        <el-tree
+          [size]="density()"
+          [(expanded)]="densityExpanded"
+          ariaLabel="Density preview"
+        >
+          <el-tree-item value="src" label="src">
+            <el-icon elTreeLeading [name]="folderIcon('src', densityExpanded())" />
+            <el-tree-item value="app-ts" label="app.ts">
+              <el-icon elTreeLeading name="file-code" />
+            </el-tree-item>
+            <el-tree-item value="app-html" label="app.html">
+              <el-icon elTreeLeading name="file-code" />
+            </el-tree-item>
+          </el-tree-item>
+          <el-tree-item value="readme" label="README.md">
+            <el-icon elTreeLeading name="file-lines" />
+          </el-tree-item>
+        </el-tree>
+      </div>
+      <ng-template #standards>
+        <p>
+          Compact rows still keep a 24px minimum target on the expand chevron.
+          Pick density from the parent, not per row.
         </p>
       </ng-template>
     </app-docs-example>
@@ -277,15 +526,49 @@
 
   <section>
     <h2 id="standards-and-checks">Standards and checks</h2>
+    <h3>Standards used</h3>
     <ul>
-      <li>APG Tree View with <code>role="tree"</code>, <code>treeitem</code>, and <code>group</code>.</li>
-      <li>Arrow keys, Home, End, and typeahead move focus between rows.</li>
-      <li>Parent rows expose <code>aria-expanded</code>; checkboxes use <code>aria-checked</code>.</li>
+      <li>
+        APG Tree View with <code>role="tree"</code>, <code>treeitem</code>, and
+        <code>group</code>.
+      </li>
+      <li>WCAG 2.2 AA for focus-visible, name, and contrast.</li>
+    </ul>
+    <h3>Why decisions were made</h3>
+    <ul>
+      <li>
+        Expand lives on the chevron; row activation opens the file. That matches
+        file managers and keeps arrow-key expand separate from Enter.
+      </li>
+      <li>
+        Trailing menus are excluded from row activation so Delete cannot fire
+        when the user meant to select the file.
+      </li>
+      <li>
+        Default appearance is flush. A boxed outline is opt-in so the tree can
+        sit in a sidebar without a second border.
+      </li>
+    </ul>
+    <h3>Success checks covered</h3>
+    <ul>
+      <li>Arrow keys, Home, and End move focus between rows.</li>
+      <li>
+        Parent rows expose <code>aria-expanded</code>; checkboxes use
+        <code>aria-checked</code>.
+      </li>
+      <li>Each overflow action has its own accessible name.</li>
     </ul>
     <p>
       References:
-      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/treeview/" target="_blank" rel="noreferrer">APG Tree View</a>,
-      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer">A11Y Project Checklist</a>.
+      <a
+        href="https://www.w3.org/WAI/ARIA/apg/patterns/treeview/"
+        target="_blank"
+        rel="noreferrer"
+        >APG Tree View</a
+      >,
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer"
+        >A11Y Project Checklist</a
+      >.
     </p>
   </section>
 
