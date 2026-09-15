@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Docs landing page redesigned with a shadcn-style live component collage, compact hero, and unified CLI/MCP install band
+
 ## [1.1.0] - 2026-09-15
 
 ### Added
