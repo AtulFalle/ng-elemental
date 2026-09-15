@@ -103,6 +103,13 @@ ui/checkbox/checkbox.scss`;
       description: 'Id applied to the native checkbox input.',
     },
     {
+      name: 'tabIndex',
+      type: 'number | null',
+      default: 'null',
+      description:
+        'Tabindex for the native input. Use -1 when the checkbox is a nested visual control in a composite widget.',
+    },
+    {
       name: 'name',
       type: 'string',
       default: "''",

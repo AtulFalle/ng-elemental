@@ -15,6 +15,7 @@
     [name]="name() || null"
     [value]="value() || null"
     [disabled]="disabled()"
+    [attr.tabindex]="tabIndex() ?? null"
     [attr.aria-checked]="indeterminate() ? 'mixed' : checked()"
     [attr.aria-invalid]="error() ? true : null"
     (change)="onInputChange($event)"

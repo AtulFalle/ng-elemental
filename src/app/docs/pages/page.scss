@@ -286,3 +286,118 @@
   min-width: 0;
   align-self: stretch;
 }
+
+.docs-tree-explorer {
+  display: grid;
+  grid-template-columns: minmax(0, 17.5rem) minmax(0, 1fr);
+  gap: 0 1.25rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 20rem;
+  align-self: stretch;
+}
+
+.docs-tree-explorer__sidebar {
+  min-width: 0;
+}
+
+.docs-tree-explorer__caption {
+  margin: 0 0 0.375rem;
+  padding-inline: 0.5rem;
+  color: var(--docs-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.docs-tree-explorer__pane {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding-inline-start: 1.25rem;
+  border-inline-start: 1px solid var(--docs-border);
+}
+
+.docs-tree-explorer__icon {
+  margin-bottom: 0.75rem;
+  color: var(--el-color-on-surface-variant);
+}
+
+.docs-tree-explorer__name {
+  margin: 0;
+  color: var(--docs-fg);
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.docs-tree-explorer__meta {
+  margin: 0.35rem 0 0;
+  color: var(--docs-muted);
+  font-size: 0.875rem;
+}
+
+.docs-tree-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 24rem;
+  min-width: 0;
+  align-self: flex-start;
+}
+
+.docs-tree-demo--wide {
+  max-width: none;
+}
+
+.docs-tree-demo--meta {
+  max-width: 32rem;
+}
+
+.docs-tree-demo__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.docs-tree-demo__status {
+  margin: 0;
+  color: var(--docs-muted);
+  font-size: 0.8125rem;
+}
+
+.docs-tree-status {
+  display: inline-flex;
+  color: var(--el-color-on-surface-variant);
+
+  &--error {
+    color: var(--el-color-error);
+  }
+
+  &--warning {
+    color: var(--el-color-warning);
+  }
+
+  &--success {
+    color: var(--el-color-success);
+  }
+}
+
+@media (max-width: 40rem) {
+  .docs-tree-explorer {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .docs-tree-explorer__pane {
+    min-height: 8rem;
+    margin-top: 0.75rem;
+    padding: 1rem 0 0;
+    border-inline-start: 0;
+    border-block-start: 1px solid var(--docs-border);
+  }
+}

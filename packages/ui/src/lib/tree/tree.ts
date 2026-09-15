@@ -63,7 +63,7 @@ export { ElTreeNodeDef, type ElTreeNodeContext } from './tree-node-def';
   },
 })
 export class ElTree implements ElTreeContext {
-  readonly appearance = input<ElTreeAppearance>('outlined');
+  readonly appearance = input<ElTreeAppearance>('plain');
   readonly size = input<ElTreeSize>('md');
   readonly ariaLabel = input<string>();
   readonly disabled = input(false, { transform: booleanAttribute });
@@ -105,7 +105,9 @@ export class ElTree implements ElTreeContext {
     if (this.dataMode()) {
       return this.nodes();
     }
-    return this.rootItems().map((item) => item.toNode());
+    return this.rootItems()
+      .map((item) => item.toNode())
+      .filter((node) => node.id);
   });
 
   protected readonly treeIndex = computed(() =>

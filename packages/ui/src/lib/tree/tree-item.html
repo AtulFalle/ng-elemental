@@ -20,13 +20,13 @@
     @if (showCheckbox()) {
       <el-checkbox
         class="el-tree-item__check"
+        aria-hidden="true"
+        [tabIndex]="-1"
         [checked]="checked()"
         [indeterminate]="indeterminate()"
         [disabled]="isDisabled()"
         (checkedChange)="onCheckChange($event)"
-      >
-        <span class="el-tree-item__sr-only">{{ checkboxLabel() }}</span>
-      </el-checkbox>
+      />
     }
 
     <span class="el-tree-item__leading">
@@ -47,6 +47,10 @@
       } @else {
         <ng-content />
       }
+    </span>
+
+    <span class="el-tree-item__meta">
+      <ng-content select="[elTreeMeta]" />
     </span>
 
     <span class="el-tree-item__actions">

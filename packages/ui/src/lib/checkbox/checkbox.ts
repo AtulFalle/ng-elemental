@@ -28,6 +28,7 @@ export class ElCheckbox {
   readonly name = input('');
   readonly value = input('');
   readonly inputId = input('');
+  readonly tabIndex = input<number | null>(null);
 
   private readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('input');
 

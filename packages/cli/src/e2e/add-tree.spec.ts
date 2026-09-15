@@ -42,6 +42,7 @@ describe('add tree e2e', () => {
         'utf8',
       );
       expect(itemHtml).toContain('elTreeLeading');
+      expect(itemHtml).toContain('elTreeMeta');
       expect(itemHtml).toContain('elTreeActions');
       expect(itemHtml).toContain('el-checkbox');
       expect(itemHtml).toContain('chevronName');
