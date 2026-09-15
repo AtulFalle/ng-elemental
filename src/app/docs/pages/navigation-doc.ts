@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  ElBadge,
   ElButton,
   ElIcon,
   ElNav,
@@ -24,6 +25,7 @@ import { PropsTable } from '../ui/props-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    ElBadge,
     ElNav,
     ElNavItem,
     ElNavHeading,
@@ -66,13 +68,13 @@ export class NavigationDocPage {
 >
   <el-nav-heading>Favorites</el-nav-heading>
   <el-nav-item value="inbox" icon="inbox" label="Inbox">
-    <span elNavBadge>24</span>
+    <el-badge elNavBadge [count]="24" size="sm" color="neutral" />
   </el-nav-item>
   <el-nav-item value="starred" icon="star" label="Starred" />
   <el-nav-heading>Mailboxes</el-nav-heading>
   <el-nav-item value="sent" icon="paper-plane" label="Sent" />
   <el-nav-item value="drafts" icon="file-lines" label="Drafts">
-    <span elNavBadge>3</span>
+    <el-badge elNavBadge [count]="3" size="sm" color="neutral" />
   </el-nav-item>
 </el-nav>`;
 
@@ -163,7 +165,7 @@ ui/navigation/navigation.token.ts`;
   <el-nav-item value="inbox">
     <el-icon elNavLeading name="inbox" />
     <span elNavLabel>Inbox</span>
-    <span elNavBadge>24</span>
+    <el-badge elNavBadge [count]="24" size="sm" color="neutral" />
     <el-button
       elNavActions
       variant="ghost"
@@ -175,7 +177,7 @@ ui/navigation/navigation.token.ts`;
   <el-nav-item value="starred" icon="star" label="Starred" />
   <el-nav-item value="sent" icon="paper-plane" label="Sent" />
   <el-nav-item value="drafts" icon="file-lines" label="Drafts">
-    <span elNavBadge>3</span>
+    <el-badge elNavBadge [count]="3" size="sm" color="neutral" />
   </el-nav-item>
 </el-nav>`;
 
@@ -189,11 +191,11 @@ ui/navigation/navigation.token.ts`;
       ariaLabel="Mail"
     >
       <el-nav-item value="inbox" icon="inbox" label="Inbox">
-        <span elNavBadge>24</span>
+        <el-badge elNavBadge [count]="24" size="sm" color="neutral" />
       </el-nav-item>
       <el-nav-item value="starred" icon="star" label="Starred" />
       <el-nav-item value="drafts" icon="file-lines" label="Drafts">
-        <span elNavBadge>3</span>
+        <el-badge elNavBadge [count]="3" size="sm" color="neutral" />
       </el-nav-item>
     </el-nav>
   </div>
@@ -208,7 +210,7 @@ ui/navigation/navigation.token.ts`;
       <el-nav-item value="overview" icon="house" label="Overview" />
       <el-nav-item value="analytics" icon="chart-line" label="Analytics" />
       <el-nav-item value="observability" icon="bell" label="Observability">
-        <span elNavBadge="new">New</span>
+        <el-badge elNavBadge content="NEW" size="sm" />
       </el-nav-item>
     </el-nav>
   </div>

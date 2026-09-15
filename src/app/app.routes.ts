@@ -89,6 +89,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/chip-doc').then((m) => m.ChipDocPage),
       },
       {
+        path: 'components/badge',
+        loadComponent: () =>
+          import('./docs/pages/badge-doc').then((m) => m.BadgeDocPage),
+      },
+      {
         path: 'components/progress',
         loadComponent: () =>
           import('./docs/pages/progress-doc').then((m) => m.ProgressDocPage),

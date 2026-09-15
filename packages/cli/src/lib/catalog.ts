@@ -182,13 +182,42 @@ export const COMPONENT_CATALOG: readonly CatalogEntry[] = [
     kind: 'component',
     title: 'Chip',
     description: 'Assist, filter, and suggestion chips with optional color and icons.',
-    keywords: ['chip', 'tag', 'filter', 'badge'],
+    keywords: ['chip', 'tag', 'filter'],
     selectors: ['el-chip'],
     classNames: ['ElChip'],
     usage: '<el-chip type="filter" [(selected)]="active">Filter</el-chip>',
     registryDependencies: ['icon'],
     npmDependencies: [],
     docsPath: '/components/chip',
+    category: 'components',
+  },
+  {
+    name: 'badge',
+    kind: 'component',
+    title: 'Badge',
+    description:
+      'Notification overlay or inline count pill for unread marks, NEW labels, and filter counts. Not a chip.',
+    keywords: [
+      'badge',
+      'count',
+      'notification',
+      'dot',
+      'unread',
+      'pill',
+      'indicator',
+    ],
+    selectors: ['el-badge'],
+    classNames: ['ElBadge'],
+    usage: `<el-badge [count]="8">
+  <el-button variant="icon" iconStart="bell" ariaLabel="Notifications, 8 unread" />
+</el-badge>
+<el-button variant="outline">
+  More filters
+  <el-badge [count]="3" />
+</el-button>`,
+    registryDependencies: [],
+    npmDependencies: [],
+    docsPath: '/components/badge',
     category: 'components',
   },
   {

@@ -1,0 +1,412 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <div class="docs-page__header-row">
+      <h1>Badge</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
+    <p class="docs-lead">
+      Compact, non-interactive count and status marks. Use
+      <strong>notification overlay</strong> when wrapping an icon, avatar, or
+      button (top-end). Use an <strong>inline count pill</strong> next to labels
+      like “More filters”. Badges are not chips — use
+      <a routerLink="/docs/components/chip">Chip</a> for selectable or removable
+      tags.
+    </p>
+  </header>
+
+  <app-docs-example [code]="heroCode">
+    <div
+      style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap"
+    >
+      <el-badge [count]="8">
+        <el-button
+          variant="icon"
+          iconStart="bell"
+          ariaLabel="Notifications, 8 unread"
+        />
+      </el-badge>
+      <el-button variant="outline">
+        More filters
+        <el-badge [count]="3" />
+      </el-button>
+      <el-badge content="NEW" />
+    </div>
+    <ng-template #standards>
+      <p>
+        Wrap a child for the overlay recipe; omit children for the pill. Default
+        colors follow the recipe (error for overlay, primary for pill) so
+        notifications and meta counts stay distinct without extra props. Prefer
+        an outline or secondary button when nesting a primary pill so the count
+        keeps contrast. Put the count in the wrapped control’s name — the badge
+        is not focusable.
+      </p>
+    </ng-template>
+  </app-docs-example>
+
+  <section>
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            No registry dependencies. Install
+            <code>icon</code>, <code>button</code>, or
+            <code>avatar</code> only if your examples compose them.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
+  </section>
+
+  <section>
+    <h2 id="usage">Usage</h2>
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
+  </section>
+
+  <section>
+    <h2 id="notification-overlay">Notification overlay</h2>
+    <p class="docs-page__section-lead">
+      Wrap the element that has unread or pending state. The mark sits at
+      <code>top-end</code> (top-right in LTR) with a surface ring so it reads on
+      avatars and icon buttons. Include the count in the wrapped control’s
+      <code>ariaLabel</code> or <code>alt</code> — focus lands on that control,
+      not the badge.
+    </p>
+    <app-docs-example [code]="overlayCode">
+      <div
+        style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap"
+      >
+        <el-badge [count]="8">
+          <el-button
+            variant="icon"
+            iconStart="bell"
+            ariaLabel="Notifications, 8 unread"
+          />
+        </el-badge>
+        <el-badge [count]="12">
+          <el-avatar initials="AL" alt="Ada Lovelace, 12 notifications" />
+        </el-badge>
+        <el-badge content="NEW">
+          <el-icon name="inbox" />
+        </el-badge>
+      </div>
+      <ng-template #standards>
+        <p>
+          Overlay defaults to the error color. The host is not focusable. Name
+          the button, link, or avatar; visible “8” is a sibling, not the
+          control’s name.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="count-pill">Count pill</h2>
+    <p class="docs-page__section-lead">
+      Place a self-closing badge next to copy or inside a button. Default color
+      is primary so it reads as meta, not an alarm. Still not a chip: no click,
+      select, or remove. Projected children belong on the overlay recipe —
+      <code>variant="pill"</code> keeps them in the flow instead of hiding them.
+    </p>
+    <app-docs-example [code]="pillCode">
+      <div
+        style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap"
+      >
+        <el-button variant="outline">
+          More filters
+          <el-badge [count]="3" />
+        </el-button>
+        <el-badge [count]="120" [max]="99" />
+        <el-badge content="12 more" />
+        <el-badge content="NEW" />
+      </div>
+      <ng-template #standards>
+        <p>
+          Prefer <code>el-badge</code> for filter counts. Use
+          <code>el-chip</code> when the control must be selected or removed. A
+          pill inside a button is part of that button’s name.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="overflow">Overflow</h2>
+    <p class="docs-page__section-lead">
+      Counts above <code>max</code> (default 99) render as
+      <code>99+</code> (or your max with a plus). Zero stays hidden unless
+      <code>showZero</code>.
+    </p>
+    <app-docs-example [code]="overflowCode">
+      <div
+        style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap"
+      >
+        <el-badge [count]="99">
+          <el-avatar initials="AL" alt="Ada Lovelace, 99 notifications" />
+        </el-badge>
+        <el-badge [count]="100">
+          <el-avatar initials="GH" alt="Grace Hopper, 99+ notifications" />
+        </el-badge>
+        <el-badge [count]="1000" [max]="999" />
+        <el-badge [count]="0" />
+        <el-badge [count]="0" showZero />
+      </div>
+      <ng-template #standards>
+        <p>
+          Overflow keeps the indicator width stable for dense toolbars. Empty
+          zero avoids noisy chrome when there is nothing to announce.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="dot">Dot</h2>
+    <p class="docs-page__section-lead">
+      A presence mark with no visible text. Always pass
+      <code>ariaLabel</code> — the indicator uses <code>role="img"</code> so
+      the name is legal on a non-text graphic.
+    </p>
+    <app-docs-example [code]="dotCode">
+      <div style="display: flex; align-items: center; gap: 1.5rem">
+        <el-badge dot ariaLabel="Unread">
+          <el-icon name="envelope" />
+        </el-badge>
+        <el-badge dot ariaLabel="Online status" />
+      </div>
+      <ng-template #standards>
+        <p>
+          Color alone is not enough — the accessible name carries the meaning
+          for screen readers. Without <code>ariaLabel</code>, a dot is hidden
+          from assistive technology.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="colors">Colors</h2>
+    <p class="docs-page__section-lead">
+      Override the recipe default with a semantic
+      <code>color</code>.
+    </p>
+    <app-docs-example [code]="colorsCode">
+      <div
+        style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap"
+      >
+        <el-badge [count]="5" color="error" />
+        <el-badge [count]="5" color="primary" />
+        <el-badge [count]="5" color="success" />
+        <el-badge [count]="5" color="warning" />
+        <el-badge [count]="5" color="info" />
+        <el-badge [count]="5" color="neutral" />
+      </div>
+      <ng-template #standards>
+        <p>
+          Fills use theme tokens (<code>--el-color-error</code>,
+          <code>--el-color-on-error</code>, and siblings) so dark mode stays in
+          sync.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="size">Size</h2>
+    <p class="docs-page__section-lead">
+      Overlay marks stay compact. Pill <code>md</code> is the readable inline
+      size; <code>sm</code> fits dense toolbars.
+    </p>
+    <app-docs-example [code]="sizeCode">
+      <div
+        style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap"
+      >
+        <el-badge [count]="8" size="sm">
+          <el-button
+            variant="icon"
+            iconStart="bell"
+            ariaLabel="Notifications, 8 unread"
+          />
+        </el-badge>
+        <el-badge [count]="8" size="md">
+          <el-button
+            variant="icon"
+            iconStart="bell"
+            ariaLabel="Notifications, 8 unread"
+          />
+        </el-badge>
+        <el-badge [count]="8" size="sm" />
+        <el-badge [count]="8" size="md" />
+      </div>
+      <ng-template #standards>
+        <p>
+          There is no <code>lg</code> — a large badge reads as a chip. Use
+          <code>el-chip</code> when the mark must be a control.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="placement">Placement</h2>
+    <p class="docs-page__section-lead">
+      Overlay corners use logical insets (<code>top-end</code> is top-right in
+      LTR, top-left in RTL).
+    </p>
+    <app-docs-example [code]="placementCode">
+      <div
+        style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap"
+      >
+        <el-badge [count]="8" placement="top-end">
+          <el-avatar initials="TE" alt="Top end, 8 notifications" />
+        </el-badge>
+        <el-badge [count]="8" placement="top-start">
+          <el-avatar initials="TS" alt="Top start, 8 notifications" />
+        </el-badge>
+        <el-badge [count]="8" placement="bottom-end">
+          <el-avatar initials="BE" alt="Bottom end, 8 notifications" />
+        </el-badge>
+        <el-badge [count]="8" placement="bottom-start">
+          <el-avatar initials="BS" alt="Bottom start, 8 notifications" />
+        </el-badge>
+      </div>
+      <ng-template #standards>
+        <p>
+          Placement is ignored on pills. The corner nudge flips with
+          <code>:dir(rtl)</code> so the mark sits outside the anchor in both
+          directions.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="long-content">Long content</h2>
+    <p class="docs-page__section-lead">
+      Long labels ellipsize visually. The full string stays in the DOM, so
+      screen readers still get it — no <code>title</code> tooltip.
+    </p>
+    <app-docs-example [code]="longCode">
+      <div
+        style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap"
+      >
+        <el-badge content="A very long notification label that must ellipsize">
+          <el-button
+            variant="icon"
+            iconStart="bell"
+            ariaLabel="Notifications"
+          />
+        </el-badge>
+        <el-badge content="A very long filter summary that must ellipsize" />
+      </div>
+      <ng-template #standards>
+        <p>
+          Prefer short counts or words like NEW. Pass
+          <code>ariaLabel</code> only when the SR name should differ from the
+          visible text.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="standards">Standards and checks</h2>
+    <p>
+      Badge is a display mark — layout-only unless you wrap an interactive
+      control.
+    </p>
+    <ul>
+      <li>
+        <strong>Standards used:</strong> native <code>span</code> host; no APG
+        widget pattern. Dots follow the same naming approach as
+        <code>el-avatar</code> (<code>role="img"</code> + name).
+      </li>
+      <li>
+        <strong>Why:</strong> the host is not a button. Overlay counts belong in
+        the wrapped control’s name. Visible short text names standalone pills.
+        CSS <code>:has()</code> picks overlay vs pill on first paint.
+      </li>
+      <li>Native host; not focusable and not a live region.</li>
+      <li>
+        Visible text names the indicator; dots need <code>ariaLabel</code> (as
+        <code>role="img"</code>).
+      </li>
+      <li>
+        Overlay on a control: put the count in that control’s
+        <code>ariaLabel</code> / <code>alt</code>.
+      </li>
+      <li>Color is never the only cue — pair with text or an accessible name.</li>
+      <li>Do not make the badge itself clickable — wrap with a link or button when needed.</li>
+      <li>Use <code>el-chip</code> for assist, filter, and removable tags.</li>
+    </ul>
+    <p>
+      References:
+      <a href="https://www.a11yproject.com/checklist" target="_blank" rel="noreferrer"
+        >A11Y Project Checklist</a
+      >,
+      <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer"
+        >WCAG 2.2</a
+      >
+      (1.3.1, 1.4.3, 1.4.4),
+      <a href="https://www.w3.org/TR/html-aria/#el-span" target="_blank" rel="noreferrer"
+        >ARIA in HTML (naming a span)</a
+      >,
+      <a
+        href="https://m3.material.io/components/badges/overview"
+        target="_blank"
+        rel="noreferrer"
+        >Material 3 Badge</a
+      >,
+      <a href="https://ant.design/components/badge" target="_blank" rel="noreferrer"
+        >Ant Design Badge</a
+      >,
+      <a
+        href="https://ui.shadcn.com/docs/components/base/badge"
+        target="_blank"
+        rel="noreferrer"
+        >shadcn Badge</a
+      >.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="styling">Styling &amp; tokens</h2>
+    <p>
+      Colors come from generic theme tokens. Open
+      <code>tokens.scss</code> and edit the BRAND block, or override
+      <code>--el-color-error</code> /
+      <code>--el-color-primary</code> on a wrapper. See
+      <a routerLink="/docs/theming">Theming</a> for the full token list.
+    </p>
+    <app-code-block [code]="scopedTokensCode" language="scss" />
+  </section>
+
+  <section>
+    <h2 id="api">API Reference</h2>
+    <app-props-table [props]="props" />
+  </section>
+
+  <app-docs-pager />
+</article>

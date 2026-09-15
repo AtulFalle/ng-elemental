@@ -1,0 +1,195 @@
+@mixin el-badge-overlay-layout {
+  position: relative;
+
+  .el-badge {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .el-badge__anchor {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .el-badge__indicator {
+    position: absolute;
+    z-index: 1;
+    border-color: var(--el-color-surface);
+    background: var(--el-color-error);
+    color: var(--el-color-on-error);
+  }
+
+  .el-badge--top-end .el-badge__indicator {
+    top: 0;
+    inset-inline-end: 0;
+    translate: 35% -35%;
+  }
+
+  .el-badge--top-start .el-badge__indicator {
+    top: 0;
+    inset-inline-start: 0;
+    translate: -35% -35%;
+  }
+
+  .el-badge--bottom-end .el-badge__indicator {
+    bottom: 0;
+    inset-inline-end: 0;
+    translate: 35% 35%;
+  }
+
+  .el-badge--bottom-start .el-badge__indicator {
+    bottom: 0;
+    inset-inline-start: 0;
+    translate: -35% 35%;
+  }
+
+  .el-badge--top-end:dir(rtl) .el-badge__indicator {
+    translate: -35% -35%;
+  }
+
+  .el-badge--top-start:dir(rtl) .el-badge__indicator {
+    translate: 35% -35%;
+  }
+
+  .el-badge--bottom-end:dir(rtl) .el-badge__indicator {
+    translate: -35% 35%;
+  }
+
+  .el-badge--bottom-start:dir(rtl) .el-badge__indicator {
+    translate: 35% 35%;
+  }
+}
+
+@mixin el-badge-pill-layout {
+  .el-badge__indicator {
+    position: static;
+    min-width: 1.375rem;
+    height: 1.375rem;
+    padding-inline: 0.5rem;
+    max-width: 8rem;
+    border-color: transparent;
+    font-size: 0.75rem;
+    background: var(--el-color-primary);
+    color: var(--el-color-on-primary);
+  }
+
+  .el-badge--sm .el-badge__indicator {
+    min-width: 1.125rem;
+    height: 1.125rem;
+    padding-inline: 0.375rem;
+    font-size: 0.6875rem;
+  }
+}
+
+:host(.el-badge-host) {
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+:host(.el-badge-host--overlay),
+:host(.el-badge-host--auto:has(.el-badge__anchor > *)) {
+  @include el-badge-overlay-layout;
+}
+
+:host(.el-badge-host--pill),
+:host(.el-badge-host--auto:not(:has(.el-badge__anchor > *))) {
+  @include el-badge-pill-layout;
+}
+
+.el-badge {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  vertical-align: middle;
+
+  &__anchor {
+    display: contents;
+  }
+
+  &__indicator {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-shrink: 1;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    max-width: 4.5rem;
+    height: 1.25rem;
+    padding-inline: 0.375rem;
+    border: 1px solid var(--el-color-surface);
+    border-radius: var(--el-radius-full);
+    background: var(--el-color-primary);
+    color: var(--el-color-on-primary);
+    font-family: var(--el-font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &__label {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &--sm &__indicator {
+    min-width: 1rem;
+    height: 1rem;
+    padding-inline: 0.25rem;
+    font-size: 0.625rem;
+  }
+}
+
+:host .el-badge--error .el-badge__indicator {
+  background: var(--el-color-error);
+  color: var(--el-color-on-error);
+}
+
+:host .el-badge--primary .el-badge__indicator {
+  background: var(--el-color-primary);
+  color: var(--el-color-on-primary);
+}
+
+:host .el-badge--success .el-badge__indicator {
+  background: var(--el-color-success);
+  color: var(--el-color-on-success);
+}
+
+:host .el-badge--warning .el-badge__indicator {
+  background: var(--el-color-warning);
+  color: var(--el-color-on-warning);
+}
+
+:host .el-badge--info .el-badge__indicator {
+  background: var(--el-color-info);
+  color: var(--el-color-on-info);
+}
+
+:host .el-badge--neutral .el-badge__indicator {
+  background: var(--el-color-secondary-container);
+  color: var(--el-color-on-secondary-container);
+}
+
+:host .el-badge--dot .el-badge__indicator {
+  min-width: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  max-width: none;
+}
+
+:host .el-badge--dot.el-badge--sm .el-badge__indicator {
+  min-width: 0.375rem;
+  width: 0.375rem;
+  height: 0.375rem;
+}

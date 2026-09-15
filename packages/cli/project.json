@@ -120,6 +120,11 @@
             "output": "registry/chip"
           },
           {
+            "glob": "badge.{ts,html,scss}",
+            "input": "packages/ui/src/lib/badge",
+            "output": "registry/badge"
+          },
+          {
             "glob": "progress.{ts,html,scss}",
             "input": "packages/ui/src/lib/progress",
             "output": "registry/progress"

@@ -92,6 +92,7 @@ See [packages/mcp/README.md](../mcp/README.md) for Cursor, Claude Code, VS Code,
 | `select` | `el-select`, `el-select-item`, `el-select-group` | `ElSelect`, `ElSelectItem`, `ElSelectGroup` |
 | `datepicker` | `el-date-picker`, `el-date-range-picker` | `ElDatePicker`, `ElDateRangePicker` |
 | `chip` | `el-chip` | `ElChip` |
+| `badge` | `el-badge` | `ElBadge` |
 | `progress` | `el-progress`, `el-progress-circle` | `ElProgress`, `ElProgressCircle` |
 | `slider` | `el-slider` | `ElSlider` |
 | `carousel` | `el-carousel`, `el-carousel-slide` | `ElCarousel`, `ElCarouselSlide` |

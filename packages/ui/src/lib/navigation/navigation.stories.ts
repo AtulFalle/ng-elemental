@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { expect } from 'storybook/test';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ElBadge } from '../badge/badge';
 import { ElButton } from '../button/button';
 import { ElDrawer } from '../drawer/drawer';
 import { ElIcon } from '../icon/icon';
@@ -18,6 +19,7 @@ const NAV_IMPORTS = [
   ElNavHeading,
   ElNavLeadingSlot,
   ElNavLabelSlot,
+  ElBadge,
   ElIcon,
   ElButton,
   ElDrawer,
@@ -69,13 +71,13 @@ const meta: Meta<ElNav> = {
       >
         <el-nav-heading>Favorites</el-nav-heading>
         <el-nav-item value="inbox" icon="inbox" label="Inbox">
-          <span elNavBadge>24</span>
+          <el-badge elNavBadge [count]="24" size="sm" color="neutral" />
         </el-nav-item>
         <el-nav-item value="starred" icon="star" label="Starred" />
         <el-nav-heading>Mailboxes</el-nav-heading>
         <el-nav-item value="sent" icon="paper-plane" label="Sent" />
         <el-nav-item value="drafts" icon="file-lines" label="Drafts">
-          <span elNavBadge>3</span>
+          <el-badge elNavBadge [count]="3" size="sm" color="neutral" />
         </el-nav-item>
       </el-nav>
     `,
@@ -158,7 +160,7 @@ export const ItemSlots: Story = {
         <el-nav-item value="inbox">
           <el-icon elNavLeading name="inbox" />
           <span elNavLabel>Inbox</span>
-          <span elNavBadge>24</span>
+          <el-badge elNavBadge [count]="24" size="sm" color="neutral" />
           <el-button
             elNavActions
             variant="ghost"
@@ -170,7 +172,7 @@ export const ItemSlots: Story = {
         <el-nav-item value="starred" icon="star" label="Starred" />
         <el-nav-item value="sent" icon="paper-plane" label="Sent" />
         <el-nav-item value="drafts" icon="file-lines" label="Drafts">
-          <span elNavBadge>3</span>
+          <el-badge elNavBadge [count]="3" size="sm" color="neutral" />
         </el-nav-item>
       </el-nav>
     `,
@@ -191,11 +193,11 @@ export const Badges: Story = {
           style="max-width: 16rem"
         >
           <el-nav-item value="inbox" icon="inbox" label="Inbox">
-            <span elNavBadge>24</span>
+            <el-badge elNavBadge [count]="24" size="sm" color="neutral" />
           </el-nav-item>
           <el-nav-item value="starred" icon="star" label="Starred" />
           <el-nav-item value="drafts" icon="file-lines" label="Drafts">
-            <span elNavBadge>3</span>
+            <el-badge elNavBadge [count]="3" size="sm" color="neutral" />
           </el-nav-item>
         </el-nav>
         <el-nav
@@ -208,7 +210,7 @@ export const Badges: Story = {
           <el-nav-item value="overview" icon="house" label="Overview" />
           <el-nav-item value="analytics" icon="chart-line" label="Analytics" />
           <el-nav-item value="observability" icon="bell" label="Observability">
-            <span elNavBadge="new">New</span>
+            <el-badge elNavBadge content="NEW" size="sm" />
           </el-nav-item>
         </el-nav>
       </div>
@@ -328,7 +330,7 @@ export const LongContent: Story = {
           label="Quarterly planning notes for the North American regional strategy review"
           sublabel="Updated yesterday with stakeholder feedback and revised milestones"
         >
-          <span elNavBadge>3</span>
+          <el-badge elNavBadge [count]="3" size="sm" color="neutral" />
           <el-button
             elNavActions
             variant="ghost"
