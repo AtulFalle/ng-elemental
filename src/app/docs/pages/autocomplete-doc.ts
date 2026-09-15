@@ -254,6 +254,13 @@ Tab     Move focus; panel closes and query restores`;
         'Text in the field. Typing updates query and opens the list; Escape restores from value.',
     },
     {
+      name: 'open',
+      type: 'boolean (model)',
+      default: 'false',
+      description:
+        'Whether the suggestion list is open. Bind with [(open)] to keep the list visible (e.g. in a search dialog).',
+    },
+    {
       name: 'size',
       type: "'sm' | 'md' | 'lg'",
       default: "'md'",

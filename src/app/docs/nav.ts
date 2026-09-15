@@ -1,3 +1,6 @@
+/** Site-facing release label (docs header / landing). */
+export const DOCS_VERSION = '1.1.0';
+
 export interface DocNavItem {
   label: string;
   path: string;

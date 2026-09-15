@@ -4,7 +4,7 @@
   <header class="landing-nav">
     <a routerLink="/" class="landing-nav__brand">
       <span class="landing-nav__logo">NgElemental</span>
-      <span class="landing-nav__version">v1.0.0</span>
+      <span class="landing-nav__version">v{{ version }}</span>
     </a>
     <nav class="landing-nav__links" aria-label="Site">
       <a routerLink="/docs" class="landing-nav__link">Docs</a>
@@ -31,7 +31,7 @@
   <section class="landing-hero" aria-labelledby="hero-heading">
     <div class="landing-container">
       <div class="landing-hero__badge">
-        <el-chip type="assist" iconStart="circle-check">v1.0.0 — now on npm</el-chip>
+        <el-chip type="assist" iconStart="circle-check">v{{ version }}</el-chip>
       </div>
 
       <h1 id="hero-heading" class="landing-hero__heading">
@@ -252,7 +252,7 @@
       <el-separator />
       <div class="landing-footer__inner">
         <span class="landing-footer__copy">
-          NgElemental v1.0.0 &mdash; MIT License
+          NgElemental v{{ version }} &mdash; MIT License
         </span>
         <nav class="landing-footer__links" aria-label="Footer">
           <a routerLink="/docs">Docs</a>

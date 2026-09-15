@@ -1,0 +1,79 @@
+<button
+  type="button"
+  class="docs-search__trigger"
+  aria-label="Search documentation"
+  (click)="openSearch()"
+>
+  <el-icon name="magnifying-glass" size="sm" class="docs-search__trigger-icon" />
+  <span class="docs-search__trigger-label">Search documentation…</span>
+  <kbd class="docs-search__trigger-kbd">{{ shortcutHint }}</kbd>
+</button>
+
+<el-dialog
+  [open]="dialogOpen()"
+  (openChange)="onDialogOpenChange($event)"
+  title="Search documentation"
+  size="md"
+  ariaLabel="Search documentation"
+>
+  <div elDialogContent class="docs-search__body">
+    @if (dialogOpen()) {
+      <div class="docs-search__field-wrap">
+        <el-icon
+          name="magnifying-glass"
+          size="sm"
+          class="docs-search__field-icon"
+          aria-hidden="true"
+        />
+        <el-autocomplete
+          class="docs-search__field"
+          [value]="selected()"
+          (valueChange)="onSelected($event)"
+          [query]="query()"
+          (queryChange)="query.set($event)"
+          [open]="listOpen()"
+          (openChange)="onListOpenChange($event)"
+          placeholder="Type a component or page…"
+          ariaLabel="Search documentation"
+          inputId="docs-search-input"
+        >
+          <el-empty-state
+            elAutocompleteEmpty
+            icon="magnifying-glass"
+            title="No results"
+            description="Try a different component or page name."
+          />
+
+          @for (item of items; track item.path) {
+            <el-autocomplete-item [value]="item.path" [label]="item.label">
+              <span class="docs-search__result">
+                <el-icon
+                  name="arrow-right"
+                  size="sm"
+                  class="docs-search__result-icon"
+                />
+                <span class="docs-search__result-copy">
+                  <span class="docs-search__result-label">{{ item.label }}</span>
+                  <span class="docs-search__result-section">{{ item.section }}</span>
+                </span>
+              </span>
+            </el-autocomplete-item>
+          }
+        </el-autocomplete>
+      </div>
+    }
+  </div>
+
+  <div elDialogFooter>
+    <div class="docs-search__footer">
+      <span class="docs-search__hint">
+        <kbd class="docs-search__kbd">↵</kbd>
+        <span>Go to page</span>
+      </span>
+      <span class="docs-search__hint">
+        <kbd class="docs-search__kbd">esc</kbd>
+        <span>Close</span>
+      </span>
+    </div>
+  </div>
+</el-dialog>
