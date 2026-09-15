@@ -116,6 +116,7 @@ Commands:
   add slide-toggle      Copy the Slide Toggle component into your project
   add radio             Copy the Radio component into your project
   add select            Copy the Select component into your project
+  add autocomplete      Copy the Autocomplete component into your project
   add tabs              Copy the Tabs component into your project
   add stepper           Copy the Stepper component into your project
   add accordion         Copy the Accordion component into your project

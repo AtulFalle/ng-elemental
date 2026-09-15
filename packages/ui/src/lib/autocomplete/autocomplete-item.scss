@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--el-space-2);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.25rem;
+  padding: var(--el-space-2) var(--el-space-3);
+  border: 0;
+  background: transparent;
+  font-family: var(--el-font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--el-color-on-surface);
+  text-align: start;
+  cursor: pointer;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+:host(.el-autocomplete-item--selected) {
+  background: var(--el-color-primary-container);
+}
+
+:host(.el-autocomplete-item--active),
+:host(:hover:not(.el-autocomplete-item--disabled)) {
+  background: var(--el-color-hover);
+}
+
+:host(.el-autocomplete-item--active.el-autocomplete-item--selected),
+:host(.el-autocomplete-item--selected:hover) {
+  background: var(--el-color-primary-container);
+}
+
+:host(.el-autocomplete-item--disabled) {
+  color: var(--el-color-disabled);
+  cursor: not-allowed;
+}
+
+.el-autocomplete-item {
+  &__content {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--el-space-2);
+    min-width: 0;
+  }
+}

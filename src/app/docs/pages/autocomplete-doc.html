@@ -1,0 +1,341 @@
+<article class="docs-page">
+  <header class="docs-page__header">
+    <div class="docs-page__header-row">
+      <h1>Autocomplete</h1>
+      <div class="docs-page__header-actions">
+        <app-docs-pager [compact]="true" />
+      </div>
+    </div>
+    <p class="docs-lead">
+      Editable combobox with a filtered suggestion list. Keep
+      <strong>query</strong> (what the user typed) separate from
+      <strong>value</strong> (the committed option id). Compose
+      <a routerLink="/docs/components/input">Input</a> chrome via prefix/suffix
+      slots, and drop
+      <a routerLink="/docs/components/empty-state">Empty State</a> /
+      <a routerLink="/docs/components/progress">Progress</a> into status slots —
+      Autocomplete does not invent its own spinner or empty copy.
+    </p>
+  </header>
+
+  <app-docs-example [code]="heroCode">
+    <div class="docs-stack docs-field-demo docs-select-demo">
+      <el-label htmlFor="docs-ac-hero">Country</el-label>
+      <el-autocomplete
+        inputId="docs-ac-hero"
+        [(value)]="country"
+        [(query)]="countryQuery"
+        placeholder="Search countries…"
+      >
+        @for (c of countries; track c.value) {
+          <el-autocomplete-item [value]="c.value" [label]="c.label">
+            {{ c.label }}
+          </el-autocomplete-item>
+        }
+      </el-autocomplete>
+    </div>
+    <ng-template #standards>
+      <p>
+        Native <code>input</code> with <code>role="combobox"</code>,
+        <code>aria-autocomplete="list"</code>, <code>aria-expanded</code>,
+        <code>aria-controls</code>, and <code>aria-activedescendant</code>.
+        Focus stays on the field while arrows move the active option. Escape
+        closes without changing the committed value.
+      </p>
+    </ng-template>
+  </app-docs-example>
+
+  <section>
+    <h2 id="installation">Installation</h2>
+    <el-tabs
+      [value]="installTab()"
+      (valueChange)="installTab.set($event)"
+      ariaLabel="Installation method"
+    >
+      <el-tab value="cli" label="Command">
+        <ng-template elTabContent>
+          <p class="docs-page__section-lead">
+            Registry dependencies: <code>input</code> and <code>icon</code>
+            (default chevron). Add empty-state, progress, avatar, badge, label,
+            or form-error only when your examples compose them.
+          </p>
+          <app-docs-snippet [code]="addCode" />
+        </ng-template>
+      </el-tab>
+      <el-tab value="manual" label="Manual">
+        <ng-template elTabContent>
+          <ol class="docs-page__steps">
+            <li>
+              <p>Copy and paste the following files into your project.</p>
+              <app-code-block [code]="manualFilesCode" language="text" />
+            </li>
+            <li>
+              <p>Update the import paths to match your project setup.</p>
+              <app-docs-snippet [code]="importSnippet" />
+            </li>
+          </ol>
+        </ng-template>
+      </el-tab>
+    </el-tabs>
+  </section>
+
+  <section>
+    <h2 id="usage">Usage</h2>
+    <app-docs-snippet [code]="importSnippet" />
+    <app-docs-snippet [code]="usageSnippet" />
+  </section>
+
+  <section>
+    <h2 id="filtering">Filtering</h2>
+    <p class="docs-page__section-lead">
+      With <code>filter</code> (default), typing hides non-matching options by
+      label. Prefix an <code>el-icon</code> with <code>elInputPrefix</code> for
+      a search affordance.
+    </p>
+    <app-docs-example [code]="filterCode">
+      <div class="docs-page__field-demo docs-select-demo">
+        <el-autocomplete
+          inputId="docs-ac-filter"
+          [(value)]="filterCountry"
+          [(query)]="filterQuery"
+          placeholder="Type to filter…"
+          ariaLabel="Country"
+        >
+          <el-icon elInputPrefix name="magnifying-glass" size="sm" />
+          @for (c of countries; track c.value) {
+            <el-autocomplete-item [value]="c.value" [label]="c.label">
+              {{ c.label }}
+            </el-autocomplete-item>
+          }
+        </el-autocomplete>
+      </div>
+      <ng-template #standards>
+        <p>
+          Filtering is client-side substring match on
+          <code>label || value</code>. For remote data, set
+          <code>[filter]="false"</code> and project only the results you fetched.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="async">Async suggestions</h2>
+    <p class="docs-page__section-lead">
+      Autocomplete never performs HTTP. Bind <code>[(query)]</code>, set
+      <code>[loading]</code>, and project filtered items with
+      <code>[filter]="false"</code>. Compose progress and empty-state into the
+      status slots.
+    </p>
+    <app-docs-example [code]="asyncCode">
+      <div class="docs-page__field-demo docs-select-demo">
+        <el-autocomplete
+          inputId="docs-ac-async"
+          [(value)]="userId"
+          [query]="userQuery()"
+          (queryChange)="onUserQuery($event)"
+          [filter]="false"
+          [loading]="busy()"
+          placeholder="Search people…"
+          ariaLabel="Person"
+        >
+          <el-progress-circle
+            elAutocompleteLoading
+            size="sm"
+            indeterminate
+          />
+          <el-empty-state
+            elAutocompleteEmpty
+            icon="magnifying-glass"
+            title="No people"
+            description="Try a different name."
+          />
+          @for (person of asyncResults(); track person.id) {
+            <el-autocomplete-item [value]="person.id" [label]="person.name">
+              <el-avatar
+                [initials]="person.initials"
+                [alt]="person.name"
+                size="sm"
+              />
+              {{ person.name }}
+              <el-badge [content]="person.team" />
+            </el-autocomplete-item>
+          }
+        </el-autocomplete>
+      </div>
+      <ng-template #standards>
+        <p>
+          <code>aria-busy</code> follows <code>loading</code>. Status content
+          uses <code>role="status"</code> and is never an option. Rich rows are
+          free-form projection inside <code>el-autocomplete-item</code>.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="slots">Slots and composition</h2>
+    <p class="docs-page__section-lead">
+      Prefix/suffix re-project into <code>ElInput</code>. A custom suffix
+      replaces the default chevron. Loading and empty accept an attribute node
+      or <code>ng-template</code> with <code>let-query</code>.
+    </p>
+    <app-docs-example [code]="slotsCode">
+      <div class="docs-page__field-demo docs-select-demo">
+        <el-autocomplete
+          inputId="docs-ac-slots"
+          [(value)]="slotsCountry"
+          [(query)]="slotsQuery"
+          placeholder="Search…"
+          ariaLabel="Country"
+        >
+          <el-icon elInputPrefix name="magnifying-glass" size="sm" />
+          <button
+            elInputSuffix
+            type="button"
+            aria-label="Clear"
+            (click)="clearCountry()"
+            style="
+              border: 0;
+              background: transparent;
+              cursor: pointer;
+              color: var(--el-color-on-surface-variant);
+            "
+          >
+            <el-icon name="xmark" size="sm" />
+          </button>
+          <ng-template elAutocompleteEmpty let-query>
+            <el-empty-state
+              icon="magnifying-glass"
+              title="No matches"
+              [description]="'Nothing for “' + query + '”'"
+            />
+          </ng-template>
+          @for (c of countries; track c.value) {
+            <el-autocomplete-item [value]="c.value" [label]="c.label">
+              {{ c.label }}
+            </el-autocomplete-item>
+          }
+        </el-autocomplete>
+      </div>
+      <ng-template #standards>
+        <p>
+          Prefer existing El* widgets in slots over custom chrome. Templates win
+          when both an attribute node and <code>ng-template</code> are provided
+          for the same slot.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <app-docs-example [code]="disabledCode">
+      <div class="docs-page__field-demo docs-select-demo">
+        <el-autocomplete
+          disabled
+          [(value)]="disabledCountry"
+          [(query)]="disabledQuery"
+          placeholder="Disabled"
+          ariaLabel="Disabled country"
+        >
+          <el-autocomplete-item value="in" label="India">India</el-autocomplete-item>
+        </el-autocomplete>
+      </div>
+      <ng-template #standards>
+        <p>Native <code>disabled</code> on the input. Panel cannot open.</p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="error">Error and forms</h2>
+    <p class="docs-page__section-lead">
+      Pair with <code>el-label</code> and <code>el-form-error</code>. Bind
+      <code>[(value)]</code> for committed selection; use
+      <code>[value]</code> / <code>(valueChange)</code> with Reactive Forms if
+      needed. There is no ControlValueAccessor.
+    </p>
+    <app-docs-example [code]="errorCode">
+      <div class="docs-stack docs-field-demo docs-select-demo">
+        <el-label htmlFor="docs-ac-error" variant="error">Country</el-label>
+        <el-autocomplete
+          error
+          inputId="docs-ac-error"
+          [(value)]="errorCountry"
+          [(query)]="errorQuery"
+          placeholder="Search…"
+          ariaDescribedby="docs-ac-error-msg"
+        >
+          @for (c of countries; track c.value) {
+            <el-autocomplete-item [value]="c.value" [label]="c.label">
+              {{ c.label }}
+            </el-autocomplete-item>
+          }
+        </el-autocomplete>
+        <el-form-error id="docs-ac-error-msg"
+          >Country is required</el-form-error
+        >
+      </div>
+      <ng-template #standards>
+        <p>
+          Error is not color-only: invalid border plus
+          <code>aria-invalid</code> and a linked
+          <code>aria-describedby</code> message.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="keyboard">Keyboard</h2>
+    <p class="docs-page__section-lead">
+      Follows the WAI-ARIA editable combobox pattern (list autocomplete, manual
+      selection). DOM focus stays on the input.
+    </p>
+    <app-code-block [code]="keyboardCode" language="text" />
+  </section>
+
+  <section>
+    <h2 id="api">API</h2>
+    <h3 id="api-autocomplete">ElAutocomplete</h3>
+    <app-props-table [props]="props" />
+    <h3 id="api-item">ElAutocompleteItem</h3>
+    <app-props-table [props]="itemProps" />
+  </section>
+
+  <section>
+    <h2 id="standards">Standards</h2>
+    <ul class="docs-page__list">
+      <li>
+        <strong>Standards used:</strong> WCAG 2.2 AA; WAI-ARIA Combobox Pattern
+        (editable, list autocomplete).
+      </li>
+      <li>
+        <strong>Why:</strong> Select is select-only. Autocomplete needs an
+        editable field, query vs value, and activedescendant while typing.
+      </li>
+      <li>
+        <strong>Success checks:</strong> named combobox; keyboard-only select;
+        Escape restores query; outside click closes; disabled not operable;
+        loading exposes busy; empty/loading are status, not options; focus ring
+        on keyboard; reduced motion honored.
+      </li>
+      <li>
+        <strong>References:</strong>
+        <a
+          href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/"
+          rel="noopener noreferrer"
+          target="_blank"
+          >APG Combobox</a
+        >,
+        <a
+          href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/"
+          rel="noopener noreferrer"
+          target="_blank"
+          >List autocomplete example</a
+        >.
+      </li>
+    </ul>
+  </section>
+</article>

@@ -42,5 +42,4 @@
 ## Out of scope unless asked
 
 - `@angular/cdk` (this library has no CDK)
-- Search/combobox filter (separate component)
 - Publishing / version bumps (maintainers only)

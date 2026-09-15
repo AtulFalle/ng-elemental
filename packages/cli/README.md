@@ -90,6 +90,7 @@ See [packages/mcp/README.md](../mcp/README.md) for Cursor, Claude Code, VS Code,
 | `slide-toggle` | `el-slide-toggle` | `ElSlideToggle` |
 | `radio` | `el-radio-group`, `el-radio` | `ElRadioGroup`, `ElRadio` |
 | `select` | `el-select`, `el-select-item`, `el-select-group` | `ElSelect`, `ElSelectItem`, `ElSelectGroup` |
+| `autocomplete` | `el-autocomplete`, `el-autocomplete-item` | `ElAutocomplete`, `ElAutocompleteItem` |
 | `datepicker` | `el-date-picker`, `el-date-range-picker` | `ElDatePicker`, `ElDateRangePicker` |
 | `chip` | `el-chip` | `ElChip` |
 | `badge` | `el-badge` | `ElBadge` |

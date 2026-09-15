@@ -43,6 +43,7 @@ Layout-only rows still get names/contrast/zoom from the audit. They have no widg
 | slide-toggle | Switch | https://www.w3.org/WAI/ARIA/apg/patterns/switch/ | `role="switch"` if not native. Space. `aria-checked` true/false. |
 | radio | Radio Group | https://www.w3.org/WAI/ARIA/apg/patterns/radio/ | `radiogroup` + `radio`. Tab into group, arrows move, one tab stop. `aria-checked`. |
 | select | Combobox + Listbox | https://www.w3.org/WAI/ARIA/apg/patterns/combobox/ · [listbox](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) | `aria-expanded`, `aria-controls`, listbox options, typeahead, Escape closes. |
+| autocomplete | Combobox + Listbox (editable, list autocomplete) | https://www.w3.org/WAI/ARIA/apg/patterns/combobox/ · [list autocomplete](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/) | Native input `role="combobox"`, `aria-autocomplete="list"`, `aria-activedescendant`, focus stays on input; Escape restores query. |
 | chip | Button or Checkbox | button / checkbox | Action chip = button keys. Filter/input chip = selected/removed semantics + name. |
 | badge | (display) | — | Non-interactive. Visible text names pills. Overlay: put the count in the wrapped control’s name. Dots: `role="img"` + `ariaLabel` (same as avatar). Not a chip. |
 | progress | progressbar (ARIA) | no dedicated APG pattern; use `role="progressbar"` | Name. `aria-valuemin/max/now` or `aria-valuetext`. Determinate vs indeterminate. |

@@ -19,6 +19,15 @@ export {
   type ElInputType,
 } from './lib/input/input';
 export {
+  ElAutocomplete,
+  ElAutocompleteEmpty,
+  ElAutocompleteItem,
+  ElAutocompleteLoading,
+  type ElAutocompleteSize,
+  type ElAutocompleteContext,
+  type ElAutocompleteOption,
+} from './lib/autocomplete/autocomplete';
+export {
   ElCheckbox,
   type ElCheckboxLabelPosition,
 } from './lib/checkbox/checkbox';

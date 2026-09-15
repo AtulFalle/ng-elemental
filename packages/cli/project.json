@@ -115,6 +115,31 @@
             "output": "registry/select"
           },
           {
+            "glob": "autocomplete.{ts,html,scss}",
+            "input": "packages/ui/src/lib/autocomplete",
+            "output": "registry/autocomplete"
+          },
+          {
+            "glob": "autocomplete-item.{ts,html,scss}",
+            "input": "packages/ui/src/lib/autocomplete",
+            "output": "registry/autocomplete"
+          },
+          {
+            "glob": "autocomplete-empty.ts",
+            "input": "packages/ui/src/lib/autocomplete",
+            "output": "registry/autocomplete"
+          },
+          {
+            "glob": "autocomplete-loading.ts",
+            "input": "packages/ui/src/lib/autocomplete",
+            "output": "registry/autocomplete"
+          },
+          {
+            "glob": "autocomplete.token.ts",
+            "input": "packages/ui/src/lib/autocomplete",
+            "output": "registry/autocomplete"
+          },
+          {
             "glob": "chip.{ts,html,scss}",
             "input": "packages/ui/src/lib/chip",
             "output": "registry/chip"

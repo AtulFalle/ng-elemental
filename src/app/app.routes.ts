@@ -72,6 +72,13 @@ export const appRoutes: Route[] = [
           import('./docs/pages/select-doc').then((m) => m.SelectDocPage),
       },
       {
+        path: 'components/autocomplete',
+        loadComponent: () =>
+          import('./docs/pages/autocomplete-doc').then(
+            (m) => m.AutocompleteDocPage,
+          ),
+      },
+      {
         path: 'components/datepicker',
         loadComponent: () =>
           import('./docs/pages/datepicker-doc').then((m) => m.DatepickerDocPage),

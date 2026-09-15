@@ -30,6 +30,7 @@ Compose existing `El*` components. Build a new primitive only when none of them 
 | Form label | `ElLabel` |
 | Form error message | `ElFormError` |
 | Dropdown / combobox | `ElSelect` + `ElSelectItem` |
+| Editable typeahead | `ElAutocomplete` + `ElAutocompleteItem` |
 | Segmented choice | `ElSegmentedButton` + `ElSegmentedButtonItem` |
 | Theme / tokens | `provideElTheme()`, `tokens.scss` |
 

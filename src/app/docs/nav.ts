@@ -45,6 +45,7 @@ export const DOC_NAV: DocNavSection[] = [
       { label: 'Slide Toggle', path: '/docs/components/slide-toggle' },
       { label: 'Radio', path: '/docs/components/radio' },
       { label: 'Select', path: '/docs/components/select' },
+      { label: 'Autocomplete', path: '/docs/components/autocomplete' },
       { label: 'Date Picker', path: '/docs/components/datepicker' },
       { label: 'Date Range Picker', path: '/docs/components/date-range-picker' },
       { label: 'Chip', path: '/docs/components/chip' },
