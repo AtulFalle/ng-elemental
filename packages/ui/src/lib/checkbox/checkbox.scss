@@ -99,6 +99,10 @@
 
   &__label {
     min-width: 0;
+
+    &:empty {
+      display: none;
+    }
   }
 
   &__input:focus-visible + &__box {

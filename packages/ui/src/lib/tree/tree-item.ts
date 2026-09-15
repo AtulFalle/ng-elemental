@@ -164,10 +164,6 @@ export class ElTreeItem {
       : `Expand ${this.nodeLabel()}`,
   );
 
-  protected readonly checkboxLabel = computed(
-    () => `Select ${this.nodeLabel()}`,
-  );
-
   protected readonly rootClass = computed(() => ({
     'el-tree-item': true,
     [`el-tree-item--${this.tree.size()}`]: true,
@@ -178,9 +174,22 @@ export class ElTreeItem {
   }));
 
   toNode(): ElTreeNode {
-    const nested = this.nestedItems().map((item) => item.toNode());
+    const nested = this.nestedItems().flatMap((item) => {
+      try {
+        const node = item.toNode();
+        return node.id ? [node] : [];
+      } catch {
+        return [];
+      }
+    });
+    let id = '';
+    try {
+      id = this.value();
+    } catch {
+      id = '';
+    }
     return {
-      id: this.value(),
+      id,
       label: this.label(),
       icon: this.icon() || undefined,
       disabled: this.disabled(),

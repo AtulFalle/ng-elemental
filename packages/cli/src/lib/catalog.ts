@@ -471,14 +471,16 @@ export const COMPONENT_CATALOG: readonly CatalogEntry[] = [
     name: 'tree',
     kind: 'component',
     title: 'Tree',
-    description: 'Hierarchical tree with expand, cascade checkboxes, slots, and optional virtual rows.',
-    keywords: ['tree', 'hierarchy', 'files', 'nested', 'folder'],
+    description: 'File-manager tree with expand, cascade checkboxes, row actions, and optional virtual rows.',
+    keywords: ['tree', 'hierarchy', 'files', 'nested', 'folder', 'file manager'],
     selectors: ['el-tree', 'el-tree-item'],
     classNames: ['ElTree', 'ElTreeItem', 'ElTreeNodeDef'],
-    usage: `<el-tree [(expanded)]="open" ariaLabel="Files">
-  <el-tree-item value="docs" label="Documents">
+    usage: `<el-tree [(expanded)]="open" ariaLabel="Project files">
+  <el-tree-item value="src" label="src">
     <el-icon elTreeLeading name="folder" />
-    <el-tree-item value="resume" label="Resume.pdf" />
+    <el-tree-item value="app-ts" label="app.ts">
+      <el-icon elTreeLeading name="file-code" />
+    </el-tree-item>
   </el-tree-item>
 </el-tree>`,
     registryDependencies: ['icon', 'checkbox', 'button'],
