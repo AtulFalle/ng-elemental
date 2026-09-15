@@ -194,6 +194,17 @@ export {
 } from './lib/skeleton/skeleton';
 export { ElBreadcrumb, ElBreadcrumbItem } from './lib/breadcrumb/breadcrumb';
 export {
+  ElNav,
+  ElNavItem,
+  ElNavHeading,
+  ElNavLeadingSlot,
+  ElNavLabelSlot,
+  ElNavSublabelSlot,
+  type ElNavAppearance,
+  type ElNavExpandMode,
+  type ElNavSize,
+} from './lib/navigation/navigation';
+export {
   ElTooltip,
   ElTooltipBubble,
   type ElTooltipPosition,

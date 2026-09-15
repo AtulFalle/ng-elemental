@@ -211,6 +211,11 @@ export const appRoutes: Route[] = [
           import('./docs/pages/breadcrumb-doc').then((m) => m.BreadcrumbDocPage),
       },
       {
+        path: 'components/navigation',
+        loadComponent: () =>
+          import('./docs/pages/navigation-doc').then((m) => m.NavigationDocPage),
+      },
+      {
         path: 'components/tooltip',
         loadComponent: () =>
           import('./docs/pages/tooltip-doc').then((m) => m.TooltipDocPage),

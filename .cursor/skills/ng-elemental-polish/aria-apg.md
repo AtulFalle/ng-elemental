@@ -61,6 +61,7 @@ Layout-only rows still get names/contrast/zoom from the audit. They have no widg
 | pagination | Navigation / Toolbar | [toolbar](https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/) | `nav` + name. Current page `aria-current`. Buttons not fake links. |
 | skeleton | (busy) | — | `aria-busy` / status text for replacement content. Do not expose raw shimmer as a name. |
 | breadcrumb | Breadcrumb | https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/ | `nav` + list. `aria-current="page"` on the last item. |
+| navigation | Disclosure Navigation | https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/ | Native `nav` landmark. Links use `aria-current="page"`. Parent rows use `aria-expanded` + `aria-controls`. Collapsed groups are `hidden` + `inert`. Tab between controls; Enter/Space on disclosure parents. |
 | tooltip | Tooltip | https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/ | Show on hover **and** focus. Escape hides. Not the only place for essential info. `role="tooltip"` + `aria-describedby`. |
 | menu | Menu / Menu Button | [menu](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) · [menu button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/) | Trigger `aria-haspopup` + `aria-expanded`. Arrows, Enter/Space, Escape. |
 | menubar | Menu and Menubar | https://www.w3.org/WAI/ARIA/apg/patterns/menubar/ | Tab to bar. Arrows across. Submenus as APG. |

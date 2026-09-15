@@ -1,0 +1,106 @@
+<div [class]="rootClass()">
+  <div class="el-nav-item__row">
+    @if (isNavLink()) {
+      <button
+        type="button"
+        class="el-nav-item__chevron"
+        [class.el-nav-item__chevron--expanded]="expanded()"
+        [disabled]="isDisabled()"
+        [attr.aria-label]="expandLabel()"
+        [attr.aria-expanded]="expanded()"
+        [attr.aria-controls]="groupId()"
+        (click)="onToggleExpand($event)"
+      >
+        <el-icon name="chevron-right" size="sm" />
+      </button>
+    }
+
+    @if (isDisclosure()) {
+      <button
+        type="button"
+        class="el-nav-item__control el-nav-item__disclosure"
+        [class.el-nav-item__control--active]="active()"
+        [disabled]="isDisabled()"
+        [attr.aria-expanded]="expanded()"
+        [attr.aria-controls]="groupId()"
+        (click)="onDisclosureClick($event)"
+      >
+        <span
+          class="el-nav-item__chevron"
+          [class.el-nav-item__chevron--expanded]="expanded()"
+          aria-hidden="true"
+        >
+          <el-icon name="chevron-right" size="sm" />
+        </span>
+        <ng-container *ngTemplateOutlet="rowBody" />
+      </button>
+    } @else if (isLink() || isNavLink()) {
+      <a
+        class="el-nav-item__control"
+        [class.el-nav-item__control--active]="active()"
+        [href]="href()"
+        [attr.aria-current]="active() ? 'page' : null"
+        [attr.aria-disabled]="isDisabled() ? true : null"
+        [attr.tabindex]="isDisabled() ? -1 : null"
+        (click)="onLinkClick($event)"
+      >
+        <ng-container *ngTemplateOutlet="rowBody" />
+      </a>
+    } @else {
+      <button
+        type="button"
+        class="el-nav-item__control"
+        [class.el-nav-item__control--active]="active()"
+        [disabled]="isDisabled()"
+        [attr.aria-current]="active() ? 'page' : null"
+        (click)="onButtonLeafClick($event)"
+      >
+        <ng-container *ngTemplateOutlet="rowBody" />
+      </button>
+    }
+
+    <div class="el-nav-item__actions"><ng-content select="[elNavActions]" /></div>
+  </div>
+
+  @if (canExpand()) {
+    <div
+      class="el-nav-item__group"
+      role="group"
+      [id]="groupId()"
+      [attr.hidden]="expanded() ? null : true"
+      [attr.inert]="expanded() ? null : ''"
+    >
+      <ng-content select="el-nav-item" />
+    </div>
+  }
+</div>
+
+<ng-template #rowBody>
+  <span class="el-nav-item__leading">
+    <ng-content select="[elNavLeading]" />
+    @if (showFallbackIcon()) {
+      <el-icon [name]="icon()" size="sm" />
+    }
+  </span>
+
+  <span class="el-nav-item__copy">
+    <span class="el-nav-item__label">
+      <ng-content select="[elNavLabel]" />
+      @if (showLabelInput()) {
+        {{ label() }}
+      } @else if (!labelSlot()) {
+        <ng-content />
+      }
+    </span>
+    @if (hasSublabel()) {
+      <span class="el-nav-item__sublabel">
+        <ng-content select="[elNavSublabel]" />
+        @if (showSublabelInput()) {
+          {{ sublabel() }}
+        }
+      </span>
+    }
+  </span>
+
+  <span class="el-nav-item__badge"><ng-content select="[elNavBadge]" /></span>
+</ng-template>

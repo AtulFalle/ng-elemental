@@ -586,6 +586,37 @@ export const COMPONENT_CATALOG: readonly CatalogEntry[] = [
     category: 'components',
   },
   {
+    name: 'navigation',
+    kind: 'component',
+    title: 'Navigation',
+    description:
+      'Sidebar navigation with rail or soft appearance, expandable parents, and rich item slots.',
+    keywords: [
+      'navigation',
+      'nav',
+      'sidebar',
+      'sidenav',
+      'toc',
+      'menu',
+      'disclosure',
+    ],
+    selectors: ['el-nav', 'el-nav-item', 'el-nav-heading'],
+    classNames: ['ElNav', 'ElNavItem', 'ElNavHeading'],
+    usage: `<el-nav appearance="rail" [(value)]="active" [(expanded)]="open" ariaLabel="Docs">
+  <el-nav-heading>Getting started</el-nav-heading>
+  <el-nav-item value="intro" href="/docs" label="Introduction" />
+  <el-nav-item value="components">
+    <el-icon elNavLeading name="cubes" />
+    <span elNavLabel>Components</span>
+    <el-nav-item value="button" href="/docs/components/button" label="Button" />
+  </el-nav-item>
+</el-nav>`,
+    registryDependencies: ['icon'],
+    npmDependencies: [],
+    docsPath: '/components/navigation',
+    category: 'components',
+  },
+  {
     name: 'tooltip',
     kind: 'directive',
     title: 'Tooltip',

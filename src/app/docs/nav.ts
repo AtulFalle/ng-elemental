@@ -65,6 +65,7 @@ export const DOC_NAV: DocNavSection[] = [
       { label: 'Pagination', path: '/docs/components/pagination' },
       { label: 'Skeleton', path: '/docs/components/skeleton' },
       { label: 'Breadcrumb', path: '/docs/components/breadcrumb' },
+      { label: 'Navigation', path: '/docs/components/navigation' },
       { label: 'Tooltip', path: '/docs/components/tooltip' },
       { label: 'Menu', path: '/docs/components/menu' },
       { label: 'Menubar', path: '/docs/components/menubar' },

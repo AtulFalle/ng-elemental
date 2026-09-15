@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `ElNav`, `ElNavItem`, and `ElNavHeading` — sidebar navigation with rail/soft appearance, item slots, and expandable parents
+
+### Changed
+
+- `ElNav` nested rows indent once under the parent label; unread counts and New pills use the `elNavBadge` slot instead of chips
+
 ## [1.0.2] - 2026-09-13
 
 ### Added
