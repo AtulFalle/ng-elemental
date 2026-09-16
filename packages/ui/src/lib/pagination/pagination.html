@@ -19,21 +19,23 @@
   >
     <span class="el-pagination__sr-only">Previous page</span>
   </el-button>
-  @for (item of items(); track $index) {
-    @if (isEllipsis(item)) {
-      <span class="el-pagination__ellipsis" aria-hidden="true">…</span>
-    } @else {
-      <el-button
-        class="el-pagination__page"
-        [variant]="isCurrent(item) ? 'primary' : 'ghost'"
-        [size]="size()"
-        [disabled]="disabled()"
-        [attr.aria-current]="isCurrent(item) ? 'page' : null"
-        [attr.aria-label]="'Page ' + item"
-        (click)="goTo(item)"
-      >
-        {{ item }}
-      </el-button>
+  @if (showPages()) {
+    @for (item of items(); track $index) {
+      @if (isEllipsis(item)) {
+        <span class="el-pagination__ellipsis" aria-hidden="true">…</span>
+      } @else {
+        <el-button
+          class="el-pagination__page"
+          [variant]="isCurrent(item) ? 'primary' : 'ghost'"
+          [size]="size()"
+          [disabled]="disabled()"
+          [attr.aria-current]="isCurrent(item) ? 'page' : null"
+          [attr.aria-label]="'Page ' + item"
+          (click)="goTo(item)"
+        >
+          {{ item }}
+        </el-button>
+      }
     }
   }
   <el-button

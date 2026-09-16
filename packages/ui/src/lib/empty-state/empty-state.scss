@@ -69,3 +69,30 @@
 .el-empty-state__actions:empty {
   display: none;
 }
+
+:host(.el-empty-state-host--sm) .el-empty-state {
+  max-width: 18rem;
+  padding: var(--el-space-3) var(--el-space-2);
+}
+
+:host(.el-empty-state-host--sm) .el-empty-state__media {
+  margin-bottom: var(--el-space-2);
+}
+
+:host(.el-empty-state-host--sm) .el-empty-state__title {
+  font-size: 0.875rem;
+}
+
+:host(.el-empty-state-host--sm) .el-empty-state__description,
+:host(.el-empty-state-host--sm) .el-empty-state__body {
+  font-size: 0.8125rem;
+}
+
+:host(.el-empty-state-host--sm) .el-empty-state__actions {
+  margin-top: var(--el-space-3);
+}
+
+:host(.el-empty-state-host--lg) .el-empty-state {
+  max-width: 28rem;
+  padding: var(--el-space-8) var(--el-space-6);
+}

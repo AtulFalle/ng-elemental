@@ -80,6 +80,19 @@
   flex-shrink: 0;
 }
 
+.landing-nav__rule {
+  align-self: center;
+  height: 1.25rem;
+  min-height: 1.25rem;
+}
+
+.landing-nav__tools {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .landing-hero {
   padding-block: 3rem 2rem;
 }
@@ -272,6 +285,10 @@
 
 @media (max-width: 640px) {
   .landing-nav__links {
+    display: none;
+  }
+
+  .landing-nav__rule {
     display: none;
   }
 

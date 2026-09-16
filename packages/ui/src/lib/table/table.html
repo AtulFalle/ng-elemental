@@ -7,6 +7,7 @@
     <table
       class="el-table__table"
       [attr.aria-label]="ariaLabel() || null"
+      [attr.aria-busy]="loading() ? true : null"
     >
       @if (caption()) {
         <caption class="el-table__caption">{{ caption() }}</caption>
@@ -63,13 +64,23 @@
               <div class="el-table__status-slot">
                 <ng-content select="[elTableLoading]" />
               </div>
-              <span class="el-table__status-fallback">Loading…</span>
+              <el-progress
+                class="el-table__status-fallback"
+                indeterminate
+                size="sm"
+                aria-label="Loading"
+              />
             </div>
             <div class="el-table__status-copy" [hidden]="loading() || !showEmpty()">
               <div class="el-table__status-slot">
                 <ng-content select="[elTableEmpty]" />
               </div>
-              <span class="el-table__status-fallback">No rows.</span>
+              <el-empty-state
+                class="el-table__status-fallback"
+                size="sm"
+                icon="inbox"
+                title="No rows"
+              />
             </div>
           </td>
         </tr>

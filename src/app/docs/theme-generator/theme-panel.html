@@ -1,73 +1,109 @@
-<button
-  type="button"
-  class="docs-theme-backdrop"
-  aria-label="Close theme panel"
-  (click)="closed.emit()"
-></button>
+<el-sheet
+  [open]="open()"
+  (openChange)="open.set($event)"
+  title="Customize theme"
+  side="right"
+  size="md"
+  ariaDescribedBy="docs-theme-panel-hint"
+>
+  <div elSheetContent class="docs-theme-panel__body">
+    <p id="docs-theme-panel-hint" class="docs-theme-panel__lead">
+      Pick a color, watch the preview update, then copy CSS for your app.
+      You are editing <strong>{{ modeLabel() }}</strong> values.
+    </p>
 
-<aside class="docs-theme-panel" role="dialog" aria-labelledby="docs-theme-panel-title">
-  <header class="docs-theme-panel__header">
-    <h2 id="docs-theme-panel-title">Theme</h2>
-    <button
-      type="button"
-      class="docs-theme-panel__close"
-      aria-label="Close theme panel"
-      (click)="closed.emit()"
+    <div class="docs-theme-panel__preview" aria-label="Live preview">
+      <el-button variant="primary" size="sm">Primary</el-button>
+      <el-button variant="secondary" size="sm">Secondary</el-button>
+      <el-button variant="ghost" size="sm">Ghost</el-button>
+      <el-chip>Chip</el-chip>
+    </div>
+
+    <div class="docs-theme-panel__filters">
+      <el-segmented-button
+        size="sm"
+        [value]="mode()"
+        (valueChange)="setMode($event)"
+        ariaLabel="Appearance"
+      >
+        <el-segmented-button-item value="light">Light</el-segmented-button-item>
+        <el-segmented-button-item value="dark">Dark</el-segmented-button-item>
+      </el-segmented-button>
+      <el-segmented-button
+        size="sm"
+        [value]="tokenScope()"
+        (valueChange)="setTokenScope($event)"
+        ariaLabel="Token list"
+      >
+        <el-segmented-button-item value="preview">Preview</el-segmented-button-item>
+        <el-segmented-button-item value="all">All tokens</el-segmented-button-item>
+      </el-segmented-button>
+    </div>
+
+    <div class="docs-theme-panel__list">
+      @for (group of displayGroups(); track group.id) {
+        <section class="docs-theme-panel__group">
+          <header class="docs-theme-panel__group-head">
+            <h3>{{ group.label }}</h3>
+            <p>{{ group.description }}</p>
+          </header>
+          @for (token of group.tokens; track token.name) {
+            <div class="docs-theme-panel__row">
+              <div class="docs-theme-panel__field">
+                <label class="docs-theme-panel__label" [for]="hexId(token)">{{
+                  token.label
+                }}</label>
+                <p class="docs-theme-panel__description">{{ token.description }}</p>
+                @if (tokenScope() === 'all') {
+                  <code class="docs-theme-panel__token">{{ token.name }}</code>
+                }
+              </div>
+              <div class="docs-theme-panel__controls">
+                <el-input
+                  type="color"
+                  size="sm"
+                  [value]="colorOf(token)"
+                  [ariaLabel]="token.label + ' swatch, ' + mode()"
+                  (valueChange)="onPicker(token, $event)"
+                />
+                <div class="docs-theme-panel__hex">
+                  <el-input
+                    size="sm"
+                    mask="#******"
+                    placeholder="#000000"
+                    autocomplete="off"
+                    [inputId]="hexId(token)"
+                    [value]="hexOf(token)"
+                    (valueChange)="onHex(token, $event)"
+                  />
+                </div>
+              </div>
+            </div>
+          }
+        </section>
+      }
+    </div>
+  </div>
+
+  <div elSheetFooter class="docs-theme-panel__footer">
+    <el-stack
+      class="docs-theme-panel__actions"
+      direction="row"
+      gap="3"
+      align="center"
+      justify="between"
     >
-      <el-icon name="xmark" size="sm" />
-    </button>
-  </header>
-
-  <p class="docs-theme-panel__hint">
-    Pick BRAND colors, click Apply, then browse components. Copy the snippet and
-    paste it after <code>@use</code> of <code>tokens.scss</code> in your app.
-  </p>
-
-  <el-segmented-button
-    class="docs-theme-panel__mode"
-    size="sm"
-    [value]="mode()"
-    (valueChange)="setMode($event)"
-    ariaLabel="Color scheme"
-  >
-    <el-segmented-button-item value="light">Light</el-segmented-button-item>
-    <el-segmented-button-item value="dark">Dark</el-segmented-button-item>
-  </el-segmented-button>
-
-  <div class="docs-theme-panel__actions">
-    <el-button variant="primary" size="sm" (click)="apply()">Apply</el-button>
-    <el-button variant="secondary" size="sm" (click)="reset()">Reset</el-button>
-    <el-button variant="ghost" size="sm" (click)="copy()">
-      {{ copied() ? 'Copied' : 'Copy' }}
-    </el-button>
+      <el-button
+        variant="ghost"
+        size="sm"
+        [disabled]="!docsTheme.isCustom()"
+        (click)="reset()"
+      >
+        Reset
+      </el-button>
+      <el-button variant="primary" size="sm" (click)="copy()">
+        {{ copied() ? 'Copied' : 'Copy CSS' }}
+      </el-button>
+    </el-stack>
   </div>
-
-  <div class="docs-theme-panel__list">
-    @for (group of groups; track group.label) {
-      <section class="docs-theme-panel__group">
-        <h3>{{ group.label }}</h3>
-        @for (token of group.tokens; track token.name) {
-          <label class="docs-theme-panel__row">
-            <span class="docs-theme-panel__name">{{ token.label }}</span>
-            <input
-              type="color"
-              class="docs-theme-panel__swatch"
-              [value]="colorOf(token)"
-              [attr.aria-label]="token.name + ' ' + mode()"
-              (input)="onPicker(token, $event)"
-            />
-            <input
-              type="text"
-              class="docs-theme-panel__hex"
-              spellcheck="false"
-              maxlength="7"
-              [value]="colorOf(token)"
-              [attr.aria-label]="token.name + ' hex'"
-              (change)="onHex(token, $event)"
-            />
-          </label>
-        }
-      </section>
-    }
-  </div>
-</aside>
+</el-sheet>

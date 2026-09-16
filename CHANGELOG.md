@@ -13,6 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Overlay, alert, toast, and snackbar close controls use `ElButton variant="icon"` (requires `button` plus `icon`)
+- Docs theme generator uses preview-linked token groups with label + description on every row, a Preview/All tokens toggle, and live Copy CSS
+- Docs prev/next uses `ElPagination` (`showPages` false in compact headers)
+- Docs three-column shell uses `ElContainer` and `ElGrid` (`columnsTemplate`)
+- `ElTable` empty/loading defaults to compact `ElEmptyState` / indeterminate `ElProgress` (slots still override)
+- `ElGrid` accepts `columnsTemplate` and `gap="0"`
+- `ElInput` supports `type="color"`
+- `ElEmptyState` adds `size` (`sm` | `md` | `lg`)
+- `ElPagination` adds `showPages` for previous/next-only controls
 - Docs landing page redesigned with a shadcn-style live component collage, compact hero, and unified CLI/MCP install band
 - `ElCard` adds optional `elCardTitle` / `elCardDescription` typography, end-aligned footers, compact nowrap actions, and docs recipes for product, stats, profile, settings, and file rows
 - `ElTree` defaults to `appearance="plain"` so file trees sit flush; outlined remains available for boxed pickers

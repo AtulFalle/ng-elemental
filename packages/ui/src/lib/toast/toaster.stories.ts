@@ -14,22 +14,16 @@ import { ElToaster } from './toaster';
   imports: [ElButton, ElToaster],
   template: `
     <el-toaster />
-    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-      <el-button (click)="show('neutral')">Neutral</el-button>
-      <el-button (click)="show('success')">Success</el-button>
-      <el-button (click)="show('error')">Error</el-button>
-      <el-button (click)="show('warning')">Warning</el-button>
-      <el-button (click)="show('info')">Info</el-button>
-    </div>
+    <el-button (click)="show()">Save</el-button>
   `,
 })
 class ElToasterStory {
   private readonly toast = inject(ElToastService);
 
-  protected show(color: 'neutral' | 'success' | 'error' | 'warning' | 'info'): void {
-    this.toast.show(`This is a ${color} toast.`, {
-      color,
-      title: color === 'neutral' ? '' : color,
+  protected show(): void {
+    this.toast.show('Saved to your library.', {
+      color: 'success',
+      title: 'Saved',
       duration: 0,
     });
   }
@@ -69,8 +63,12 @@ export const Stacked: Story = {
 class ElToasterStackedStory {
   constructor() {
     const toast = inject(ElToastService);
-    toast.show('Saved successfully.', { color: 'success', duration: 0 });
-    toast.show('Could not save changes.', { color: 'error', title: 'Error', duration: 0 });
+    toast.show('Saved to your library.', { color: 'success', title: 'Saved', duration: 0 });
+    toast.show('Check your connection and try again.', {
+      color: 'error',
+      title: 'Could not save',
+      duration: 0,
+    });
     toast.show('A newer version is available.', { color: 'info', duration: 0 });
   }
 }

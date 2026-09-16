@@ -143,28 +143,14 @@
 }
 
 .el-sheet__close {
-  display: inline-flex;
+  display: contents;
+}
+
+/* ElButton host needs piercing under emulated encapsulation. */
+/* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+:host ::ng-deep .el-sheet__close .el-button--icon {
   flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  padding: 0;
-  border: none;
-  border-radius: var(--el-radius-xs);
-  background: transparent;
-  color: var(--el-color-on-surface-variant);
-  cursor: pointer;
-
-  &:hover {
-    background: var(--el-color-hover);
-    color: var(--el-color-on-surface);
-  }
-
-  &:focus-visible {
-    outline: var(--el-border-width-thick) solid var(--el-color-primary);
-    outline-offset: 2px;
-  }
+  border-color: transparent;
 }
 
 .el-sheet__content {

@@ -14,6 +14,7 @@ import { ElPagination, type ElPaginationSize } from './pagination';
       [total]="total()"
       [size]="size()"
       [showFirstLast]="showFirstLast()"
+      [showPages]="showPages()"
       [showPageSize]="showPageSize()"
       [siblingCount]="siblingCount()"
     />
@@ -23,6 +24,7 @@ class PaginationStoryHost {
   readonly total = input(240);
   readonly size = input<ElPaginationSize>('md');
   readonly showFirstLast = input(true);
+  readonly showPages = input(true);
   readonly showPageSize = input(false);
   readonly siblingCount = input(1);
   protected readonly page = signal(1);
@@ -38,11 +40,13 @@ const meta: Meta<ElPagination> = {
       options: ['sm', 'md', 'lg'],
     },
     showFirstLast: { control: 'boolean' },
+    showPages: { control: 'boolean' },
     showPageSize: { control: 'boolean' },
   },
   args: {
     size: 'md',
     showFirstLast: true,
+    showPages: true,
     showPageSize: false,
   },
   render: (args) => ({
@@ -52,6 +56,7 @@ const meta: Meta<ElPagination> = {
       <el-pagination-story-host
         [size]="size"
         [showFirstLast]="showFirstLast"
+        [showPages]="showPages"
         [showPageSize]="showPageSize"
       />
     `,
@@ -87,6 +92,20 @@ export const Compact: Story = {
         [total]="40"
         size="sm"
         [showFirstLast]="false"
+      />
+    `,
+  }),
+};
+
+export const PrevNext: Story = {
+  render: () => ({
+    moduleMetadata: { imports: [PaginationStoryHost] },
+    template: `
+      <el-pagination-story-host
+        [total]="40"
+        size="sm"
+        [showFirstLast]="false"
+        [showPages]="false"
       />
     `,
   }),

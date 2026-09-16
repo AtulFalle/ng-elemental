@@ -7,8 +7,9 @@
       </div>
     </div>
     <p class="docs-lead">
-      CSS grid wrapper. Use a column count, or <code>minItemWidth</code> for
-      responsive auto-fit. Children are projected as-is.
+      CSS grid wrapper. Use a column count, <code>minItemWidth</code> for
+      responsive auto-fit, or <code>columnsTemplate</code> for a custom
+      track list. Children are projected as-is.
     </p>
   </header>
 
@@ -85,6 +86,44 @@
         <p>
           Auto-fit reflows tiles without JavaScript breakpoints. Tiles stay readable when
           users zoom or narrow the viewport.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
+    <h2 id="custom-columns">Custom columns</h2>
+    <p class="docs-page__section-lead">
+      <code>columnsTemplate</code> sets <code>grid-template-columns</code>
+      directly. Use it for unequal tracks such as a sidebar plus reading
+      column.
+    </p>
+    <app-docs-example [code]="columnsTemplateCode">
+      <el-grid
+        columnsTemplate="8rem minmax(0, 1fr) 8rem"
+        gap="3"
+        style="width: 100%"
+      >
+        <div
+          style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+        >
+          One
+        </div>
+        <div
+          style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+        >
+          Two
+        </div>
+        <div
+          style="padding: 0.75rem; background: var(--el-color-surface-container); border-radius: var(--el-radius-sm)"
+        >
+          Three
+        </div>
+      </el-grid>
+      <ng-template #standards>
+        <p>
+          Named tracks stay in DOM order. Prefer this over fighting equal
+          columns with extra wrappers when the layout is a real app shell.
         </p>
       </ng-template>
     </app-docs-example>

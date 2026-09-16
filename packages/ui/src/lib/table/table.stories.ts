@@ -254,7 +254,6 @@ export const EmptyAndLoading: Story = {
         <el-table [data]="[]" ariaLabel="Empty table">
           <el-table-column name="name" label="Name" />
           <el-table-column name="email" label="Email" />
-          <p elTableEmpty>No people match this filter.</p>
         </el-table>
         <el-table [data]="[]" loading ariaLabel="Loading table">
           <el-table-column name="name" label="Name" />

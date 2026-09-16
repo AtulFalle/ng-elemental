@@ -19,7 +19,8 @@ export type ElInputType =
   | 'tel'
   | 'url'
   | 'search'
-  | 'number';
+  | 'number'
+  | 'color';
 
 const MASK_TOKENS: Record<string, RegExp> = {
   '0': /\d/,
@@ -96,6 +97,7 @@ export class ElInputSuffix {}
     '[class.el-input--disabled]': 'disabled()',
     '[class.el-input--readonly]': 'readOnly()',
     '[class.el-input--error]': 'error()',
+    '[class.el-input--color]': 'type() === "color"',
     '(click)': 'onHostClick($event)',
   },
 })
@@ -124,9 +126,10 @@ export class ElInput {
 
   private readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('input');
 
-  private readonly activeMask = computed(() =>
-    this.type() === 'number' ? '' : this.mask(),
-  );
+  private readonly activeMask = computed(() => {
+    const type = this.type();
+    return type === 'number' || type === 'color' ? '' : this.mask();
+  });
 
   constructor() {
     effect(() => {
@@ -150,7 +153,7 @@ export class ElInput {
 
     this.value.set(next);
 
-    if (input.type === 'number') {
+    if (input.type === 'number' || input.type === 'color') {
       return;
     }
 

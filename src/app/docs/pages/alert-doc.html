@@ -8,8 +8,8 @@
     </div>
     <p class="docs-lead">
       Inline status banner. The parent owns visibility — wrap in
-      <code>&#64;if</code> and handle <code>dismissed</code>. Requires the icon
-      component.
+      <code>&#64;if</code> and handle <code>dismissed</code>. Requires
+      <code>icon</code> and <code>button</code>.
     </p>
   </header>
 
@@ -39,7 +39,7 @@
       <el-tab value="cli" label="Command">
         <ng-template elTabContent>
           <p class="docs-page__section-lead">
-            Requires <code>icon</code>.
+            Requires <code>icon</code> and <code>button</code>.
           </p>
           <app-docs-snippet [code]="addCode" />
         </ng-template>
@@ -48,7 +48,7 @@
         <ng-template elTabContent>
           <ol class="docs-page__steps">
             <li>
-              <p>Install the icon dependency.</p>
+              <p>Install icon and button for the dismiss control.</p>
               <app-docs-snippet [code]="manualIconCode" />
             </li>
             <li>
@@ -106,7 +106,7 @@
       }
       <ng-template #standards>
         <p>
-          The close control is a native button named &ldquo;Dismiss&rdquo;. Parent removes the
+          The close control is an <code>el-button</code> named &ldquo;Dismiss&rdquo;. Parent removes the
           alert from the DOM on <code>dismissed</code> — the component does not hide itself.
         </p>
       </ng-template>

@@ -9,7 +9,7 @@ const meta: Meta<ElInput> = {
   argTypes: {
     type: {
       control: 'select',
-      options: ['text', 'email', 'password', 'tel', 'url', 'search', 'number'],
+      options: ['text', 'email', 'password', 'tel', 'url', 'search', 'number', 'color'],
     },
     size: {
       control: 'select',

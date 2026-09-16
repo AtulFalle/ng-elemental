@@ -91,25 +91,22 @@
 }
 
 .el-snackbar__close {
-  display: inline-flex;
+  display: contents;
+}
+
+/* ElButton host needs piercing under emulated encapsulation. */
+/* stylelint-disable selector-pseudo-element-no-unknown */
+:host ::ng-deep .el-snackbar__close .el-button--icon {
   flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0;
-  border: none;
-  border-radius: var(--el-radius-xs);
-  background: transparent;
+  border-color: transparent;
   color: inherit;
-  cursor: pointer;
+}
 
-  &:hover {
-    background: var(--el-color-hover);
-  }
+:host ::ng-deep .el-snackbar__actions .el-button--ghost {
+  color: inherit;
 
-  &:focus-visible {
-    outline: var(--el-border-width-thick) solid var(--el-color-primary);
-    outline-offset: 2px;
+  &:hover:not(:disabled) {
+    background-color: var(--el-color-hover);
   }
 }
+/* stylelint-enable selector-pseudo-element-no-unknown */

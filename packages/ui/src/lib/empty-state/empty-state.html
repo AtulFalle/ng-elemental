@@ -2,7 +2,7 @@
   <div class="el-empty-state__media">
     <ng-content select="[elEmptyStateMedia]" />
     @if (icon()) {
-      <el-icon [name]="icon()" size="lg" />
+      <el-icon [name]="icon()" [size]="iconSize()" />
     }
   </div>
   @if (title()) {

@@ -13,12 +13,14 @@ describe('add toast e2e', () => {
       );
       expect(toastTs).toContain("selector: 'el-toast'");
       expect(toastTs).toContain('export class ElToast');
+      expect(toastTs).toContain('ElButton');
 
       const toastHtml = await readFile(
         componentUiPath(tmp, 'toast', 'toast.html'),
         'utf8',
       );
       expect(toastHtml).toContain('el-toast__message');
+      expect(toastHtml).toContain('el-button');
       expect(toastHtml).toContain('<el-icon');
 
       const toastScss = await readFile(

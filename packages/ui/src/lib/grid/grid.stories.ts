@@ -9,19 +9,21 @@ const meta: Meta<ElGrid> = {
   component: ElGrid,
   argTypes: {
     columns: { control: { type: 'number', min: 1, max: 12 } },
-    gap: { control: 'select', options: ['1', '2', '3', '4', '5', '6', '8'] },
+    gap: { control: 'select', options: ['0', '1', '2', '3', '4', '5', '6', '8'] },
     minItemWidth: { control: 'text' },
+    columnsTemplate: { control: 'text' },
   },
   args: {
     columns: 3,
     gap: '4',
     minItemWidth: '',
+    columnsTemplate: '',
   },
   render: (args) => ({
     props: args,
     moduleMetadata: { imports: [ElGrid] },
     template: `
-      <el-grid [columns]="columns" [gap]="gap" [minItemWidth]="minItemWidth">
+      <el-grid [columns]="columns" [gap]="gap" [minItemWidth]="minItemWidth" [columnsTemplate]="columnsTemplate">
         <div style="${item}">One</div>
         <div style="${item}">Two</div>
         <div style="${item}">Three</div>
@@ -40,4 +42,8 @@ export const ThreeColumns: Story = {};
 
 export const AutoFit: Story = {
   args: { minItemWidth: '12rem' },
+};
+
+export const CustomColumns: Story = {
+  args: { columnsTemplate: '8rem minmax(0, 1fr) 8rem' },
 };

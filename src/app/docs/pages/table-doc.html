@@ -47,7 +47,8 @@
       <el-tab value="cli" label="Command">
         <ng-template elTabContent>
           <p class="docs-page__section-lead">
-            Requires <code>icon</code>.
+            Requires <code>icon</code>, <code>empty-state</code>, and
+            <code>progress</code>.
           </p>
           <app-docs-snippet [code]="addCode" />
         </ng-template>
@@ -56,7 +57,7 @@
         <ng-template elTabContent>
           <ol class="docs-page__steps">
             <li>
-              <p>Install the icon dependency.</p>
+              <p>Install the icon, empty-state, and progress dependencies.</p>
               <app-docs-snippet [code]="manualIconCode" />
             </li>
             <li>
@@ -197,12 +198,19 @@
 
   <section>
     <h2 id="empty-and-loading">Empty and loading</h2>
+    <p class="docs-page__section-lead">
+      Defaults to compact
+      <a routerLink="/docs/components/empty-state">Empty State</a> and
+      indeterminate
+      <a routerLink="/docs/components/progress">Progress</a>. Project
+      <code>elTableEmpty</code> or <code>elTableLoading</code> to replace
+      them.
+    </p>
     <app-docs-example [code]="emptyLoadingCode">
       <div class="docs-table-demo docs-stack">
         <el-table [data]="[]" ariaLabel="Empty table">
           <el-table-column name="name" label="Name" />
           <el-table-column name="email" label="Email" />
-          <p elTableEmpty>No people match this filter.</p>
         </el-table>
         <el-table [data]="[]" loading ariaLabel="Loading table">
           <el-table-column name="name" label="Name" />
@@ -211,8 +219,9 @@
       </div>
       <ng-template #standards>
         <p>
-          Empty and loading slots replace the body so users are not left with a silent blank
-          grid. Loading exposes <code>aria-busy</code> on the table region.
+          Empty and loading replace the body so users are not left with a silent blank
+          grid. Defaults compose Empty State and Progress. Loading sets
+          <code>aria-busy</code> on the table.
         </p>
       </ng-template>
     </app-docs-example>

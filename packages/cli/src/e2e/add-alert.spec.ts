@@ -17,12 +17,14 @@ describe('add alert e2e', () => {
         "ElAlertColor = 'neutral' | 'success' | 'error' | 'warning' | 'info'",
       );
       expect(alertTs).toContain('dismissed');
+      expect(alertTs).toContain('ElButton');
 
       const alertHtml = await readFile(
         componentUiPath(tmp, 'alert', 'alert.html'),
         'utf8',
       );
       expect(alertHtml).toContain('el-alert__message');
+      expect(alertHtml).toContain('el-button');
       expect(alertHtml).toContain('<el-icon');
 
       const alertScss = await readFile(

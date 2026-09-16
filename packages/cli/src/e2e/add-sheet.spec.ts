@@ -13,7 +13,7 @@ describe('add sheet e2e', () => {
       );
       expect(sheetTs).toContain("selector: 'el-sheet'");
       expect(sheetTs).toContain('export class ElSheet');
-      expect(sheetTs).toContain('ElIcon');
+      expect(sheetTs).toContain('ElButton');
 
       const closeTs = await readFile(
         componentUiPath(tmp, 'sheet', 'sheet-close.ts'),
@@ -51,6 +51,7 @@ describe('add sheet e2e', () => {
       expect(sheetHtml).toContain('role="dialog"');
       expect(sheetHtml).toContain('elSheetContent');
       expect(sheetHtml).toContain('el-sheet__content');
+      expect(sheetHtml).toContain('el-button');
       expect(sheetHtml).toContain('xmark');
 
       const sheetScss = await readFile(

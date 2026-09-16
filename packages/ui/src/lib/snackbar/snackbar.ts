@@ -12,14 +12,14 @@ import {
   output,
   untracked,
 } from '@angular/core';
-import { ElIcon } from '../icon/icon';
+import { ElButton } from '../button/button';
 
 export type ElSnackbarColor = 'neutral' | 'success' | 'error' | 'warning' | 'info';
 export type ElSnackbarPosition = 'bottom' | 'top';
 
 @Component({
   selector: 'el-snackbar',
-  imports: [ElIcon],
+  imports: [ElButton],
   templateUrl: './snackbar.html',
   styleUrl: './snackbar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

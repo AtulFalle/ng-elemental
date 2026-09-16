@@ -49,7 +49,8 @@ npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add snackbar`;
 
-  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add button`;
 
   protected readonly manualFilesCode = `ui/snackbar/snackbar.ts
 ui/snackbar/snackbar.html

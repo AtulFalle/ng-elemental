@@ -13,7 +13,7 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
-import { ElIcon } from '../icon/icon';
+import { ElButton } from '../button/button';
 import type { ElDrawerContext, ElDrawerSide, ElDrawerSize } from './drawer.token';
 import { EL_DRAWER } from './drawer.token';
 
@@ -54,7 +54,7 @@ function unlockBody(): void {
 
 @Component({
   selector: 'el-drawer',
-  imports: [ElIcon],
+  imports: [ElButton],
   templateUrl: './drawer.html',
   styleUrl: './drawer.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

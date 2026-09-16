@@ -106,5 +106,11 @@ import { ElButton } from './ui/button/button';`;
       default: "''",
       description: 'Supporting copy under the title.',
     },
+    {
+      name: 'size',
+      type: `'sm' | 'md' | 'lg'`,
+      default: `'md'`,
+      description: 'Padding and type size. Use sm inside dense surfaces such as Table.',
+    },
   ];
 }

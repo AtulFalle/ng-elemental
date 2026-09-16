@@ -38,7 +38,7 @@ import {
         }
       </div>
       <div elDrawerFooter>
-        <el-button elDrawerClose variant="ghost">Close</el-button>
+        <el-button elDrawerClose variant="ghost">Done</el-button>
       </div>
     </el-drawer>
   `,

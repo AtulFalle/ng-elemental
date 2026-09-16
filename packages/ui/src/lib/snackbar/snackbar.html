@@ -15,14 +15,14 @@
       <ng-content select="[elSnackbarActions]" />
     </div>
     @if (dismissible()) {
-      <button
-        type="button"
+      <el-button
         class="el-snackbar__close"
-        aria-label="Dismiss"
+        variant="icon"
+        size="sm"
+        iconStart="xmark"
+        ariaLabel="Dismiss"
         (click)="close()"
-      >
-        <el-icon name="xmark" size="sm" />
-      </button>
+      />
     }
   </div>
 }
