@@ -32,9 +32,11 @@ export class AlertDocPage {
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add button
 npx @ng-elemental/cli add alert`;
 
-  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add button`;
 
   protected readonly manualFilesCode = `ui/alert/alert.ts
 ui/alert/alert.html

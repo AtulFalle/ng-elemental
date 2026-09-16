@@ -109,6 +109,36 @@
   --el-input-font-size: 1rem;
 }
 
+:host(.el-input--color) {
+  width: var(--el-input-min-height);
+  flex: none;
+}
+
+:host(.el-input--color) .el-input__field {
+  padding: 0.1875rem;
+}
+
+:host(.el-input--color) .el-input__control {
+  appearance: auto;
+  height: 100%;
+  min-height: 0;
+  cursor: pointer;
+}
+
+:host(.el-input--color) .el-input__control::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+:host(.el-input--color) .el-input__control::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--el-radius-xs) - 2px);
+}
+
+:host(.el-input--color) .el-input__control::-moz-color-swatch {
+  border: 0;
+  border-radius: calc(var(--el-radius-xs) - 2px);
+}
+
 /* stylelint-disable no-descending-specificity -- error and disabled hosts are mutually exclusive */
 :host(.el-input--error) .el-input__field {
   border-color: var(--el-color-error);

@@ -20,14 +20,14 @@
         }
       </h2>
       @if (closable()) {
-        <button
-          type="button"
+        <el-button
           class="el-dialog__close"
-          aria-label="Close"
+          variant="icon"
+          size="sm"
+          iconStart="xmark"
+          ariaLabel="Close"
           (click)="close()"
-        >
-          <el-icon name="xmark" size="sm" />
-        </button>
+        />
       }
     </div>
     <div class="el-dialog__content" tabindex="0">

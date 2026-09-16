@@ -13,7 +13,7 @@ describe('add drawer e2e', () => {
       );
       expect(drawerTs).toContain("selector: 'el-drawer'");
       expect(drawerTs).toContain('export class ElDrawer');
-      expect(drawerTs).toContain('ElIcon');
+      expect(drawerTs).toContain('ElButton');
 
       const closeTs = await readFile(
         componentUiPath(tmp, 'drawer', 'drawer-close.ts'),
@@ -51,6 +51,7 @@ describe('add drawer e2e', () => {
       expect(drawerHtml).toContain('role="dialog"');
       expect(drawerHtml).toContain('elDrawerContent');
       expect(drawerHtml).toContain('el-drawer__content');
+      expect(drawerHtml).toContain('el-button');
       expect(drawerHtml).toContain('xmark');
 
       const drawerScss = await readFile(

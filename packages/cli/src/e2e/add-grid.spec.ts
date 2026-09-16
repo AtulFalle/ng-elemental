@@ -14,6 +14,7 @@ describe('add grid e2e', () => {
       expect(gridTs).toContain("selector: 'el-grid'");
       expect(gridTs).toContain('export class ElGrid');
       expect(gridTs).toContain('minItemWidth');
+      expect(gridTs).toContain('columnsTemplate');
       expect(gridTs).toContain('auto-fit');
 
       const gridHtml = await readFile(

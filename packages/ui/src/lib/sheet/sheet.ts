@@ -13,7 +13,7 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
-import { ElIcon } from '../icon/icon';
+import { ElButton } from '../button/button';
 import type { ElSheetContext, ElSheetSide, ElSheetSize } from './sheet.token';
 import { EL_SHEET } from './sheet.token';
 
@@ -54,7 +54,7 @@ function unlockBody(): void {
 
 @Component({
   selector: 'el-sheet',
-  imports: [ElIcon],
+  imports: [ElButton],
   templateUrl: './sheet.html',
   styleUrl: './sheet.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -6,6 +6,7 @@ import {
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { expect } from 'storybook/test';
 import { ElButton } from '../button/button';
+import { ElStack } from '../stack/stack';
 import { ElToast } from './toast';
 import { ElToastService } from './toast.service';
 import { ElToaster } from './toaster';
@@ -13,13 +14,13 @@ import { ElToaster } from './toaster';
 @Component({
   selector: 'el-toast-interactions-host',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ElButton, ElToast, ElToaster],
+  imports: [ElButton, ElStack, ElToast, ElToaster],
   template: `
     <el-toaster />
-    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center">
+    <el-stack gap="3">
       <el-button (click)="show()">Show toast</el-button>
       <el-toast color="success" title="Saved">Your changes were written.</el-toast>
-    </div>
+    </el-stack>
   `,
 })
 class ToastInteractionsHost {

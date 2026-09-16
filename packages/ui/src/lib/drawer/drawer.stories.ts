@@ -73,9 +73,7 @@ export const CustomHeader: Story = {
     template: `
       <el-button (click)="open = true">Custom header</el-button>
       <el-drawer [open]="open" (openChange)="open = $event" size="sm">
-        <div elDrawerHeader>
-          <span style="font-weight: 600">Workspace</span>
-        </div>
+        <div elDrawerHeader>Workspace</div>
         <div elDrawerContent>
           Switch projects or sign out.
         </div>

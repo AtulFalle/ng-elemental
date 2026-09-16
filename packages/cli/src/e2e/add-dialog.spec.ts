@@ -14,6 +14,7 @@ describe('add dialog e2e', () => {
       expect(dialogTs).toContain("selector: 'el-dialog'");
       expect(dialogTs).toContain('export class ElDialog');
       expect(dialogTs).toContain('showModal');
+      expect(dialogTs).toContain('ElButton');
 
       const closeTs = await readFile(
         componentUiPath(tmp, 'dialog', 'dialog-close.ts'),
@@ -52,6 +53,7 @@ describe('add dialog e2e', () => {
       expect(dialogHtml).toContain('elDialogContent');
       expect(dialogHtml).toContain('el-dialog__content');
       expect(dialogHtml).toContain('tabindex="0"');
+      expect(dialogHtml).toContain('el-button');
       expect(dialogHtml).toContain('xmark');
 
       const dialogScss = await readFile(

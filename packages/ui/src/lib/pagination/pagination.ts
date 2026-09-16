@@ -38,6 +38,7 @@ export class ElPagination {
   readonly pageSizeOptions = input<readonly number[]>([10, 20, 50]);
   readonly siblingCount = input(1, { transform: numberAttribute });
   readonly showFirstLast = input(true, { transform: booleanAttribute });
+  readonly showPages = input(true, { transform: booleanAttribute });
   readonly showPageSize = input(false, { transform: booleanAttribute });
   readonly size = input<ElPaginationSize>('md');
   readonly disabled = input(false, { transform: booleanAttribute });

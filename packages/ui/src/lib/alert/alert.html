@@ -13,13 +13,13 @@
     </div>
   </div>
   @if (dismissible()) {
-    <button
-      type="button"
+    <el-button
       class="el-alert__close"
-      aria-label="Dismiss"
+      variant="icon"
+      size="sm"
+      iconStart="xmark"
+      ariaLabel="Dismiss"
       (click)="onDismiss()"
-    >
-      <el-icon name="xmark" size="sm" />
-    </button>
+    />
   }
 </div>

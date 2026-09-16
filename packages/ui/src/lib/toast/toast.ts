@@ -6,6 +6,7 @@ import {
   input,
   output,
 } from '@angular/core';
+import { ElButton } from '../button/button';
 import { ElIcon } from '../icon/icon';
 import type { ElToastColor } from './toast.service';
 
@@ -26,7 +27,7 @@ const DEFAULT_ICONS: Record<ElToastColor, string> = {
 
 @Component({
   selector: 'el-toast',
-  imports: [ElIcon],
+  imports: [ElButton, ElIcon],
   templateUrl: './toast.html',
   styleUrl: './toast.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

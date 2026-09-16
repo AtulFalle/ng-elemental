@@ -148,6 +148,33 @@
   </section>
 
   <section>
+    <h2 id="prev-and-next">Prev and next</h2>
+    <p class="docs-page__section-lead">
+      Set <code>showPages</code> to false for a previous/next control
+      without numbered pages.
+    </p>
+    <app-docs-example [code]="prevNextCode">
+      <div class="docs-pagination-demo">
+        <el-pagination
+          [page]="page()"
+          (pageChange)="page.set($event)"
+          [total]="40"
+          [pageSize]="10"
+          size="sm"
+          [showFirstLast]="false"
+          [showPages]="false"
+        />
+      </div>
+      <ng-template #standards>
+        <p>
+          Icon-only previous and next stay named with visually hidden text.
+          Disabled at the ends of the range so the control count stays stable.
+        </p>
+      </ng-template>
+    </app-docs-example>
+  </section>
+
+  <section>
     <h2 id="api-reference">API Reference</h2>
     <app-props-table [props]="props" />
   </section>

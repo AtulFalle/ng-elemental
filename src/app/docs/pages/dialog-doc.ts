@@ -92,7 +92,8 @@ npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add dialog`;
 
-  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add button`;
 
   protected readonly manualFilesCode = `ui/dialog/dialog.ts
 ui/dialog/dialog.html

@@ -16,7 +16,9 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { ElEmptyState } from '../empty-state/empty-state';
 import { ElIcon } from '../icon/icon';
+import { ElProgress } from '../progress/progress';
 import { ElTableColumn } from './table-column';
 import { ElTableExpand } from './table-expand';
 import {
@@ -52,7 +54,7 @@ export { ElTableExpand } from './table-expand';
 
 @Component({
   selector: 'el-table',
-  imports: [NgTemplateOutlet, ElIcon],
+  imports: [NgTemplateOutlet, ElIcon, ElEmptyState, ElProgress],
   templateUrl: './table.html',
   styleUrl: './table.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

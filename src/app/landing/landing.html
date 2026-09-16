@@ -17,14 +17,13 @@
     </nav>
     <div class="landing-nav__actions">
       <app-docs-search />
-      <el-button
-        variant="icon"
-        size="sm"
-        [iconStart]="themeToggleIcon()"
-        [ariaLabel]="themeToggleLabel()"
-        (click)="toggleTheme()"
-      />
-      <el-button variant="primary" size="sm" (click)="go('/docs')">Get started</el-button>
+      <el-separator class="landing-nav__rule" orientation="vertical" />
+      <div class="landing-nav__tools">
+        <app-docs-theme-toggle />
+        <el-button variant="primary" size="sm" (click)="go('/docs')">
+          Get started
+        </el-button>
+      </div>
     </div>
   </header>
 

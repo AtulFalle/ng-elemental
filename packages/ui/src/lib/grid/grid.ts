@@ -6,7 +6,7 @@ import {
   numberAttribute,
 } from '@angular/core';
 
-export type ElGridGap = '1' | '2' | '3' | '4' | '5' | '6' | '8';
+export type ElGridGap = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '8';
 
 @Component({
   selector: 'el-grid',
@@ -23,10 +23,20 @@ export class ElGrid {
   readonly columns = input(1, { transform: numberAttribute });
   readonly gap = input<ElGridGap>('4');
   readonly minItemWidth = input<string>();
+  /** CSS `grid-template-columns` value. Wins over `columns` and `minItemWidth`. */
+  readonly columnsTemplate = input('');
 
-  protected readonly gapCss = computed(() => `var(--el-space-${this.gap()})`);
+  protected readonly gapCss = computed(() => {
+    const gap = this.gap();
+    return gap === '0' ? '0' : `var(--el-space-${gap})`;
+  });
 
   protected readonly templateColumns = computed(() => {
+    const custom = this.columnsTemplate().trim();
+    if (custom) {
+      return custom;
+    }
+
     const min = this.minItemWidth()?.trim();
     if (min) {
       return `repeat(auto-fit, minmax(${min}, 1fr))`;

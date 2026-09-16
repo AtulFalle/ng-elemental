@@ -79,7 +79,8 @@ npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add drawer`;
 
-  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add button`;
 
   protected readonly manualFilesCode = `ui/drawer/drawer.ts
 ui/drawer/drawer.html

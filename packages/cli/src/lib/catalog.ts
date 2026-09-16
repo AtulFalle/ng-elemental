@@ -591,7 +591,7 @@ export const COMPONENT_CATALOG: readonly CatalogEntry[] = [
     </ng-template>
   </el-table-column>
 </el-table>`,
-    registryDependencies: ['icon'],
+    registryDependencies: ['icon', 'empty-state', 'progress'],
     npmDependencies: [],
     docsPath: '/components/table',
     category: 'components',
@@ -765,7 +765,7 @@ export const COMPONENT_CATALOG: readonly CatalogEntry[] = [
   </div>
 </el-dialog>
 this.dialog.open(EditUserDialog, { data: { userId: 1 }, title: 'Edit user' });`,
-    registryDependencies: ['icon'],
+    registryDependencies: ['icon', 'button'],
     npmDependencies: [],
     docsPath: '/components/dialog',
     category: 'components',
@@ -781,7 +781,7 @@ this.dialog.open(EditUserDialog, { data: { userId: 1 }, title: 'Edit user' });`,
     usage: `<el-alert color="success" title="Saved" dismissible (dismissed)="show.set(false)">
   Your changes were written.
 </el-alert>`,
-    registryDependencies: ['icon'],
+    registryDependencies: ['icon', 'button'],
     npmDependencies: [],
     docsPath: '/components/alert',
     category: 'components',
@@ -797,7 +797,7 @@ this.dialog.open(EditUserDialog, { data: { userId: 1 }, title: 'Edit user' });`,
     usage: `import { ElToaster } from './ui/toast/toaster';
 <el-toaster />
 this.toast.show('Saved', { color: 'success' });`,
-    registryDependencies: ['icon'],
+    registryDependencies: ['icon', 'button'],
     npmDependencies: [],
     docsPath: '/components/toast',
     category: 'components',
@@ -830,7 +830,7 @@ this.toast.show('Saved', { color: 'success' });`,
     classNames: ['ElSnackbar', 'ElSnackbarService'],
     usage: `<el-snackbar [(open)]="open" message="File deleted" action="Undo" (actionClick)="undo()" />
 this.snackbar.open('File deleted', { action: 'Undo', duration: 4000 });`,
-    registryDependencies: ['icon'],
+    registryDependencies: ['icon', 'button'],
     npmDependencies: [],
     docsPath: '/components/snackbar',
     category: 'components',
@@ -850,7 +850,7 @@ this.snackbar.open('File deleted', { action: 'Undo', duration: 4000 });`,
   </div>
 </el-sheet>
 this.sheet.open(EditFilters, { data: { userId: 1 }, title: 'Filters', side: 'bottom' });`,
-    registryDependencies: ['icon'],
+    registryDependencies: ['icon', 'button'],
     npmDependencies: [],
     docsPath: '/components/sheet',
     category: 'components',
@@ -867,7 +867,7 @@ this.sheet.open(EditFilters, { data: { userId: 1 }, title: 'Filters', side: 'bot
   <div elDrawerContent>…</div>
 </el-drawer>
 this.drawer.open(WorkspaceDrawer, { title: 'Navigation', side: 'left' });`,
-    registryDependencies: ['icon'],
+    registryDependencies: ['icon', 'button'],
     npmDependencies: [],
     docsPath: '/components/drawer',
     category: 'components',

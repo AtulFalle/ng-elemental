@@ -50,6 +50,7 @@ export class InputDocPage {
   protected readonly phone = signal('');
   protected readonly password = signal('');
   protected readonly quantity = signal('');
+  protected readonly swatch = signal('#2563eb');
   protected readonly sm = signal('');
   protected readonly md = signal('');
   protected readonly lg = signal('');
@@ -73,7 +74,8 @@ ui/input/input.scss`;
 
   protected readonly typesCode = `<el-input type="email" placeholder="Email" inputId="ex-email" />
 <el-input type="password" placeholder="Password" inputId="ex-password" />
-<el-input type="number" placeholder="Quantity" inputId="ex-number" />`;
+<el-input type="number" placeholder="Quantity" inputId="ex-number" />
+<el-input type="color" ariaLabel="Swatch" inputId="ex-color" />`;
 
   protected readonly prefixCode = `<el-input type="search" placeholder="Search" inputId="ex-search">
   <el-icon elInputPrefix name="magnifying-glass" size="sm" />
@@ -114,16 +116,16 @@ ui/input/input.scss`;
     },
     {
       name: 'type',
-      type: "'text' | 'email' | 'password' | 'tel' | 'url' | 'search' | 'number'",
+      type: "'text' | 'email' | 'password' | 'tel' | 'url' | 'search' | 'number' | 'color'",
       default: "'text'",
-      description: 'Native input type.',
+      description: 'Native input type. Color renders as a compact swatch.',
     },
     {
       name: 'mask',
       type: 'string',
       default: "''",
       description:
-        'Optional pattern mask. 0 = digit, A = letter, * = alphanumeric. Other characters are literals. Ignored when type is number.',
+        'Optional pattern mask. 0 = digit, A = letter, * = alphanumeric. Other characters are literals. Ignored when type is number or color.',
     },
     {
       name: 'size',

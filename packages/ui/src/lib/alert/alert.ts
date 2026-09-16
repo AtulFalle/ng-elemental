@@ -6,6 +6,7 @@ import {
   input,
   output,
 } from '@angular/core';
+import { ElButton } from '../button/button';
 import { ElIcon } from '../icon/icon';
 
 export type ElAlertColor = 'neutral' | 'success' | 'error' | 'warning' | 'info';
@@ -20,7 +21,7 @@ const DEFAULT_ICONS: Record<ElAlertColor, string> = {
 
 @Component({
   selector: 'el-alert',
-  imports: [ElIcon],
+  imports: [ElButton, ElIcon],
   templateUrl: './alert.html',
   styleUrl: './alert.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

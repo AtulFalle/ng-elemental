@@ -25,6 +25,20 @@ describe('component catalog', () => {
     }
   });
 
+  it('lists empty-state and progress as registry dependencies of table', () => {
+    expect(getCatalogEntry('table').registryDependencies).toEqual([
+      'icon',
+      'empty-state',
+      'progress',
+    ]);
+  });
+
+  it('lists button as a registry dependency of overlay dismiss widgets', () => {
+    for (const name of ['dialog', 'sheet', 'drawer', 'alert', 'toast', 'snackbar'] as const) {
+      expect(getCatalogEntry(name).registryDependencies).toEqual(['icon', 'button']);
+    }
+  });
+
   it('returns a catalog entry by name', () => {
     const button = getCatalogEntry('button');
     expect(button.title).toBe('Button');

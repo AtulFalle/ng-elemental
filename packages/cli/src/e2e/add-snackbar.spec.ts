@@ -13,7 +13,7 @@ describe('add snackbar e2e', () => {
       );
       expect(snackbarTs).toContain("selector: 'el-snackbar'");
       expect(snackbarTs).toContain('export class ElSnackbar');
-      expect(snackbarTs).toContain('ElIcon');
+      expect(snackbarTs).toContain('ElButton');
 
       const snackbarHtml = await readFile(
         componentUiPath(tmp, 'snackbar', 'snackbar.html'),
@@ -23,6 +23,7 @@ describe('add snackbar e2e', () => {
       expect(snackbarHtml).toContain('el-snackbar__action');
       expect(snackbarHtml).toContain('elSnackbarActions');
       expect(snackbarHtml).toContain('<ng-content');
+      expect(snackbarHtml).toContain('el-button');
       expect(snackbarHtml).toContain('xmark');
 
       const snackbarScss = await readFile(

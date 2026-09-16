@@ -77,15 +77,13 @@ export const CustomHeader: Story = {
     template: `
       <el-button (click)="open = true">Custom header</el-button>
       <el-sheet [open]="open" (openChange)="open = $event" size="sm">
-        <div elSheetHeader>
-          <span style="font-weight: 600">Discard draft?</span>
-        </div>
+        <div elSheetHeader>Discard draft?</div>
         <div elSheetContent>
           Unsaved paragraphs will be lost.
         </div>
         <div elSheetFooter>
           <el-button elSheetClose variant="ghost">Keep editing</el-button>
-          <el-button (click)="open = false">Discard</el-button>
+          <el-button variant="destructive" (click)="open = false">Discard</el-button>
         </div>
       </el-sheet>
     `,

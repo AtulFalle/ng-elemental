@@ -47,7 +47,8 @@ npx @ng-elemental/cli add icon
 npx @ng-elemental/cli add button
 npx @ng-elemental/cli add toast`;
 
-  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add button`;
 
   protected readonly manualFilesCode = `ui/toast/toast.ts
 ui/toast/toast.html
@@ -112,9 +113,17 @@ this.toast.show('Sticky', { duration: 0 });`;
   ];
 
   protected show(color: ElToastColor): void {
-    this.toast.show(`This is a ${color} toast.`, {
+    const samples: Record<ElToastColor, { message: string; title: string }> = {
+      success: { message: 'Saved to your library.', title: 'Saved' },
+      error: { message: 'Check your connection and try again.', title: 'Could not save' },
+      warning: { message: 'Leave without saving?', title: 'Unsaved changes' },
+      info: { message: 'A newer version is available.', title: '' },
+      neutral: { message: 'Link copied to clipboard.', title: '' },
+    };
+    const sample = samples[color];
+    this.toast.show(sample.message, {
       color,
-      title: color === 'neutral' ? '' : color,
+      title: sample.title,
       duration: 0,
     });
   }

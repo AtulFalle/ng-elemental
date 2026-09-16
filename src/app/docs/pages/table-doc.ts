@@ -136,13 +136,17 @@ export class TableDocPage {
 
   protected readonly addCode = `npx @ng-elemental/cli add theme
 npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add empty-state
+npx @ng-elemental/cli add progress
 npx @ng-elemental/cli add table
 # optional — chips, checkboxes, pagination footer:
 npx @ng-elemental/cli add chip
 npx @ng-elemental/cli add checkbox
 npx @ng-elemental/cli add pagination`;
 
-  protected readonly manualIconCode = `npx @ng-elemental/cli add icon`;
+  protected readonly manualIconCode = `npx @ng-elemental/cli add icon
+npx @ng-elemental/cli add empty-state
+npx @ng-elemental/cli add progress`;
 
   protected readonly manualFilesCode = `ui/table/table.ts
 ui/table/table.html
@@ -200,11 +204,12 @@ ui/table/table.token.ts`;
 
   protected readonly emptyLoadingCode = `<el-table [data]="[]" ariaLabel="Empty table">
   <el-table-column name="name" label="Name" />
-  <p elTableEmpty>No results.</p>
+  <el-table-column name="email" label="Email" />
 </el-table>
 
 <el-table [data]="[]" loading ariaLabel="Loading table">
   <el-table-column name="name" label="Name" />
+  <el-table-column name="email" label="Email" />
 </el-table>`;
 
   protected readonly selectionCode = `<el-table [data]="users" ariaLabel="Selectable people">
@@ -290,13 +295,13 @@ ui/table/table.token.ts`;
       name: 'loading',
       type: 'boolean',
       default: 'false',
-      description: 'Shows the loading slot (or “Loading…”) instead of rows.',
+      description: 'Shows compact Progress (or elTableLoading) instead of rows.',
     },
     {
       name: 'empty',
       type: 'boolean',
       default: 'false',
-      description: 'Forces the empty slot. Also shown when data is empty.',
+      description: 'Forces empty. Defaults to compact Empty State when data is empty.',
     },
     {
       name: 'virtual',

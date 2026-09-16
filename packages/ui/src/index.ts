@@ -264,7 +264,10 @@ export {
   type ElToastOptions,
   type ElToastRecord,
 } from './lib/toast/toast.service';
-export { ElEmptyState } from './lib/empty-state/empty-state';
+export {
+  ElEmptyState,
+  type ElEmptyStateSize,
+} from './lib/empty-state/empty-state';
 export {
   ElSnackbar,
   type ElSnackbarColor,

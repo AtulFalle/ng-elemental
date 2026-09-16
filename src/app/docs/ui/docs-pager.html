@@ -1,39 +1,11 @@
-@if (compact()) {
-  <nav class="docs-pager docs-pager--compact" aria-label="Adjacent pages">
-    @if (prev(); as p) {
-      <el-button
-        variant="icon"
-        size="sm"
-        iconStart="chevron-left"
-        [ariaLabel]="'Previous: ' + p.label"
-        (click)="go(p.path)"
-      />
-    }
-    @if (next(); as n) {
-      <el-button
-        variant="icon"
-        size="sm"
-        iconStart="chevron-right"
-        [ariaLabel]="'Next: ' + n.label"
-        (click)="go(n.path)"
-      />
-    }
-  </nav>
-} @else {
-  <nav class="docs-pager" aria-label="Adjacent pages">
-    @if (prev(); as p) {
-      <a class="docs-pager__link docs-pager__link--prev" [routerLink]="p.path">
-        <span class="docs-pager__dir">Previous</span>
-        <span class="docs-pager__label">{{ p.label }}</span>
-      </a>
-    } @else {
-      <span class="docs-pager__spacer"></span>
-    }
-    @if (next(); as n) {
-      <a class="docs-pager__link docs-pager__link--next" [routerLink]="n.path">
-        <span class="docs-pager__dir">Next</span>
-        <span class="docs-pager__label">{{ n.label }}</span>
-      </a>
-    }
-  </nav>
-}
+<el-pagination
+  class="docs-pager"
+  size="sm"
+  [page]="page()"
+  [total]="total()"
+  [pageSize]="1"
+  [showFirstLast]="!compact()"
+  [showPages]="!compact()"
+  [ariaLabel]="ariaLabel()"
+  (pageChange)="onPage($event)"
+/>

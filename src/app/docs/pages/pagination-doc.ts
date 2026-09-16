@@ -86,6 +86,15 @@ ui/pagination/pagination-utils.ts`;
   [showFirstLast]="false"
 />`;
 
+  protected readonly prevNextCode = `<el-pagination
+  [(page)]="page"
+  [total]="40"
+  [pageSize]="10"
+  size="sm"
+  [showFirstLast]="false"
+  [showPages]="false"
+/>`;
+
   protected readonly scopedTokensCode = `.settings-panel {
   --el-color-primary: #059669;
   --el-color-on-primary: #ffffff;
@@ -127,6 +136,12 @@ ui/pagination/pagination-utils.ts`;
       type: 'boolean',
       default: 'true',
       description: 'First and last page buttons.',
+    },
+    {
+      name: 'showPages',
+      type: 'boolean',
+      default: 'true',
+      description: 'Numbered page buttons. Set false for previous/next only.',
     },
     {
       name: 'showPageSize',

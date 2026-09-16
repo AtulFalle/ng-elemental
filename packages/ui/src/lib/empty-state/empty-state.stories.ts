@@ -10,11 +10,13 @@ const meta: Meta<ElEmptyState> = {
     icon: { control: 'text' },
     title: { control: 'text' },
     description: { control: 'text' },
+    size: { control: 'select', options: ['sm', 'md', 'lg'] },
   },
   args: {
     icon: 'folder-open',
     title: 'No projects',
     description: 'Create a project to get started.',
+    size: 'md',
   },
   render: (args) => ({
     props: args,
@@ -22,7 +24,7 @@ const meta: Meta<ElEmptyState> = {
       imports: [ElEmptyState, ElButton],
     },
     template: `
-      <el-empty-state [icon]="icon" [title]="title" [description]="description">
+      <el-empty-state [icon]="icon" [title]="title" [description]="description" [size]="size">
         <div elEmptyStateActions>
           <el-button>Create project</el-button>
           <el-button variant="ghost">Learn more</el-button>
@@ -36,6 +38,20 @@ export default meta;
 type Story = StoryObj<ElEmptyState>;
 
 export const Default: Story = {};
+
+export const Compact: Story = {
+  args: {
+    size: 'sm',
+    icon: 'inbox',
+    title: 'No rows',
+    description: '',
+  },
+  render: (args) => ({
+    props: args,
+    moduleMetadata: { imports: [ElEmptyState] },
+    template: `<el-empty-state [icon]="icon" [title]="title" [size]="size" />`,
+  }),
+};
 
 export const IconOnly: Story = {
   args: {

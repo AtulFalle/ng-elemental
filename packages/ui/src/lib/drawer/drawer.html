@@ -30,14 +30,14 @@
         }
       </div>
       @if (closable()) {
-        <button
-          type="button"
+        <el-button
           class="el-drawer__close"
-          aria-label="Close drawer"
+          variant="icon"
+          size="sm"
+          iconStart="xmark"
+          ariaLabel="Close"
           (click)="close()"
-        >
-          <el-icon name="xmark" size="sm" />
-        </button>
+        />
       }
     </div>
     <div class="el-drawer__content">

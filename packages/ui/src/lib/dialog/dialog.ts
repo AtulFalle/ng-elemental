@@ -13,7 +13,7 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
-import { ElIcon } from '../icon/icon';
+import { ElButton } from '../button/button';
 import type { ElDialogContext, ElDialogSize } from './dialog.token';
 import { EL_DIALOG } from './dialog.token';
 
@@ -51,7 +51,7 @@ function unlockBody(): void {
 
 @Component({
   selector: 'el-dialog',
-  imports: [ElIcon],
+  imports: [ElButton],
   templateUrl: './dialog.html',
   styleUrl: './dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

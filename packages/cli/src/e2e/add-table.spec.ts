@@ -29,6 +29,8 @@ describe('add table e2e', () => {
       expect(tableTs).toContain('readonly expanded');
       expect(tableTs).toContain('virtual');
       expect(tableTs).toContain('ElIcon');
+      expect(tableTs).toContain('ElEmptyState');
+      expect(tableTs).toContain('ElProgress');
 
       const columnTs = await readFile(
         componentUiPath(tmp, 'table', 'table-column.ts'),
@@ -72,6 +74,8 @@ describe('add table e2e', () => {
       expect(tableHtml).toContain('cellTemplate');
       expect(tableHtml).toContain('elTableEmpty');
       expect(tableHtml).toContain('elTableLoading');
+      expect(tableHtml).toContain('el-empty-state');
+      expect(tableHtml).toContain('el-progress');
       expect(tableHtml).toContain('el-pagination');
       expect(tableHtml).toContain('aria-sort');
       expect(tableHtml).toContain('ngTemplateOutlet');

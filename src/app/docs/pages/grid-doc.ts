@@ -57,6 +57,12 @@ ui/grid/grid.scss`;
   <div>Responsive tile</div>
 </el-grid>`;
 
+  protected readonly columnsTemplateCode = `<el-grid columnsTemplate="8rem minmax(0, 1fr) 8rem" gap="3">
+  <div>One</div>
+  <div>Two</div>
+  <div>Three</div>
+</el-grid>`;
+
   protected readonly scopedTokensCode = `.checkout-panel {
   --el-space-4: 1.25rem;
 }`;
@@ -66,11 +72,11 @@ ui/grid/grid.scss`;
       name: 'columns',
       type: 'number',
       default: '1',
-      description: 'Column count when minItemWidth is unset.',
+      description: 'Column count when minItemWidth and columnsTemplate are unset.',
     },
     {
       name: 'gap',
-      type: "'1' | '2' | '3' | '4' | '5' | '6' | '8'",
+      type: "'0' | '1' | '2' | '3' | '4' | '5' | '6' | '8'",
       default: "'4'",
       description: 'Maps to --el-space-* density tokens.',
     },
@@ -79,7 +85,14 @@ ui/grid/grid.scss`;
       type: 'string',
       default: '—',
       description:
-        'When set, uses auto-fit minmax and ignores columns (responsive).',
+        'When set, uses auto-fit minmax and ignores columns (responsive). Ignored when columnsTemplate is set.',
+    },
+    {
+      name: 'columnsTemplate',
+      type: 'string',
+      default: "''",
+      description:
+        'Raw CSS grid-template-columns. Wins over columns and minItemWidth.',
     },
   ];
 }

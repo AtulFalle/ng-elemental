@@ -197,6 +197,12 @@
   color: var(--el-color-on-surface-variant);
 }
 
+.el-table__status-fallback {
+  display: block;
+  max-width: 16rem;
+  margin-inline: auto;
+}
+
 .el-table__status-slot:not(:empty) + .el-table__status-fallback {
   display: none;
 }
