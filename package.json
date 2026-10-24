@@ -54,7 +54,7 @@
     "@schematics/angular": "~22.2.0",
     "@storybook/addon-a11y": "^10.6.1",
     "@storybook/addon-docs": "^10.6.1",
-    "@storybook/addon-vitest": "^10.6.1",
+    "@storybook/addon-vitest": "^10.6.2",
     "@storybook/angular-vite": "^10.6.1",
     "@swc/helpers": "~0.5.18",
     "@types/node": "^22.0.0",
